@@ -12,6 +12,8 @@ where necessary to create the pages required for Milestone 0.
 
 * Node.js
 
+Then, go into the `frontend` folder and run `npm update`.
+
 ## Testing
 
 ```sh
@@ -41,12 +43,16 @@ project. For more info, see: https://react.dev/learn/typescript
 * Poetry. See https://python-poetry.org/docs/ on how to install.
 * Django. You will install this using Poetry. Do not use `pip` to install.
 
-Finally run `poetry update` to install and update all dependencies for
+Finally, run `poetry update` to install and update all dependencies for
 the backend.
 
 ## Testing
 
-If everything is installed correctly, run `poetry run python manage.py runserver`.
+```sh
+cd backend
+poetry run python manage.py migrate
+poetry run python manage.py runserver
+``````
 You should be able to navigate to http://localhost:8000 and see a landing
 page.
 
