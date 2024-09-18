@@ -8,6 +8,6 @@
 | Arizza Cristobal | acristobal@sfsu.edu | rizzabears      | Scrum                 |
 | Mos Kullathon    | mkullathon@sfsu.edu | mosguinz        | Git Master / Back-end |
 | Arjun Gill       | agill6@sfsu.edu     | ArjunS132       | Backend               |
-| Matthew Weezner  | mweesner@sfsu.edu   | WeezMatt        | Back-end / Front-end  |
+| Matthew Weesner  | mweesner@sfsu.edu   | WeezMatt        | Back-end / Front-end  |
 | Niko Galedo      | ngaledo@sfsu.edu    | nikogabeg       | Front-end             |
 | Kevin Lam        | klam11@sfsu.edu     | Pot4ssium       | Front-end             |
