@@ -2,6 +2,7 @@ import './App.css';
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Game from "./pages/Game";
 import Katy from "./pages/Katy";
 import Kevin from "./pages/Kevin";
 import Niko from "./pages/Niko";
@@ -20,6 +21,7 @@ function App() {
           <Route path='/Home' exact element={<Home />} />
           <Route path='/' exact element={<Home />} />
           <Route path='/About' exact element={<About />} />
+          <Route path='/Game' exact element={<Game />} />
           <Route path='/Katy' exact element={<Katy />} />
           <Route path='/Kevin' exact element={<Kevin />} />
           <Route path='/Niko' exact element={<Niko />} />
