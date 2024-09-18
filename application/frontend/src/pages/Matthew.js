@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Import the image from the assets folder
-import ProfilePicture from '../assets/Matt.jpg';
+import ProfilePicture from '../assets/Matt.png';
 
 function Matthew() {
   return (
