@@ -1,6 +1,6 @@
 # CSC648-04-FALL24-TEAM02
 
-**Application URL: <https://example.com>**
+**Application URL: guacamolerigatoni.com**
 
 | Student Name     | Student Email       | GitHub Username | Student's role        |
 | ---------------- | ------------------- | --------------- | --------------------- |
