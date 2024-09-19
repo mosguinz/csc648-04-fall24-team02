@@ -6,7 +6,7 @@ function Arjun() {
     <div>
       <img
         src={ProfilePicture}
-        alt="Matthew Weesner"
+        alt="Arjun Singh Gill"
         style={{width: '500px', height: 'auto'}}
       />
       <h1>Arjun Singh Gill</h1>
