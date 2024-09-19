@@ -7,6 +7,7 @@ function Matthew() {
   return (
     <div>
       <h1>Matthew Weesner</h1>
+      <h2>Back end</h2>
         <img
             src={ProfilePicture}
             alt="Matthew Weesner"
