@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react'; // imported useContext
 import { useNavigate } from 'react-router-dom';
+{/*added this import file to authenticate the user */}
+import { AuthContext } from '../AuthContext'; // Import AuthContext
 
 function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [staySignedIn, setStaySignedIn] = useState(false); 
   const navigate = useNavigate(); 
+  {/* added to authenticate the login condition*/}
+  const { login } = useContext(AuthContext);
 
+  {/* did minor changes to handle the authentication */}
   const handleSubmit = (event) => {
     event.preventDefault(); 
-    console.log('Username:', username);
-    console.log('Password:', password);
+    if (username && password) {
+      login(username); // Pass the username to the login function
+      navigate('/Profile'); // Redirect to the profile page
+    }
   };
 
   {/* Can navigate to a help page if we want or we can remove this whole function as well, just added for giggles */}

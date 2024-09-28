@@ -1,9 +1,12 @@
-import React from 'react';
+import React,{useContext} from 'react'; // added the useContext importation
 import Logo from "../assets/sfsu.png";
 import { Link } from "react-router-dom";
 import "../styles/NavBar.css";
+import { AuthContext } from '../AuthContext';
 
 function NavBar() {
+  const { isAuthenticated, logout } = useContext(AuthContext); // using useContext
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -27,6 +30,20 @@ function NavBar() {
             <li className="nav-item">
               <Link className="nav-link" to="/More">More</Link>
             </li>
+             {isAuthenticated ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/Profile">Profile</Link>
+                </li>
+                <li className="nav-item">
+                  <button className="nav-link btn" onClick={logout}>Log Out</button>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item">
+                <Link className="nav-link" to="/SignIn">Sign In</Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

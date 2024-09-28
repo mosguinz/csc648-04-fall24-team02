@@ -14,6 +14,7 @@ import SignIn from "./pages/SignIn";
 import CreateAcc from './pages/CreateAcc';
 import Help from './pages/Help';
 import Welcome from './pages/Welcome';
+import Profile from './pages/Profile'; // added the path for profile
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -29,6 +30,7 @@ function App() {
           <Route path='/Game' exact element={<Game />} />
           <Route path='/SignIn' exact element={<SignIn />} />
           <Route path='/create-account' element={<CreateAcc />} />
+          <Route path='/Profile' element={<Profile />} /> {/* Add Profile route */}
           <Route path='/L' element={<Help />} />
           <Route path='/Welcome' element={<Welcome />} />
           <Route path='/Katy' exact element={<Katy />} />
