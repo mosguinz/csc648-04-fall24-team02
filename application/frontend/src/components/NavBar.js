@@ -25,7 +25,7 @@ function NavBar() {
               <Link className="nav-link" to="/Game">Game</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/More">More</Link>
+              <Link className="nav-link" to="/SignIn">Sign In</Link>
             </li>
           </ul>
         </div>
