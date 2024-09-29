@@ -4,11 +4,22 @@ import { useNavigate } from 'react-router-dom';
 function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [staySignedIn, setStaySignedIn] = useState(false); 
   const navigate = useNavigate(); 
 
   const handleSubmit = (event) => {
     event.preventDefault(); 
+
+    // Sample correct sign in
+    const correctUsername = 'urmom';
+    const correctPassword = 'urmom';
+
+    if (username === correctUsername && password === correctPassword) {
+      alert("You're signed in!");
+      navigate('/Welcome'); 
+    } else {
+      alert("Incorrect username/password");
+    }
+
     console.log('Username:', username);
     console.log('Password:', password);
   };
