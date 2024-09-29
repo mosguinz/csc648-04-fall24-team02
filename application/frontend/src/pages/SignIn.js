@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext'; // Import the context
+import { AuthContext } from '../context/AuthContext'; 
 
 function SignIn() {
   const [username, setUsername] = useState('');
@@ -16,9 +16,9 @@ function SignIn() {
 
     if (username === correctUsername && password === correctPassword) {
       alert("You're signed in!");
-      setIsAuthenticated(true); // Set user as authenticated
-      setGlobalUsername(username); // Set global username
-      navigate('/Welcome'); // Redirect to welcome page
+      setIsAuthenticated(true); 
+      setGlobalUsername(username); 
+      navigate('/Welcome');
     } else {
       alert("Incorrect username/password");
     }

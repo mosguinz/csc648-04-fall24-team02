@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext'; // Import the context
+import { AuthContext } from '../context/AuthContext'; 
 
 function CreateAcc() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { setIsAuthenticated, setUsername: setGlobalUsername } = useContext(AuthContext); // Update context
+  const { setIsAuthenticated, setUsername: setGlobalUsername } = useContext(AuthContext); 
   const navigate = useNavigate(); 
 
   const handleSubmit = (event) => {
@@ -21,9 +21,9 @@ function CreateAcc() {
     console.log('Account created:', { username, password });
     alert('Account has been made');
     
-    setIsAuthenticated(true); // Set user as authenticated
-    setGlobalUsername(username); // Set global username
-    navigate('/Welcome'); // Redirect to welcome page
+    setIsAuthenticated(true);
+    setGlobalUsername(username); 
+    navigate('/Welcome');
   };
 
   return (

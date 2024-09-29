@@ -5,7 +5,7 @@ import "../styles/NavBar.css";
 import { AuthContext } from '../context/AuthContext';
 
 function NavBar() {
-    const { isAuthenticated, username } = useContext(AuthContext); // Get authentication status
+  const { isAuthenticated, username } = useContext(AuthContext); 
   
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -33,7 +33,7 @@ function NavBar() {
             </li>
             <li className="nav-item">
               {isAuthenticated ? (
-                <Link className="nav-link" to="/Profile">{username}'s Profile</Link> // Show Profile when signed in
+                <Link className="nav-link" to="/Profile">{username}</Link> // Show Profile when signed in
               ) : (
                 <Link className="nav-link" to="/SignIn">Sign In</Link> // Show Sign In when not signed in
               )}
