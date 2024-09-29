@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Logo from "../assets/sfsu.png";
 import { Link } from "react-router-dom";
 import "../styles/NavBar.css";
+import { AuthContext } from '../context/AuthContext';
 
 function NavBar() {
+    const { isAuthenticated, username } = useContext(AuthContext); // Get authentication status
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -16,7 +19,11 @@ function NavBar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/">Home</Link>
+              {isAuthenticated ? (
+                <Link className="nav-link" to="/Welcome">Welcome</Link> // Show Welcome page when signed in
+              ) : (
+                <Link className="nav-link" to="/">Home</Link> // Show Home page when not signed in
+              )}
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/About">About</Link>
@@ -25,7 +32,11 @@ function NavBar() {
               <Link className="nav-link" to="/Game">Game</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/SignIn">Sign In</Link>
+              {isAuthenticated ? (
+                <Link className="nav-link" to="/Profile">{username}'s Profile</Link> // Show Profile when signed in
+              ) : (
+                <Link className="nav-link" to="/SignIn">Sign In</Link> // Show Sign In when not signed in
+              )}
             </li>
           </ul>
         </div>

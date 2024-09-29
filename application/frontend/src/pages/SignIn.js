@@ -1,30 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext'; // Import the context
 
 function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { setIsAuthenticated, setUsername: setGlobalUsername } = useContext(AuthContext); // Update context
   const navigate = useNavigate(); 
 
   const handleSubmit = (event) => {
     event.preventDefault(); 
 
-    // Sample correct sign in
     const correctUsername = 'urmom';
     const correctPassword = 'urmom';
 
     if (username === correctUsername && password === correctPassword) {
       alert("You're signed in!");
-      navigate('/Welcome'); 
+      setIsAuthenticated(true); // Set user as authenticated
+      setGlobalUsername(username); // Set global username
+      navigate('/Welcome'); // Redirect to welcome page
     } else {
       alert("Incorrect username/password");
     }
-
-    console.log('Username:', username);
-    console.log('Password:', password);
   };
 
-  {/* Can navigate to a help page if we want or we can remove this whole function as well, just added for giggles */}
   const handleCantSignIn = () => {
     alert("Damn that sucks...just take the L");
     navigate('/L'); 
@@ -32,12 +31,11 @@ function SignIn() {
 
   return (
     <div>
-      <br /> {/* This adds an empty space */}
+      <br />
       <h1>Sign In</h1>
-      <br /> {/* This adds an empty space */}
+      <br />
 
       <form onSubmit={handleSubmit}>
-        {/* Username field */}
         <div>
           <label htmlFor="username">Username:</label>
           <input
@@ -50,7 +48,6 @@ function SignIn() {
           />
         </div>
         
-        {/* Password field */}
         <div>
           <label htmlFor="password">Password:</label>
           <input
@@ -63,20 +60,16 @@ function SignIn() {
           />
         </div>
         
-        {/* Submit button */}
         <button type="submit">➺</button>
 
-        <br /> {/* This adds an empty space */}
-        <br /> {/* This adds an empty space */}
+        <br />
+        <br />
 
-        {/* Can't Sign In button */}
         <button type="button" onClick={handleCantSignIn}>
           Can't Sign In?
         </button>
 
-        <br /> {/* This adds an empty space */}
-
-        {/* Create Account button */}
+        <br />
         <button 
           type="button" 
           onClick={() => navigate('/create-account')} 

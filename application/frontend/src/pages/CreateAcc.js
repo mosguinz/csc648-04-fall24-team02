@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext'; // Import the context
 
 function CreateAcc() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { setIsAuthenticated, setUsername: setGlobalUsername } = useContext(AuthContext); // Update context
   const navigate = useNavigate(); 
 
   const handleSubmit = (event) => {
@@ -16,21 +18,21 @@ function CreateAcc() {
       return;
     }
 
-    // check back end for registration
     console.log('Account created:', { username, password });
     alert('Account has been made');
     
-    navigate('/Welcome');
+    setIsAuthenticated(true); // Set user as authenticated
+    setGlobalUsername(username); // Set global username
+    navigate('/Welcome'); // Redirect to welcome page
   };
 
   return (
     <div>
-      <br /> {/* This adds an empty space */}
+      <br />
       <h1>Create Account</h1>
-      <br /> {/* This adds an empty space */}
+      <br />
 
       <form onSubmit={handleSubmit}>
-        {/* Username field */}
         <div>
           <label htmlFor="username">Username:</label>
           <input
@@ -43,7 +45,6 @@ function CreateAcc() {
           />
         </div>
         
-        {/* Password field */}
         <div>
           <label htmlFor="password">Password:</label>
           <input
@@ -56,13 +57,10 @@ function CreateAcc() {
           />
         </div>
         
-        {/* Submit button */}
         <button type="submit">➺</button>
       </form>
 
-      <br /> {/* This adds an empty space */}
-
-      {/* Already Have an Account link */}
+      <br />
       <button 
         type="button" 
         onClick={() => navigate('/SignIn')} 
