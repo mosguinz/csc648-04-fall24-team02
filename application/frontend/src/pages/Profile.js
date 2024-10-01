@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext'; 
 import { useNavigate } from 'react-router-dom'; 
+import { Button, Container } from 'react-bootstrap'; // Import Bootstrap Button and Container
 
 function Profile() {
     const { username, logout } = useContext(AuthContext); 
@@ -16,7 +17,13 @@ function Profile() {
             <br />
             <h1>{username}'s Profile</h1> {/* Display the username */}
             <br />
-            <button onClick={handleLogout}>Logout</button> {/* Logout button */}
+            <Button 
+                variant="warning" 
+                onClick={handleLogout} 
+                className="mt-4"
+            >
+                Logout
+            </Button>
         </div>
     );
 }
