@@ -1,28 +1,27 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button, Container } from 'react-bootstrap'; // Import Bootstrap Button and Container
 
 function Help() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   return (
-    <div>
-      <br /> {/* This adds an empty space */}
+    <Container className="d-flex flex-column align-items-center justify-content-center min-vh-100">
       <h1>HELP.</h1>
       <h2>Womp Womp.</h2>
       <h3>Don't let them get to your head.</h3>
       <h4>Can't end on a Loss!</h4>
       <h5>Try again!</h5>
 
-      <form>
-        {/* Go Back */}
-        <button 
-          type="button" 
-          onClick={() => navigate('/SignIn')} 
-        >
-          You miss her.
-        </button>
-      </form>
-    </div>
+      {/* Go Back Button */}
+      <Button 
+        variant="danger" 
+        onClick={() => navigate('/SignIn')} 
+        className="mt-4"
+      >
+        I miss her.
+      </Button>
+    </Container>
   );
 }
 
