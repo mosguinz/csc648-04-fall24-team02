@@ -1,0 +1,20 @@
+/* Game.css */
+.cookie-clicker-game {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .cookie-container {
+    margin: 20px;
+  }
+  
+  .cookie {
+    width: 200px;
+    cursor: pointer;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
