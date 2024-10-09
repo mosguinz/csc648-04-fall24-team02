@@ -11,3 +11,4 @@
 | Matthew Weesner  | mweesner@sfsu.edu   | WeezMatt        | Back-end / Front-end  |
 | Niko Galedo      | ngaledo@sfsu.edu    | nikogabeg       | Front-end             |
 | Kevin Lam        | klam11@sfsu.edu     | Pot4ssium       | Front-end             |
+# new-stack
