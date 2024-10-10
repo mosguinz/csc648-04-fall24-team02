@@ -35,16 +35,16 @@ jobs:
         limit-access-to-actor: true
     - name: Install dependencies
       run: npm ci
-      working-directory: frontend
+      working-directory: ./application/frontend
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-      working-directory: frontend
+      working-directory: ./application/frontend
     - run: docker compose build
     - run: docker compose down -v --remove-orphans
     - run: docker compose up -d --wait backend mailcatcher
     - name: Run Playwright tests
       run: npx playwright test --fail-on-flaky-tests --trace=retain-on-failure
-      working-directory: frontend
+      working-directory: ./application/frontend
     - run: docker compose down -v --remove-orphans
     - uses: actions/upload-artifact@v4
       if: always()
