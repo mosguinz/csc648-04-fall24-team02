@@ -16,6 +16,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        working-directory: ./application
       - run: docker compose build
       - run: docker compose down -v --remove-orphans
       - run: docker compose up -d --wait
