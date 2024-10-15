@@ -1,11 +1,17 @@
-import { Button, Flex, Icon, useDisclosure } from "@chakra-ui/react";
-import { Link } from "@tanstack/react-router"; // Import Link for navigation
-import UserMenu from "./UserMenu";
+import { Button, Flex } from "@chakra-ui/react"
+import { Link } from "@tanstack/react-router" // Import Link for navigation
+import UserMenu from "./UserMenu"
 
 const PublicNavbar = () => {
   return (
     <>
-      <Flex px={8} py={8} gap={4} justifyContent="space-between" alignItems="center">
+      <Flex
+        px={8}
+        py={8}
+        gap={4}
+        justifyContent="space-between"
+        alignItems="center"
+      >
         {/* Navigation Links */}
         <Flex gap={4}>
           <Button as={Link} to="/" variant="link">
@@ -24,7 +30,7 @@ const PublicNavbar = () => {
         </Flex>
       </Flex>
     </>
-  );
-};
+  )
+}
 
-export default PublicNavbar;
+export default PublicNavbar
