@@ -1,6 +1,5 @@
 import { Container, Text, Heading, Divider } from "@chakra-ui/react"
 import { createFileRoute } from "@tanstack/react-router"
-import PublicNavbar from "../components/Common/PublicNavbar";
 
 export const Route = createFileRoute("/")({
     component: HomePage

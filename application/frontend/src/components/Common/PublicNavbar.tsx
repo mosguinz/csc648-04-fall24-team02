@@ -1,9 +1,6 @@
 import { Button, Flex, Icon, useDisclosure } from "@chakra-ui/react";
-import { FaPlus } from "react-icons/fa";
 import { Link } from "@tanstack/react-router"; // Import Link for navigation
-import type { ComponentType, ElementType } from "react";
 import UserMenu from "./UserMenu";
-
 
 const PublicNavbar = () => {
   return (
@@ -23,7 +20,7 @@ const PublicNavbar = () => {
           <Button as={Link} to="/login" variant="link">
             Login
           </Button>
-          <UserMenu/>
+          <UserMenu />
         </Flex>
       </Flex>
     </>
