@@ -17,7 +17,7 @@ import {
 import { createFileRoute } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/about")({
-    component: HomePage
+    component: AboutPage
 })
 
 const teamMembers = [
@@ -120,7 +120,7 @@ const TeamAccordion = () => {
 };
 
 
-function HomePage() {
+function AboutPage() {
     return (
         <>
             <Container mt={10}>
