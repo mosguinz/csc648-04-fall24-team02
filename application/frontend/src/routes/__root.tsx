@@ -2,6 +2,8 @@ import { Outlet, createRootRoute } from "@tanstack/react-router"
 import React, { Suspense } from "react"
 
 import NotFound from "../components/Common/NotFound"
+import { Text } from "@chakra-ui/react"
+import PublicNavbar from "../components/Common/PublicNavbar"
 
 const loadDevtools = () =>
   Promise.all([
@@ -24,6 +26,7 @@ const TanStackDevtools =
 export const Route = createRootRoute({
   component: () => (
     <>
+      <PublicNavbar/>
       <Outlet />
       <Suspense>
         <TanStackDevtools />

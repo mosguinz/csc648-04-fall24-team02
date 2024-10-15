@@ -9,7 +9,6 @@ export const Route = createFileRoute("/")({
 function HomePage() {
     return (
         <>
-            <PublicNavbar />
             <Container mt={10}>
                 <Heading as="h1" size="2xl" mb={4}>
                     Software Engineering Class SFSU
