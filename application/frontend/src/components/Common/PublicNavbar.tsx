@@ -1,8 +1,11 @@
-import { Button, Flex } from "@chakra-ui/react"
+import { Button, Flex, Spinner } from "@chakra-ui/react"
 import { Link } from "@tanstack/react-router" // Import Link for navigation
 import UserMenu from "./UserMenu"
+import useAuth from "../../hooks/useAuth"
 
 const PublicNavbar = () => {
+  const { isLoading } = useAuth()
+
   return (
     <>
       <Flex
@@ -23,11 +26,14 @@ const PublicNavbar = () => {
           <Button as={Link} to="/game" variant="link">
             Game
           </Button>
-          <Button as={Link} to="/login" variant="link">
-            Login
-          </Button>
-          <UserMenu />
         </Flex>
+        {isLoading ? (
+          <Flex justify="center" align="center" height="100vh" width="full">
+            <Spinner size="xl" color="ui.main" />
+          </Flex>
+        ) : (
+          <UserMenu />
+        )}
       </Flex>
     </>
   )
