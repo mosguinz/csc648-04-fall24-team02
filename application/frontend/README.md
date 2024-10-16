@@ -1,70 +1,160 @@
-# Getting Started with Create React App
+# FastAPI Project - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The frontend is built with [Vite](https://vitejs.dev/), [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), [TanStack Query](https://tanstack.com/query), [TanStack Router](https://tanstack.com/router) and [Chakra UI](https://chakra-ui.com/).
 
-## Available Scripts
+## Frontend development
 
-In the project directory, you can run:
+Before you begin, ensure that you have either the Node Version Manager (nvm) or Fast Node Manager (fnm) installed on your system.
 
-### `npm start`
+* To install fnm follow the [official fnm guide](https://github.com/Schniz/fnm#installation). If you prefer nvm, you can install it using the [official nvm guide](https://github.com/nvm-sh/nvm#installing-and-updating).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* After installing either nvm or fnm, proceed to the `frontend` directory:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+cd frontend
+```
+* If the Node.js version specified in the `.nvmrc` file isn't installed on your system, you can install it using the appropriate command:
 
-### `npm test`
+```bash
+# If using fnm
+fnm install
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# If using nvm
+nvm install
+```
 
-### `npm run build`
+* Once the installation is complete, switch to the installed version:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+# If using fnm
+fnm use
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# If using nvm
+nvm use
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Within the `frontend` directory, install the necessary NPM packages:
 
-### `npm run eject`
+```bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* And start the live server with the following `npm` script:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run dev
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Then open your browser at http://localhost:5173/.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Notice that this live server is not running inside Docker, it's for local development, and that is the recommended workflow. Once you are happy with your frontend, you can build the frontend Docker image and start it, to test it in a production-like environment. But building the image at every change will not be as productive as running the local development server with live reload.
 
-## Learn More
+Check the file `package.json` to see other available options.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Removing the frontend
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+If you are developing an API-only app and want to remove the frontend, you can do it easily:
 
-### Code Splitting
+* Remove the `./frontend` directory.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* In the `docker-compose.yml` file, remove the whole service / section `frontend`.
 
-### Analyzing the Bundle Size
+* In the `docker-compose.override.yml` file, remove the whole service / section `frontend`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Done, you have a frontend-less (api-only) app. 🤓
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+If you want, you can also remove the `FRONTEND` environment variables from:
 
-### Advanced Configuration
+* `.env`
+* `./scripts/*.sh`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+But it would be only to clean them up, leaving them won't really have any effect either way.
 
-### Deployment
+## Generate Client
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Automatically
 
-### `npm run build` fails to minify
+* Activate the backend virtual environment.
+* From the top level project directory, run the script:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+./scripts/generate-frontend-client.sh
+```
+
+* Commit the changes.
+
+### Manually
+
+* Start the Docker Compose stack.
+
+* Download the OpenAPI JSON file from `http://localhost/api/v1/openapi.json` and copy it to a new file `openapi.json` at the root of the `frontend` directory.
+
+* To simplify the names in the generated frontend client code, modify the `openapi.json` file by running the following script:
+
+```bash
+node modify-openapi-operationids.js
+```
+
+* To generate the frontend client, run:
+
+```bash
+npm run generate-client
+```
+
+* Commit the changes.
+
+Notice that everytime the backend changes (changing the OpenAPI schema), you should follow these steps again to update the frontend client.
+
+## Using a Remote API
+
+If you want to use a remote API, you can set the environment variable `VITE_API_URL` to the URL of the remote API. For example, you can set it in the `frontend/.env` file:
+
+```env
+VITE_API_URL=https://api.my-domain.example.com
+```
+
+Then, when you run the frontend, it will use that URL as the base URL for the API.
+
+## Code Structure
+
+The frontend code is structured as follows:
+
+* `frontend/src` - The main frontend code.
+* `frontend/src/assets` - Static assets.
+* `frontend/src/client` - The generated OpenAPI client.
+* `frontend/src/components` -  The different components of the frontend.
+* `frontend/src/hooks` - Custom hooks.
+* `frontend/src/routes` - The different routes of the frontend which include the pages.
+* `theme.tsx` - The Chakra UI custom theme.
+
+## End-to-End Testing with Playwright
+
+The frontend includes initial end-to-end tests using Playwright. To run the tests, you need to have the Docker Compose stack running. Start the stack with the following command:
+
+```bash
+docker compose up -d --wait backend
+```
+
+Then, you can run the tests with the following command:
+
+```bash
+npx playwright test
+```
+
+You can also run your tests in UI mode to see the browser and interact with it running:
+
+```bash
+npx playwright test --ui
+```
+
+To stop and remove the Docker Compose stack and clean the data created in tests, use the following command:
+
+```bash
+docker compose down -v
+```
+
+To update the tests, navigate to the tests directory and modify the existing test files or add new ones as needed.
+
+For more information on writing and running Playwright tests, refer to the official [Playwright documentation](https://playwright.dev/docs/intro).
