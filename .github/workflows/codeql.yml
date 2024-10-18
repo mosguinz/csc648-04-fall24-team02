@@ -93,7 +93,7 @@ jobs:
         with:
           category: "/language:${{matrix.language}}"
           upload: false # Upload later, see below
-          output: sarif-results
+          output: sarif-results/${{ matrix.language }}.sarif
 
       # Filter out test files
       - name: filter-sarif
