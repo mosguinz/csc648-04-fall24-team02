@@ -45,8 +45,10 @@ jobs:
         include:
           - language: javascript-typescript
             build-mode: none
+            sarif-filename: javascript.sarif
           - language: python
             build-mode: none
+            sarif-filename: python.sarif
         # CodeQL supports the following values keywords for 'language': 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift'
         # Use `c-cpp` to analyze code written in C, C++ or both
         # Use 'java-kotlin' to analyze code written in Java, Kotlin or both
@@ -93,7 +95,7 @@ jobs:
         with:
           category: "/language:${{matrix.language}}"
           upload: false # Upload later, see below
-          output: sarif-results/${{ matrix.language }}.sarif
+          output: sarif-results
 
       # Filter out test files
       - name: filter-sarif
@@ -102,7 +104,7 @@ jobs:
           patterns: |
             -application/backend/app/tests
             -application/frontend/tests
-          input: sarif-results/${{ matrix.language }}.sarif
+          input: sarif-results/${{ matrix.sarif-filename }}
           output: sarif-results/${{ matrix.language }}.sarif
 
       - name: Upload SARIF
