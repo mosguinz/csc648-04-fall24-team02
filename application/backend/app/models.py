@@ -124,15 +124,15 @@ class ResourceType(SQLModel, table=True):
     icon_image_url: Optional[str] = None
 
     # Relationships
-    user_resources: list["UserResource"] = Relationship(back_populates="resource_type")
-    recipe_inputs: list["RecipeInput"] = Relationship(back_populates="resource_type")
-    recipe_outputs: list["RecipeOutput"] = Relationship(back_populates="resource_type")
+    user_resources: list["UserResource"] = Relationship(back_populates="resource_type", cascade_delete=True)
+    recipe_inputs: list["RecipeInput"] = Relationship(back_populates="resource_type", cascade_delete=True)
+    recipe_outputs: list["RecipeOutput"] = Relationship(back_populates="resource_type", cascade_delete=True)
 
 
 class UserResource(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: uuid.UUID = Field(foreign_key="user.id")
-    resource_type_id: int = Field(foreign_key="resourcetype.id")
+    user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
+    resource_type_id: int = Field(foreign_key="resourcetype.id", ondelete="CASCADE")
     quantity: int = Field(default=0)
 
     # Relationships
@@ -151,12 +151,12 @@ class FacilityType(SQLModel, table=True):
     icon_image_url: Optional[str] = None
 
     # Relationships
-    user_facilities: "UserFacility" = Relationship(back_populates="facility_type")
+    user_facilities: "UserFacility" = Relationship(back_populates="facility_type", cascade_delete=True)
 
 class UserFacility(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: uuid.UUID = Field(foreign_key="user.id")
-    item_type_id: int = Field(foreign_key="facilitytype.id")
+    user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
+    item_type_id: int = Field(foreign_key="facilitytype.id", ondelete="CASCADE")
     quantity: int = Field(default=0)
 
     # Relationships
@@ -169,14 +169,14 @@ class Recipe(SQLModel, table=True):
     name: str = Field(index=True, unique=True)
     time_to_complete: int = Field(default=0)  # Time in seconds
 
-    inputs: List["RecipeInput"] = Relationship(back_populates="recipe")
-    outputs: List["RecipeOutput"] = Relationship(back_populates="recipe")
+    inputs: List["RecipeInput"] = Relationship(back_populates="recipe", cascade_delete=True)
+    outputs: List["RecipeOutput"] = Relationship(back_populates="recipe", cascade_delete=True)
 
 
 class RecipeInput(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    recipe_id: int = Field(foreign_key="recipe.id")
-    resource_type_id: int = Field(foreign_key="resourcetype.id")
+    recipe_id: int = Field(foreign_key="recipe.id", ondelete="CASCADE")
+    resource_type_id: int = Field(foreign_key="resourcetype.id", ondelete="CASCADE")
     quantity: int = Field(default=0)
 
     # Relationships
@@ -186,8 +186,8 @@ class RecipeInput(SQLModel, table=True):
 
 class RecipeOutput(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    recipe_id: int = Field(foreign_key="recipe.id")
-    resource_type_id: int = Field(foreign_key="resourcetype.id")
+    recipe_id: int = Field(foreign_key="recipe.id", ondelete="CASCADE")
+    resource_type_id: int = Field(foreign_key="resourcetype.id", ondelete="CASCADE")
     quantity: int = Field(default=0)
 
     # Relationships
