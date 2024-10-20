@@ -2,6 +2,7 @@ import uuid
 
 from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
+from typing import Optional
 
 
 # Shared properties
@@ -44,6 +45,9 @@ class User(UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
     items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
+
+    resources: list["UserResource"] = Relationship(back_populates="user", cascade_delete=True)
+    items: list["UserFacility"] = Relationship(back_populates="user", cascade_delete=True)
 
 
 # Properties to return via API, id is always required
@@ -112,3 +116,80 @@ class TokenPayload(SQLModel):
 class NewPassword(SQLModel):
     token: str
     new_password: str = Field(min_length=8, max_length=40)
+
+
+class ResourceType(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str = Field(index=True, unique=True)
+    description: Optional[str] = None
+    icon_image_url: Optional[str] = None
+
+
+class UserResource(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="user.id")
+    resource_type_id: int = Field(foreign_key="resourcetype.id")
+    quantity: int = Field(default=0)
+
+    # Relationships
+    user: "User" = Relationship(back_populates="resources")
+    resource_type: "ResourceType" = Relationship(back_populates="user_resources")
+
+ResourceType.user_resources = Relationship(back_populates="resource_type")
+
+
+class FacilityType(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str = Field(index=True, unique=True)
+    description: Optional[str] = None
+    icon_image_url: Optional[str] = None
+
+
+class UserFacility(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="user.id")
+    item_type_id: int = Field(foreign_key="facilitytype.id")
+    quantity: int = Field(default=0)
+
+    # Relationships
+    user: "User" = Relationship(back_populates="items")
+    item_type: "FacilityType" = Relationship(back_populates="user_facilities")
+
+FacilityType.user_facilities = Relationship(back_populates="facility_type")
+
+
+class Recipe(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str = Field(index=True, unique=True)
+    time_to_complete: int = Field(default=0)  # Time in seconds
+
+    inputs: List["RecipeInput"] = Relationship(back_populates="recipe")
+    outputs: List["RecipeOutput"] = Relationship(back_populates="recipe")
+
+
+class RecipeInput(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    recipe_id: int = Field(foreign_key="recipe.id")
+    resource_type_id: int = Field(foreign_key="resourcetype.id")
+    quantity: int = Field(default=0)
+
+    # Relationships
+    recipe: "Recipe" = Relationship(back_populates="inputs")
+    resource_type: "ResourceType" = Relationship(back_populates="recipe_inputs")
+
+ResourceType.recipe_inputs = Relationship(back_populates="resource_type")
+
+
+class RecipeOutput(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    recipe_id: int = Field(foreign_key="recipe.id")
+    resource_type_id: int = Field(foreign_key="resourcetype.id")
+    quantity: int = Field(default=0)
+
+    # Relationships
+    recipe: "Recipe" = Relationship(back_populates="outputs")
+    resource_type: "ResourceType" = Relationship(back_populates="recipe_outputs")
+
+ResourceType.recipe_outputs = Relationship(back_populates="resource_type")
+
+
