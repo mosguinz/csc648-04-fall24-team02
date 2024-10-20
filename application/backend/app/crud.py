@@ -4,7 +4,8 @@ from typing import Any
 from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
-from app.models import Item, ItemCreate, User, UserCreate, UserUpdate
+from app.models import Item, ItemCreate, User, UserCreate, UserUpdate, ResourcesPublic
+from app.models import UserResource, ResourceType
 
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
@@ -52,3 +53,16 @@ def create_item(*, session: Session, item_in: ItemCreate, owner_id: uuid.UUID) -
     session.commit()
     session.refresh(db_item)
     return db_item
+
+def get_resources_by_user(*, session: Session, user_id: uuid.UUID) -> ResourcesPublic:
+    statement = select(UserResource).where(UserResource.user_id == user_id)
+    resources = session.exec(statement).all()
+    return ResourcesPublic(data=resources)
+
+def set_resources_for_user(*, session: Session, user_id: uuid.UUID, resources: ResourcesPublic) -> ResourcesPublic:
+    for resource in resources.data:
+        db_item = Item.model_validate(resource, update={"user_id": user_id})
+        session.add(db_item)
+        session.commit()
+        session.refresh(db_item)
+    return resources

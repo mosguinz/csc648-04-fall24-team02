@@ -139,6 +139,10 @@ class UserResource(SQLModel, table=True):
     user: "User" = Relationship(back_populates="resources")
     resource_type: "ResourceType" = Relationship(back_populates="user_resources")
 
+# return the resources
+class ResourcesPublic(SQLModel):
+    data: list[UserResource]
+
 
 class FacilityType(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -189,4 +193,5 @@ class RecipeOutput(SQLModel, table=True):
     # Relationships
     recipe: "Recipe" = Relationship(back_populates="outputs")
     resource_type: "ResourceType" = Relationship(back_populates="recipe_outputs")
+
 
