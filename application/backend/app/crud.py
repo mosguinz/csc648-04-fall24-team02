@@ -4,7 +4,7 @@ from typing import Any
 from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
-from app.models import Item, ItemCreate, User, UserCreate, UserUpdate, ResourcesPublic
+from app.models import Item, ItemCreate, ResourceBase, User, UserCreate, UserUpdate, ResourcesPublic
 from app.models import UserResource, ResourceType
 
 
@@ -54,15 +54,26 @@ def create_item(*, session: Session, item_in: ItemCreate, owner_id: uuid.UUID) -
     session.refresh(db_item)
     return db_item
 
-def get_resources_by_user(*, session: Session, user_id: uuid.UUID) -> ResourcesPublic:
+
+def create_resource(*, session: Session, resource_in: ResourceBase, user_id: uuid.UUID) -> UserResource:
+    db_item = UserResource.model_validate(resource_in, update={"user_id": user_id})
+    session.add(db_item)
+    session.commit()
+    session.refresh(db_item)
+    return db_item
+
+
+def read_resources_by_user(*, session: Session, user_id: uuid.UUID) -> list[UserResource]:
     statement = select(UserResource).where(UserResource.user_id == user_id)
     resources = session.exec(statement).all()
-    return ResourcesPublic(data=resources)
-
-def set_resources_for_user(*, session: Session, user_id: uuid.UUID, resources: ResourcesPublic) -> ResourcesPublic:
-    for resource in resources.data:
-        db_item = Item.model_validate(resource, update={"user_id": user_id})
-        session.add(db_item)
-        session.commit()
-        session.refresh(db_item)
     return resources
+
+def update_resource(*, session:Session, db_resource: UserResource, resource_in: ResourceBase) -> Any:
+    resource_data = resource_in.model_dump(exclude_unset=True)
+    db_resource.sqlmodel_update(resource_data)
+    session.add(db_resource)
+    session.commit()
+    session.refresh(db_resource)
+    return db_resource
+
+

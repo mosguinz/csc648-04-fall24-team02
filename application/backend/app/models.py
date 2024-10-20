@@ -139,10 +139,10 @@ class UserResource(SQLModel, table=True):
     user: "User" = Relationship(back_populates="resources")
     resource_type: "ResourceType" = Relationship(back_populates="user_resources")
 
-# return the resources
-class ResourcesPublic(SQLModel):
-    data: list[UserResource]
-
+# object for input on updating resources
+class ResourceBase(SQLModel):
+    resource_type_id: int
+    quantity: int
 
 class FacilityType(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
