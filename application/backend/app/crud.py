@@ -68,7 +68,8 @@ def read_resources_by_user(*, session: Session, user_id: uuid.UUID) -> list[User
     resources = session.exec(statement).all()
     return resources
 
-def update_resource(*, session:Session, db_resource: UserResource, resource_in: ResourceBase) -> Any:
+
+def update_resource(*, session:Session, db_resource: UserResource, resource_in: ResourceBase) -> UserResource:
     resource_data = resource_in.model_dump(exclude_unset=True)
     db_resource.sqlmodel_update(resource_data)
     session.add(db_resource)
