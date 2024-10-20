@@ -4,7 +4,7 @@ from typing import Any
 from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
-from app.models import Item, ItemCreate, ResourceBase, User, UserCreate, UserUpdate, ResourcesPublic
+from app.models import Item, ItemCreate, ResourceBase, User, UserCreate, UserUpdate
 from app.models import UserResource, ResourceType
 
 
@@ -77,3 +77,9 @@ def update_resource(*, session:Session, db_resource: UserResource, resource_in: 
     return db_resource
 
 
+def create_resource_type(*, session: Session, resource_type: ResourceType) -> ResourceType:
+    db_item = ResourceType.model_validate(resource_type)
+    session.add(db_item)
+    session.commit()
+    session.refresh(db_item)
+    return db_item
