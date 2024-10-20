@@ -2,7 +2,7 @@ import uuid
 
 from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
-from typing import Optional
+from typing import Optional, List
 
 
 # Shared properties
@@ -47,8 +47,7 @@ class User(UserBase, table=True):
     items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
 
     resources: list["UserResource"] = Relationship(back_populates="user", cascade_delete=True)
-    items: list["UserFacility"] = Relationship(back_populates="user", cascade_delete=True)
-
+    facilities: list["UserFacility"] = Relationship(back_populates="user", cascade_delete=True)
 
 # Properties to return via API, id is always required
 class UserPublic(UserBase):
@@ -124,18 +123,21 @@ class ResourceType(SQLModel, table=True):
     description: Optional[str] = None
     icon_image_url: Optional[str] = None
 
+    # Relationships
+    user_resources: list["UserResource"] = Relationship(back_populates="resource_type")
+    recipe_inputs: list["RecipeInput"] = Relationship(back_populates="resource_type")
+    recipe_outputs: list["RecipeOutput"] = Relationship(back_populates="resource_type")
+
 
 class UserResource(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: int = Field(foreign_key="user.id")
+    user_id: uuid.UUID = Field(foreign_key="user.id")
     resource_type_id: int = Field(foreign_key="resourcetype.id")
     quantity: int = Field(default=0)
 
     # Relationships
     user: "User" = Relationship(back_populates="resources")
     resource_type: "ResourceType" = Relationship(back_populates="user_resources")
-
-ResourceType.user_resources = Relationship(back_populates="resource_type")
 
 
 class FacilityType(SQLModel, table=True):
@@ -144,18 +146,18 @@ class FacilityType(SQLModel, table=True):
     description: Optional[str] = None
     icon_image_url: Optional[str] = None
 
+    # Relationships
+    user_facilities: "UserFacility" = Relationship(back_populates="facility_type")
 
 class UserFacility(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: int = Field(foreign_key="user.id")
+    user_id: uuid.UUID = Field(foreign_key="user.id")
     item_type_id: int = Field(foreign_key="facilitytype.id")
     quantity: int = Field(default=0)
 
     # Relationships
-    user: "User" = Relationship(back_populates="items")
-    item_type: "FacilityType" = Relationship(back_populates="user_facilities")
-
-FacilityType.user_facilities = Relationship(back_populates="facility_type")
+    user: "User" = Relationship(back_populates="facilities")
+    facility_type: "FacilityType" = Relationship(back_populates="user_facilities")
 
 
 class Recipe(SQLModel, table=True):
@@ -177,8 +179,6 @@ class RecipeInput(SQLModel, table=True):
     recipe: "Recipe" = Relationship(back_populates="inputs")
     resource_type: "ResourceType" = Relationship(back_populates="recipe_inputs")
 
-ResourceType.recipe_inputs = Relationship(back_populates="resource_type")
-
 
 class RecipeOutput(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -189,7 +189,4 @@ class RecipeOutput(SQLModel, table=True):
     # Relationships
     recipe: "Recipe" = Relationship(back_populates="outputs")
     resource_type: "ResourceType" = Relationship(back_populates="recipe_outputs")
-
-ResourceType.recipe_outputs = Relationship(back_populates="resource_type")
-
 
