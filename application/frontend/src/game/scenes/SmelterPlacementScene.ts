@@ -1,5 +1,7 @@
+import InventoryMenu from "./InventoryMenu";
+
 export default class SmelterPlacementScene extends Phaser.Scene {
-    private smelterTimers: { [key: string]: Phaser.Time.TimerEvent } = {}; // Track smelter timers
+    // private smelterTimers: { [key: string]: Phaser.Time.TimerEvent } = {}; // Track smelter timers
     private smelterIcons: { [key: string]: Phaser.GameObjects.Image } = {}; // Track smelter icons on the build rectangle
 
     constructor() {
@@ -10,8 +12,8 @@ export default class SmelterPlacementScene extends Phaser.Scene {
         // Create background for the popup scene
         const background = this.add.rectangle(650, 300, 800, 500, 0x666666);
         background.setInteractive(); // Prevent clicks going through
-        const buildTitle = this.add.text(500, 100, 'Build Smelters', { fontSize: '40px', color: '#ffffff' });
-        const costText = this.add.text(420, 150, 'Costs per build:', { fontSize: '25px', color: '#ffffff' });
+        this.add.text(500, 100, 'Build Smelters', { fontSize: '40px', color: '#ffffff' });
+        this.add.text(420, 150, 'Costs per build:', { fontSize: '25px', color: '#ffffff' });
 
         // Smelter costs text and images
         this.add.text(670, 150, '10x', { fontSize: '25px', color: '#ffffff' });
@@ -28,15 +30,15 @@ export default class SmelterPlacementScene extends Phaser.Scene {
         closeButton.on('pointerdown', () => this.scene.stop('SmelterPlacementScene'));
 
         // Resource types for placing the smelter
-        const ironButton = this.add.text(250, 470, 'Iron Ore Smelter', { fontSize: '25px', color: '#ffffff' });
+        this.add.text(250, 470, 'Iron Ore Smelter', { fontSize: '25px', color: '#ffffff' });
 		const ironFurnaceIcon = this.add.image(370, 370, 'smelter').setScale(8).setInteractive();
-		const ironIcon = this.add.image(370, 350, 'iron_ore').setScale(3);
-        const copperButton = this.add.text(550, 470, 'Copper Ore Smelter', { fontSize: '25px', color: '#ffffff' });
+		this.add.image(370, 350, 'iron_ore').setScale(3);
+        this.add.text(550, 470, 'Copper Ore Smelter', { fontSize: '25px', color: '#ffffff' });
 		const copperFurnaceIcon = this.add.image(678, 370, 'smelter').setScale(8).setInteractive();
-        const copperIcon = this.add.image(678, 350, 'copper_ore').setScale(3);
-		const rockButton = this.add.text(845, 470, 'Concrete Maker', { fontSize: '25px', color: '#ffffff' });
+        this.add.image(678, 350, 'copper_ore').setScale(3);
+		this.add.text(845, 470, 'Concrete Maker', { fontSize: '25px', color: '#ffffff' });
 		const rockFurnaceIcon = this.add.image(945, 370, 'smelter').setScale(8).setInteractive();
-		const rockIcon = this.add.image(945, 350, 'rock').setScale(3);
+		this.add.image(945, 350, 'rock').setScale(3);
 
         // Handle clicking on resource types
         ironFurnaceIcon.on('pointerdown', () => this.placeSmelter('iron'));

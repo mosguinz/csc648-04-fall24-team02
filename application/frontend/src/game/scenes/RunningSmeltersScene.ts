@@ -14,7 +14,7 @@ export default class RunningSmeltersScene extends Phaser.Scene {
         const background = this.add.rectangle(645, 270, 900, 550, 0x333333);
         background.setInteractive();
 
-        const title = this.add.text(420, 50, 'Active Smelters', { fontSize: '40px', color: '#ffffff' });
+        this.add.text(420, 50, 'Active Smelters', { fontSize: '40px', color: '#ffffff' });
 
         const closeButton = this.add.text(1020, 60, 'X', { fontSize: '40px', color: '#ffffff' }).setInteractive();
         closeButton.on('pointerdown', () => this.scene.stop('RunningSmeltersScene'));

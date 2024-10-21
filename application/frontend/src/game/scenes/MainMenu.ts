@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import InventoryMenu from './InventoryMenu';
 
 export default class MainMenu extends Phaser.Scene {
-	private minerTimers: { [key: string]: Phaser.Time.TimerEvent } = {};
+	public minerTimers: { [key: string]: Phaser.Time.TimerEvent } = {};
 	private smelterTimers: { [key: string]: Phaser.Time.TimerEvent } = {}; // Track smelter timers
 
 	constructor() {
@@ -16,24 +16,21 @@ export default class MainMenu extends Phaser.Scene {
 	}
 
 	editorCreate(): void {
-		const particles = this.add.particles('particle');
-
-		// Creating particles
-		this.miningParticles = this.add.particles('particle');
 
 		// background_1
 		const background_1 = this.add.image(767, 431, "background_1");
 		background_1.scaleX = 1.5;
 		background_1.scaleY = 1.5;
 
+		const inventoryMenu = this.scene.get('InventoryMenu') as InventoryMenu;
 		// iron_ore_block
 		const iron_ore_block = this.add.image(374, 247, "iron_ore_block");
 		iron_ore_block.scaleX = 7.8;
 		iron_ore_block.scaleY = 7.8;
 		iron_ore_block.setInteractive();
 		iron_ore_block.on('pointerdown', () => {
-			this.scene.get('InventoryMenu').addToInventory('iron_ore', 1);
-			this.scene.get('InventoryMenu').updateInventoryDisplay();
+			inventoryMenu.addToInventory('iron_ore', 1);
+			inventoryMenu.updateInventoryDisplay();
 		});
 
 		// copper_ore_block
@@ -42,8 +39,8 @@ export default class MainMenu extends Phaser.Scene {
 		copper_ore_block.scaleY = 7.8;
 		copper_ore_block.setInteractive();
 		copper_ore_block.on('pointerdown', () => {
-			this.scene.get('InventoryMenu').addToInventory('copper_ore', 1);
-			this.scene.get('InventoryMenu').updateInventoryDisplay();
+			inventoryMenu.addToInventory('copper_ore', 1);
+			inventoryMenu.updateInventoryDisplay();
 		});
 
 		// rock_block
@@ -52,8 +49,8 @@ export default class MainMenu extends Phaser.Scene {
 		rock_block.scaleY = 7.8;
 		rock_block.setInteractive();
 		rock_block.on('pointerdown', () => {
-			this.scene.get('InventoryMenu').addToInventory('rock', 1);
-			this.scene.get('InventoryMenu').updateInventoryDisplay();
+			inventoryMenu.addToInventory('rock', 1);
+			inventoryMenu.updateInventoryDisplay();
 		});
 
 		// rectangle_1
@@ -91,7 +88,7 @@ export default class MainMenu extends Phaser.Scene {
 		const crafter = this.add.image(1142, 141, "crafter");
 		crafter.scaleX = 3;
 		crafter.scaleY = 3;
-		const crafterList = this.add.text(1190, 147, 'List').setInteractive();
+		this.add.text(1190, 147, 'List').setInteractive();
 
 		// miner
 		const miner = this.add.image(1142, 211, "miner");
@@ -148,21 +145,11 @@ export default class MainMenu extends Phaser.Scene {
 
 
 	}
-	mineBlock(blockName: string, x: number, y: number) {
-		// Emit particles directly from the miningParticles object
-		// this.miningParticles.createEmitter({
-		//     x: x,
-		//     y: y,
-		//     speed: { min: 50, max: 150 },
-		//     lifespan: { min: 500, max: 1000 },
-		//     scale: { start: 0.5, end: 0 },
-		//     alpha: { start: 1, end: 0 },
-		//     quantity: 10,
-		//     gravityY: 200
-		// });
-
+	mineBlock(blockName: string) {
 		// Add the mined resource to the inventory based on the block name
-		InventoryMenu.addToInventory(blockName, 1); // Add 1 unit of the mined resource
+		const inventoryMenu = this.scene.get('InventoryMenu') as InventoryMenu;
+
+		inventoryMenu.addToInventory(blockName, 1); // Add 1 unit of the mined resource
 
 		console.log(`Mined 1 ${blockName}`);
 	}
@@ -230,13 +217,15 @@ export default class MainMenu extends Phaser.Scene {
 	}
 
 	// Custom function to get the position of the node based on the type
-	getNodePosition(node: string) {
+	getNodePosition(node: string) : { x: number, y: number } {
 		// Define the positions for the iron, copper, and rock nodes
-		const positions = {
+		const positions: {
+			[key: string]: { x: number; y: number };
+		  } = {
 			iron: { x: 374, y: 247 },
 			copper: { x: 807, y: 312 },
-			rock: { x: 432, y: 435 }
-		};
+			rock: { x: 432, y: 435 },
+		  }
 
 		return positions[node] || { x: 0, y: 0 }; // Return a default position if the node is unknown
 	}

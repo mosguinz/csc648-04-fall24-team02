@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 export default class InventoryMenu extends Phaser.Scene {
-    private inventory: { [key: string]: { count: number, textObject: Phaser.GameObjects.Text | null } } = {
+    public inventory: { [key: string]: { count: number, textObject: Phaser.GameObjects.Text | null } } = {
         iron_ore: { count: 0, textObject: null },
         copper_ore: { count: 0, textObject: null },
         rock: { count: 0, textObject: null },
@@ -16,7 +16,7 @@ export default class InventoryMenu extends Phaser.Scene {
         cable: { count: 0, textObject: null },
     };
 
-    private itemNames: { [key: string]: string } = {
+    public itemNames: { [key: string]: string } = {
         'iron_ore': 'Iron Ore',
         'copper_ore': 'Copper Ore',
         'rock': 'Rock',
@@ -100,8 +100,8 @@ export default class InventoryMenu extends Phaser.Scene {
     private addResource(
         key: string, name: string, imgX: number, imgY: number, nameX: number, nameY: number, countX: number, countY: number
     ) {
-        const resourceIcon = this.add.image(imgX, imgY, key).setScale(2);
-        const resourceName = this.add.text(nameX, nameY, name, { fontSize: '16px' });
+        this.add.image(imgX, imgY, key).setScale(2);
+        this.add.text(nameX, nameY, name, { fontSize: '16px' });
         this.inventory[key].textObject = this.add.text(countX, countY, `${this.inventory[key].count}`, { fontSize: '16px' });
     }
 

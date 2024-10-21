@@ -14,8 +14,8 @@ export default class MinerPlacementScene extends Phaser.Scene {
         // Create background for the popup scene
         const background = this.add.rectangle(650, 300, 800, 500, 0x666666);
         background.setInteractive(); // Prevent clicks going through
-        const buildTitle = this.add.text(420, 100, 'Build/Upgrade Miners', { fontSize: '40px', color: '#ffffff' });
-        const costText = this.add.text(320, 150, 'Costs per build/upgrade:', { fontSize: '25px', color: '#ffffff' });
+        this.add.text(420, 100, 'Build/Upgrade Miners', { fontSize: '40px', color: '#ffffff' });
+        this.add.text(320, 150, 'Costs per build/upgrade:', { fontSize: '25px', color: '#ffffff' });
         // Costs text and images
         this.add.text(690, 150, '4x', { fontSize: '25px', color: '#ffffff' });
         this.add.image(740, 164, 'iron_rod').setScale(2.25);
@@ -48,14 +48,14 @@ export default class MinerPlacementScene extends Phaser.Scene {
 
     // Display miner info (level and mining time) under the blocks
     displayMinerInfo(node: string, nodeImage: Phaser.GameObjects.Image) {
-        const levelText = this.add.text(nodeImage.x - 40, nodeImage.y + 80, `Level: ${this.minerLevels[node]}`, {
+        this.add.text(nodeImage.x - 40, nodeImage.y + 80, `Level: ${this.minerLevels[node]}`, {
             fontSize: '20px',
             color: '#ffffff'
         });
 
         // Mining time text
         let miningTime = 0;
-        if (!this.minerLevels[node] == 0) {
+        if (this.minerLevels[node] != 0) {
             miningTime = 3 * (0.5**(this.minerLevels[node] - 1));
         } 
         this.minerTimeTexts[node] = this.add.text(nodeImage.x - 40, nodeImage.y + 110, `Time: ${miningTime}s`, {
@@ -74,7 +74,9 @@ export default class MinerPlacementScene extends Phaser.Scene {
             console.log('Upgrading miner on node:', node);
             if (inventoryScene.deductFromInventory('iron_ore', 1)) {
                 const minerTimer = menuScene.minerTimers[node];
-                minerTimer.delay *= 0.5; // Halve the mining delay on upgrade
+
+                // TODO: Fix delay or increment resource count.
+                // minerTimer.delay *= 0.5; // Halve the mining delay on upgrade
 
                 // Update miner level and time
                 this.minerLevels[node] += 1;

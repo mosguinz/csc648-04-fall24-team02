@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Container, Text, Heading, Divider } from "@chakra-ui/react";
+import { Container, Heading, Divider } from "@chakra-ui/react";
 import { createFileRoute } from "@tanstack/react-router";
 import StartGame from "../game/main";
 
