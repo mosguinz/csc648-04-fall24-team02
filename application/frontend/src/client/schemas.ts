@@ -165,6 +165,19 @@ export const $NewPassword = {
 	},
 } as const;
 
+export const $ResourceBase = {
+	properties: {
+		resource_type_id: {
+	type: 'number',
+	isRequired: true,
+},
+		quantity: {
+	type: 'number',
+	isRequired: true,
+},
+	},
+} as const;
+
 export const $Token = {
 	properties: {
 		access_token: {

@@ -2,7 +2,7 @@ import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
 
-import type { Body_login_login_access_token,Message,NewPassword,Token,UserPublic,UpdatePassword,UserCreate,UserRegister,UsersPublic,UserUpdate,UserUpdateMe,ItemCreate,ItemPublic,ItemsPublic,ItemUpdate } from './models';
+import type { Body_login_login_access_token,Message,NewPassword,Token,UserPublic,UpdatePassword,UserCreate,UserRegister,UsersPublic,UserUpdate,UserUpdateMe,ItemCreate,ItemPublic,ItemsPublic,ItemUpdate,ResourceBase } from './models';
 
 export type TDataLoginAccessToken = {
                 formData: Body_login_login_access_token
@@ -540,6 +540,49 @@ id,
 			path: {
 				id
 			},
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+}
+
+export type TDataSetResources = {
+                requestBody: Array<ResourceBase>
+                
+            }
+
+export class ResourcesService {
+
+	/**
+	 * Read Resources
+	 * Get resources for the selected user
+	 * @returns ResourceBase Successful Response
+	 * @throws ApiError
+	 */
+	public static readResources(): CancelablePromise<Array<ResourceBase>> {
+				return __request(OpenAPI, {
+			method: 'GET',
+			url: '/api/v1/resources/',
+		});
+	}
+
+	/**
+	 * Set Resources
+	 * Set resources for the selected user
+	 * @returns ResourceBase Successful Response
+	 * @throws ApiError
+	 */
+	public static setResources(data: TDataSetResources): CancelablePromise<Array<ResourceBase>> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'POST',
+			url: '/api/v1/resources/',
+			body: requestBody,
+			mediaType: 'application/json',
 			errors: {
 				422: `Validation Error`,
 			},
