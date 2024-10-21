@@ -3,19 +3,10 @@ import uuid
 from fastapi.testclient import TestClient
 from sqlmodel import Session
 
+from app import crud
+from app.models import User, UserCreate
 from app.core.config import settings
-from app.tests.utils.item import create_random_item
-
-# def get_resources(
-#     client: TestClient, superuser_token_headers: dict[str, str], db: Session
-# ) -> None:
-#     response = client.get(
-#         f"{settings.API_V1_STR}/resources/",
-#         headers=superuser_token_headers,
-#     )
-#     assert response.status_code == 200
-#     content = response.json()
-#     assert response.
+from app.tests.utils.utils import random_email, random_lower_string
 
 def test_set_resources(
     client: TestClient, superuser_token_headers: dict[str, str], db: Session
@@ -25,12 +16,61 @@ def test_set_resources(
     rock = {"resource_type_id": 3, "quantity": 200}
     resources = [iron_ore, copper_ore, rock]
 
+    username = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=username, password=password)
+    user = crud.create_user(session=db, user_create=user_in)
+    user_id = user.id
+
+    login_data = {
+        "username": username,
+        "password": password,
+    }
+    r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+
     response = client.post(
         f"{settings.API_V1_STR}/resources/",
-        headers=superuser_token_headers,
+        headers=headers,
         json=resources
     )
 
+    assert response.status_code == 200
+    content = response.json()
+    for res in content:
+        assert res["quantity"] == next((obj["quantity"] for obj in resources if obj["resource_type_id"] == res["resource_type_id"]), None)
+
+def test_get_resources(
+    client: TestClient, superuser_token_headers: dict[str, str], db: Session
+) -> None:
+    username = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=username, password=password)
+    user = crud.create_user(session=db, user_create=user_in)
+    user_id = user.id
+    login_data = {
+        "username": username,
+        "password": password,
+    }
+    r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+    iron_ore = {"resource_type_id": 1, "quantity": 100}
+    copper_ore = {"resource_type_id": 2, "quantity": 150}
+    rock = {"resource_type_id": 3, "quantity": 200}
+    resources = [iron_ore, copper_ore, rock]
+    r = client.post(
+        f"{settings.API_V1_STR}/resources/",
+        headers=headers,
+        json=resources
+    )
+    response = client.get(
+        f"{settings.API_V1_STR}/resources/",
+        headers=headers,
+    )
     assert response.status_code == 200
     content = response.json()
     for res in content:
