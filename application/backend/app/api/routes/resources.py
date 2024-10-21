@@ -22,12 +22,12 @@ router = APIRouter()
     "/",
     response_model=list[ResourceBase],
 )
-def read_resources(session: SessionDep, user_id: uuid.UUID) -> Any:
+def read_resources(session: SessionDep, current_user: CurrentUser) -> Any:
     """
     Get resources for the selected user
     """
     #TODO add in validation
-    resources = crud.read_resources_by_user( session=session, user_id=user_id )
+    resources = crud.read_resources_by_user( session=session, user_id=current_user.id )
     if not resources:
         raise HTTPException(status_code=404, detail="User resources not found")
     return resources
