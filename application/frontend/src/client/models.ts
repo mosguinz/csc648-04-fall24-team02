@@ -58,6 +58,13 @@ export type NewPassword = {
 
 
 
+export type ResourceBase = {
+	resource_type_id: number;
+	quantity: number;
+};
+
+
+
 export type Token = {
 	access_token: string;
 	token_type?: string;
