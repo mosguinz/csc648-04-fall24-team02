@@ -39,7 +39,11 @@ const UserMenu = () => {
           />
           {isLoggedIn() ? (
             <MenuList>
-              <MenuItem icon={<FiUser fontSize="18px" />} as={Link} to="settings">
+              <MenuItem
+                icon={<FiUser fontSize="18px" />}
+                as={Link}
+                to="settings"
+              >
                 My profile
               </MenuItem>
               <MenuItem

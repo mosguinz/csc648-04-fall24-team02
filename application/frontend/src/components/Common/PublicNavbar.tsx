@@ -1,7 +1,7 @@
 import { Button, Flex, Spinner } from "@chakra-ui/react"
 import { Link } from "@tanstack/react-router" // Import Link for navigation
-import UserMenu from "./UserMenu"
 import useAuth from "../../hooks/useAuth"
+import UserMenu from "./UserMenu"
 
 const PublicNavbar = () => {
   const { isLoading } = useAuth()

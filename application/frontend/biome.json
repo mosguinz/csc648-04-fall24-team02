@@ -8,6 +8,7 @@
       "node_modules",
       "src/routeTree.gen.ts",
       "src/client",
+      "src/game/PhaserGame.tsx",
       "playwright.config.ts",
       "playwright-report"
     ]

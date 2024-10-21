@@ -1,11 +1,11 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { RouterProvider, createRouter } from "@tanstack/react-router"
-import ReactDOM from "react-dom/client"
-import { routeTree } from "./routeTree.gen"
-
 import { StrictMode } from "react"
+import ReactDOM from "react-dom/client"
 import { OpenAPI } from "./client"
+// import App from './App.tsx';
+import { routeTree } from "./routeTree.gen"
 import theme from "./theme"
 
 OpenAPI.BASE = import.meta.env.VITE_API_URL
@@ -16,6 +16,7 @@ OpenAPI.TOKEN = async () => {
 const queryClient = new QueryClient()
 
 const router = createRouter({ routeTree })
+
 declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router
