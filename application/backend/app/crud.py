@@ -1,5 +1,5 @@
 import uuid
-from typing import Any
+from typing import Any, List, Sequence
 
 from sqlmodel import Session, select
 
@@ -63,7 +63,7 @@ def create_resource(*, session: Session, resource_in: ResourceBase, user_id: uui
     return db_item
 
 
-def read_resources_by_user(*, session: Session, user_id: uuid.UUID) -> list[UserResource]:
+def read_resources_by_user(*, session: Session, user_id: uuid.UUID) -> Sequence[UserResource]:
     statement = select(UserResource).where(UserResource.user_id == user_id)
     resources = session.exec(statement).all()
     return resources
