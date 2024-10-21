@@ -171,7 +171,7 @@ class FacilityType(SQLModel, table=True):
 class UserFacility(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
-    item_type_id: int = Field(foreign_key="facilitytype.id", ondelete="CASCADE")
+    facility_type_id: int = Field(foreign_key="facilitytype.id", ondelete="CASCADE")
     quantity: int = Field(default=0)
 
     # Relationships
