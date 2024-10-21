@@ -1,0 +1,140 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/bg.png",
+                "type": "image",
+                "key": "background"
+            },
+            {
+                "url": "assets/background.jpg",
+                "type": "image",
+                "key": "background_1"
+            },
+            {
+                "url": "assets/cable.png",
+                "type": "image",
+                "key": "cable"
+            },
+            {
+                "url": "assets/concrete.png",
+                "type": "image",
+                "key": "concrete"
+            },
+            {
+                "url": "assets/cookie.png",
+                "type": "image",
+                "key": "cookie"
+            },
+            {
+                "url": "assets/copper_ingot.png",
+                "type": "image",
+                "key": "copper_ingot"
+            },
+            {
+                "url": "assets/copper_ore.png",
+                "type": "image",
+                "key": "copper_ore"
+            },
+            {
+                "url": "assets/copper_ore_block.png",
+                "type": "image",
+                "key": "copper_ore_block"
+            },
+            {
+                "url": "assets/copper_plate.png",
+                "type": "image",
+                "key": "copper_plate"
+            },
+            {
+                "url": "assets/crafter.png",
+                "type": "image",
+                "key": "crafter"
+            },
+            {
+                "url": "assets/iron_ingot.png",
+                "type": "image",
+                "key": "iron_ingot"
+            },
+            {
+                "url": "assets/iron_ore.png",
+                "type": "image",
+                "key": "iron_ore"
+            },
+            {
+                "url": "assets/iron_ore_block.png",
+                "type": "image",
+                "key": "iron_ore_block"
+            },
+            {
+                "url": "assets/iron_plate.png",
+                "type": "image",
+                "key": "iron_plate"
+            },
+            {
+                "url": "assets/iron_rod.png",
+                "type": "image",
+                "key": "iron_rod"
+            },
+            {
+                "url": [
+                    "assets/mine_sound.mp3"
+                ],
+                "type": "audio",
+                "key": "mine_sound"
+            },
+            {
+                "url": "assets/miner.png",
+                "type": "image",
+                "key": "miner"
+            },
+            {
+                "url": "assets/miner1.png",
+                "type": "image",
+                "key": "miner1"
+            },
+            {
+                "url": "assets/miner2.png",
+                "type": "image",
+                "key": "miner2"
+            },
+            {
+                "url": "assets/particle.png",
+                "type": "image",
+                "key": "particle"
+            },
+            {
+                "url": "assets/rock.png",
+                "type": "image",
+                "key": "rock"
+            },
+            {
+                "url": "assets/rock_block.png",
+                "type": "image",
+                "key": "rock_block"
+            },
+            {
+                "url": "assets/screws.png",
+                "type": "image",
+                "key": "screws"
+            },
+            {
+                "url": "assets/smelter.png",
+                "type": "image",
+                "key": "smelter"
+            },
+            {
+                "url": "assets/wire.png",
+                "type": "image",
+                "key": "wire"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}
