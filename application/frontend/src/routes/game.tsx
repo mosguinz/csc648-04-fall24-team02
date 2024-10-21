@@ -1,20 +1,19 @@
-import { Container, Text, Heading, Divider } from "@chakra-ui/react"
+import { Container, Divider, Heading, Text } from "@chakra-ui/react"
 import { createFileRoute } from "@tanstack/react-router"
-import { IRefPhaserGame, PhaserGame } from '../game/PhaserGame'
-import { useRef } from 'react';
+import { useRef } from "react"
+import { type IRefPhaserGame, PhaserGame } from "../game/PhaserGame"
 
 export const Route = createFileRoute("/game")({
-    component: GamePage
+  component: GamePage,
 })
 
 function GamePage() {
-    const phaserRef = useRef<IRefPhaserGame | null>(null);
-    return (
-        <>
-            <div id="app">
-                <PhaserGame ref={phaserRef} />
-            </div>
-        </>
-    );
-
+  const phaserRef = useRef<IRefPhaserGame | null>(null)
+  return (
+    <>
+      <div id="app">
+        <PhaserGame ref={phaserRef} />
+      </div>
+    </>
+  )
 }
