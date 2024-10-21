@@ -1,4 +1,3 @@
-import { Container, Divider, Heading, Text } from "@chakra-ui/react"
 import { createFileRoute } from "@tanstack/react-router"
 import { useRef } from "react"
 import { type IRefPhaserGame, PhaserGame } from "../game/PhaserGame"
