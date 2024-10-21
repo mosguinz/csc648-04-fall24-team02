@@ -2,7 +2,7 @@ from sqlmodel import Session, create_engine, select
 
 from app import crud
 from app.core.config import settings
-from app.models import User, UserCreate, ResourceType
+from app.models import ResourceType, User, UserCreate
 
 engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 
@@ -10,7 +10,6 @@ engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 # make sure all SQLModel models are imported (app.models) before initializing DB
 # otherwise, SQLModel might fail to initialize relationships properly
 # for more details: https://github.com/fastapi/full-stack-fastapi-template/issues/28
-
 
 
 def init_user(session: Session) -> None:
@@ -52,7 +51,6 @@ def init_resource_types(session: Session) -> None:
                 name=resource,
             )
             crud.create_resource_type(session=session, resource_type=res_in)
-
 
 
 def init_db(session: Session) -> None:

@@ -2,7 +2,6 @@ import uuid
 
 from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
-from typing import Optional, List
 
 
 # Shared properties
@@ -46,8 +45,13 @@ class User(UserBase, table=True):
     hashed_password: str
     items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
 
-    resources: list["UserResource"] = Relationship(back_populates="user", cascade_delete=True)
-    facilities: list["UserFacility"] = Relationship(back_populates="user", cascade_delete=True)
+    resources: list["UserResource"] = Relationship(
+        back_populates="user", cascade_delete=True
+    )
+    facilities: list["UserFacility"] = Relationship(
+        back_populates="user", cascade_delete=True
+    )
+
 
 # Properties to return via API, id is always required
 class UserPublic(UserBase):
@@ -118,19 +122,25 @@ class NewPassword(SQLModel):
 
 
 class ResourceType(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True, unique=True)
-    description: Optional[str] = None
-    icon_image_url: Optional[str] = None
+    description: str | None = None
+    icon_image_url: str | None = None
 
     # Relationships
-    user_resources: list["UserResource"] = Relationship(back_populates="resource_type", cascade_delete=True)
-    recipe_inputs: list["RecipeInput"] = Relationship(back_populates="resource_type", cascade_delete=True)
-    recipe_outputs: list["RecipeOutput"] = Relationship(back_populates="resource_type", cascade_delete=True)
+    user_resources: list["UserResource"] = Relationship(
+        back_populates="resource_type", cascade_delete=True
+    )
+    recipe_inputs: list["RecipeInput"] = Relationship(
+        back_populates="resource_type", cascade_delete=True
+    )
+    recipe_outputs: list["RecipeOutput"] = Relationship(
+        back_populates="resource_type", cascade_delete=True
+    )
 
 
 class UserResource(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     resource_type_id: int = Field(foreign_key="resourcetype.id", ondelete="CASCADE")
     quantity: int = Field(default=0)
@@ -139,22 +149,27 @@ class UserResource(SQLModel, table=True):
     user: "User" = Relationship(back_populates="resources")
     resource_type: "ResourceType" = Relationship(back_populates="user_resources")
 
+
 # object for input on updating resources
 class ResourceBase(SQLModel):
     resource_type_id: int
     quantity: int
 
+
 class FacilityType(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True, unique=True)
-    description: Optional[str] = None
-    icon_image_url: Optional[str] = None
+    description: str | None = None
+    icon_image_url: str | None = None
 
     # Relationships
-    user_facilities: "UserFacility" = Relationship(back_populates="facility_type", cascade_delete=True)
+    user_facilities: "UserFacility" = Relationship(
+        back_populates="facility_type", cascade_delete=True
+    )
+
 
 class UserFacility(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     item_type_id: int = Field(foreign_key="facilitytype.id", ondelete="CASCADE")
     quantity: int = Field(default=0)
@@ -165,16 +180,20 @@ class UserFacility(SQLModel, table=True):
 
 
 class Recipe(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True, unique=True)
     time_to_complete: int = Field(default=0)  # Time in seconds
 
-    inputs: List["RecipeInput"] = Relationship(back_populates="recipe", cascade_delete=True)
-    outputs: List["RecipeOutput"] = Relationship(back_populates="recipe", cascade_delete=True)
+    inputs: list["RecipeInput"] = Relationship(
+        back_populates="recipe", cascade_delete=True
+    )
+    outputs: list["RecipeOutput"] = Relationship(
+        back_populates="recipe", cascade_delete=True
+    )
 
 
 class RecipeInput(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     recipe_id: int = Field(foreign_key="recipe.id", ondelete="CASCADE")
     resource_type_id: int = Field(foreign_key="resourcetype.id", ondelete="CASCADE")
     quantity: int = Field(default=0)
@@ -185,7 +204,7 @@ class RecipeInput(SQLModel, table=True):
 
 
 class RecipeOutput(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     recipe_id: int = Field(foreign_key="recipe.id", ondelete="CASCADE")
     resource_type_id: int = Field(foreign_key="resourcetype.id", ondelete="CASCADE")
     quantity: int = Field(default=0)
@@ -193,5 +212,3 @@ class RecipeOutput(SQLModel, table=True):
     # Relationships
     recipe: "Recipe" = Relationship(back_populates="outputs")
     resource_type: "ResourceType" = Relationship(back_populates="recipe_outputs")
-
-
