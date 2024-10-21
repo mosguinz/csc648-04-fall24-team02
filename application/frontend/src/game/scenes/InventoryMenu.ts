@@ -41,7 +41,26 @@ export default class InventoryMenu extends Phaser.Scene {
 
     constructor() {
         super({ key: "InventoryMenu" })
-        this.inventory.iron_ore.count = 10;
+        // TODO: Properly add syncing with the backend
+        const resourceMap = ["iron_ore",
+            "copper_ore",
+            "rock",
+            "iron_ingot",
+            "copper_ingot",
+            "concrete",
+            "iron_plate",
+            "copper_plate",
+            "iron_rod",
+            "screws",
+            "wire",
+            "cable",]
+
+        ResourcesService.readResources().then((response) => {
+            for (const resource of response) {
+                const key = resourceMap[resource.resource_type_id - 1];
+                this.inventory[key].count = resource.quantity;
+            }
+        });
     }
 
     create() {
@@ -130,7 +149,6 @@ export default class InventoryMenu extends Phaser.Scene {
                 this.inventory[key].count = resource.quantity;
             }
         });
-
     }
 
     // Helper function to add a resource (image, name, and count text)
