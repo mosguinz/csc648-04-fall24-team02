@@ -8,10 +8,12 @@ on:
 jobs:
   deploy:
     # Do not deploy in the main repository, only in user projects
-    if: github.repository_owner != 'fastapi'
     runs-on:
       - self-hosted
       - staging
+    environment:
+      name: Staging
+      url: ${{ secrets.DOMAIN_STAGING }}
     defaults:
       run:
         working-directory: ./application
