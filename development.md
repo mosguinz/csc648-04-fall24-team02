@@ -9,6 +9,8 @@ First, install the required tools. Follow the installation guides for your platf
 * [uv](https://docs.astral.sh/uv/) for backend package management and [pre-commit hooks](#set-up-pre-commit-hooks)
 * [fnm](https://github.com/Schniz/fnm) for frontend Node version management
 
+Then, proceed with the setup instructions in the frontend and backend folders for each stack.
+
 ### Set up pre-commit hooks
 
 We are using a tool called [pre-commit](https://pre-commit.com/) for code linting and formatting. When you install it, it runs right before making a commit in Git. This way it ensures that the code is consistent and formatted even before it is committed.
@@ -17,7 +19,10 @@ You can find a file `.pre-commit-config.yaml` with configurations at the root of
 
 #### Install pre-commit to run automatically
 
-pre-commit is already part of the dependencies of the project. Using `uv`, you can simply install the pre-commit hook with:
+> [!IMPORTANT]
+> This step requires the dependencies for the backend to be installed, using `uv sync`.
+
+pre-commit is already part of the dependencies of the project. From the `backend/` folder, you can simply install the pre-commit hook with:
 
 ```bash
 uv run pre-commit install
