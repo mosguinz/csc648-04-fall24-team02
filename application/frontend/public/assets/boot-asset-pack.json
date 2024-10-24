@@ -102,6 +102,11 @@
         "key": "particle"
       },
       {
+        "url": "assests/PinkSpace.jpg",
+        "type": "image",
+        "key": "background_2"
+      },
+      {
         "url": "assets/rock.png",
         "type": "image",
         "key": "rock"
