@@ -1,4 +1,4 @@
-# FastAPI Project - Frontend
+# Frontend Development
 
 > [!IMPORTANT]
 > Before you start, make sure that you are inside of this directory, `./application/frontend/`.

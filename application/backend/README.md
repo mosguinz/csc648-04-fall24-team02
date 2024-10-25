@@ -1,4 +1,4 @@
-# FastAPI Project - Backend
+# Backend Development
 
 > [!IMPORTANT]
 > Before you start, make sure that you are inside of this directory, `./application/backend/`.
