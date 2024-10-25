@@ -1,5 +1,8 @@
 # FastAPI Project - Backend
 
+> [!IMPORTANT]
+> Before you start, make sure that you are inside of this directory, `./application/backend/`.
+
 ## Setting up
 
 With [Docker](https://www.docker.com/) and [uv](https://docs.astral.sh/uv/) installed, install all the dependencies using:
@@ -13,9 +16,6 @@ Then, activate the virtual environment with:
 ```shell
 source .venv/bin/activate
 ```
-
-> [!IMPORTANT]
-> Make sure your editor is using the correct Python virtual environment, with the interpreter at `backend/.venv/bin/python`.
 
 ### VS Code
 
@@ -40,6 +40,10 @@ Then, activate the virtual environment with:
 ```shell
 source .venv/bin/activate
 ```
+
+> [!IMPORTANT]
+> Make sure your editor is using the correct Python virtual environment, with the interpreter at `backend/.venv/bin/python`.
+
 
 In the backend, you'd typically work with:
 
