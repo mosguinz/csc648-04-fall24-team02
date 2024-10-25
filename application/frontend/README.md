@@ -52,7 +52,7 @@ Check the file `package.json` to see other available options.
 
 ### Automatically
 
-> ![TIP]
+> [!TIP]
 > The frontend client will be generated automatically whenever you open a pull request or sync the branch on GitHub. Unless you need the client straight away, there is no need to generate it locally!
 
 * Activate the backend virtual environment.
