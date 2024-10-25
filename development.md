@@ -9,7 +9,7 @@ First, install the required tools. Follow the installation guides for your platf
 * [uv](https://docs.astral.sh/uv/) for backend package management and [pre-commit hooks](#set-up-pre-commit-hooks)
 * [fnm](https://github.com/Schniz/fnm) for frontend Node version management
 
-Then, proceed with the setup instructions in the frontend and backend folders for each stack.
+Then, proceed with the setup instructions in the [frontend](./application/frontend/README.md) and [backend](./application/backend/README.md) folders for each stack.
 
 ### Set up pre-commit hooks
 
