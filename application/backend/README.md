@@ -1,39 +1,52 @@
 # FastAPI Project - Backend
 
-## Requirements
+## Setting up
 
-* [Docker](https://www.docker.com/).
-* [uv](https://docs.astral.sh/uv/) for Python package and environment management.
+With [Docker](https://www.docker.com/) and [uv](https://docs.astral.sh/uv/) installed, install all the dependencies using:
 
-## Docker Compose
-
-Start the local development environment with Docker Compose following the guide in [../development.md](../development.md).
-
-## General Workflow
-
-By default, the dependencies are managed with [uv](https://docs.astral.sh/uv/), go there and install it.
-
-From `./backend/` you can install all the dependencies with:
-
-```console
-$ uv sync
+```shell
+uv sync
 ```
 
-Then you can activate the virtual environment with:
+Then, activate the virtual environment with:
 
-```console
-$ source .venv/bin/activate
+```shell
+source .venv/bin/activate
 ```
 
-Make sure your editor is using the correct Python virtual environment, with the interpreter at `backend/.venv/bin/python`.
+> [!IMPORTANT]
+> Make sure your editor is using the correct Python virtual environment, with the interpreter at `backend/.venv/bin/python`.
 
-Modify or add SQLModel models for data and SQL tables in `./backend/app/models.py`, API endpoints in `./backend/app/api/`, CRUD (Create, Read, Update, Delete) utils in `./backend/app/crud.py`.
-
-## VS Code
+### VS Code
 
 There are already configurations in place to run the backend through the VS Code debugger, so that you can use breakpoints, pause and explore variables, etc.
 
 The setup is also already configured so you can run the tests through the VS Code Python tests tab.
+
+## Docker Compose
+
+Start the local development environment with Docker Compose following the guide in [../development.md](../../development.md).
+
+## General Workflow
+
+Make sure that all the dependencies are up-to-date by running:
+
+```shell
+uv sync
+```
+
+Then, activate the virtual environment with:
+
+```shell
+source .venv/bin/activate
+```
+
+In the backend, you'd typically work with:
+
+* SQLModel models for data and SQL tables in `./backend/app/models.py`.
+* API endpoints in `./backend/app/api/`.
+* CRUD (Create, Read, Update, Delete) utils in `./backend/app/crud.py`.
+
 
 ## Docker Compose Override
 
