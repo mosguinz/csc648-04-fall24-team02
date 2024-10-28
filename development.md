@@ -20,7 +20,7 @@ You can find a file `.pre-commit-config.yaml` with configurations at the root of
 #### Install pre-commit to run automatically
 
 > [!IMPORTANT]
-> This step requires the dependencies for the backend to be installed, using `uv sync`.
+> This step requires the dependencies for the backend to be installed. You need to be in the `backend/` folder to continue this setup.
 
 pre-commit is already part of the dependencies of the project. From the `backend/` folder, you can simply install the pre-commit hook with:
 
