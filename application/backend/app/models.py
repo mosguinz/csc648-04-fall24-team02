@@ -1,3 +1,4 @@
+from typing import Optional
 import uuid
 
 from pydantic import EmailStr
@@ -49,6 +50,15 @@ class User(UserBase, table=True):
         back_populates="user", cascade_delete=True
     )
     facilities: list["UserFacility"] = Relationship(
+        back_populates="user", cascade_delete=True
+    )
+    assemblers: list["UserAssembler"] = Relationship(
+        back_populates="user", cascade_delete=True
+    )
+    miners: list["UserMiner"] = Relationship(
+        back_populates="user", cascade_delete=True
+    )
+    constructors: list["UserConstructor"] = Relationship(
         back_populates="user", cascade_delete=True
     )
 
@@ -191,7 +201,6 @@ class Recipe(SQLModel, table=True):
         back_populates="recipe", cascade_delete=True
     )
 
-
 class RecipeInput(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     recipe_id: int = Field(foreign_key="recipe.id", ondelete="CASCADE")
@@ -212,3 +221,27 @@ class RecipeOutput(SQLModel, table=True):
     # Relationships
     recipe: "Recipe" = Relationship(back_populates="outputs")
     resource_type: "ResourceType" = Relationship(back_populates="recipe_outputs")
+
+class UserAssembler(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
+    user: "User" = Relationship(back_populates="assemblers")
+    recipe_id: Optional[int] = Field(foreign_key="recipe.id")
+    recipe: Optional[Recipe] = Relationship(back_populates="assemblers")
+    status: str = Field(default="idle")
+
+class UserMiner(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
+    user: "User" = Relationship(back_populates="miners")
+    recipe_id: Optional[int] = Field(foreign_key="recipe.id")
+    recipe: Optional[Recipe] = Relationship(back_populates="miners")
+    status: str = Field(default="idle")
+
+class UserConstructor(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
+    user: "User" = Relationship(back_populates="constructors")
+    recipe_id: Optional[int] = Field(foreign_key="recipe.id")
+    recipe: Optional[Recipe] = Relationship(back_populates="constructors")
+    status: str = Field(default="idle")
