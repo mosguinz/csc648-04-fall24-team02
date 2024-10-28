@@ -6,7 +6,7 @@
 
 First, install the required tools. Follow the installation guides for your platform.
 * [Docker](https://www.docker.com/)
-* [uv](https://docs.astral.sh/uv/) for backend package management and [pre-commit hooks](#set-up-pre-commit-hooks)
+* [uv](https://docs.astral.sh/uv/) for backend package management and pre-commit hooks
 * [fnm](https://github.com/Schniz/fnm) for frontend Node version management
 
 Then, proceed with the setup instructions in the [frontend](./application/frontend/README.md) and [backend](./application/backend/README.md) folders for each stack.
