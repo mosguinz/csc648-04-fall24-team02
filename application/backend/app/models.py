@@ -227,7 +227,7 @@ class UserAssembler(SQLModel, table=True):
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     user: "User" = Relationship(back_populates="assemblers")
     recipe_id: Optional[int] = Field(foreign_key="recipe.id")
-    recipe: Optional[Recipe] = Relationship(back_populates="assemblers")
+    recipe: Optional[Recipe] = Relationship()
     status: str = Field(default="idle")
 
 class UserMiner(SQLModel, table=True):
@@ -235,7 +235,7 @@ class UserMiner(SQLModel, table=True):
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     user: "User" = Relationship(back_populates="miners")
     recipe_id: Optional[int] = Field(foreign_key="recipe.id")
-    recipe: Optional[Recipe] = Relationship(back_populates="miners")
+    recipe: Optional[Recipe] = Relationship()
     status: str = Field(default="idle")
 
 class UserConstructor(SQLModel, table=True):
@@ -243,5 +243,5 @@ class UserConstructor(SQLModel, table=True):
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     user: "User" = Relationship(back_populates="constructors")
     recipe_id: Optional[int] = Field(foreign_key="recipe.id")
-    recipe: Optional[Recipe] = Relationship(back_populates="constructors")
+    recipe: Optional[Recipe] = Relationship()
     status: str = Field(default="idle")
