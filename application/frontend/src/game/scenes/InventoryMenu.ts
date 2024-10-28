@@ -2,6 +2,25 @@ import Phaser from "phaser"
 import { ResourcesService, ResourceBase, TDataSetResources } from "../../client";
 
 export default class InventoryMenu extends Phaser.Scene {
+
+    // TODO add in an API to grab id to resource_name
+    public resourceMap: {
+        [key: integer] : string
+    }= {
+        1: "iron_ore",
+        2: "copper_ore",
+        3: "rock",
+        4: "iron_ingot",
+        5: "copper_ingot",
+        6: "concrete",
+        7: "iron_plate",
+        8: "copper_plate",
+        9: "iron_rod",
+        10: "screws",
+        11: "wire",
+        12: "cable"
+    }
+
     public inventory: {
         [key: string]: { count: number; textObject: Phaser.GameObjects.Text | null }
     } = {
@@ -41,23 +60,11 @@ export default class InventoryMenu extends Phaser.Scene {
 
     constructor() {
         super({ key: "InventoryMenu" })
-        // TODO: Properly add syncing with the backend
-        const resourceMap = ["iron_ore",
-            "copper_ore",
-            "rock",
-            "iron_ingot",
-            "copper_ingot",
-            "concrete",
-            "iron_plate",
-            "copper_plate",
-            "iron_rod",
-            "screws",
-            "wire",
-            "cable",]
 
+        // TODO: Properly add syncing with the backend
         ResourcesService.readResources().then((response) => {
             for (const resource of response) {
-                const key = resourceMap[resource.resource_type_id - 1];
+                const key = this.resourceMap[resource.resource_type_id];
                 this.inventory[key].count = resource.quantity;
             }
         });
@@ -118,34 +125,9 @@ export default class InventoryMenu extends Phaser.Scene {
         // Cable
         this.addResource("cable", "Cable:", 25, 519, 51, 501, 51, 521)
 
-        // console.log("Pre-requesting resources");
-        // const token =  localStorage.getItem("access_token");
-
-        // fetch(`/api/v1/resources`, {
-        //     method: 'GET',
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`, // JWT auth example
-        //     }
-        // }).then(response => { 
-        //     console.log(JSON.stringify(response));
-        //     console.log("Post-requesting resources");
-        //  });
-        const resourceMap = ["iron_ore",
-            "copper_ore",
-            "rock",
-            "iron_ingot",
-            "copper_ingot",
-            "concrete",
-            "iron_plate",
-            "copper_plate",
-            "iron_rod",
-            "screws",
-            "wire",
-            "cable",]
-
         ResourcesService.readResources().then((response) => {
             for (const resource of response) {
-                const key = resourceMap[resource.resource_type_id - 1];
+                const key = this.resourceMap[resource.resource_type_id];
                 this.inventory[key].count = resource.quantity;
             }
         });
@@ -236,20 +218,14 @@ export default class InventoryMenu extends Phaser.Scene {
             // Show floating text at the cursor
             this.displayFloatingTextAtCursor(resource, amount)
         }
-        const resourceMap = ["iron_ore",
-            "copper_ore",
-            "rock",
-            "iron_ingot",
-            "copper_ingot",
-            "concrete",
-            "iron_plate",
-            "copper_plate",
-            "iron_rod",
-            "screws",
-            "wire",
-            "cable",]
 
-        const id = resourceMap.indexOf(resource) + 1;
+        let id = -1;
+        for (const key in this.resourceMap) {
+            if (resource == this.resourceMap[key]) {
+                id = parseInt(key)
+            }
+        }
+
         const res = {
             resource_type_id: id,
             quantity: this.inventory[resource].count,
@@ -258,21 +234,8 @@ export default class InventoryMenu extends Phaser.Scene {
         data.push(res)
         let body = {
             requestBody: data
-
         } as TDataSetResources;
-
         ResourcesService.setResources(body);
-        // const token =  localStorage.getItem("access_token");
-        // fetch(`/api/v1/resources`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`, // JWT auth example
-        //     },
-        //     body: JSON.stringify(data)
-        // }).then(response => { 
-        //     console.log(JSON.stringify(response));
-        //     console.log("Post-requesting resources");
-        //  });
     }
 
     // Method to deduct resources
@@ -282,20 +245,13 @@ export default class InventoryMenu extends Phaser.Scene {
             this.inventory[resource].textObject!.setText(
                 `${this.inventory[resource].count}`,
             )
-            const resourceMap = ["iron_ore",
-                "copper_ore",
-                "rock",
-                "iron_ingot",
-                "copper_ingot",
-                "concrete",
-                "iron_plate",
-                "copper_plate",
-                "iron_rod",
-                "screws",
-                "wire",
-                "cable",]
-    
-            const id = resourceMap.indexOf(resource) + 1;
+
+            let id = -1;
+            for (const key in this.resourceMap) {
+                if (resource == this.resourceMap[key]) {
+                    id = parseInt(key)
+                }
+            }
             const res = {
                 resource_type_id: id,
                 quantity: this.inventory[resource].count,
@@ -304,9 +260,9 @@ export default class InventoryMenu extends Phaser.Scene {
             data.push(res)
             let body = {
                 requestBody: data
-    
+
             } as TDataSetResources;
-    
+
             ResourcesService.setResources(body);
             // Show floating text at the cursor
             this.displayFloatingTextAtCursor(resource, -amount)
