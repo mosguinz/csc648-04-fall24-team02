@@ -30,24 +30,22 @@ export default class CraftingMenu extends Phaser.Scene {
       .setInteractive()
     this.rightArrow.on("pointerdown", () => this.switchPage(1))
 
-    this.updateArrowVisibility()
 
-    // Display the first page of crafting items
-    this.displayCraftingItems()
+    this.updateDisplay()
   }
 
   // Switch between pages (-1 for left, 1 for right)
   switchPage(direction: number) {
     this.currentPage += direction
 
-    const maxPage = Math.floor(
+    const maxPage = Math.ceil(
       this.totalCraftingItems / this.craftingItemsPerPage,
     )
     if (this.currentPage < 0) this.currentPage = 0
     if (this.currentPage > maxPage) this.currentPage = maxPage
 
-    this.displayCraftingItems()
-    this.updateArrowVisibility()
+
+    this.updateDisplay()
   }
 
   // Function to display the crafting items on the current page
@@ -122,8 +120,8 @@ export default class CraftingMenu extends Phaser.Scene {
   }
 
   updateArrowVisibility() {
-    const maxPage = Math.floor(
-      (this.totalCraftingItems - 1) / this.craftingItemsPerPage,
+    const maxPage = Math.ceil(
+      (this.totalCraftingItems) / this.craftingItemsPerPage,
     )
 
     // Hide the left arrow if on the first page
@@ -139,6 +137,14 @@ export default class CraftingMenu extends Phaser.Scene {
     } else {
       this.rightArrow.setVisible(true)
     }
+  }
+
+  /*
+   * Update the display of the crafting menu
+   */
+  updateDisplay() {
+    this.updateArrowVisibility()
+    this.displayCraftingItems()
   }
 
   // Craft the selected item
