@@ -189,7 +189,7 @@ export default class MainMenu extends Phaser.Scene {
         })
 
         // Get the display name for the resource
-        const displayName = inventoryScene.itemNames[resource]
+        const displayName = inventoryScene.inventory[resource].name
         const amount = 1
         const textContent = `${amount > 0 ? "+" : ""}${amount} ${displayName}`
 

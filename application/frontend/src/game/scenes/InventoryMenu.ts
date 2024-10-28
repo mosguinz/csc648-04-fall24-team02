@@ -22,38 +22,25 @@ export default class InventoryMenu extends Phaser.Scene {
     }
 
     public inventory: {
-        [key: string]: { count: number; textObject: Phaser.GameObjects.Text | null }
-    } = {
-            iron_ore: { count: 0, textObject: null },
-            copper_ore: { count: 0, textObject: null },
-            rock: { count: 0, textObject: null },
-            iron_ingot: { count: 0, textObject: null },
-            copper_ingot: { count: 0, textObject: null },
-            concrete: { count: 0, textObject: null },
-            iron_plate: { count: 0, textObject: null },
-            copper_plate: { count: 0, textObject: null },
-            iron_rod: { count: 0, textObject: null },
-            screws: { count: 0, textObject: null },
-            wire: { count: 0, textObject: null },
-            cable: { count: 0, textObject: null },
+        [key: string]: {
+            count: number,
+            textObject: Phaser.GameObjects.Text | null,
+            name: string
         }
-
-
-    public itemNames: { [key: string]: string } = {
-        iron_ore: "Iron Ore",
-        copper_ore: "Copper Ore",
-        rock: "Rock",
-        iron_ingot: "Iron Ingot",
-        copper_ingot: "Copper Ingot",
-        concrete: "Concrete",
-        iron_plate: "Iron Plate",
-        copper_plate: "Copper Plate",
-        iron_rod: "Iron Rod",
-        screws: "Screws",
-        wire: "Wire",
-        cable: "Cable",
-        reinforced_iron_plate: "Reinforced Iron Plate",
-    }
+    } = {
+            iron_ore: { count: 0, textObject: null, name:"Iron Ore"},
+            copper_ore: { count: 0, textObject: null, name:"Copper Ore" },
+            rock: { count: 0, textObject: null, name:"Rock" },
+            iron_ingot: { count: 0, textObject: null, name:"Iron Ingot" },
+            copper_ingot: { count: 0, textObject: null, name:"Copper Ingot" },
+            concrete: { count: 0, textObject: null, name:"Concrete" },
+            iron_plate: { count: 0, textObject: null, name:"Iron Plate" },
+            copper_plate: { count: 0, textObject: null, name:"Copper Plate" },
+            iron_rod: { count: 0, textObject: null, name:"Iron Rod" },
+            screws: { count: 0, textObject: null, name:"Screws" },
+            wire: { count: 0, textObject: null, name:"Wire" },
+            cable: { count: 0, textObject: null, name:"Cable" },
+        }
 
     private floatingTextOffsetY = 20 // Y offset for overlapping texts
     private activeFloatingTexts: Phaser.GameObjects.Text[] = [] // Store active floating texts to manage overlaps
@@ -119,7 +106,7 @@ export default class InventoryMenu extends Phaser.Scene {
         const nameY = yCord - 18
         const countX = xCord + 26
         const countY = yCord + 2
-        const text = this.itemNames[key] + ":"
+        const text = this.inventory[key].name + ":"
         this.add.image(imgX, imgY, key).setScale(2)
         this.add.text(nameX, nameY, text, { fontSize: "16px" })
         this.inventory[key].textObject = this.add.text(
@@ -186,7 +173,8 @@ export default class InventoryMenu extends Phaser.Scene {
             )
 
             // Show floating text at the cursor
-            this.displayFloatingTextAtCursor("+" + amount + " " + this.itemNames[resource])
+            const res_name = this.inventory[resource].name
+            this.displayFloatingTextAtCursor("+" + amount + " " + res_name)
         }
 
         let id = -1;
@@ -236,7 +224,8 @@ export default class InventoryMenu extends Phaser.Scene {
             ResourcesService.setResources(body);
 
             // Show floating text at the cursor
-            this.displayFloatingTextAtCursor("-" + amount + " " + this.itemNames[resource])
+            const res_name = this.inventory[resource].name
+            this.displayFloatingTextAtCursor("-" + amount + " " + res_name)
 
             return true
         }
