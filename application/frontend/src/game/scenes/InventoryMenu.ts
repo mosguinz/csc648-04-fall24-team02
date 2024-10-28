@@ -141,23 +141,17 @@ export default class InventoryMenu extends Phaser.Scene {
         }
     }
 
-    displayFloatingTextAtCursor(resource: string, amount: number) {
+    displayFloatingTextAtCursor(text: string) {
         const pointer = this.input.activePointer // Get the current pointer (cursor) position
 
         // Calculate the Y position offset to prevent overlap
         const yOffset = this.activeFloatingTexts.length * this.floatingTextOffsetY
 
-        // Get the display name from the mapping
-        const displayName = this.itemNames[resource] || resource
-
-        // Create the text content (e.g., "+1 Iron Ore")
-        const textContent = `${amount > 0 ? "+" : ""}${amount} ${displayName}`
-
         // Create the floating text near the cursor
         const floatingText = this.add.text(
             pointer.worldX,
             pointer.worldY - yOffset,
-            textContent,
+            text,
             {
                 fontSize: "16px",
                 color: "#ffffff",
@@ -192,7 +186,7 @@ export default class InventoryMenu extends Phaser.Scene {
             )
 
             // Show floating text at the cursor
-            this.displayFloatingTextAtCursor(resource, amount)
+            this.displayFloatingTextAtCursor("+" + amount + " " + this.itemNames[resource])
         }
 
         let id = -1;
@@ -240,8 +234,9 @@ export default class InventoryMenu extends Phaser.Scene {
             } as TDataSetResources;
 
             ResourcesService.setResources(body);
+
             // Show floating text at the cursor
-            this.displayFloatingTextAtCursor(resource, -amount)
+            this.displayFloatingTextAtCursor("-" + amount + " " + this.itemNames[resource])
 
             return true
         }
