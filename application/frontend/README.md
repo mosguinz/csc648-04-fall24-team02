@@ -7,7 +7,7 @@
 
 The frontend is built with [Vite](https://vitejs.dev/), [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), [TanStack Query](https://tanstack.com/query), [TanStack Router](https://tanstack.com/router) and [Chakra UI](https://chakra-ui.com/).
 
-With [fnm]() installed, install the appropriate Node.js version by using:
+With [fnm](https://github.com/Schniz/fnm) installed, install the appropriate Node.js version by using:
 
 ```bash
 fnm install
