@@ -87,65 +87,41 @@ export default class InventoryMenu extends Phaser.Scene {
         inventoryTitle.scaleX = 1
         inventoryTitle.scaleY = 1
 
-        // Add all resources with images, names, and counters
-
-        // Iron Ore
-        this.addResource("iron_ore", "Iron Ore:", 25, 79, 51, 62, 51, 82)
-
-        // Copper Ore
-        this.addResource("copper_ore", "Copper Ore:", 25, 119, 51, 102, 51, 122)
-
-        // Rock
-        this.addResource("rock", "Rock:", 25, 159, 51, 142, 51, 162)
-
-        // Iron Ingot
-        this.addResource("iron_ingot", "Iron Ingot:", 25, 199, 51, 182, 51, 202)
-
-        // Copper Ingot
-        this.addResource("copper_ingot", "Copper Ingot:", 25, 239, 51, 221, 51, 241)
-
-        // Concrete
-        this.addResource("concrete", "Concrete:", 25, 279, 51, 261, 51, 281)
-
-        // Iron Plate
-        this.addResource("iron_plate", "Iron Plate:", 25, 319, 51, 301, 51, 321)
-
-        // Copper Plate
-        this.addResource("copper_plate", "Copper Plate:", 25, 359, 51, 341, 51, 361)
-
-        // Iron Rod
-        this.addResource("iron_rod", "Iron Rod:", 25, 399, 51, 381, 51, 401)
-
-        // Screws
-        this.addResource("screws", "Screws:", 25, 439, 51, 421, 51, 441)
-
-        // Wire
-        this.addResource("wire", "Wire:", 25, 479, 51, 461, 51, 481)
-
-        // Cable
-        this.addResource("cable", "Cable:", 25, 519, 51, 501, 51, 521)
+        // resource objects
+        let offset = 0
+        for (const key in this.resourceMap) {
+            const res = {
+                resource_type_id: parseInt(key),
+                quantity: 0
+            } as ResourceBase
+            this.addResource(res, 25, 79 + 40*offset)
+            offset++
+        }
 
         ResourcesService.readResources().then((response) => {
             for (const resource of response) {
-                const key = this.resourceMap[resource.resource_type_id];
-                this.inventory[key].count = resource.quantity;
+                const res_name = this.resourceMap[resource.resource_type_id];
+                this.inventory[res_name].count = resource.quantity;
             }
         });
     }
 
     // Helper function to add a resource (image, name, and count text)
     private addResource(
-        key: string,
-        name: string,
-        imgX: number,
-        imgY: number,
-        nameX: number,
-        nameY: number,
-        countX: number,
-        countY: number,
+        resource: ResourceBase,
+        xCord: number,
+        yCord: number,
     ) {
+        const key = this.resourceMap[resource.resource_type_id]
+        const imgX = xCord
+        const imgY = yCord
+        const nameX = xCord + 26
+        const nameY = yCord - 18
+        const countX = xCord + 26
+        const countY = yCord + 2
+        const text = this.itemNames[key] + ":"
         this.add.image(imgX, imgY, key).setScale(2)
-        this.add.text(nameX, nameY, name, { fontSize: "16px" })
+        this.add.text(nameX, nameY, text, { fontSize: "16px" })
         this.inventory[key].textObject = this.add.text(
             countX,
             countY,
