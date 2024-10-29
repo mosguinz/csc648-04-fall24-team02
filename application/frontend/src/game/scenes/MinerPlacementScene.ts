@@ -1,5 +1,5 @@
 import type InventoryMenu from "./InventoryMenu"
-import type MainMenu from "./MainMenu" // Make sure to import MainMenu
+import BaseScene from "./Base"
 
 export default class MinerPlacementScene extends Phaser.Scene {
   private selectedNode: string | null = null // Track which node is selected for miner placement
@@ -100,14 +100,14 @@ export default class MinerPlacementScene extends Phaser.Scene {
 
   placeMiner(node: string) {
     const inventoryScene = this.scene.get("InventoryMenu") as InventoryMenu
-    const menuScene = this.scene.get("Game") as MainMenu
+    const BaseScene = this.scene.get("BaseScene") as BaseScene
 
     // Check if a miner exists on this node
     if (this.selectedNode === node) {
       // Option to upgrade the miner
       console.log("Upgrading miner on node:", node)
       if (inventoryScene.deductFromInventory("iron_ore", 1)) {
-        const minerTimer = menuScene.minerTimers[node]
+        const minerTimer = BaseScene.minerTimers[node]
 
         // TODO: Fix delay or increment resource count.
         // minerTimer.delay *= 0.5; // Halve the mining delay on upgrade
@@ -135,7 +135,7 @@ export default class MinerPlacementScene extends Phaser.Scene {
         this.selectedNode = node
 
         // Emit event to place the miner in MainMenu scene
-        this.scene.get("Game").events.emit("placeMiner", node)
+        this.scene.get("BaseScene").events.emit("placeMiner", node)
 
         // Set initial level and mining time
         this.minerLevels[node] = 1
