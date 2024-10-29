@@ -1,7 +1,7 @@
 
 import Phaser from "phaser"
 
-export default class BaseScene extends Phaser.Scene {
+export default class BuildMenu extends Phaser.Scene {
 
   constructor() {
     super("BuildMenu")
