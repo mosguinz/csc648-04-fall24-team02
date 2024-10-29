@@ -1,9 +1,7 @@
 import Phaser from "phaser"
-import type InventoryMenu from "./InventoryMenu"
 
 export default class MainMenu extends Phaser.Scene {
-  public minerTimers: { [key: string]: Phaser.Time.TimerEvent } = {}
-  private smelterTimers: { [key: string]: Phaser.Time.TimerEvent } = {} // Track smelter timers
+  // private smelterTimers: { [key: string]: Phaser.Time.TimerEvent } = {} // Track smelter timers
 
   constructor() {
     super("Game")
@@ -23,209 +21,95 @@ export default class MainMenu extends Phaser.Scene {
     this.scene.launch("InventoryMenu")
     this.scene.launch("BuildMenu")
     // this.scene.launch('RunningSmeltersScene');
-
-    // Listen for miner placement events from MinerPlacementScene
-    this.events.on("placeMiner", (node: string) => {
-      this.placeMinerOnNode(node)
-    })
-
-    this.anims.create({
-      key: "miner_working", // Key to refer to the animation
-      frames: [{ key: "miner1" }, { key: "miner2" }],
-      frameRate: 7, // Adjust frame rate for the speed of the animation
-      repeat: -1, // -1 means loop forever
-    })
-
-    // Listen for the startSmelter event from SmelterPlacementScene
-    this.events.on("startSmelter", (resource: string) => {
-      this.startSmelterTimer(resource)
-    })
-  }
-  mineBlock(blockName: string) {
-    // Add the mined resource to the inventory based on the block name
-    const inventoryMenu = this.scene.get("InventoryMenu") as InventoryMenu
-
-    inventoryMenu.addToInventory(blockName, 1) // Add 1 unit of the mined resource
-
-    console.log(`Mined 1 ${blockName}`)
   }
 
-  placeMinerOnNode(node: string) {
-    console.log(`Placing miner on ${node} node...`)
 
-    // Clear any existing timer for the node (in case of upgrades)
-    if (this.minerTimers[node]) {
-      this.minerTimers[node].remove()
-    }
+  // startSmelterTimer(resource: string) {
+  //   const inventoryScene = this.scene.get("InventoryMenu") as InventoryMenu
 
-    // Get the position of the node (iron/copper/rock block)
-    const nodePosition = this.getNodePosition(node) // Custom function to return the X and Y of the block/node
+  //   // Automatically smelt resources
+  //   const smeltInterval = 3000 // Smelting every 3 seconds
+  //   console.log(`Starting smelter for ${resource}...`)
 
-    // Create a sprite for the miner and apply the animation
-    const miner = this.add
-      .sprite(nodePosition.x, nodePosition.y, "miner1")
-      .setScale(7.0)
-    miner.play("miner_working") // Play the looping animation
+  //   this.smelterTimers[resource] = this.time.addEvent({
+  //     delay: smeltInterval,
+  //     loop: true,
+  //     callback: () => {
+  //       if (
+  //         resource === "iron" &&
+  //         inventoryScene.inventory.iron_ore.count >= 1
+  //       ) {
+  //         // Deduct iron ore and add iron ingot
+  //         inventoryScene.inventory.iron_ore.count -= 1
+  //         inventoryScene.inventory.iron_ingot.count += 1
 
-    // Create a new timer that generates resources every X milliseconds
-    this.minerTimers[node] = this.time.addEvent({
-      delay: 3000, // Adjust delay for mining speed
-      loop: true,
-      callback: () => {
-        const inventoryScene = this.scene.get("InventoryMenu") as InventoryMenu
-        const resource =
-          node === "iron"
-            ? "iron_ore"
-            : node === "copper"
-              ? "copper_ore"
-              : "rock"
+  //         // Update the iron ore and iron ingot count displays
+  //         inventoryScene.inventory.iron_ore.textObject!.setText(
+  //           `${inventoryScene.inventory.iron_ore.count}`,
+  //         )
+  //         inventoryScene.inventory.iron_ingot.textObject!.setText(
+  //           `${inventoryScene.inventory.iron_ingot.count}`,
+  //         )
 
-        // Increment the resource count in the inventory
-        inventoryScene.inventory[resource].count += 1
-        inventoryScene.inventory[resource].textObject!.setText(
-          `${inventoryScene.inventory[resource].count}`,
-        )
-        this.sound.play("mine_sound", {
-          detune: 0, // Adjust this to tweak pitch if necessary
-          seek: 0.05, // Skip the first 50 milliseconds (tweak this based on your needs)
-          volume: 1.0,
-        })
+  //         // Show floating text for iron ingot
+  //         this.displayFloatingText("Iron Ingot")
+  //         console.log("Smelting iron ore to iron ingot.")
+  //       } else if (
+  //         resource === "copper" &&
+  //         inventoryScene.inventory.copper_ore.count >= 1
+  //       ) {
+  //         // Deduct copper ore and add copper ingot
+  //         inventoryScene.inventory.copper_ore.count -= 1
+  //         inventoryScene.inventory.copper_ingot.count += 1
+  //         inventoryScene.inventory.copper_ore.textObject!.setText(
+  //           `${inventoryScene.inventory.copper_ore.count}`,
+  //         )
+  //         inventoryScene.inventory.copper_ingot.textObject!.setText(
+  //           `${inventoryScene.inventory.copper_ingot.count}`,
+  //         )
 
-        // Get the display name for the resource
-        const displayName = inventoryScene.inventory[resource].name
-        const amount = 1
-        const textContent = `${amount > 0 ? "+" : ""}${amount} ${displayName}`
+  //         // Show floating text for copper ingot
+  //         this.displayFloatingText("Copper Ingot")
+  //         console.log("Smelting copper ore to copper ingot.")
+  //       } else if (
+  //         resource === "rock" &&
+  //         inventoryScene.inventory.rock.count >= 1
+  //       ) {
+  //         // Deduct rock and add concrete
+  //         inventoryScene.inventory.rock.count -= 1
+  //         inventoryScene.inventory.concrete.count += 1
+  //         inventoryScene.inventory.rock.textObject!.setText(
+  //           `${inventoryScene.inventory.rock.count}`,
+  //         )
+  //         inventoryScene.inventory.concrete.textObject!.setText(
+  //           `${inventoryScene.inventory.concrete.count}`,
+  //         )
 
-        console.log(textContent)
+  //         // Show floating text for concrete
+  //         this.displayFloatingText("Concrete")
+  //         console.log("Turning rock into concrete.")
+  //       }
+  //     },
+  //   })
+  // }
 
-        // Create floating text next to the miner (not the cursor)
-        const floatingText = this.add.text(
-          nodePosition.x,
-          nodePosition.y,
-          textContent,
-          {
-            fontSize: "16px",
-            color: "#ffffff",
-          },
-        )
+  // // Function for floating text
+  // displayFloatingText(producedItem: string) {
+  //   const floatingText = this.add.text(1142, 100, `+1 ${producedItem}`, {
+  //     fontSize: "16px",
+  //     color: "#ffffff",
+  //   })
 
-        // Apply tween to animate the text (move up and fade out)
-        this.tweens.add({
-          targets: floatingText,
-          y: nodePosition.y - 50, // Move up by 50 pixels
-          alpha: 0, // Fade out the text
-          duration: 1000, // 1 second animation
-          ease: "Power1",
-          onComplete: () => {
-            floatingText.destroy() // Destroy the text after the animation
-          },
-        })
-
-        console.log(`Auto-mining 1 ${resource} from ${node} node.`)
-      },
-    })
-  }
-
-  // Custom function to get the position of the node based on the type
-  getNodePosition(node: string): { x: number; y: number } {
-    // Define the positions for the iron, copper, and rock nodes
-    const positions: {
-      [key: string]: { x: number; y: number }
-    } = {
-      iron: { x: 374, y: 247 },
-      copper: { x: 807, y: 312 },
-      rock: { x: 432, y: 435 },
-    }
-
-    return positions[node] || { x: 0, y: 0 } // Return a default position if the node is unknown
-  }
-
-  startSmelterTimer(resource: string) {
-    const inventoryScene = this.scene.get("InventoryMenu") as InventoryMenu
-
-    // Automatically smelt resources
-    const smeltInterval = 3000 // Smelting every 3 seconds
-    console.log(`Starting smelter for ${resource}...`)
-
-    this.smelterTimers[resource] = this.time.addEvent({
-      delay: smeltInterval,
-      loop: true,
-      callback: () => {
-        if (
-          resource === "iron" &&
-          inventoryScene.inventory.iron_ore.count >= 1
-        ) {
-          // Deduct iron ore and add iron ingot
-          inventoryScene.inventory.iron_ore.count -= 1
-          inventoryScene.inventory.iron_ingot.count += 1
-
-          // Update the iron ore and iron ingot count displays
-          inventoryScene.inventory.iron_ore.textObject!.setText(
-            `${inventoryScene.inventory.iron_ore.count}`,
-          )
-          inventoryScene.inventory.iron_ingot.textObject!.setText(
-            `${inventoryScene.inventory.iron_ingot.count}`,
-          )
-
-          // Show floating text for iron ingot
-          this.displayFloatingText("Iron Ingot")
-          console.log("Smelting iron ore to iron ingot.")
-        } else if (
-          resource === "copper" &&
-          inventoryScene.inventory.copper_ore.count >= 1
-        ) {
-          // Deduct copper ore and add copper ingot
-          inventoryScene.inventory.copper_ore.count -= 1
-          inventoryScene.inventory.copper_ingot.count += 1
-          inventoryScene.inventory.copper_ore.textObject!.setText(
-            `${inventoryScene.inventory.copper_ore.count}`,
-          )
-          inventoryScene.inventory.copper_ingot.textObject!.setText(
-            `${inventoryScene.inventory.copper_ingot.count}`,
-          )
-
-          // Show floating text for copper ingot
-          this.displayFloatingText("Copper Ingot")
-          console.log("Smelting copper ore to copper ingot.")
-        } else if (
-          resource === "rock" &&
-          inventoryScene.inventory.rock.count >= 1
-        ) {
-          // Deduct rock and add concrete
-          inventoryScene.inventory.rock.count -= 1
-          inventoryScene.inventory.concrete.count += 1
-          inventoryScene.inventory.rock.textObject!.setText(
-            `${inventoryScene.inventory.rock.count}`,
-          )
-          inventoryScene.inventory.concrete.textObject!.setText(
-            `${inventoryScene.inventory.concrete.count}`,
-          )
-
-          // Show floating text for concrete
-          this.displayFloatingText("Concrete")
-          console.log("Turning rock into concrete.")
-        }
-      },
-    })
-  }
-
-  // Function for floating text
-  displayFloatingText(producedItem: string) {
-    const floatingText = this.add.text(1142, 100, `+1 ${producedItem}`, {
-      fontSize: "16px",
-      color: "#ffffff",
-    })
-
-    // Apply tween to animate the text (move up and fade out)
-    this.tweens.add({
-      targets: floatingText,
-      y: floatingText.y - 50, // Move up by 50 pixels
-      alpha: 0, // Fade out the text
-      duration: 1000, // 1 second animation
-      ease: "Power1",
-      onComplete: () => {
-        floatingText.destroy() // Destroy the text after the animation
-      },
-    })
-  }
+  //   // Apply tween to animate the text (move up and fade out)
+  //   this.tweens.add({
+  //     targets: floatingText,
+  //     y: floatingText.y - 50, // Move up by 50 pixels
+  //     alpha: 0, // Fade out the text
+  //     duration: 1000, // 1 second animation
+  //     ease: "Power1",
+  //     onComplete: () => {
+  //       floatingText.destroy() // Destroy the text after the animation
+  //     },
+  //   })
+  // }
 }
