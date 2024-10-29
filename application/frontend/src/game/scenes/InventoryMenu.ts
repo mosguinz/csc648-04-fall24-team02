@@ -1,6 +1,6 @@
 import Phaser from "phaser"
 import { ResourcesService, ResourceBase, TDataSetResources } from "../../client";
-import { ResourceMap } from "./Constants";
+import { ResourceMap } from "../data/Constants";
 
 export default class InventoryMenu extends Phaser.Scene {
 

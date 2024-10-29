@@ -1,5 +1,5 @@
 import type InventoryMenu from "./InventoryMenu"
-import { type Recipe, recipes } from "./Constants" // Import the recipes data
+import { type Recipe, recipes } from "../data/Constants" // Import the recipes data
 
 export default class CraftingMenu extends Phaser.Scene {
   private currentPage = 0
