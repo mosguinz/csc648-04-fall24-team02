@@ -7,6 +7,9 @@
 
 The frontend is built with [Vite](https://vitejs.dev/), [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), [TanStack Query](https://tanstack.com/query), [TanStack Router](https://tanstack.com/router) and [Chakra UI](https://chakra-ui.com/).
 
+> [!TIP]
+> To use `fnm`, ensure that you have completed the [shell setup](https://github.com/Schniz/fnm?tab=readme-ov-file#shell-setup).
+
 With [fnm](https://github.com/Schniz/fnm) installed, install the appropriate Node.js version by using:
 
 ```bash
