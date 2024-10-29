@@ -38,9 +38,10 @@ export default class CraftingMenu extends Phaser.Scene {
   switchPage(direction: number) {
     this.currentPage += direction
 
+    // minus 1 to account for 0 indexing
     const maxPage = Math.ceil(
       this.totalCraftingItems / this.craftingItemsPerPage,
-    )
+    ) - 1
     if (this.currentPage < 0) this.currentPage = 0
     if (this.currentPage > maxPage) this.currentPage = maxPage
 
@@ -120,9 +121,10 @@ export default class CraftingMenu extends Phaser.Scene {
   }
 
   updateArrowVisibility() {
+    // minus 1 to account for 0 indexing
     const maxPage = Math.ceil(
       (this.totalCraftingItems) / this.craftingItemsPerPage,
-    )
+    ) - 1
 
     // Hide the left arrow if on the first page
     if (this.currentPage === 0) {
