@@ -54,19 +54,26 @@ export const recipes: Recipe[] = [
 ]
 
 export const ResourceMap: {
-    [key: integer] : string
+  [key: integer] : string
 } = {
-    1: "iron_ore",
-    2: "copper_ore",
-    3: "rock",
-    4: "iron_ingot",
-    5: "copper_ingot",
-    6: "concrete",
-    7: "iron_plate",
-    8: "copper_plate",
-    9: "iron_rod",
-    10: "screws",
-    11: "wire",
-    12: "cable"
+  1: "iron_ore",
+  2: "copper_ore",
+  3: "rock",
+  4: "iron_ingot",
+  5: "copper_ingot",
+  6: "concrete",
+  7: "iron_plate",
+  8: "copper_plate",
+  9: "iron_rod",
+  10: "screws",
+  11: "wire",
+  12: "cable"
 }
 
+export const NodePositions: {
+  [key: string]: { x: number; y: number }
+} = {
+  iron: { x: 374, y: 247 },
+  copper: { x: 807, y: 312 },
+  rock: { x: 432, y: 435 },
+}

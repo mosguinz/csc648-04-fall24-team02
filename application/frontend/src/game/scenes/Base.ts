@@ -1,5 +1,6 @@
 import Phaser from "phaser"
 import type InventoryMenu from "./InventoryMenu"
+import { NodePositions } from "./Constants.ts"
 
 export default class BaseScene extends Phaser.Scene {
 
@@ -15,15 +16,13 @@ export default class BaseScene extends Phaser.Scene {
     background.scaleX = 1.5
     background.scaleY = 1.5
 
-    const inventoryMenu = this.scene.get("InventoryMenu") as InventoryMenu
     // iron_ore_block
     const iron_ore_block = this.add.image(374, 247, "iron_ore_block")
     iron_ore_block.scaleX = 7.8
     iron_ore_block.scaleY = 7.8
     iron_ore_block.setInteractive()
     iron_ore_block.on("pointerdown", () => {
-      inventoryMenu.addToInventory("iron_ore", 1)
-      inventoryMenu.updateInventoryDisplay()
+      this.mineBlock("iron_ore")
     })
 
     // copper_ore_block
@@ -32,8 +31,7 @@ export default class BaseScene extends Phaser.Scene {
     copper_ore_block.scaleY = 7.8
     copper_ore_block.setInteractive()
     copper_ore_block.on("pointerdown", () => {
-      inventoryMenu.addToInventory("copper_ore", 1)
-      inventoryMenu.updateInventoryDisplay()
+      this.mineBlock("copper_ore")
     })
 
     // rock_block
@@ -42,8 +40,7 @@ export default class BaseScene extends Phaser.Scene {
     rock_block.scaleY = 7.8
     rock_block.setInteractive()
     rock_block.on("pointerdown", () => {
-      inventoryMenu.addToInventory("rock", 1)
-      inventoryMenu.updateInventoryDisplay()
+      this.mineBlock("rock")
     })
 
     // Listen for miner placement events from MinerPlacementScene
@@ -62,26 +59,11 @@ export default class BaseScene extends Phaser.Scene {
   mineBlock(blockName: string) {
     // Add the mined resource to the inventory based on the block name
     const inventoryMenu = this.scene.get("InventoryMenu") as InventoryMenu
-
     inventoryMenu.addToInventory(blockName, 1) // Add 1 unit of the mined resource
+    inventoryMenu.updateInventoryDisplay()
 
     console.log(`Mined 1 ${blockName}`)
   }
-
-  // Custom function to get the position of the node based on the type
-  getNodePosition(node: string): { x: number; y: number } {
-    // Define the positions for the iron, copper, and rock nodes
-    const positions: {
-      [key: string]: { x: number; y: number }
-    } = {
-      iron: { x: 374, y: 247 },
-      copper: { x: 807, y: 312 },
-      rock: { x: 432, y: 435 },
-    }
-
-    return positions[node] || { x: 0, y: 0 } // Return a default position if the node is unknown
-  }
-
 
   placeMinerOnNode(node: string) {
     console.log(`Placing miner on ${node} node...`)
@@ -92,7 +74,8 @@ export default class BaseScene extends Phaser.Scene {
     }
 
     // Get the position of the node (iron/copper/rock block)
-    const nodePosition = this.getNodePosition(node) // Custom function to return the X and Y of the block/node
+    // const nodePosition = this.getNodePosition(node) // Custom function to return the X and Y of the block/node
+    const nodePosition = NodePositions[node]
 
     // Create a sprite for the miner and apply the animation
     const miner = this.add
