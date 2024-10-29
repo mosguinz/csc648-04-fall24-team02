@@ -1,6 +1,5 @@
 import Phaser from "phaser"
 import type InventoryMenu from "./InventoryMenu"
-import type BaseScene from "./Base"
 
 export default class MainMenu extends Phaser.Scene {
   public minerTimers: { [key: string]: Phaser.Time.TimerEvent } = {}
@@ -16,76 +15,14 @@ export default class MainMenu extends Phaser.Scene {
     this.load.pack("pack", "assets/boot-asset-pack.json")
   }
 
-  editorCreate(): void {
-    // rectangle_1
-    const rectangle_1 = this.add.rectangle(1195, 290, 128, 128)
-    rectangle_1.scaleX = 1.447046084870738
-    rectangle_1.scaleY = 4.650162957270586
-    rectangle_1.isFilled = true
-    rectangle_1.fillColor = 9539985
-
-    // shadowFx_1
-    rectangle_1.postFX!.addShadow(1, 1, 0.1, 1, 0, 4, 1)
-
-    // build_UI_name
-    const build_UI_name = this.add.text(1156, 12, "", {})
-    build_UI_name.scaleX = 1.5
-    build_UI_name.scaleY = 1.5
-    build_UI_name.text = "Build"
-    build_UI_name.setStyle({ color: "#000000ff" })
-
-    // smelter
-    const smelter = this.add.image(1142, 71, "smelter")
-    smelter.scaleX = 3
-    smelter.scaleY = 3
-    smelter.setInteractive()
-    smelter.on("pointerdown", () => {
-      this.scene.launch("SmelterPlacementScene") // Open smelter placement window
-    })
-    const smelterList = this.add.text(1190, 77, "List").setInteractive()
-    smelterList.setInteractive()
-    smelterList.on("pointerdown", () => {
-      this.scene.launch("RunningSmeltersScene")
-    })
-
-    // crafter
-    const crafter = this.add.image(1142, 141, "crafter")
-    crafter.scaleX = 3
-    crafter.scaleY = 3
-    this.add.text(1190, 147, "List").setInteractive()
-
-    // miner
-    const miner = this.add.image(1142, 211, "miner")
-    miner.scaleX = 3
-    miner.scaleY = 3
-    miner.setInteractive()
-    miner.on("pointerdown", () => {
-      this.scene.launch("MinerPlacementScene") // Open miner placement window
-    })
-
-    // smelter_name
-    const smelter_name = this.add.text(1188, 50, "", {})
-    smelter_name.text = "Smelter"
-
-    // crafter_name
-    const crafter_name = this.add.text(1188, 120, "", {})
-    crafter_name.text = "Crafter"
-
-    // miner_name
-    const miner_name = this.add.text(1188, 191, "", {})
-    miner_name.text = "Miner"
-
-    this.events.emit("scene-awake")
-  }
-
   /* START-USER-CODE */
 
   create() {
+    this.scene.launch("BaseScene")
     this.scene.launch("CraftingMenu")
     this.scene.launch("InventoryMenu")
-    this.scene.launch("BaseScene")
+    this.scene.launch("BuildMenu")
     // this.scene.launch('RunningSmeltersScene');
-    this.editorCreate()
 
     // Listen for miner placement events from MinerPlacementScene
     this.events.on("placeMiner", (node: string) => {

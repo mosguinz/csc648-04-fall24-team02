@@ -8,10 +8,10 @@ export default class BaseScene extends Phaser.Scene {
   }
 
   create() {
-    // background_1
-    const background_1 = this.add.image(767, 431, "background_1")
-    background_1.scaleX = 1.5
-    background_1.scaleY = 1.5
+    // background
+    const background = this.add.image(767, 431, "background_1")
+    background.scaleX = 1.5
+    background.scaleY = 1.5
 
     const inventoryMenu = this.scene.get("InventoryMenu") as InventoryMenu
     // iron_ore_block
