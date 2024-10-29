@@ -52,3 +52,21 @@ export const recipes: Recipe[] = [
   },
   // { outputItem: 'reinforced_iron_plate', outputAmount: 5, ingredients: [{ item: 'screws', amount: 60 }, { item: 'iron_plate', amount: 30 }] }
 ]
+
+export const ResourceMap: {
+    [key: integer] : string
+} = {
+    1: "iron_ore",
+    2: "copper_ore",
+    3: "rock",
+    4: "iron_ingot",
+    5: "copper_ingot",
+    6: "concrete",
+    7: "iron_plate",
+    8: "copper_plate",
+    9: "iron_rod",
+    10: "screws",
+    11: "wire",
+    12: "cable"
+}
+

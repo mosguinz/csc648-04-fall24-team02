@@ -1,25 +1,8 @@
 import Phaser from "phaser"
 import { ResourcesService, ResourceBase, TDataSetResources } from "../../client";
+import { ResourceMap } from "./Constants";
 
 export default class InventoryMenu extends Phaser.Scene {
-
-    // TODO add in an API to grab id to resource_name
-    public resourceMap: {
-        [key: integer] : string
-    }= {
-        1: "iron_ore",
-        2: "copper_ore",
-        3: "rock",
-        4: "iron_ingot",
-        5: "copper_ingot",
-        6: "concrete",
-        7: "iron_plate",
-        8: "copper_plate",
-        9: "iron_rod",
-        10: "screws",
-        11: "wire",
-        12: "cable"
-    }
 
     public inventory: {
         [key: string]: {
@@ -51,7 +34,7 @@ export default class InventoryMenu extends Phaser.Scene {
         // TODO: Properly add syncing with the backend
         ResourcesService.readResources().then((response) => {
             for (const resource of response) {
-                const key = this.resourceMap[resource.resource_type_id];
+                const key = ResourceMap[resource.resource_type_id];
                 this.inventory[key].count = resource.quantity;
             }
         });
@@ -76,7 +59,7 @@ export default class InventoryMenu extends Phaser.Scene {
 
         // resource objects
         let offset = 0
-        for (const key in this.resourceMap) {
+        for (const key in ResourceMap) {
             const res = {
                 resource_type_id: parseInt(key),
                 quantity: 0
@@ -87,7 +70,7 @@ export default class InventoryMenu extends Phaser.Scene {
 
         ResourcesService.readResources().then((response) => {
             for (const resource of response) {
-                const res_name = this.resourceMap[resource.resource_type_id];
+                const res_name = ResourceMap[resource.resource_type_id];
                 this.inventory[res_name].count = resource.quantity;
             }
         });
@@ -99,7 +82,7 @@ export default class InventoryMenu extends Phaser.Scene {
         xCord: number,
         yCord: number,
     ) {
-        const key = this.resourceMap[resource.resource_type_id]
+        const key = ResourceMap[resource.resource_type_id]
         const imgX = xCord
         const imgY = yCord
         const nameX = xCord + 26
@@ -178,8 +161,8 @@ export default class InventoryMenu extends Phaser.Scene {
         }
 
         let id = -1;
-        for (const key in this.resourceMap) {
-            if (resource == this.resourceMap[key]) {
+        for (const key in ResourceMap) {
+            if (resource == ResourceMap[key]) {
                 id = parseInt(key)
             }
         }
@@ -205,8 +188,8 @@ export default class InventoryMenu extends Phaser.Scene {
             )
 
             let id = -1;
-            for (const key in this.resourceMap) {
-                if (resource == this.resourceMap[key]) {
+            for (const key in ResourceMap) {
+                if (resource == ResourceMap[key]) {
                     id = parseInt(key)
                 }
             }
