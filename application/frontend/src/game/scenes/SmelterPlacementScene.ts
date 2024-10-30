@@ -1,4 +1,5 @@
 import type InventoryMenu from "./InventoryMenu"
+import Phaser from "phaser"
 
 export default class SmelterPlacementScene extends Phaser.Scene {
   // private smelterTimers: { [key: string]: Phaser.Time.TimerEvent } = {}; // Track smelter timers
@@ -88,7 +89,7 @@ export default class SmelterPlacementScene extends Phaser.Scene {
       console.log(`Placing smelter for ${resource}...`)
 
       // Emit event to start the smelter in MainMenu
-      this.scene.get("Game").events.emit("startSmelter", resource)
+      this.scene.get("Smelter").events.emit("startSmelter", resource)
 
       // Close the placement window
       this.scene.stop("SmelterPlacementScene")

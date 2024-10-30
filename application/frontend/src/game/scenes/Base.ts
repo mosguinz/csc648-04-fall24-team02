@@ -1,6 +1,6 @@
 import Phaser from "phaser"
 import type InventoryMenu from "./InventoryMenu"
-import { NodePositions } from "./Constants.ts"
+import { NodePositions } from "../data/Constants.ts"
 
 export default class BaseScene extends Phaser.Scene {
 

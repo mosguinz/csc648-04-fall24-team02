@@ -45,6 +45,7 @@ export default class BuildMenu extends Phaser.Scene {
     crafter.scaleY = 3
     this.add.text(1190, 147, "List").setInteractive()
 
+
     // miner
     const miner = this.add.image(1142, 211, "miner")
     miner.scaleX = 3
@@ -64,6 +65,6 @@ export default class BuildMenu extends Phaser.Scene {
 
     // miner_name
     const miner_name = this.add.text(1188, 191, "", {})
-    miner_name.text = "Miner Testing"
+    miner_name.text = "Miner"
   }
 }
