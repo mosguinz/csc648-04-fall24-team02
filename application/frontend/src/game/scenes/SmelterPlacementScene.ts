@@ -2,7 +2,6 @@ import type InventoryMenu from "./InventoryMenu"
 import Phaser from "phaser"
 
 export default class SmelterPlacementScene extends Phaser.Scene {
-  // private smelterTimers: { [key: string]: Phaser.Time.TimerEvent } = {}; // Track smelter timers
   private smelterIcons: { [key: string]: Phaser.GameObjects.Image } = {} // Track smelter icons on the build rectangle
 
   constructor() {

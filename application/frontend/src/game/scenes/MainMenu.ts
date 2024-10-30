@@ -20,5 +20,6 @@ export default class MainMenu extends Phaser.Scene {
     this.scene.launch("InventoryMenu")
     this.scene.launch("BuildMenu")
     this.scene.launch("Smelter")
+    this.scene.launch("Crafter")
   }
 }

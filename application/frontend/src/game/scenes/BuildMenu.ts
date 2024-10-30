@@ -43,8 +43,15 @@ export default class BuildMenu extends Phaser.Scene {
     const crafter = this.add.image(1142, 141, "crafter")
     crafter.scaleX = 3
     crafter.scaleY = 3
-    this.add.text(1190, 147, "List").setInteractive()
-
+    crafter.setInteractive()
+    crafter.on("pointerdown", () => {
+      console.log("crafter clicked")
+      this.scene.launch("CrafterPlacementScene")
+    })
+    const crafterList = this.add.text(1190, 147, "List").setInteractive()
+    crafterList.on("pointerdown", () => {
+      this.scene.launch("RunningCraftersScene")
+    })
 
     // miner
     const miner = this.add.image(1142, 211, "miner")
@@ -52,7 +59,7 @@ export default class BuildMenu extends Phaser.Scene {
     miner.scaleY = 3
     miner.setInteractive()
     miner.on("pointerdown", () => {
-      this.scene.launch("MinerPlacementScene") // Open miner placement window
+      this.scene.launch("MinerPlacementScene")
     })
 
     // smelter_name
