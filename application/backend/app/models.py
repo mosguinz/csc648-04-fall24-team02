@@ -49,9 +49,6 @@ class User(UserBase, table=True):
     resources: list["UserResource"] = Relationship(
         back_populates="user", cascade_delete=True
     )
-    facilities: list["UserFacility"] = Relationship(
-        back_populates="user", cascade_delete=True
-    )
     assemblers: list["UserAssembler"] = Relationship(
         back_populates="user", cascade_delete=True
     )
@@ -172,22 +169,6 @@ class FacilityType(SQLModel, table=True):
     description: str | None = None
     icon_image_url: str | None = None
 
-    # Relationships
-    user_facilities: "UserFacility" = Relationship(
-        back_populates="facility_type", cascade_delete=True
-    )
-
-
-class UserFacility(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
-    facility_type_id: int = Field(foreign_key="facilitytype.id", ondelete="CASCADE")
-    quantity: int = Field(default=0)
-
-    # Relationships
-    user: "User" = Relationship(back_populates="facilities")
-    facility_type: "FacilityType" = Relationship(back_populates="user_facilities")
-
 
 class Recipe(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -224,6 +205,8 @@ class RecipeOutput(SQLModel, table=True):
 
 class UserAssembler(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
+    facility_type_id: int = Field(foreign_key="facilitytype.id")
+    facility_type: "FacilityType" = Relationship()
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     user: "User" = Relationship(back_populates="assemblers")
     recipe_id: Optional[int] = Field(foreign_key="recipe.id")
@@ -232,6 +215,8 @@ class UserAssembler(SQLModel, table=True):
 
 class UserMiner(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
+    facility_type_id: int = Field(foreign_key="facilitytype.id")
+    facility_type: "FacilityType" = Relationship()
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     user: "User" = Relationship(back_populates="miners")
     recipe_id: Optional[int] = Field(foreign_key="recipe.id")
@@ -240,6 +225,8 @@ class UserMiner(SQLModel, table=True):
 
 class UserConstructor(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
+    facility_type_id: int = Field(foreign_key="facilitytype.id")
+    facility_type: "FacilityType" = Relationship()
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     user: "User" = Relationship(back_populates="constructors")
     recipe_id: Optional[int] = Field(foreign_key="recipe.id")
