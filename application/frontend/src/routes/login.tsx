@@ -81,9 +81,9 @@ function Login() {
       >
         <Image
           src={Logo}
-          alt="FastAPI logo"
+          alt="login"
           height="auto"
-          maxW="2xs"
+          maxW="3xs"
           alignSelf="center"
           mb={4}
         />
@@ -113,7 +113,7 @@ function Login() {
               required
             />
             <InputRightElement
-              color="ui.dim"
+              color="ui.dark"
               _hover={{
                 cursor: "pointer",
               }}

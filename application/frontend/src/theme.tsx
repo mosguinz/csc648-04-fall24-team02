@@ -35,7 +35,7 @@ const theme = extendTheme({
         bgSize: "cover",
         bgRepeat: "no-repeat",
         bgPosition: "center center",
-        color: "ui.dark",
+        color: "#b68296",
         overflowX: "hidden",
       },
     },

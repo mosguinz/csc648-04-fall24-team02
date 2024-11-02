@@ -42,6 +42,7 @@ const teamMembers = [
     bio: "",
     hiddenLink: "",
     image: "assets/images/team-members/katy.png",
+
   },
   {
     name: "Arizza Cristobal",
@@ -98,7 +99,7 @@ const TeamAccordion = () => {
               _expanded={{ bg: '#F48FB1', color: 'white' }}
               _hover={{ bg: '#F48FB1', color: 'white' }}
             >
-              <Box flex="1" textAlign="left">
+              <Box flex="1" textAlign="left" color="#c3baf7">
                 {member.name}
               </Box>
               <Box flex="1" textAlign="right">
@@ -129,7 +130,7 @@ const TeamAccordion = () => {
                     {member.name}
                   </Link>
                 </Heading>
-                <Text fontSize="sm" color="gray.500" mb={2}>
+                <Text fontSize="sm" color="#f7bd52" mb={2}>
                   {member.role}
                 </Text>
                 <Text mb={4}>{member.bio}</Text>
@@ -152,7 +153,7 @@ function AboutPage(): JSX.Element {
       justifyContent="center"
     >
       <Box
-        bg="whiteAlpha.900"
+        bg="#FFF5EE"
         backdropFilter="blur(10px)"
         mx="auto"
         p={{ base: 6, md: 8 }}
@@ -163,10 +164,10 @@ function AboutPage(): JSX.Element {
         maxWidth={{ base: '90%', md: '800px' }}
       >
         <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
-          <Icon as={FaUsers} w={8} h={8} color="#F48FB1" mr={2} />
+          <Icon as={FaUsers} w={8} h={8} color="#a5d061" mr={2} />
           Team Members
         </Heading>
-        <Text fontSize={{ base: 'lg', md: 'xl' }} mb={4}>
+        <Text fontSize={{ base: 'lg', md: 'xl' }} color="#f7bd52" mb={4}>
           Section 04 — Team 02
         </Text>
         <Divider my={4} borderColor="#F48FB1" />

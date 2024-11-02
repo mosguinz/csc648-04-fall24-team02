@@ -24,7 +24,7 @@ function HomePage(): JSX.Element {
   return (
     <>
       <Box
-        bg="white"
+        bg="#FFF5EE"
         p={{ base: 6, md: 8 }}
         borderRadius="lg"
         border="2px solid"
@@ -40,15 +40,15 @@ function HomePage(): JSX.Element {
         left="40%"
         transform="translate(-50%, -50%)"
       >
-        <Icon as={FaGraduationCap} w={12} h={12} color="#F48FB1" mb={4} />
+        <Icon as={FaGraduationCap} w={12} h={12} color="#a5d061" mb={4} />
         <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
           Software Engineering Class SFSU
         </Heading>
-        <Text fontSize={{ base: 'lg', md: 'xl' }} mb={4}>
+        <Text fontSize={{ base: 'lg', md: 'xl' }} mb={4} color="#f7bd52">
           Section 04
         </Text>
         <Divider my={4} borderColor="#F48FB1" />
-        <Text fontSize={{ base: 'md', md: 'lg' }}>Team 02</Text>
+        <Text fontSize={{ base: 'md', md: 'lg' }}color="#c3baf7">Team 02</Text>
       </Box>
     </>
   )
