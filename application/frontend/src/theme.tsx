@@ -1,4 +1,6 @@
+// theme.js
 import { extendTheme } from "@chakra-ui/react"
+import "@fontsource/bubblegum-sans"
 
 const disabledStyles = {
   _disabled: {
@@ -9,14 +11,33 @@ const disabledStyles = {
 const theme = extendTheme({
   colors: {
     ui: {
-      main: "#009688",
+      main: "#F48FB1",
       secondary: "#EDF2F7",
       success: "#48BB78",
       danger: "#E53E3E",
       light: "#FAFAFA",
-      dark: "#1A202C",
+      dark: "#b68296",
       darkSlate: "#252D3D",
       dim: "#A0AEC0",
+      pastelGreen: "#80ef80",
+    },
+  },
+  fonts: {
+    heading: "'Bubblegum Sans', cursive",
+    body: "'Bubblegum Sans', cursive",
+
+  },
+  styles: {
+    global: {
+      body: {
+        bgColor: "#F8C8DC",
+        bgImage: "/assets/images/clear-cherry-blossom-falling.gif",
+        bgSize: "cover",
+        bgRepeat: "no-repeat",
+        bgPosition: "center center",
+        color: "ui.dark",
+        overflowX: "hidden",
+      },
     },
   },
   components: {
@@ -24,9 +45,9 @@ const theme = extendTheme({
       variants: {
         primary: {
           backgroundColor: "ui.main",
-          color: "ui.light",
+          color: "#fceaba",
           _hover: {
-            backgroundColor: "#00766C",
+            backgroundColor: "#f7bd52",
           },
           _disabled: {
             ...disabledStyles,
@@ -49,7 +70,7 @@ const theme = extendTheme({
         enclosed: {
           tab: {
             _selected: {
-              color: "ui.main",
+              color: "ui.pastelGreen",
             },
           },
         },

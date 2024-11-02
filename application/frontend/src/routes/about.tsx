@@ -1,3 +1,4 @@
+
 import {
   Accordion,
   AccordionButton,
@@ -5,20 +6,36 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Container,
+  Divider,
   Flex,
   Heading,
+  Icon,
   Image,
   Link,
   Text,
-} from "@chakra-ui/react"
-import { createFileRoute } from "@tanstack/react-router"
+} from '@chakra-ui/react'
+import { createFileRoute } from '@tanstack/react-router'
+import { keyframes } from '@emotion/react'
+import { FaUsers } from 'react-icons/fa'
 
-export const Route = createFileRoute("/about")({
+export const Route = createFileRoute('/about')({
   component: AboutPage,
 })
 
+const float = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`
+
 const teamMembers = [
+  // Include your team members here
   {
     name: "Katy Lam",
     role: "Team Lead",
@@ -49,7 +66,7 @@ const teamMembers = [
     image: "assets/images/team-members/arjun.jpg",
   },
   {
-    name: "Matthew Aaron Weesner",
+    name: "Matthew Weesner",
     role: "Back-end",
     bio: "",
     hiddenLink: "",
@@ -75,22 +92,28 @@ const TeamAccordion = () => {
   return (
     <Accordion allowToggle>
       {teamMembers.map((member, index) => (
-        <AccordionItem key={index}>
-          <AccordionButton>
-            <Box flex="1" textAlign="left">
-              {member.name}
-            </Box>
-            <Box flex="1" textAlign="right">
-              <Heading as="h6" size="xs">
-                {member.role}
-              </Heading>
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
+        <AccordionItem key={index} border="none">
+          <h2>
+            <AccordionButton
+              _expanded={{ bg: '#F48FB1', color: 'white' }}
+              _hover={{ bg: '#F48FB1', color: 'white' }}
+            >
+              <Box flex="1" textAlign="left">
+                {member.name}
+              </Box>
+              <Box flex="1" textAlign="right">
+                <Text fontSize="sm">{member.role}</Text>
+              </Box>
+              <AccordionIcon color="white" />
+            </AccordionButton>
+          </h2>
 
           <AccordionPanel pb={4}>
-            <Flex direction={{ base: "column", md: "row" }} alignItems="center">
-              <Box flexShrink={0} mr={4}>
+            <Flex
+              direction={{ base: 'column', md: 'row' }}
+              alignItems="center"
+            >
+              <Box flexShrink={0} mr={4} mb={{ base: 4, md: 0 }}>
                 <Image
                   boxSize="150px"
                   objectFit="cover"
@@ -100,7 +123,7 @@ const TeamAccordion = () => {
                 />
               </Box>
 
-              <Box flex="1">
+              <Box flex="1" textAlign={{ base: 'center', md: 'left' }}>
                 <Heading as="h3" size="md" mb={2}>
                   <Link href={member.hiddenLink || undefined}>
                     {member.name}
@@ -119,18 +142,38 @@ const TeamAccordion = () => {
   )
 }
 
-function AboutPage() {
+function AboutPage(): JSX.Element {
   return (
-    <>
-      <Container mt={10}>
-        <Heading as="h1" size="2xl" mb={4}>
+    <Box
+      minHeight="100vh"
+      py={10}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box
+        bg="whiteAlpha.900"
+        backdropFilter="blur(10px)"
+        mx="auto"
+        p={{ base: 6, md: 8 }}
+        borderRadius="lg"
+        boxShadow="2xl"
+        textAlign="center"
+        animation={`${float} 6s ease-in-out infinite`}
+        maxWidth={{ base: '90%', md: '800px' }}
+      >
+        <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
+          <Icon as={FaUsers} w={8} h={8} color="#F48FB1" mr={2} />
           Team Members
         </Heading>
-        <Text fontSize="xl" mb={4} className="section-text">
+        <Text fontSize={{ base: 'lg', md: 'xl' }} mb={4}>
           Section 04 — Team 02
         </Text>
+        <Divider my={4} borderColor="#F48FB1" />
         <TeamAccordion />
-      </Container>
-    </>
+      </Box>
+    </Box>
   )
 }
+
+export default AboutPage
