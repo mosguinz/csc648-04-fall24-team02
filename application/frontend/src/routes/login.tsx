@@ -1,9 +1,11 @@
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 import {
+  Box,
   Button,
   Container,
   FormControl,
   FormErrorMessage,
+  Heading,
   Icon,
   Image,
   Input,
@@ -20,6 +22,8 @@ import {
   useNavigate,
 } from "@tanstack/react-router"
 import { type SubmitHandler, useForm } from "react-hook-form"
+import { FaSignInAlt } from "react-icons/fa"
+import { keyframes } from "@emotion/react"
 
 import Logo from "/assets/images/login-image.png"
 import type { Body_login_login_access_token as AccessToken } from "../client"
@@ -36,6 +40,18 @@ export const Route = createFileRoute("/login")({
     }
   },
 })
+
+const float = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`
 
 function Login() {
   const [show, setShow] = useBoolean()
@@ -68,26 +84,40 @@ function Login() {
   }
 
   return (
-    <>
-      <Container
+    <Container
+      h="100vh"
+      maxW="md"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box
         as="form"
         onSubmit={handleSubmit(onSubmit)}
-        h="100vh"
-        maxW="sm"
-        alignItems="stretch"
-        justifyContent="center"
-        gap={4}
-        centerContent
+        bg="whiteAlpha.900"
+        backdropFilter="blur(10px)"
+        p={{ base: 6, md: 8 }}
+        borderRadius="lg"
+        boxShadow="2xl"
+        textAlign="center"
+        animation={`${float} 6s ease-in-out infinite`}
+        maxWidth="400px"
+        w="100%"
       >
+        <Heading as="h1" size="xl" mb={4}>
+          <Icon as={FaSignInAlt} w={6} h={6} mr={2} />
+          Login
+        </Heading>
         <Image
-          src={Logo}
-          alt="login"
-          height="auto"
-          maxW="3xs"
-          alignSelf="center"
-          mb={4}
+            src={Logo}
+            alt="login"
+            height="auto"
+            maxW="200px"
+            mb={4}
+            mx="auto"
         />
-        <FormControl id="username" isInvalid={!!errors.username || !!error}>
+
+        <FormControl id="username" isInvalid={!!errors.username || !!error} mb={4}>
           <Input
             id="username"
             {...register("username", {
@@ -102,7 +132,7 @@ function Login() {
             <FormErrorMessage>{errors.username.message}</FormErrorMessage>
           )}
         </FormControl>
-        <FormControl id="password" isInvalid={!!error}>
+        <FormControl id="password" isInvalid={!!error} mb={4}>
           <InputGroup>
             <Input
               {...register("password", {
@@ -122,17 +152,21 @@ function Login() {
                 as={show ? ViewOffIcon : ViewIcon}
                 onClick={setShow.toggle}
                 aria-label={show ? "Hide password" : "Show password"}
-              >
-                {show ? <ViewOffIcon /> : <ViewIcon />}
-              </Icon>
+              />
             </InputRightElement>
           </InputGroup>
           {error && <FormErrorMessage>{error}</FormErrorMessage>}
         </FormControl>
-        <Link as={RouterLink} to="/recover-password" color="blue.500">
+        <Link
+          as={RouterLink}
+          to="/recover-password"
+          color="blue.500"
+          mb={4}
+          display="block"
+        >
           Forgot password?
         </Link>
-        <Button variant="primary" type="submit" isLoading={isSubmitting}>
+        <Button variant="primary" type="submit" isLoading={isSubmitting} mb={4}>
           Log In
         </Button>
         <Text>
@@ -141,7 +175,9 @@ function Login() {
             Sign up
           </Link>
         </Text>
-      </Container>
-    </>
+      </Box>
+    </Container>
   )
 }
+
+export default Login

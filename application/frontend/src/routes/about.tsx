@@ -16,8 +16,8 @@ import {
 } from '@chakra-ui/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { keyframes } from '@emotion/react'
-import { FaUsers } from 'react-icons/fa'
-
+//import { FaUsers } from 'react-icons/fa'
+import { FaUsers, FaGamepad } from 'react-icons/fa'
 export const Route = createFileRoute('/about')({
   component: AboutPage,
 })
@@ -148,31 +148,64 @@ function AboutPage(): JSX.Element {
     <Box
       minHeight="100vh"
       py={10}
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
+      px={4}
     >
-      <Box
-        bg="#FFF5EE"
-        backdropFilter="blur(10px)"
-        mx="auto"
-        p={{ base: 6, md: 8 }}
-        borderRadius="lg"
-        boxShadow="2xl"
-        textAlign="center"
-        animation={`${float} 6s ease-in-out infinite`}
-        maxWidth={{ base: '90%', md: '800px' }}
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        alignItems="flex-start"
+        justifyContent="center"
+        gap={6}
       >
-        <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
-          <Icon as={FaUsers} w={8} h={8} color="#a5d061" mr={2} />
-          Team Members
-        </Heading>
-        <Text fontSize={{ base: 'lg', md: 'xl' }} color="#f7bd52" mb={4}>
-          Section 04 — Team 02
-        </Text>
-        <Divider my={4} borderColor="#F48FB1" />
-        <TeamAccordion />
-      </Box>
+        {/* Team Members Box */}
+        <Box
+          bg="#FFF5EE"
+          backdropFilter="blur(10px)"
+          p={{ base: 6, md: 8 }}
+          borderRadius="lg"
+          boxShadow="2xl"
+          textAlign="center"
+          animation={`${float} 6s ease-in-out infinite`}
+          maxWidth={{ base: '100%', md: '45%' }}
+          flex="1"
+        >
+          <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
+            <Icon as={FaUsers} w={8} h={8} color="#a5d061" mr={2} />
+            Team Members
+          </Heading>
+          <Text fontSize={{ base: 'lg', md: 'xl' }} color="#f7bd52" mb={4}>
+            Section 04 — Team 02
+          </Text>
+          <Divider my={4} borderColor="#F48FB1" />
+          <TeamAccordion />
+        </Box>
+
+        {/* Game Description Box */}
+        <Box
+          bg="#FFF5EE"
+          backdropFilter="blur(10px)"
+          p={{ base: 6, md: 8 }}
+          borderRadius="lg"
+          boxShadow="2xl"
+          textAlign="center"
+          animation={`${float} 6s ease-in-out infinite`}
+          maxWidth={{ base: '100%', md: '45%' }}
+          flex="1"
+        >
+          <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
+            <Icon as={FaGamepad} w={8} h={8} color="#a5d061" mr={2} />
+            How the Game Works
+          </Heading>
+          <Text fontSize={{ base: 'lg', md: 'xl' }} color="#f7bd52" mb={4}>
+            Brief Description
+          </Text>
+          <Divider my={4} borderColor="#F48FB1" />
+          <Text fontSize="md" textAlign="left">
+            Welcome to our game! In this game, you will collect resources and find out what you can build!,
+            overcome mysteries, and compete with others to unlock achievments and get the best drip.
+            The game is designed to test your curiosity and provide endless fun. Get ready to click!
+          </Text>
+        </Box>
+      </Flex>
     </Box>
   )
 }
