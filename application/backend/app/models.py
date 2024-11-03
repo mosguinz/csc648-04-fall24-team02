@@ -169,11 +169,19 @@ class FacilityType(SQLModel, table=True):
     description: str | None = None
     icon_image_url: str | None = None
 
+    recipes: list["Recipe"] = Relationship(
+        back_populates="facility_type", cascade_delete=True
+    )
+
 
 class Recipe(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True, unique=True)
     time_to_complete: int = Field(default=0)  # Time in seconds
+    facility_type_id: Optional[int] = Field(foreign_key="facilitytype.id")
+    facility_type: Optional["FacilityType"] = Relationship(
+        back_populates="recipes"
+    )
 
     inputs: list["RecipeInput"] = Relationship(
         back_populates="recipe", cascade_delete=True
