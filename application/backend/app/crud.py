@@ -14,6 +14,10 @@ from app.models import (
     UserCreate,
     UserResource,
     UserUpdate,
+    FacilityType,
+    UserMiner,
+    UserAssembler,
+    UserConstructor
 )
 
 
@@ -101,3 +105,69 @@ def create_resource_type(
     session.commit()
     session.refresh(db_item)
     return db_item
+
+def create_facility_type(
+    *, session: Session, facility_type: FacilityType
+) -> FacilityType:
+    db_item = FacilityType.model_validate(facility_type)
+    session.add(db_item)
+    session.commit()
+    session.refresh(db_item)
+    return db_item
+
+def create_user_assembler(
+    *, session: Session, user_assembler: UserAssembler
+) -> UserAssembler:
+    db_item = UserAssembler.model_validate(user_assembler)
+    session.add(db_item)
+    session.commit()
+    session.refresh(db_item)
+    return db_item
+
+def update_user_assembler(
+    *, session: Session, db_assembler: UserAssembler, assembler_in: UserAssembler
+) -> UserResource:
+    resource_data = assembler_in.model_dump(exclude_unset=True)
+    db_assembler.sqlmodel_update(resource_data)
+    session.add(db_assembler)
+    session.commit()
+    session.refresh(db_assembler)
+    return db_assembler
+
+def create_user_miner(
+    *, session: Session, user_miner: UserMiner
+) -> UserMiner:
+    db_item = UserMiner.model_validate(user_miner)
+    session.add(db_item)
+    session.commit()
+    session.refresh(db_item)
+    return db_item
+
+def update_user_miner(
+    *, session: Session, db_miner: UserMiner, miner_in: UserMiner
+) -> UserMiner:
+    resource_data = miner_in.model_dump(exclude_unset=True)
+    db_miner.sqlmodel_update(resource_data)
+    session.add(db_miner)
+    session.commit()
+    session.refresh(db_miner)
+    return db_miner
+
+def create_user_constructor(
+    *, session: Session, user_constructor: UserConstructor
+) -> UserConstructor:
+    db_item = UserConstructor.model_validate(user_constructor)
+    session.add(db_item)
+    session.commit()
+    session.refresh(db_item)
+    return db_item
+
+def update_user_constructor(
+    *, session: Session, db_constructor: UserConstructor, constructor_in: UserConstructor
+) -> UserMiner:
+    resource_data = constructor_in.model_dump(exclude_unset=True)
+    db_constructor.sqlmodel_update(resource_data)
+    session.add(db_constructor)
+    session.commit()
+    session.refresh(db_constructor)
+    return db_constructor
