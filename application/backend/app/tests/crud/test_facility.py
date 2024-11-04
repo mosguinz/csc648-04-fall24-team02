@@ -17,6 +17,7 @@ def test_create_facility_type(db: Session) -> None:
     assert res.description == desc
     assert res.icon_image_url == url
 
+
 def test_create_user_miner(db: Session) -> None:
     email = random_email()
     password = random_lower_string()
@@ -121,3 +122,62 @@ def test_update_user_constructor(db: Session) -> None:
     assert updated_constructor.status == "active"
     assert updated_constructor.facility_type_id == facility_type_id
     assert updated_constructor.user_id == user_id
+
+
+def test_read_user_miners(db: Session) -> None:
+    email = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=email, password=password)
+    user = crud.create_user(session=db, user_create=user_in)
+    user_id = user.id
+    facility_type = db.exec(
+        select(FacilityType).where(FacilityType.name == "miner")
+    ).first()
+    facility_type_id = facility_type.id
+    miner_in1 = FacilityBase(facility_type_id=facility_type_id, status="idle")
+    created_miner1 = crud.create_user_miner(session=db, miner_in=miner_in1, user_id=user_id)
+    miner_in2 = FacilityBase(facility_type_id=facility_type_id, status="active")
+    created_miner2 = crud.create_user_miner(session=db, miner_in=miner_in2, user_id=user_id)
+    obj = [created_miner1, created_miner2]
+    miners = crud.read_user_miners_by_user(session=db, user_id=user_id)
+    assert obj == miners
+
+
+def test_read_user_assemblers(db: Session) -> None:
+    email = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=email, password=password)
+    user = crud.create_user(session=db, user_create=user_in)
+    user_id = user.id
+    facility_type = db.exec(
+        select(FacilityType).where(FacilityType.name == "assembler")
+    ).first()
+    facility_type_id = facility_type.id
+    assembler_in1 = FacilityBase(facility_type_id=facility_type_id, status="idle")
+    created_assembler1 = crud.create_user_assembler(session=db, assembler_in=assembler_in1, user_id=user_id)
+    assembler_in2 = FacilityBase(facility_type_id=facility_type_id, status="active")
+    created_assembler2 = crud.create_user_assembler(session=db, assembler_in=assembler_in2, user_id=user_id)
+    obj = [created_assembler1, created_assembler2]
+    assemblers = crud.read_user_assemblers_by_user(session=db, user_id=user_id)
+    assert obj == assemblers
+
+
+def test_read_user_constructors(db: Session) -> None:
+    email = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=email, password=password)
+    user = crud.create_user(session=db, user_create=user_in)
+    user_id = user.id
+    facility_type = db.exec(
+        select(FacilityType).where(FacilityType.name == "constructor")
+    ).first()
+    facility_type_id = facility_type.id
+    constructor_in1 = FacilityBase(facility_type_id=facility_type_id, status="idle")
+    created_constructor1 = crud.create_user_constructor(session=db, constructor_in=constructor_in1, user_id=user_id)
+    constructor_in2 = FacilityBase(facility_type_id=facility_type_id, status="active")
+    created_constructor2 = crud.create_user_constructor(session=db, constructor_in=constructor_in2, user_id=user_id)
+    obj = [created_constructor1, created_constructor2]
+    constructors = crud.read_user_constructors_by_user(session=db, user_id=user_id)
+    assert obj == constructors
+
+
