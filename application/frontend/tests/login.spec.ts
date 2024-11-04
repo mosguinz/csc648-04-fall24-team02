@@ -45,18 +45,42 @@ test("Forgot Password link is visible", async ({ page }) => {
   ).toBeVisible()
 })
 
-test("Log in with valid email and password ", async ({ page }) => {
+test("Log in with valid email and password", async ({ page }) => {
   await page.goto("/login")
 
-  await fillForm(page, firstSuperuser, firstSuperuserPassword)
-  await page.getByRole("button", { name: "Log In" }).click()
+  // Disable animations
+  await page.addStyleTag({
+    content: `
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
 
+  // Fill in the form
+  await fillForm(page, firstSuperuser, firstSuperuserPassword)
+
+  // Get the login button
+  const loginButton = page.getByRole("button", { name: "Log In" })
+
+  // Ensure the button is visible and enabled
+  await loginButton.waitFor({ state: 'visible' })
+  await expect(loginButton).toBeEnabled()
+
+  // Click the login button
+  await loginButton.click()
+
+  // Wait for navigation to the homepage
   await page.waitForURL("/")
 
+  // Verify successful login
   await expect(
     page.getByText("Welcome back, nice to see you again!"),
   ).toBeVisible()
 })
+
+
 
 test("Log in with invalid email", async ({ page }) => {
   await page.goto("/login")
