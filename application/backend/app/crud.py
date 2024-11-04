@@ -6,6 +6,7 @@ from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
 from app.models import (
+    FacilityBase,
     Item,
     ItemCreate,
     ResourceBase,
@@ -116,9 +117,9 @@ def create_facility_type(
     return db_item
 
 def create_user_assembler(
-    *, session: Session, user_assembler: UserAssembler
+    *, session: Session, assembler_in: FacilityBase, user_id: uuid.UUID
 ) -> UserAssembler:
-    db_item = UserAssembler.model_validate(user_assembler)
+    db_item = UserAssembler.model_validate(assembler_in, update={"user_id": user_id})
     session.add(db_item)
     session.commit()
     session.refresh(db_item)
@@ -135,9 +136,9 @@ def update_user_assembler(
     return db_assembler
 
 def create_user_miner(
-    *, session: Session, user_miner: UserMiner
+    *, session: Session, miner_in: FacilityBase, user_id: uuid.UUID
 ) -> UserMiner:
-    db_item = UserMiner.model_validate(user_miner)
+    db_item = UserMiner.model_validate(miner_in, update={"user_id": user_id})
     session.add(db_item)
     session.commit()
     session.refresh(db_item)
@@ -154,9 +155,9 @@ def update_user_miner(
     return db_miner
 
 def create_user_constructor(
-    *, session: Session, user_constructor: UserConstructor
+    *, session: Session, constructor_in: FacilityBase, user_id: uuid.UUID
 ) -> UserConstructor:
-    db_item = UserConstructor.model_validate(user_constructor)
+    db_item = UserConstructor.model_validate(constructor_in, update={"user_id": user_id})
     session.add(db_item)
     session.commit()
     session.refresh(db_item)
