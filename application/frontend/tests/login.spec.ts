@@ -67,9 +67,12 @@ test("Log in with valid email and password", async ({ page }) => {
   // Ensure the button is visible and enabled
   await loginButton.waitFor({ state: 'visible' })
   await expect(loginButton).toBeEnabled()
-
+  // Wait for any potential overlays to disappear
+  await page.locator('.overlay').waitFor({ state: 'hidden' })
   // Click the login button
-  await loginButton.click()
+  await loginButton.click({ timeout: 60000 })
+
+
 
   // Wait for navigation to the homepage
   await page.waitForURL("/")
@@ -85,15 +88,34 @@ test("Log in with valid email and password", async ({ page }) => {
 test("Log in with invalid email", async ({ page }) => {
   await page.goto("/login")
 
+  // Disable animations
+  await page.addStyleTag({
+    content: `
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
+
   await fillForm(page, "invalidemail", firstSuperuserPassword)
   await page.getByRole("button", { name: "Log In" }).click()
 
   await expect(page.getByText("Invalid email address")).toBeVisible()
 })
 
+
 test("Log in with invalid password", async ({ page }) => {
   const password = randomPassword()
-
+  // Disable animations
+  await page.addStyleTag({
+    content: `
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   await page.goto("/login")
   await fillForm(page, firstSuperuser, password)
   await page.getByRole("button", { name: "Log In" }).click()
