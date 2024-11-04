@@ -108,6 +108,7 @@ def create_resource_type(
     session.refresh(db_item)
     return db_item
 
+
 def create_facility_type(
     *, session: Session, facility_type: FacilityType
 ) -> FacilityType:
@@ -117,6 +118,7 @@ def create_facility_type(
     session.refresh(db_item)
     return db_item
 
+
 def create_user_assembler(
     *, session: Session, assembler_in: FacilityBase, user_id: uuid.UUID
 ) -> UserAssembler:
@@ -125,6 +127,15 @@ def create_user_assembler(
     session.commit()
     session.refresh(db_item)
     return db_item
+
+
+def read_user_assemblers_by_user(
+    *, session: Session, user_id: uuid.UUID
+) -> Sequence[UserAssembler]:
+    statement = select(UserAssembler).where(UserAssembler.user_id == user_id)
+    assemblers = session.exec(statement).all()
+    return assemblers
+
 
 def update_user_assembler(
     *, session: Session, db_assembler: UserAssembler, assembler_in: FacilityUpdate
@@ -136,6 +147,7 @@ def update_user_assembler(
     session.refresh(db_assembler)
     return db_assembler
 
+
 def create_user_miner(
     *, session: Session, miner_in: FacilityBase, user_id: uuid.UUID
 ) -> UserMiner:
@@ -144,6 +156,15 @@ def create_user_miner(
     session.commit()
     session.refresh(db_item)
     return db_item
+
+
+def read_user_miners_by_user(
+    *, session: Session, user_id: uuid.UUID
+) -> Sequence[UserMiner]:
+    statement = select(UserMiner).where(UserMiner.user_id == user_id)
+    miners = session.exec(statement).all()
+    return miners
+
 
 def update_user_miner(
     *, session: Session, db_miner: UserMiner, miner_in: FacilityUpdate
@@ -155,6 +176,7 @@ def update_user_miner(
     session.refresh(db_miner)
     return db_miner
 
+
 def create_user_constructor(
     *, session: Session, constructor_in: FacilityBase, user_id: uuid.UUID
 ) -> UserConstructor:
@@ -163,6 +185,15 @@ def create_user_constructor(
     session.commit()
     session.refresh(db_item)
     return db_item
+
+
+def read_user_constructors_by_user(
+    *, session: Session, user_id: uuid.UUID
+) -> Sequence[UserConstructor]:
+    statement = select(UserConstructor).where(UserConstructor.user_id == user_id)
+    constructors = session.exec(statement).all()
+    return constructors
+
 
 def update_user_constructor(
     *, session: Session, db_constructor: UserConstructor, constructor_in: FacilityUpdate
