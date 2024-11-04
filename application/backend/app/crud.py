@@ -7,6 +7,7 @@ from sqlmodel import Session, select
 from app.core.security import get_password_hash, verify_password
 from app.models import (
     FacilityBase,
+    FacilityUpdate,
     Item,
     ItemCreate,
     ResourceBase,
@@ -126,7 +127,7 @@ def create_user_assembler(
     return db_item
 
 def update_user_assembler(
-    *, session: Session, db_assembler: UserAssembler, assembler_in: UserAssembler
+    *, session: Session, db_assembler: UserAssembler, assembler_in: FacilityUpdate
 ) -> UserResource:
     resource_data = assembler_in.model_dump(exclude_unset=True)
     db_assembler.sqlmodel_update(resource_data)
@@ -145,7 +146,7 @@ def create_user_miner(
     return db_item
 
 def update_user_miner(
-    *, session: Session, db_miner: UserMiner, miner_in: UserMiner
+    *, session: Session, db_miner: UserMiner, miner_in: FacilityUpdate
 ) -> UserMiner:
     resource_data = miner_in.model_dump(exclude_unset=True)
     db_miner.sqlmodel_update(resource_data)
@@ -164,7 +165,7 @@ def create_user_constructor(
     return db_item
 
 def update_user_constructor(
-    *, session: Session, db_constructor: UserConstructor, constructor_in: UserConstructor
+    *, session: Session, db_constructor: UserConstructor, constructor_in: FacilityUpdate
 ) -> UserMiner:
     resource_data = constructor_in.model_dump(exclude_unset=True)
     db_constructor.sqlmodel_update(resource_data)

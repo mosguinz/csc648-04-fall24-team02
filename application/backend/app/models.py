@@ -211,6 +211,17 @@ class RecipeOutput(SQLModel, table=True):
     recipe: "Recipe" = Relationship(back_populates="outputs")
     resource_type: "ResourceType" = Relationship(back_populates="recipe_outputs")
 
+
+class FacilityBase(SQLModel):
+    facility_type_id: int
+    status: str
+
+
+class FacilityUpdate(SQLModel):
+    status: str
+    recipe_id: None | int
+
+
 class UserAssembler(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     facility_type_id: int = Field(foreign_key="facilitytype.id")
@@ -218,6 +229,7 @@ class UserAssembler(SQLModel, table=True):
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     user: "User" = Relationship(back_populates="assemblers")
     status: str = Field(default="idle")
+
 
 class UserMiner(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -227,9 +239,6 @@ class UserMiner(SQLModel, table=True):
     user: "User" = Relationship(back_populates="miners")
     status: str = Field(default="idle")
 
-class FacilityBase(SQLModel):
-    facility_type_id: int
-    status: str
 
 class UserConstructor(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
