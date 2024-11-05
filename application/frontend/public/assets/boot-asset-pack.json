@@ -12,6 +12,11 @@
         "key": "background_1"
       },
       {
+        "url": "assets/pink-planet-clouds-green-yellow-landscape-with-stars.jpg",
+        "type": "image",
+        "key": "background_2"
+      },
+      {
         "url": "assets/cable.png",
         "type": "image",
         "key": "cable"

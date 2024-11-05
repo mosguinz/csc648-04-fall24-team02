@@ -4,10 +4,21 @@ import type InventoryMenu from "./InventoryMenu"
 export default class MainMenu extends Phaser.Scene {
   public minerTimers: { [key: string]: Phaser.Time.TimerEvent } = {}
   private smelterTimers: { [key: string]: Phaser.Time.TimerEvent } = {} // Track smelter timers
-
+  private rainbowText!: Phaser.GameObjects.Text;
   constructor() {
-    super("Game")
+    super("MainMenu")
   }
+
+  init ()
+    {
+        this.cameras.main.fadeIn(100);
+        const fxCamera = this.cameras.main.postFX.addPixelate(40);
+        this.add.tween({
+            targets: fxCamera,
+            duration: 700,
+            amount: -1,
+        });
+    }
 
   preload() {
     //  The Boot Scene is typically used to load in any assets you require for your Preloader, such as a game logo or background.
@@ -17,9 +28,23 @@ export default class MainMenu extends Phaser.Scene {
 
   editorCreate(): void {
     // background_1
-    const background_1 = this.add.image(767, 431, "background_1")
-    background_1.scaleX = 1.5
-    background_1.scaleY = 1.5
+    const background_2 = this.add.image(700, 350, "background_2")
+    background_2.scaleX = 0.3
+    background_2.scaleY = 0.3
+
+    // game title
+    // Text with Multi-Color Tint
+    this.rainbowText = this.add.text(160, 200, "Guac", {
+      fontSize: '38px',
+      fontFamily: "White",
+      color: "#ffffff", // Base color; tint will override this
+      align: "center",
+  });
+
+  // Apply the multi-color tint to the text itself
+  this.rainbowText.setTint(0xff9dd5, 0xd8a7c3, 0xf4c64a, 0xe49cff);
+  this.rainbowText.setStroke("#b7a5ca",5);
+  this.rainbowText.setOrigin(-8.2, 2);
 
     const inventoryMenu = this.scene.get("InventoryMenu") as InventoryMenu
     // iron_ore_block
