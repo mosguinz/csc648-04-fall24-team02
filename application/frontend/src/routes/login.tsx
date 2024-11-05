@@ -23,12 +23,11 @@ import {
 } from "@tanstack/react-router"
 import { type SubmitHandler, useForm } from "react-hook-form"
 import { FaSignInAlt } from "react-icons/fa"
-import { keyframes } from "@emotion/react"
-
 import Logo from "/assets/images/login-image.png"
 import type { Body_login_login_access_token as AccessToken } from "../client"
 import useAuth, { isLoggedIn } from "../hooks/useAuth"
 import { emailPattern } from "../utils"
+import { useFloatAnimation } from "../hooks/useFloatAnimation";
 
 export const Route = createFileRoute("/login")({
   component: Login,
@@ -40,18 +39,6 @@ export const Route = createFileRoute("/login")({
     }
   },
 })
-
-const float = keyframes`
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`
 
 function Login() {
   const [show, setShow] = useBoolean()
@@ -69,7 +56,7 @@ function Login() {
     },
   })
   const navigate = useNavigate()
-
+  const floatAnimation = useFloatAnimation();
   const onSubmit: SubmitHandler<AccessToken> = async (data) => {
     if (isSubmitting) return
 
@@ -100,7 +87,7 @@ function Login() {
         borderRadius="lg"
         boxShadow="2xl"
         textAlign="center"
-        animation={`${float} 6s ease-in-out infinite`}
+        animation={floatAnimation} // Apply the floating animation
         maxWidth="400px"
         w="100%"
       >
@@ -108,14 +95,7 @@ function Login() {
           <Icon as={FaSignInAlt} w={6} h={6} mr={2} />
           Login
         </Heading>
-        <Image
-            src={Logo}
-            alt="login"
-            height="auto"
-            maxW="200px"
-            mb={4}
-            mx="auto"
-        />
+        <Image src={Logo} alt="login" height="auto" maxW="200px" mb={4} mx="auto" />
 
         <FormControl id="username" isInvalid={!!errors.username || !!error} mb={4}>
           <Input
@@ -128,10 +108,9 @@ function Login() {
             type="email"
             required
           />
-          {errors.username && (
-            <FormErrorMessage>{errors.username.message}</FormErrorMessage>
-          )}
+          {errors.username && <FormErrorMessage>{errors.username.message}</FormErrorMessage>}
         </FormControl>
+
         <FormControl id="password" isInvalid={!!error} mb={4}>
           <InputGroup>
             <Input
@@ -142,12 +121,7 @@ function Login() {
               placeholder="Password"
               required
             />
-            <InputRightElement
-              color="ui.dark"
-              _hover={{
-                cursor: "pointer",
-              }}
-            >
+            <InputRightElement color="ui.dark" _hover={{ cursor: "pointer" }}>
               <Icon
                 as={show ? ViewOffIcon : ViewIcon}
                 onClick={setShow.toggle}
@@ -157,18 +131,15 @@ function Login() {
           </InputGroup>
           {error && <FormErrorMessage>{error}</FormErrorMessage>}
         </FormControl>
-        <Link
-          as={RouterLink}
-          to="/recover-password"
-          color="blue.500"
-          mb={4}
-          display="block"
-        >
+
+        <Link as={RouterLink} to="/recover-password" color="blue.500" mb={4} display="block">
           Forgot password?
         </Link>
+
         <Button variant="primary" type="submit" isLoading={isSubmitting} mb={4}>
           Log In
         </Button>
+
         <Text>
           Don't have an account?{" "}
           <Link as={RouterLink} to="/signup" color="blue.500">
@@ -177,7 +148,7 @@ function Login() {
         </Text>
       </Box>
     </Container>
-  )
+  );
 }
 
-export default Login
+export default Login;

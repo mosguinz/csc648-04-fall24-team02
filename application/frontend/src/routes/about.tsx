@@ -1,4 +1,3 @@
-
 import {
   Accordion,
   AccordionButton,
@@ -15,24 +14,11 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { createFileRoute } from '@tanstack/react-router'
-import { keyframes } from '@emotion/react'
-//import { FaUsers } from 'react-icons/fa'
 import { FaUsers, FaGamepad } from 'react-icons/fa'
+import { useFloatAnimation } from '../hooks/useFloatAnimation';
 export const Route = createFileRoute('/about')({
   component: AboutPage,
 })
-
-const float = keyframes`
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`
 
 const teamMembers = [
   // Include your team members here
@@ -89,6 +75,7 @@ const teamMembers = [
   },
 ]
 
+// ******* I will change this and turn into component, for demo’s sake keep for now  ************* //
 const TeamAccordion = () => {
   return (
     <Accordion allowToggle>
@@ -96,10 +83,10 @@ const TeamAccordion = () => {
         <AccordionItem key={index} border="none">
           <h2>
             <AccordionButton
-              _expanded={{ bg: '#F48FB1', color: 'white' }}
-              _hover={{ bg: '#F48FB1', color: 'white' }}
+              _expanded={{ bg: 'ui.main', color: 'white' }}
+              _hover={{ bg: 'ui.main', color: 'white' }}
             >
-              <Box flex="1" textAlign="left" color="#c3baf7">
+              <Box flex="1" textAlign="left" color="ui.purple">
                 {member.name}
               </Box>
               <Box flex="1" textAlign="right">
@@ -130,7 +117,7 @@ const TeamAccordion = () => {
                     {member.name}
                   </Link>
                 </Heading>
-                <Text fontSize="sm" color="#f7bd52" mb={2}>
+                <Text fontSize="sm" color="ui.orange" mb={2}>
                   {member.role}
                 </Text>
                 <Text mb={4}>{member.bio}</Text>
@@ -144,38 +131,31 @@ const TeamAccordion = () => {
 }
 
 function AboutPage(): JSX.Element {
+  const floatAnimation = useFloatAnimation();
+
   return (
-    <Box
-      minHeight="100vh"
-      py={10}
-      px={4}
-    >
-      <Flex
-        direction={{ base: 'column', md: 'row' }}
-        alignItems="flex-start"
-        justifyContent="center"
-        gap={6}
-      >
+    <Box minHeight="100vh" py={10} px={4}>
+      <Flex direction={{ base: 'column', md: 'row' }} alignItems="flex-start" justifyContent="center" gap={6}>
         {/* Team Members Box */}
         <Box
-          bg="#FFF5EE"
+          bg="ui.eggshell"
           backdropFilter="blur(10px)"
           p={{ base: 6, md: 8 }}
           borderRadius="lg"
           boxShadow="2xl"
           textAlign="center"
-          animation={`${float} 6s ease-in-out infinite`}
+          animation={floatAnimation}
           maxWidth={{ base: '100%', md: '45%' }}
           flex="1"
         >
           <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
-            <Icon as={FaUsers} w={8} h={8} color="#a5d061" mr={2} />
+            <Icon as={FaUsers} w={8} h={8} color="ui.green" mr={2} />
             Team Members
           </Heading>
-          <Text fontSize={{ base: 'lg', md: 'xl' }} color="#f7bd52" mb={4}>
+          <Text fontSize={{ base: 'lg', md: 'xl' }} color="ui.orange" mb={4}>
             Section 04 — Team 02
           </Text>
-          <Divider my={4} borderColor="#F48FB1" />
+          <Divider my={4} borderColor="ui.main" />
           <TeamAccordion />
         </Box>
 
@@ -187,27 +167,27 @@ function AboutPage(): JSX.Element {
           borderRadius="lg"
           boxShadow="2xl"
           textAlign="center"
-          animation={`${float} 6s ease-in-out infinite`}
+          animation={floatAnimation}
           maxWidth={{ base: '100%', md: '45%' }}
           flex="1"
         >
           <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
-            <Icon as={FaGamepad} w={8} h={8} color="#a5d061" mr={2} />
+            <Icon as={FaGamepad} w={8} h={8} color="ui.green" mr={2} />
             How the Game Works
           </Heading>
-          <Text fontSize={{ base: 'lg', md: 'xl' }} color="#f7bd52" mb={4}>
+          <Text fontSize={{ base: 'lg', md: 'xl' }} color="ui.orange" mb={4}>
             Brief Description
           </Text>
-          <Divider my={4} borderColor="#F48FB1" />
+          <Divider my={4} borderColor="ui.main" />
           <Text fontSize="md" textAlign="left">
             Welcome to our game! In this game, you will collect resources and find out what you can build!,
-            overcome mysteries, and compete with others to unlock achievments and get the best drip.
+            overcome mysteries, and compete with others to unlock achievements and get the best drip.
             The game is designed to test your curiosity and provide endless fun. Get ready to click!
           </Text>
         </Box>
       </Flex>
     </Box>
-  )
+  );
 }
 
-export default AboutPage
+export default AboutPage;

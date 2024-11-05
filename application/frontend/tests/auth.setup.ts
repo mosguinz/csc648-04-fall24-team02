@@ -5,7 +5,7 @@ const authFile = "playwright/.auth/user.json"
 
 setup("authenticate", async ({ page }) => {
   await page.goto("/login")
-  await page.waitForLoadState("networkidle")
+  //await page.waitForLoadState("networkidle")
 
   // Disable animations
   await page.addStyleTag({

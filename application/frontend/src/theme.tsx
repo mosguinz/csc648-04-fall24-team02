@@ -16,10 +16,18 @@ const theme = extendTheme({
       success: "#48BB78",
       danger: "#E53E3E",
       light: "#FAFAFA",
-      dark: "#b68296",
+      darkPink: "#b68296",
       darkSlate: "#252D3D",
       dim: "#A0AEC0",
       pastelGreen: "#80ef80",
+      softPink: "#F8C8DC",
+      orange: "#f7bd52",
+      red: "#E32727",
+      cream: "#fceaba",
+      purple: "#c3baf7",
+      green: "#a5d061",
+      eggshell: "#FFF5EE",
+
     },
   },
   fonts: {
@@ -30,12 +38,12 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bgColor: "#F8C8DC",
+        bgColor: "ui.softPink",
         bgImage: "/assets/images/clear-cherry-blossom-falling.gif",
         bgSize: "cover",
         bgRepeat: "no-repeat",
         bgPosition: "center center",
-        color: "#b68296",
+        color: "ui.darkPink",
         overflowX: "hidden",
       },
     },
@@ -45,9 +53,9 @@ const theme = extendTheme({
       variants: {
         primary: {
           backgroundColor: "ui.main",
-          color: "#fceaba",
+          color: "ui.cream",
           _hover: {
-            backgroundColor: "#f7bd52",
+            backgroundColor: "ui.orange",
           },
           _disabled: {
             ...disabledStyles,
@@ -60,7 +68,7 @@ const theme = extendTheme({
           backgroundColor: "ui.danger",
           color: "ui.light",
           _hover: {
-            backgroundColor: "#E32727",
+            backgroundColor: "ui.red",
           },
         },
       },
