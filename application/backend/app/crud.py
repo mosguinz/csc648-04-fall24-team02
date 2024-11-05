@@ -119,9 +119,7 @@ def create_facility_type(
     return db_item
 
 
-def read_facility_type_by_name(
-    *, session: Session, name: str
-) -> FacilityType | None:
+def read_facility_type_by_name(*, session: Session, name: str) -> FacilityType | None:
     statement = select(FacilityType).where(FacilityType.name == name)
     types = session.exec(statement).first()
     return types
