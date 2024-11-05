@@ -80,3 +80,43 @@ def test_update_user_miner(client: TestClient, db: Session) -> None:
     content = response.json()
     for miner in content:
         assert any(miner["status"] == mine["status"] for mine in new_miners)
+
+
+def test_read_user_miners(client: TestClient, db: Session) -> None:
+    facility_type = crud.read_facility_type_by_name(session=db, name="miner")
+    if not facility_type:
+        facility_type_in = FacilityType(
+            name="miner",
+        )
+        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+    miner1 = {"facility_type_id": facility_type.id, "status": "idle"}
+    miner2 = {"facility_type_id": facility_type.id, "status": "idle"}
+    miners = [miner1, miner2]
+    username = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=username, password=password)
+    crud.create_user(session=db, user_create=user_in)
+
+    login_data = {
+        "username": username,
+        "password": password,
+    }
+    r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+    response = client.post(
+        f"{settings.API_V1_STR}/facilities/miner", headers=headers, json=miners
+    )
+    created_miners = response.json()
+    response = client.get(
+        f"{settings.API_V1_STR}/facilities/miner",
+        headers=headers,
+    )
+    read_miners = response.json()
+    assert created_miners == read_miners
+
+
+
+
+
