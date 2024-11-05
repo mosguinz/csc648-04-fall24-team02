@@ -13,7 +13,9 @@ def test_create_user_miner(client: TestClient, db: Session) -> None:
         facility_type_in = FacilityType(
             name="miner",
         )
-        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+        facility_type = crud.create_facility_type(
+            session=db, facility_type=facility_type_in
+        )
     status1 = random_lower_string()
     miner1 = {"facility_type_id": facility_type.id, "status": status1}
     status2 = random_lower_string()
@@ -47,7 +49,9 @@ def test_update_user_miner(client: TestClient, db: Session) -> None:
         facility_type_in = FacilityType(
             name="miner",
         )
-        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+        facility_type = crud.create_facility_type(
+            session=db, facility_type=facility_type_in
+        )
     miner1 = {"facility_type_id": facility_type.id, "status": "idle"}
     miner2 = {"facility_type_id": facility_type.id, "status": "idle"}
     miners = [miner1, miner2]
@@ -88,7 +92,9 @@ def test_read_user_miners(client: TestClient, db: Session) -> None:
         facility_type_in = FacilityType(
             name="miner",
         )
-        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+        facility_type = crud.create_facility_type(
+            session=db, facility_type=facility_type_in
+        )
     miner1 = {"facility_type_id": facility_type.id, "status": "idle"}
     miner2 = {"facility_type_id": facility_type.id, "status": "idle"}
     miners = [miner1, miner2]
@@ -123,7 +129,9 @@ def test_create_user_assembler(client: TestClient, db: Session) -> None:
         facility_type_in = FacilityType(
             name="assembler",
         )
-        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+        facility_type = crud.create_facility_type(
+            session=db, facility_type=facility_type_in
+        )
     status1 = random_lower_string()
     assembler1 = {"facility_type_id": facility_type.id, "status": status1}
     status2 = random_lower_string()
@@ -157,7 +165,9 @@ def test_update_user_assembler(client: TestClient, db: Session) -> None:
         facility_type_in = FacilityType(
             name="assembler",
         )
-        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+        facility_type = crud.create_facility_type(
+            session=db, facility_type=facility_type_in
+        )
     assembler1 = {"facility_type_id": facility_type.id, "status": "idle"}
     assembler2 = {"facility_type_id": facility_type.id, "status": "idle"}
     assemblers = [assembler1, assembler2]
@@ -184,7 +194,9 @@ def test_update_user_assembler(client: TestClient, db: Session) -> None:
         new_assemblers.append(old_assembler)
 
     response = client.post(
-        f"{settings.API_V1_STR}/facilities/assembler", headers=headers, json=new_assemblers
+        f"{settings.API_V1_STR}/facilities/assembler",
+        headers=headers,
+        json=new_assemblers,
     )
     assert response.status_code == 200
     content = response.json()
@@ -198,7 +210,9 @@ def test_read_user_assemblers(client: TestClient, db: Session) -> None:
         facility_type_in = FacilityType(
             name="assembler",
         )
-        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+        facility_type = crud.create_facility_type(
+            session=db, facility_type=facility_type_in
+        )
     assembler1 = {"facility_type_id": facility_type.id, "status": "idle"}
     assembler2 = {"facility_type_id": facility_type.id, "status": "idle"}
     assemblers = [assembler1, assembler2]
@@ -233,7 +247,9 @@ def test_create_user_constructor(client: TestClient, db: Session) -> None:
         facility_type_in = FacilityType(
             name="constructor",
         )
-        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+        facility_type = crud.create_facility_type(
+            session=db, facility_type=facility_type_in
+        )
     status1 = random_lower_string()
     constructor1 = {"facility_type_id": facility_type.id, "status": status1}
     status2 = random_lower_string()
@@ -253,7 +269,9 @@ def test_create_user_constructor(client: TestClient, db: Session) -> None:
     a_token = tokens["access_token"]
     headers = {"Authorization": f"Bearer {a_token}"}
     response = client.post(
-        f"{settings.API_V1_STR}/facilities/constructor", headers=headers, json=constructors
+        f"{settings.API_V1_STR}/facilities/constructor",
+        headers=headers,
+        json=constructors,
     )
     assert response.status_code == 200
     content = response.json()
@@ -267,7 +285,9 @@ def test_update_user_constructor(client: TestClient, db: Session) -> None:
         facility_type_in = FacilityType(
             name="constructor",
         )
-        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+        facility_type = crud.create_facility_type(
+            session=db, facility_type=facility_type_in
+        )
     constructor1 = {"facility_type_id": facility_type.id, "status": "idle"}
     constructor2 = {"facility_type_id": facility_type.id, "status": "idle"}
     constructors = [constructor1, constructor2]
@@ -285,7 +305,9 @@ def test_update_user_constructor(client: TestClient, db: Session) -> None:
     a_token = tokens["access_token"]
     headers = {"Authorization": f"Bearer {a_token}"}
     response = client.post(
-        f"{settings.API_V1_STR}/facilities/constructor", headers=headers, json=constructors
+        f"{settings.API_V1_STR}/facilities/constructor",
+        headers=headers,
+        json=constructors,
     )
     old_constructors = response.json()
     new_constructors = []
@@ -294,7 +316,9 @@ def test_update_user_constructor(client: TestClient, db: Session) -> None:
         new_constructors.append(old_constructor)
 
     response = client.post(
-        f"{settings.API_V1_STR}/facilities/constructor", headers=headers, json=new_constructors
+        f"{settings.API_V1_STR}/facilities/constructor",
+        headers=headers,
+        json=new_constructors,
     )
     assert response.status_code == 200
     content = response.json()
@@ -308,7 +332,9 @@ def test_read_user_constructors(client: TestClient, db: Session) -> None:
         facility_type_in = FacilityType(
             name="constructor",
         )
-        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+        facility_type = crud.create_facility_type(
+            session=db, facility_type=facility_type_in
+        )
     constructor1 = {"facility_type_id": facility_type.id, "status": "idle"}
     constructor2 = {"facility_type_id": facility_type.id, "status": "idle"}
     constructors = [constructor1, constructor2]
@@ -326,7 +352,9 @@ def test_read_user_constructors(client: TestClient, db: Session) -> None:
     a_token = tokens["access_token"]
     headers = {"Authorization": f"Bearer {a_token}"}
     response = client.post(
-        f"{settings.API_V1_STR}/facilities/constructor", headers=headers, json=constructors
+        f"{settings.API_V1_STR}/facilities/constructor",
+        headers=headers,
+        json=constructors,
     )
     created_constructors = response.json()
     response = client.get(
@@ -335,4 +363,3 @@ def test_read_user_constructors(client: TestClient, db: Session) -> None:
     )
     read_constructors = response.json()
     assert created_constructors == read_constructors
-

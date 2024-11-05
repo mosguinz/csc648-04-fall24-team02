@@ -12,6 +12,7 @@ engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 # for more details: https://github.com/fastapi/full-stack-fastapi-template/issues/28
 
 
+# ensure the base super user is created
 def init_user(session: Session) -> None:
     user = session.exec(
         select(User).where(User.email == settings.FIRST_SUPERUSER)
@@ -52,12 +53,10 @@ def init_resource_types(session: Session) -> None:
             )
             crud.create_resource_type(session=session, resource_type=res_in)
 
-def init_facility_type(session: Session):
-    facility_types = [
-        "miner",
-        "assembler",
-        "constructor"
-    ]
+
+# ensure base facility types are created
+def init_facility_type(session: Session) -> None:
+    facility_types = ["miner", "assembler", "constructor"]
     for facility_type in facility_types:
         existing_facility_type = session.exec(
             select(FacilityType).where(FacilityType.name == facility_type)
@@ -67,6 +66,7 @@ def init_facility_type(session: Session):
                 name=facility_type,
             )
             crud.create_facility_type(session=session, facility_type=facility_type_in)
+
 
 def init_db(session: Session) -> None:
     # Tables should be created with Alembic migrations

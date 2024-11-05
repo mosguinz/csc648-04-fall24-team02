@@ -7,19 +7,19 @@ from sqlmodel import Session, select
 from app.core.security import get_password_hash, verify_password
 from app.models import (
     FacilityBase,
+    FacilityType,
     FacilityUpdate,
     Item,
     ItemCreate,
     ResourceBase,
     ResourceType,
     User,
+    UserAssembler,
+    UserConstructor,
     UserCreate,
+    UserMiner,
     UserResource,
     UserUpdate,
-    FacilityType,
-    UserMiner,
-    UserAssembler,
-    UserConstructor
 )
 
 
@@ -121,10 +121,11 @@ def create_facility_type(
 
 def read_facility_type_by_name(
     *, session: Session, name: str
-) -> FacilityType:
+) -> FacilityType | None:
     statement = select(FacilityType).where(FacilityType.name == name)
     types = session.exec(statement).first()
     return types
+
 
 def create_user_assembler(
     *, session: Session, assembler_in: FacilityBase, user_id: uuid.UUID
@@ -146,7 +147,7 @@ def read_user_assemblers_by_user(
 
 def update_user_assembler(
     *, session: Session, db_assembler: UserAssembler, assembler_in: FacilityUpdate
-) -> UserResource:
+) -> UserAssembler:
     resource_data = assembler_in.model_dump(exclude_unset=True)
     db_assembler.sqlmodel_update(resource_data)
     session.add(db_assembler)
@@ -187,7 +188,9 @@ def update_user_miner(
 def create_user_constructor(
     *, session: Session, constructor_in: FacilityBase, user_id: uuid.UUID
 ) -> UserConstructor:
-    db_item = UserConstructor.model_validate(constructor_in, update={"user_id": user_id})
+    db_item = UserConstructor.model_validate(
+        constructor_in, update={"user_id": user_id}
+    )
     session.add(db_item)
     session.commit()
     session.refresh(db_item)
@@ -204,7 +207,7 @@ def read_user_constructors_by_user(
 
 def update_user_constructor(
     *, session: Session, db_constructor: UserConstructor, constructor_in: FacilityUpdate
-) -> UserMiner:
+) -> UserConstructor:
     resource_data = constructor_in.model_dump(exclude_unset=True)
     db_constructor.sqlmodel_update(resource_data)
     session.add(db_constructor)

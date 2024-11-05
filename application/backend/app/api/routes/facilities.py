@@ -7,7 +7,13 @@ from app.api.deps import (
     CurrentUser,
     SessionDep,
 )
-from app.models import FacilityBase, FacilityUpdate, UserAssembler, UserConstructor, UserMiner
+from app.models import (
+    FacilityBase,
+    FacilityUpdate,
+    UserAssembler,
+    UserConstructor,
+    UserMiner,
+)
 
 router = APIRouter()
 
@@ -38,7 +44,9 @@ def set_miners(
     Set miners for the selected user
     """
     # TODO add in validation
-    curr_miners = crud.read_user_miners_by_user(session=session, user_id=current_user.id)
+    curr_miners = crud.read_user_miners_by_user(
+        session=session, user_id=current_user.id
+    )
     for miner in miners:
         # grab corresponding existing resource
         miner_id = miner.id
@@ -47,14 +55,20 @@ def set_miners(
         )
         # if the resource already exists
         if matching_miner:
-            miner_in = FacilityUpdate(status=miner.status, recipe_id=miner.recipe_id)
+            update_miner = FacilityUpdate(
+                status=miner.status, recipe_id=miner.recipe_id
+            )
             crud.update_user_miner(
-                session=session, db_miner=matching_miner, miner_in=miner_in
+                session=session, db_miner=matching_miner, miner_in=update_miner
             )
         else:
-            miner_in = FacilityBase(status=miner.status, recipe_id=miner.recipe_id, facility_type_id=miner.facility_type_id)
+            new_miner = FacilityBase(
+                status=miner.status,
+                recipe_id=miner.recipe_id,
+                facility_type_id=miner.facility_type_id,
+            )
             crud.create_user_miner(
-                session=session, miner_in=miner_in, user_id=current_user.id
+                session=session, miner_in=new_miner, user_id=current_user.id
             )
     return crud.read_user_miners_by_user(session=session, user_id=current_user.id)
 
@@ -68,11 +82,12 @@ def read_assemblers(session: SessionDep, current_user: CurrentUser) -> Any:
     Get assemblers for the selected user
     """
     # TODO add in validation
-    assemblers = crud.read_user_assemblers_by_user(session=session, user_id=current_user.id)
+    assemblers = crud.read_user_assemblers_by_user(
+        session=session, user_id=current_user.id
+    )
     if not assemblers:
         raise HTTPException(status_code=404, detail="User assemblers not found")
     return assemblers
-
 
 
 @router.post(
@@ -86,7 +101,9 @@ def set_assemblers(
     Set assemblers for the selected user
     """
     # TODO add in validation
-    curr_assemblers = crud.read_user_assemblers_by_user(session=session, user_id=current_user.id)
+    curr_assemblers = crud.read_user_assemblers_by_user(
+        session=session, user_id=current_user.id
+    )
     for assembler in assemblers:
         # grab corresponding existing resource
         assembler_id = assembler.id
@@ -95,16 +112,25 @@ def set_assemblers(
         )
         # if the resource already exists
         if matching_assembler:
-            assembler_in = FacilityUpdate(status=assembler.status, recipe_id=assembler.recipe_id)
+            update_assembler = FacilityUpdate(
+                status=assembler.status, recipe_id=assembler.recipe_id
+            )
             crud.update_user_assembler(
-                session=session, db_assembler=matching_assembler, assembler_in=assembler_in
+                session=session,
+                db_assembler=matching_assembler,
+                assembler_in=update_assembler,
             )
         else:
-            assembler_in = FacilityBase(facility_type_id=assembler.facility_type_id, status=assembler.status, recipe_id=assembler.recipe_id)
+            assembler_in = FacilityBase(
+                facility_type_id=assembler.facility_type_id,
+                status=assembler.status,
+                recipe_id=assembler.recipe_id,
+            )
             crud.create_user_assembler(
                 session=session, assembler_in=assembler_in, user_id=current_user.id
             )
     return crud.read_user_assemblers_by_user(session=session, user_id=current_user.id)
+
 
 @router.get(
     "/constructor",
@@ -115,7 +141,9 @@ def read_constructors(session: SessionDep, current_user: CurrentUser) -> Any:
     Get constructors for the selected user
     """
     # TODO add in validation
-    constructors = crud.read_user_constructors_by_user(session=session, user_id=current_user.id)
+    constructors = crud.read_user_constructors_by_user(
+        session=session, user_id=current_user.id
+    )
     if not constructors:
         raise HTTPException(status_code=404, detail="User constructors not found")
     return constructors
@@ -132,7 +160,9 @@ def set_constructors(
     Set constructors for the selected user
     """
     # TODO add in validation
-    curr_constructors = crud.read_user_constructors_by_user(session=session, user_id=current_user.id)
+    curr_constructors = crud.read_user_constructors_by_user(
+        session=session, user_id=current_user.id
+    )
     for constructor in constructors:
         # grab corresponding existing resource
         constructor_id = constructor.id
@@ -141,12 +171,20 @@ def set_constructors(
         )
         # if the resource already exists
         if matching_constructor:
-            constructor_in = FacilityUpdate(status=constructor.status, recipe_id=constructor.recipe_id)
+            update_constructor = FacilityUpdate(
+                status=constructor.status, recipe_id=constructor.recipe_id
+            )
             crud.update_user_constructor(
-                session=session, db_constructor=matching_constructor, constructor_in=constructor_in
+                session=session,
+                db_constructor=matching_constructor,
+                constructor_in=update_constructor,
             )
         else:
-            constructor_in = FacilityBase(facility_type_id=constructor.facility_type_id, status=constructor.status, recipe_id=constructor.recipe_id)
+            constructor_in = FacilityBase(
+                facility_type_id=constructor.facility_type_id,
+                status=constructor.status,
+                recipe_id=constructor.recipe_id,
+            )
             crud.create_user_constructor(
                 session=session, constructor_in=constructor_in, user_id=current_user.id
             )

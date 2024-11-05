@@ -1,5 +1,5 @@
-from typing import Optional
 import uuid
+from typing import Optional
 
 from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
@@ -52,9 +52,7 @@ class User(UserBase, table=True):
     assemblers: list["UserAssembler"] = Relationship(
         back_populates="user", cascade_delete=True
     )
-    miners: list["UserMiner"] = Relationship(
-        back_populates="user", cascade_delete=True
-    )
+    miners: list["UserMiner"] = Relationship(back_populates="user", cascade_delete=True)
     constructors: list["UserConstructor"] = Relationship(
         back_populates="user", cascade_delete=True
     )
@@ -178,10 +176,8 @@ class Recipe(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True, unique=True)
     time_to_complete: int = Field(default=0)  # Time in seconds
-    facility_type_id: Optional[int] = Field(foreign_key="facilitytype.id")
-    facility_type: Optional["FacilityType"] = Relationship(
-        back_populates="recipes"
-    )
+    facility_type_id: int | None = Field(foreign_key="facilitytype.id")
+    facility_type: Optional["FacilityType"] = Relationship(back_populates="recipes")
 
     inputs: list["RecipeInput"] = Relationship(
         back_populates="recipe", cascade_delete=True
@@ -189,6 +185,7 @@ class Recipe(SQLModel, table=True):
     outputs: list["RecipeOutput"] = Relationship(
         back_populates="recipe", cascade_delete=True
     )
+
 
 class RecipeInput(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -217,6 +214,7 @@ class FacilityBase(SQLModel):
     status: str
     recipe_id: None | int
 
+
 class FacilityUpdate(SQLModel):
     status: str
     recipe_id: None | int
@@ -228,8 +226,8 @@ class UserAssembler(SQLModel, table=True):
     facility_type: "FacilityType" = Relationship()
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     user: "User" = Relationship(back_populates="assemblers")
-    recipe_id: Optional[int] = Field(foreign_key="recipe.id")
-    recipe: Optional[Recipe] = Relationship()
+    recipe_id: int | None = Field(foreign_key="recipe.id")
+    recipe: Recipe | None = Relationship()
     status: str = Field(default="idle")
 
 
@@ -239,8 +237,8 @@ class UserMiner(SQLModel, table=True):
     facility_type: "FacilityType" = Relationship()
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     user: "User" = Relationship(back_populates="miners")
-    recipe_id: Optional[int] = Field(foreign_key="recipe.id")
-    recipe: Optional[Recipe] = Relationship()
+    recipe_id: int | None = Field(foreign_key="recipe.id")
+    recipe: Recipe | None = Relationship()
     status: str = Field(default="idle")
 
 
@@ -250,6 +248,6 @@ class UserConstructor(SQLModel, table=True):
     facility_type: "FacilityType" = Relationship()
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
     user: "User" = Relationship(back_populates="constructors")
-    recipe_id: Optional[int] = Field(foreign_key="recipe.id")
-    recipe: Optional[Recipe] = Relationship()
+    recipe_id: int | None = Field(foreign_key="recipe.id")
+    recipe: Recipe | None = Relationship()
     status: str = Field(default="idle")
