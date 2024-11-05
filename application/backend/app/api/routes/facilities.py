@@ -7,7 +7,7 @@ from app.api.deps import (
     CurrentUser,
     SessionDep,
 )
-from app.models import FacilityUpdate, UserAssembler, UserConstructor, UserMiner
+from app.models import FacilityBase, FacilityUpdate, UserAssembler, UserConstructor, UserMiner
 
 router = APIRouter()
 
@@ -46,16 +46,17 @@ def set_miners(
             (mine for mine in curr_miners if mine.id == miner_id), None
         )
         # if the resource already exists
-        miner_in = FacilityUpdate(status=miner.status, recipe_id=miner.recipe_id)
         if matching_miner:
+            miner_in = FacilityUpdate(status=miner.status, recipe_id=miner.recipe_id)
             crud.update_user_miner(
                 session=session, db_miner=matching_miner, miner_in=miner_in
             )
         else:
+            miner_in = FacilityBase(status=miner.status, recipe_id=miner.recipe_id, facility_type_id=miner.facility_type_id)
             crud.create_user_miner(
                 session=session, miner_in=miner_in, user_id=current_user.id
             )
-    return miners
+    return crud.read_user_miners_by_user(session=session, user_id=current_user.id)
 
 
 @router.get(
