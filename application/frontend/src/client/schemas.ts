@@ -208,6 +208,76 @@ export const $UpdatePassword = {
 	},
 } as const;
 
+export const $UserAssembler = {
+	properties: {
+		id: {
+	type: 'any-of',
+	contains: [{
+	type: 'number',
+}, {
+	type: 'null',
+}],
+},
+		facility_type_id: {
+	type: 'number',
+	isRequired: true,
+},
+		user_id: {
+	type: 'string',
+	isRequired: true,
+	format: 'uuid',
+},
+		recipe_id: {
+	type: 'any-of',
+	contains: [{
+	type: 'number',
+}, {
+	type: 'null',
+}],
+	isRequired: true,
+},
+		status: {
+	type: 'string',
+	default: 'idle',
+},
+	},
+} as const;
+
+export const $UserConstructor = {
+	properties: {
+		id: {
+	type: 'any-of',
+	contains: [{
+	type: 'number',
+}, {
+	type: 'null',
+}],
+},
+		facility_type_id: {
+	type: 'number',
+	isRequired: true,
+},
+		user_id: {
+	type: 'string',
+	isRequired: true,
+	format: 'uuid',
+},
+		recipe_id: {
+	type: 'any-of',
+	contains: [{
+	type: 'number',
+}, {
+	type: 'null',
+}],
+	isRequired: true,
+},
+		status: {
+	type: 'string',
+	default: 'idle',
+},
+	},
+} as const;
+
 export const $UserCreate = {
 	properties: {
 		email: {
@@ -238,6 +308,41 @@ export const $UserCreate = {
 	isRequired: true,
 	maxLength: 40,
 	minLength: 8,
+},
+	},
+} as const;
+
+export const $UserMiner = {
+	properties: {
+		id: {
+	type: 'any-of',
+	contains: [{
+	type: 'number',
+}, {
+	type: 'null',
+}],
+},
+		facility_type_id: {
+	type: 'number',
+	isRequired: true,
+},
+		user_id: {
+	type: 'string',
+	isRequired: true,
+	format: 'uuid',
+},
+		recipe_id: {
+	type: 'any-of',
+	contains: [{
+	type: 'number',
+}, {
+	type: 'null',
+}],
+	isRequired: true,
+},
+		status: {
+	type: 'string',
+	default: 'idle',
 },
 	},
 } as const;

@@ -79,12 +79,42 @@ export type UpdatePassword = {
 
 
 
+export type UserAssembler = {
+	id?: number | null;
+	facility_type_id: number;
+	user_id: string;
+	recipe_id: number | null;
+	status?: string;
+};
+
+
+
+export type UserConstructor = {
+	id?: number | null;
+	facility_type_id: number;
+	user_id: string;
+	recipe_id: number | null;
+	status?: string;
+};
+
+
+
 export type UserCreate = {
 	email: string;
 	is_active?: boolean;
 	is_superuser?: boolean;
 	full_name?: string | null;
 	password: string;
+};
+
+
+
+export type UserMiner = {
+	id?: number | null;
+	facility_type_id: number;
+	user_id: string;
+	recipe_id: number | null;
+	status?: string;
 };
 
 
