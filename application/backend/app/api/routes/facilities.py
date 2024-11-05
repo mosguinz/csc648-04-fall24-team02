@@ -94,12 +94,13 @@ def set_assemblers(
             (mine for mine in curr_assemblers if mine.id == assembler_id), None
         )
         # if the resource already exists
-        assembler_in = FacilityUpdate(status=assembler.status, recipe_id=assembler.recipe_id)
         if matching_assembler:
+            assembler_in = FacilityUpdate(status=assembler.status, recipe_id=assembler.recipe_id)
             crud.update_user_assembler(
                 session=session, db_assembler=matching_assembler, assembler_in=assembler_in
             )
         else:
+            assembler_in = FacilityBase(facility_type_id=assembler.facility_type_id, status=assembler.status, recipe_id=assembler.recipe_id)
             crud.create_user_assembler(
                 session=session, assembler_in=assembler_in, user_id=current_user.id
             )
@@ -140,12 +141,13 @@ def set_constructors(
             (mine for mine in curr_constructors if mine.id == constructor_id), None
         )
         # if the resource already exists
-        constructor_in = FacilityUpdate(status=constructor.status, recipe_id=constructor.recipe_id)
         if matching_constructor:
+            constructor_in = FacilityUpdate(status=constructor.status, recipe_id=constructor.recipe_id)
             crud.update_user_constructor(
                 session=session, db_constructor=matching_constructor, constructor_in=constructor_in
             )
         else:
+            constructor_in = FacilityBase(facility_type_id=constructor.facility_type_id, status=constructor.status, recipe_id=constructor.recipe_id)
             crud.create_user_constructor(
                 session=session, constructor_in=constructor_in, user_id=current_user.id
             )
