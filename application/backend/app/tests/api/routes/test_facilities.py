@@ -117,6 +117,112 @@ def test_read_user_miners(client: TestClient, db: Session) -> None:
     assert created_miners == read_miners
 
 
+def test_create_user_assembler(client: TestClient, db: Session) -> None:
+    facility_type = crud.read_facility_type_by_name(session=db, name="assembler")
+    if not facility_type:
+        facility_type_in = FacilityType(
+            name="assembler",
+        )
+        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+    status1 = random_lower_string()
+    assembler1 = {"facility_type_id": facility_type.id, "status": status1}
+    status2 = random_lower_string()
+    assembler2 = {"facility_type_id": facility_type.id, "status": status2}
+    assemblers = [assembler1, assembler2]
+    username = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=username, password=password)
+    crud.create_user(session=db, user_create=user_in)
+
+    login_data = {
+        "username": username,
+        "password": password,
+    }
+    r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+    response = client.post(
+        f"{settings.API_V1_STR}/facilities/assembler", headers=headers, json=assemblers
+    )
+    assert response.status_code == 200
+    content = response.json()
+    for assembler in content:
+        assert any(assembler["status"] == mine["status"] for mine in assemblers)
 
 
+def test_update_user_assembler(client: TestClient, db: Session) -> None:
+    facility_type = crud.read_facility_type_by_name(session=db, name="assembler")
+    if not facility_type:
+        facility_type_in = FacilityType(
+            name="assembler",
+        )
+        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+    assembler1 = {"facility_type_id": facility_type.id, "status": "idle"}
+    assembler2 = {"facility_type_id": facility_type.id, "status": "idle"}
+    assemblers = [assembler1, assembler2]
+    username = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=username, password=password)
+    crud.create_user(session=db, user_create=user_in)
+
+    login_data = {
+        "username": username,
+        "password": password,
+    }
+    r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+    response = client.post(
+        f"{settings.API_V1_STR}/facilities/assembler", headers=headers, json=assemblers
+    )
+    old_assemblers = response.json()
+    new_assemblers = []
+    for old_assembler in old_assemblers:
+        old_assembler["status"] = random_lower_string()
+        new_assemblers.append(old_assembler)
+
+    response = client.post(
+        f"{settings.API_V1_STR}/facilities/assembler", headers=headers, json=new_assemblers
+    )
+    assert response.status_code == 200
+    content = response.json()
+    for assembler in content:
+        assert any(assembler["status"] == mine["status"] for mine in new_assemblers)
+
+
+def test_read_user_assemblers(client: TestClient, db: Session) -> None:
+    facility_type = crud.read_facility_type_by_name(session=db, name="assembler")
+    if not facility_type:
+        facility_type_in = FacilityType(
+            name="assembler",
+        )
+        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+    assembler1 = {"facility_type_id": facility_type.id, "status": "idle"}
+    assembler2 = {"facility_type_id": facility_type.id, "status": "idle"}
+    assemblers = [assembler1, assembler2]
+    username = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=username, password=password)
+    crud.create_user(session=db, user_create=user_in)
+
+    login_data = {
+        "username": username,
+        "password": password,
+    }
+    r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+    response = client.post(
+        f"{settings.API_V1_STR}/facilities/assembler", headers=headers, json=assemblers
+    )
+    created_assemblers = response.json()
+    response = client.get(
+        f"{settings.API_V1_STR}/facilities/assembler",
+        headers=headers,
+    )
+    read_assemblers = response.json()
+    assert created_assemblers == read_assemblers
 

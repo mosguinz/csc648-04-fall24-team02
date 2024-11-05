@@ -104,8 +104,7 @@ def set_assemblers(
             crud.create_user_assembler(
                 session=session, assembler_in=assembler_in, user_id=current_user.id
             )
-    return assemblers
-
+    return crud.read_user_assemblers_by_user(session=session, user_id=current_user.id)
 
 @router.get(
     "/constructor",
@@ -151,4 +150,4 @@ def set_constructors(
             crud.create_user_constructor(
                 session=session, constructor_in=constructor_in, user_id=current_user.id
             )
-    return constructors
+    return crud.read_user_constructors_by_user(session=session, user_id=current_user.id)
