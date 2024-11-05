@@ -119,6 +119,13 @@ def create_facility_type(
     return db_item
 
 
+def read_facility_type_by_name(
+    *, session: Session, name: str
+) -> FacilityType:
+    statement = select(FacilityType).where(FacilityType.name == name)
+    types = session.exec(statement).first()
+    return types
+
 def create_user_assembler(
     *, session: Session, assembler_in: FacilityBase, user_id: uuid.UUID
 ) -> UserAssembler:
