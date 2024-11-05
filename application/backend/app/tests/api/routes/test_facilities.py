@@ -226,3 +226,113 @@ def test_read_user_assemblers(client: TestClient, db: Session) -> None:
     read_assemblers = response.json()
     assert created_assemblers == read_assemblers
 
+
+def test_create_user_constructor(client: TestClient, db: Session) -> None:
+    facility_type = crud.read_facility_type_by_name(session=db, name="constructor")
+    if not facility_type:
+        facility_type_in = FacilityType(
+            name="constructor",
+        )
+        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+    status1 = random_lower_string()
+    constructor1 = {"facility_type_id": facility_type.id, "status": status1}
+    status2 = random_lower_string()
+    constructor2 = {"facility_type_id": facility_type.id, "status": status2}
+    constructors = [constructor1, constructor2]
+    username = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=username, password=password)
+    crud.create_user(session=db, user_create=user_in)
+
+    login_data = {
+        "username": username,
+        "password": password,
+    }
+    r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+    response = client.post(
+        f"{settings.API_V1_STR}/facilities/constructor", headers=headers, json=constructors
+    )
+    assert response.status_code == 200
+    content = response.json()
+    for constructor in content:
+        assert any(constructor["status"] == mine["status"] for mine in constructors)
+
+
+def test_update_user_constructor(client: TestClient, db: Session) -> None:
+    facility_type = crud.read_facility_type_by_name(session=db, name="constructor")
+    if not facility_type:
+        facility_type_in = FacilityType(
+            name="constructor",
+        )
+        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+    constructor1 = {"facility_type_id": facility_type.id, "status": "idle"}
+    constructor2 = {"facility_type_id": facility_type.id, "status": "idle"}
+    constructors = [constructor1, constructor2]
+    username = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=username, password=password)
+    crud.create_user(session=db, user_create=user_in)
+
+    login_data = {
+        "username": username,
+        "password": password,
+    }
+    r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+    response = client.post(
+        f"{settings.API_V1_STR}/facilities/constructor", headers=headers, json=constructors
+    )
+    old_constructors = response.json()
+    new_constructors = []
+    for old_constructor in old_constructors:
+        old_constructor["status"] = random_lower_string()
+        new_constructors.append(old_constructor)
+
+    response = client.post(
+        f"{settings.API_V1_STR}/facilities/constructor", headers=headers, json=new_constructors
+    )
+    assert response.status_code == 200
+    content = response.json()
+    for constructor in content:
+        assert any(constructor["status"] == mine["status"] for mine in new_constructors)
+
+
+def test_read_user_constructors(client: TestClient, db: Session) -> None:
+    facility_type = crud.read_facility_type_by_name(session=db, name="constructor")
+    if not facility_type:
+        facility_type_in = FacilityType(
+            name="constructor",
+        )
+        facility_type = crud.create_facility_type(session=db, facility_type=facility_type_in)
+    constructor1 = {"facility_type_id": facility_type.id, "status": "idle"}
+    constructor2 = {"facility_type_id": facility_type.id, "status": "idle"}
+    constructors = [constructor1, constructor2]
+    username = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=username, password=password)
+    crud.create_user(session=db, user_create=user_in)
+
+    login_data = {
+        "username": username,
+        "password": password,
+    }
+    r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    tokens = r.json()
+    a_token = tokens["access_token"]
+    headers = {"Authorization": f"Bearer {a_token}"}
+    response = client.post(
+        f"{settings.API_V1_STR}/facilities/constructor", headers=headers, json=constructors
+    )
+    created_constructors = response.json()
+    response = client.get(
+        f"{settings.API_V1_STR}/facilities/constructor",
+        headers=headers,
+    )
+    read_constructors = response.json()
+    assert created_constructors == read_constructors
+
