@@ -8,7 +8,6 @@ export default class MinerPlacementScene extends Phaser.Scene {
     copper: 0,
     rock: 0,
   } // Track miner levels
-  private minerPowerTexts: { [key: string]: Phaser.GameObjects.Text } = {} // Track mining power text objects
 
   constructor() {
     super({ key: "MinerPlacementScene" })

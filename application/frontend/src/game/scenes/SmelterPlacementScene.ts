@@ -3,7 +3,6 @@ import Phaser from "phaser"
 import { Recipe, recipes } from "../data/Constants"
 
 export default class SmelterPlacementScene extends Phaser.Scene {
-  private smelterIcons: { [key: string]: Phaser.GameObjects.Image } = {} // Track smelter icons on the build rectangle
 
   constructor() {
     super({ key: "SmelterPlacementScene" })
