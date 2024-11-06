@@ -1,4 +1,6 @@
+// theme.js
 import { extendTheme } from "@chakra-ui/react"
+import "@fontsource/bubblegum-sans"
 
 const disabledStyles = {
   _disabled: {
@@ -9,14 +11,41 @@ const disabledStyles = {
 const theme = extendTheme({
   colors: {
     ui: {
-      main: "#009688",
+      main: "#F48FB1",
       secondary: "#EDF2F7",
       success: "#48BB78",
       danger: "#E53E3E",
       light: "#FAFAFA",
-      dark: "#1A202C",
+      darkPink: "#b68296",
       darkSlate: "#252D3D",
       dim: "#A0AEC0",
+      pastelGreen: "#80ef80",
+      softPink: "#F8C8DC",
+      orange: "#f7bd52",
+      red: "#E32727",
+      cream: "#fceaba",
+      purple: "#c3baf7",
+      green: "#a5d061",
+      eggshell: "#FFF5EE",
+
+    },
+  },
+  fonts: {
+    heading: "'Bubblegum Sans', cursive",
+    body: "'Bubblegum Sans', cursive",
+
+  },
+  styles: {
+    global: {
+      body: {
+        bgColor: "ui.softPink",
+        bgImage: "/assets/images/clear-cherry-blossom-falling.gif",
+        bgSize: "cover",
+        bgRepeat: "no-repeat",
+        bgPosition: "center center",
+        color: "ui.darkPink",
+        overflowX: "hidden",
+      },
     },
   },
   components: {
@@ -24,9 +53,9 @@ const theme = extendTheme({
       variants: {
         primary: {
           backgroundColor: "ui.main",
-          color: "ui.light",
+          color: "ui.cream",
           _hover: {
-            backgroundColor: "#00766C",
+            backgroundColor: "ui.orange",
           },
           _disabled: {
             ...disabledStyles,
@@ -39,7 +68,7 @@ const theme = extendTheme({
           backgroundColor: "ui.danger",
           color: "ui.light",
           _hover: {
-            backgroundColor: "#E32727",
+            backgroundColor: "ui.red",
           },
         },
       },
@@ -49,7 +78,7 @@ const theme = extendTheme({
         enclosed: {
           tab: {
             _selected: {
-              color: "ui.main",
+              color: "ui.pastelGreen",
             },
           },
         },

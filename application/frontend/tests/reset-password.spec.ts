@@ -7,7 +7,16 @@ test.use({ storageState: { cookies: [], origins: [] } })
 
 test("Password Recovery title is visible", async ({ page }) => {
   await page.goto("/recover-password")
-
+  await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   await expect(
     page.getByRole("heading", { name: "Password Recovery" }),
   ).toBeVisible()
@@ -15,7 +24,16 @@ test("Password Recovery title is visible", async ({ page }) => {
 
 test("Input is visible, empty and editable", async ({ page }) => {
   await page.goto("/recover-password")
-
+  await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   await expect(page.getByPlaceholder("Email")).toBeVisible()
   await expect(page.getByPlaceholder("Email")).toHaveText("")
   await expect(page.getByPlaceholder("Email")).toBeEditable()
@@ -23,7 +41,16 @@ test("Input is visible, empty and editable", async ({ page }) => {
 
 test("Continue button is visible", async ({ page }) => {
   await page.goto("/recover-password")
-
+  await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   await expect(page.getByRole("button", { name: "Continue" })).toBeVisible()
 })
 
@@ -40,6 +67,16 @@ test("User can reset password successfully using the link", async ({
   await signUpNewUser(page, fullName, email, password)
 
   await page.goto("/recover-password")
+    await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   await page.getByPlaceholder("Email").fill(email)
 
   await page.getByRole("button", { name: "Continue" }).click()
@@ -51,7 +88,16 @@ test("User can reset password successfully using the link", async ({
   })
 
   await page.goto(`http://localhost:1080/messages/${emailData.id}.html`)
-
+  await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   const selector = 'a[href*="/reset-password?token="]'
 
   let url = await page.getAttribute(selector, "href")
@@ -76,7 +122,16 @@ test("Expired or invalid reset link", async ({ page }) => {
   const invalidUrl = "/reset-password?token=invalidtoken"
 
   await page.goto(invalidUrl)
-
+  await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   await page.getByLabel("Set Password").fill(password)
   await page.getByLabel("Confirm Password").fill(password)
   await page.getByRole("button", { name: "Reset Password" }).click()
@@ -94,6 +149,16 @@ test("Weak new password validation", async ({ page, request }) => {
   await signUpNewUser(page, fullName, email, password)
 
   await page.goto("/recover-password")
+    await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   await page.getByPlaceholder("Email").fill(email)
   await page.getByRole("button", { name: "Continue" }).click()
 
@@ -104,7 +169,16 @@ test("Weak new password validation", async ({ page, request }) => {
   })
 
   await page.goto(`http://localhost:1080/messages/${emailData.id}.html`)
-
+  await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   const selector = 'a[href*="/reset-password?token="]'
   let url = await page.getAttribute(selector, "href")
   url = url!.replace("http://localhost/", "http://localhost:5173/")

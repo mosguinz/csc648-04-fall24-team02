@@ -1,9 +1,11 @@
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 import {
+  Box,
   Button,
   Container,
   FormControl,
   FormErrorMessage,
+  Heading,
   Icon,
   Image,
   Input,
@@ -20,11 +22,12 @@ import {
   useNavigate,
 } from "@tanstack/react-router"
 import { type SubmitHandler, useForm } from "react-hook-form"
-
-import Logo from "/assets/images/fastapi-logo.svg"
+import { FaSignInAlt } from "react-icons/fa"
+import Logo from "/assets/images/login-image.png"
 import type { Body_login_login_access_token as AccessToken } from "../client"
 import useAuth, { isLoggedIn } from "../hooks/useAuth"
 import { emailPattern } from "../utils"
+import { useFloatAnimation } from "../hooks/useFloatAnimation";
 
 export const Route = createFileRoute("/login")({
   component: Login,
@@ -53,7 +56,7 @@ function Login() {
     },
   })
   const navigate = useNavigate()
-
+  const floatAnimation = useFloatAnimation();
   const onSubmit: SubmitHandler<AccessToken> = async (data) => {
     if (isSubmitting) return
 
@@ -68,26 +71,33 @@ function Login() {
   }
 
   return (
-    <>
-      <Container
+    <Container
+      h="100vh"
+      maxW="md"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box
         as="form"
         onSubmit={handleSubmit(onSubmit)}
-        h="100vh"
-        maxW="sm"
-        alignItems="stretch"
-        justifyContent="center"
-        gap={4}
-        centerContent
+        bg="whiteAlpha.900"
+        backdropFilter="blur(10px)"
+        p={{ base: 6, md: 8 }}
+        borderRadius="lg"
+        boxShadow="2xl"
+        textAlign="center"
+        animation={floatAnimation} // Apply the floating animation
+        maxWidth="400px"
+        w="100%"
       >
-        <Image
-          src={Logo}
-          alt="FastAPI logo"
-          height="auto"
-          maxW="2xs"
-          alignSelf="center"
-          mb={4}
-        />
-        <FormControl id="username" isInvalid={!!errors.username || !!error}>
+        <Heading as="h1" size="xl" mb={4}>
+          <Icon as={FaSignInAlt} w={6} h={6} mr={2} />
+          Login
+        </Heading>
+        <Image src={Logo} alt="login" height="auto" maxW="200px" mb={4} mx="auto" />
+
+        <FormControl id="username" isInvalid={!!errors.username || !!error} mb={4}>
           <Input
             id="username"
             {...register("username", {
@@ -98,11 +108,10 @@ function Login() {
             type="email"
             required
           />
-          {errors.username && (
-            <FormErrorMessage>{errors.username.message}</FormErrorMessage>
-          )}
+          {errors.username && <FormErrorMessage>{errors.username.message}</FormErrorMessage>}
         </FormControl>
-        <FormControl id="password" isInvalid={!!error}>
+
+        <FormControl id="password" isInvalid={!!error} mb={4}>
           <InputGroup>
             <Input
               {...register("password", {
@@ -112,36 +121,34 @@ function Login() {
               placeholder="Password"
               required
             />
-            <InputRightElement
-              color="ui.dim"
-              _hover={{
-                cursor: "pointer",
-              }}
-            >
+            <InputRightElement color="ui.dark" _hover={{ cursor: "pointer" }}>
               <Icon
                 as={show ? ViewOffIcon : ViewIcon}
                 onClick={setShow.toggle}
                 aria-label={show ? "Hide password" : "Show password"}
-              >
-                {show ? <ViewOffIcon /> : <ViewIcon />}
-              </Icon>
+              />
             </InputRightElement>
           </InputGroup>
           {error && <FormErrorMessage>{error}</FormErrorMessage>}
         </FormControl>
-        <Link as={RouterLink} to="/recover-password" color="blue.500">
+
+        <Link as={RouterLink} to="/recover-password" color="blue.500" mb={4} display="block">
           Forgot password?
         </Link>
-        <Button variant="primary" type="submit" isLoading={isSubmitting}>
+
+        <Button variant="primary" type="submit" isLoading={isSubmitting} mb={4}>
           Log In
         </Button>
+
         <Text>
           Don't have an account?{" "}
           <Link as={RouterLink} to="/signup" color="blue.500">
             Sign up
           </Link>
         </Text>
-      </Container>
-    </>
-  )
+      </Box>
+    </Container>
+  );
 }
+
+export default Login;
