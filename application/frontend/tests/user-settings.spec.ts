@@ -9,6 +9,16 @@ const tabs = ["My profile", "Password", "Appearance"]
 
 test("My profile tab is active by default", async ({ page }) => {
   await page.goto("/settings")
+    await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   await expect(page.getByRole("tab", { name: "My profile" })).toHaveAttribute(
     "aria-selected",
     "true",
@@ -17,6 +27,16 @@ test("My profile tab is active by default", async ({ page }) => {
 
 test("All tabs are visible", async ({ page }) => {
   await page.goto("/settings")
+    await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   for (const tab of tabs) {
     await expect(page.getByRole("tab", { name: tab })).toBeVisible()
   }
@@ -38,6 +58,16 @@ test.describe("Edit user full name and email successfully", () => {
     await logInUser(page, email, password)
 
     await page.goto("/settings")
+      await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
     await page.getByRole("tab", { name: "My profile" }).click()
     await page.getByRole("button", { name: "Edit" }).click()
     await page.getByLabel("Full name").fill(updatedName)
@@ -62,6 +92,16 @@ test.describe("Edit user full name and email successfully", () => {
     await logInUser(page, email, password)
 
     await page.goto("/settings")
+      await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
     await page.getByRole("tab", { name: "My profile" }).click()
     await page.getByRole("button", { name: "Edit" }).click()
     await page.getByLabel("Email").fill(updatedEmail)
@@ -89,6 +129,16 @@ test.describe("Edit user with invalid data", () => {
     await logInUser(page, email, password)
 
     await page.goto("/settings")
+      await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
     await page.getByRole("tab", { name: "My profile" }).click()
     await page.getByRole("button", { name: "Edit" }).click()
     await page.getByLabel("Email").fill(invalidEmail)
@@ -109,6 +159,16 @@ test.describe("Edit user with invalid data", () => {
     await logInUser(page, email, password)
 
     await page.goto("/settings")
+      await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
     await page.getByRole("tab", { name: "My profile" }).click()
     await page.getByRole("button", { name: "Edit" }).click()
     await page.getByLabel("Full name").fill(updatedName)
@@ -131,6 +191,16 @@ test.describe("Edit user with invalid data", () => {
     await logInUser(page, email, password)
 
     await page.goto("/settings")
+      await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
     await page.getByRole("tab", { name: "My profile" }).click()
     await page.getByRole("button", { name: "Edit" }).click()
     await page.getByLabel("Email").fill(updatedEmail)
@@ -159,6 +229,16 @@ test.describe("Change password successfully", () => {
     await logInUser(page, email, password)
 
     await page.goto("/settings")
+      await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
     await page.getByRole("tab", { name: "Password" }).click()
     await page.getByLabel("Current Password*").fill(password)
     await page.getByLabel("Set Password*").fill(NewPassword)
@@ -189,6 +269,16 @@ test.describe("Change password with invalid data", () => {
     await logInUser(page, email, password)
 
     await page.goto("/settings")
+      await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
     await page.getByRole("tab", { name: "Password" }).click()
     await page.getByLabel("Current Password*").fill(password)
     await page.getByLabel("Set Password*").fill(weakPassword)
@@ -214,6 +304,16 @@ test.describe("Change password with invalid data", () => {
     await logInUser(page, email, password)
 
     await page.goto("/settings")
+      await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
     await page.getByRole("tab", { name: "Password" }).click()
     await page.getByLabel("Current Password*").fill(password)
     await page.getByLabel("Set Password*").fill(newPassword)
@@ -234,6 +334,16 @@ test.describe("Change password with invalid data", () => {
     await logInUser(page, email, password)
 
     await page.goto("/settings")
+      await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
     await page.getByRole("tab", { name: "Password" }).click()
     await page.getByLabel("Current Password*").fill(password)
     await page.getByLabel("Set Password*").fill(password)
@@ -249,6 +359,16 @@ test.describe("Change password with invalid data", () => {
 
 test("Appearance tab is visible", async ({ page }) => {
   await page.goto("/settings")
+    await page.addStyleTag({
+    content: `
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    `,
+  })
   await page.getByRole("tab", { name: "Appearance" }).click()
   await expect(page.getByLabel("Appearance")).toBeVisible()
 })
