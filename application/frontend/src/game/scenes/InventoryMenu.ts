@@ -1,63 +1,40 @@
 import Phaser from "phaser"
 import { ResourcesService, ResourceBase, TDataSetResources } from "../../client";
+import { ResourceMap } from "../data/Constants";
 
 export default class InventoryMenu extends Phaser.Scene {
+
     public inventory: {
-        [key: string]: { count: number; textObject: Phaser.GameObjects.Text | null }
-    } = {
-            iron_ore: { count: 0, textObject: null },
-            copper_ore: { count: 0, textObject: null },
-            rock: { count: 0, textObject: null },
-            iron_ingot: { count: 0, textObject: null },
-            copper_ingot: { count: 0, textObject: null },
-            concrete: { count: 0, textObject: null },
-            iron_plate: { count: 0, textObject: null },
-            copper_plate: { count: 0, textObject: null },
-            iron_rod: { count: 0, textObject: null },
-            screws: { count: 0, textObject: null },
-            wire: { count: 0, textObject: null },
-            cable: { count: 0, textObject: null },
+        [key: string]: {
+            count: number,
+            textObject: Phaser.GameObjects.Text | null,
+            name: string
         }
-
-
-    public itemNames: { [key: string]: string } = {
-        iron_ore: "Iron Ore",
-        copper_ore: "Copper Ore",
-        rock: "Rock",
-        iron_ingot: "Iron Ingot",
-        copper_ingot: "Copper Ingot",
-        concrete: "Concrete",
-        iron_plate: "Iron Plate",
-        copper_plate: "Copper Plate",
-        iron_rod: "Iron Rod",
-        screws: "Screws",
-        wire: "Wire",
-        cable: "Cable",
-        reinforced_iron_plate: "Reinforced Iron Plate",
-    }
+    } = {
+            iron_ore: { count: 0, textObject: null, name:"Iron Ore"},
+            copper_ore: { count: 0, textObject: null, name:"Copper Ore" },
+            rock: { count: 0, textObject: null, name:"Rock" },
+            iron_ingot: { count: 0, textObject: null, name:"Iron Ingot" },
+            copper_ingot: { count: 0, textObject: null, name:"Copper Ingot" },
+            concrete: { count: 0, textObject: null, name:"Concrete" },
+            iron_plate: { count: 0, textObject: null, name:"Iron Plate" },
+            copper_plate: { count: 0, textObject: null, name:"Copper Plate" },
+            iron_rod: { count: 0, textObject: null, name:"Iron Rod" },
+            screws: { count: 0, textObject: null, name:"Screws" },
+            wire: { count: 0, textObject: null, name:"Wire" },
+            cable: { count: 0, textObject: null, name:"Cable" },
+        }
 
     private floatingTextOffsetY = 20 // Y offset for overlapping texts
     private activeFloatingTexts: Phaser.GameObjects.Text[] = [] // Store active floating texts to manage overlaps
 
     constructor() {
         super({ key: "InventoryMenu" })
-        // TODO: Properly add syncing with the backend
-        const resourceMap = ["iron_ore",
-            "copper_ore",
-            "rock",
-            "iron_ingot",
-            "copper_ingot",
-            "concrete",
-            "iron_plate",
-            "copper_plate",
-            "iron_rod",
-            "screws",
-            "wire",
-            "cable",]
 
+        // TODO: Properly add syncing with the backend
         ResourcesService.readResources().then((response) => {
             for (const resource of response) {
-                const key = resourceMap[resource.resource_type_id - 1];
+                const key = ResourceMap[resource.resource_type_id];
                 this.inventory[key].count = resource.quantity;
             }
         });
@@ -80,90 +57,41 @@ export default class InventoryMenu extends Phaser.Scene {
         inventoryTitle.scaleX = 1
         inventoryTitle.scaleY = 1
 
-        // Add all resources with images, names, and counters
-
-        // Iron Ore
-        this.addResource("iron_ore", "Iron Ore:", 25, 79, 51, 62, 51, 82)
-
-        // Copper Ore
-        this.addResource("copper_ore", "Copper Ore:", 25, 119, 51, 102, 51, 122)
-
-        // Rock
-        this.addResource("rock", "Rock:", 25, 159, 51, 142, 51, 162)
-
-        // Iron Ingot
-        this.addResource("iron_ingot", "Iron Ingot:", 25, 199, 51, 182, 51, 202)
-
-        // Copper Ingot
-        this.addResource("copper_ingot", "Copper Ingot:", 25, 239, 51, 221, 51, 241)
-
-        // Concrete
-        this.addResource("concrete", "Concrete:", 25, 279, 51, 261, 51, 281)
-
-        // Iron Plate
-        this.addResource("iron_plate", "Iron Plate:", 25, 319, 51, 301, 51, 321)
-
-        // Copper Plate
-        this.addResource("copper_plate", "Copper Plate:", 25, 359, 51, 341, 51, 361)
-
-        // Iron Rod
-        this.addResource("iron_rod", "Iron Rod:", 25, 399, 51, 381, 51, 401)
-
-        // Screws
-        this.addResource("screws", "Screws:", 25, 439, 51, 421, 51, 441)
-
-        // Wire
-        this.addResource("wire", "Wire:", 25, 479, 51, 461, 51, 481)
-
-        // Cable
-        this.addResource("cable", "Cable:", 25, 519, 51, 501, 51, 521)
-
-        // console.log("Pre-requesting resources");
-        // const token =  localStorage.getItem("access_token");
-
-        // fetch(`/api/v1/resources`, {
-        //     method: 'GET',
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`, // JWT auth example
-        //     }
-        // }).then(response => { 
-        //     console.log(JSON.stringify(response));
-        //     console.log("Post-requesting resources");
-        //  });
-        const resourceMap = ["iron_ore",
-            "copper_ore",
-            "rock",
-            "iron_ingot",
-            "copper_ingot",
-            "concrete",
-            "iron_plate",
-            "copper_plate",
-            "iron_rod",
-            "screws",
-            "wire",
-            "cable",]
+        // resource objects
+        let offset = 0
+        for (const key in ResourceMap) {
+            const res = {
+                resource_type_id: parseInt(key),
+                quantity: 0
+            } as ResourceBase
+            this.addResource(res, 25, 79 + 40*offset)
+            offset++
+        }
 
         ResourcesService.readResources().then((response) => {
             for (const resource of response) {
-                const key = resourceMap[resource.resource_type_id - 1];
-                this.inventory[key].count = resource.quantity;
+                const res_name = ResourceMap[resource.resource_type_id];
+                this.inventory[res_name].count = resource.quantity;
             }
         });
     }
 
     // Helper function to add a resource (image, name, and count text)
     private addResource(
-        key: string,
-        name: string,
-        imgX: number,
-        imgY: number,
-        nameX: number,
-        nameY: number,
-        countX: number,
-        countY: number,
+        resource: ResourceBase,
+        xCord: number,
+        yCord: number,
     ) {
+        const key = ResourceMap[resource.resource_type_id]
+        const imgX = xCord
+        const imgY = yCord
+        const nameX = xCord + 26
+        const nameY = yCord - 18
+        const countX = xCord + 26
+        const countY = yCord + 2
+        const text = this.inventory[key].name + ":"
         this.add.image(imgX, imgY, key).setScale(2)
-        this.add.text(nameX, nameY, name, { fontSize: "16px" })
+        this.add.text(nameX, nameY, text, { fontSize: "16px" })
         this.inventory[key].textObject = this.add.text(
             countX,
             countY,
@@ -183,23 +111,17 @@ export default class InventoryMenu extends Phaser.Scene {
         }
     }
 
-    displayFloatingTextAtCursor(resource: string, amount: number) {
+    displayFloatingTextAtCursor(text: string) {
         const pointer = this.input.activePointer // Get the current pointer (cursor) position
 
         // Calculate the Y position offset to prevent overlap
         const yOffset = this.activeFloatingTexts.length * this.floatingTextOffsetY
 
-        // Get the display name from the mapping
-        const displayName = this.itemNames[resource] || resource
-
-        // Create the text content (e.g., "+1 Iron Ore")
-        const textContent = `${amount > 0 ? "+" : ""}${amount} ${displayName}`
-
         // Create the floating text near the cursor
         const floatingText = this.add.text(
             pointer.worldX,
             pointer.worldY - yOffset,
-            textContent,
+            text,
             {
                 fontSize: "16px",
                 color: "#ffffff",
@@ -234,22 +156,17 @@ export default class InventoryMenu extends Phaser.Scene {
             )
 
             // Show floating text at the cursor
-            this.displayFloatingTextAtCursor(resource, amount)
+            const res_name = this.inventory[resource].name
+            this.displayFloatingTextAtCursor("+" + amount + " " + res_name)
         }
-        const resourceMap = ["iron_ore",
-            "copper_ore",
-            "rock",
-            "iron_ingot",
-            "copper_ingot",
-            "concrete",
-            "iron_plate",
-            "copper_plate",
-            "iron_rod",
-            "screws",
-            "wire",
-            "cable",]
 
-        const id = resourceMap.indexOf(resource) + 1;
+        let id = -1;
+        for (const key in ResourceMap) {
+            if (resource == ResourceMap[key]) {
+                id = parseInt(key)
+            }
+        }
+
         const res = {
             resource_type_id: id,
             quantity: this.inventory[resource].count,
@@ -258,21 +175,8 @@ export default class InventoryMenu extends Phaser.Scene {
         data.push(res)
         let body = {
             requestBody: data
-
         } as TDataSetResources;
-
         ResourcesService.setResources(body);
-        // const token =  localStorage.getItem("access_token");
-        // fetch(`/api/v1/resources`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Authorization': `Bearer ${token}`, // JWT auth example
-        //     },
-        //     body: JSON.stringify(data)
-        // }).then(response => { 
-        //     console.log(JSON.stringify(response));
-        //     console.log("Post-requesting resources");
-        //  });
     }
 
     // Method to deduct resources
@@ -282,20 +186,13 @@ export default class InventoryMenu extends Phaser.Scene {
             this.inventory[resource].textObject!.setText(
                 `${this.inventory[resource].count}`,
             )
-            const resourceMap = ["iron_ore",
-                "copper_ore",
-                "rock",
-                "iron_ingot",
-                "copper_ingot",
-                "concrete",
-                "iron_plate",
-                "copper_plate",
-                "iron_rod",
-                "screws",
-                "wire",
-                "cable",]
-    
-            const id = resourceMap.indexOf(resource) + 1;
+
+            let id = -1;
+            for (const key in ResourceMap) {
+                if (resource == ResourceMap[key]) {
+                    id = parseInt(key)
+                }
+            }
             const res = {
                 resource_type_id: id,
                 quantity: this.inventory[resource].count,
@@ -304,12 +201,14 @@ export default class InventoryMenu extends Phaser.Scene {
             data.push(res)
             let body = {
                 requestBody: data
-    
+
             } as TDataSetResources;
-    
+
             ResourcesService.setResources(body);
+
             // Show floating text at the cursor
-            this.displayFloatingTextAtCursor(resource, -amount)
+            const res_name = this.inventory[resource].name
+            this.displayFloatingTextAtCursor("-" + amount + " " + res_name)
 
             return true
         }
