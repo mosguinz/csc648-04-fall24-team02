@@ -1,8 +1,8 @@
 import type InventoryMenu from "./InventoryMenu"
+import Phaser from "phaser"
+import { Recipe, recipes } from "../data/Constants"
 
 export default class SmelterPlacementScene extends Phaser.Scene {
-  // private smelterTimers: { [key: string]: Phaser.Time.TimerEvent } = {}; // Track smelter timers
-  private smelterIcons: { [key: string]: Phaser.GameObjects.Image } = {} // Track smelter icons on the build rectangle
 
   constructor() {
     super({ key: "SmelterPlacementScene" })
@@ -75,51 +75,25 @@ export default class SmelterPlacementScene extends Phaser.Scene {
     this.add.image(945, 350, "rock").setScale(3)
 
     // Handle clicking on resource types
-    ironFurnaceIcon.on("pointerdown", () => this.placeSmelter("iron"))
-    copperFurnaceIcon.on("pointerdown", () => this.placeSmelter("copper"))
-    rockFurnaceIcon.on("pointerdown", () => this.placeSmelter("rock"))
+    ironFurnaceIcon.on("pointerdown", () => this.placeSmelter(recipes[0]))
+    copperFurnaceIcon.on("pointerdown", () => this.placeSmelter(recipes[1]))
+    rockFurnaceIcon.on("pointerdown", () => this.placeSmelter(recipes[2]))
   }
 
-  placeSmelter(resource: string) {
+  placeSmelter(recipe: Recipe) {
     const inventoryScene = this.scene.get("InventoryMenu") as InventoryMenu
 
     // Check if resources are available for placing the smelter
     if (inventoryScene.deductFromInventory("iron_ore", 1)) {
-      console.log(`Placing smelter for ${resource}...`)
+      console.log(`Placing smelter for ${recipe.outputItem}...`)
 
       // Emit event to start the smelter in MainMenu
-      this.scene.get("Game").events.emit("startSmelter", resource)
+      this.scene.get("Smelter").events.emit("startSmelter", recipe)
 
       // Close the placement window
       this.scene.stop("SmelterPlacementScene")
     } else {
       console.log("Not enough resources to place a smelter.")
     }
-  }
-
-  // Floating text to show when a smelter smelts an item
-  displayFloatingText(resource: string, producedItem: string) {
-    const smelterIcon = this.smelterIcons[resource]
-    const floatingText = this.add.text(
-      smelterIcon.x + 50,
-      smelterIcon.y,
-      `+1 ${producedItem}`,
-      {
-        fontSize: "16px",
-        color: "#ffffff",
-      },
-    )
-
-    // Apply tween to animate the text (move up and fade out)
-    this.tweens.add({
-      targets: floatingText,
-      y: smelterIcon.y - 50, // Move up by 50 pixels
-      alpha: 0, // Fade out the text
-      duration: 1000, // 1 second animation
-      ease: "Power1",
-      onComplete: () => {
-        floatingText.destroy() // Destroy the text after the animation
-      },
-    })
   }
 }
