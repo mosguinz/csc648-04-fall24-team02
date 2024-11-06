@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 import InventoryMenu from './InventoryMenu'
 import { Recipe } from '../data/Constants'
 
-// Define CrafterInstance to represent each individual crafting unit
+// TODO: Use gameData.ts to store the crafter data
 export interface CrafterInstance {
     id: string
     recipe: Recipe
@@ -10,6 +10,7 @@ export interface CrafterInstance {
 }
 
 export default class Crafter extends Phaser.Scene {
+    
     private crafters: CrafterInstance[] = [] // Track individual crafters
 
     constructor() {

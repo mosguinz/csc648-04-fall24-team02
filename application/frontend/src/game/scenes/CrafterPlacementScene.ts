@@ -127,11 +127,10 @@ export default class CrafterPlacementScene extends Phaser.Scene {
           fontSize: "20px",
           backgroundColor: "#555",
           padding: { x: 10, y: 5 },
-        })
-        .setInteractive()
+        }).setInteractive()
+      itemContainer.add(autoCraftButton)
       autoCraftButton.on("pointerdown", () => this.startAutoCrafting(recipe))
       autoCraftButton.on("pointerdown", () => this.scene.stop("CrafterPlacementScene"))
-      itemContainer.add(autoCraftButton)
 
       this.craftingItems.push(itemContainer)
     }
@@ -156,7 +155,7 @@ export default class CrafterPlacementScene extends Phaser.Scene {
     const inventoryScene = this.scene.get("InventoryMenu") as InventoryMenu
 
     if (
-        inventoryScene.deductFromInventory("iron_ore", 1)
+      inventoryScene.deductFromInventory("iron_ore", 1)
     ) {
       this.scene.get("Crafter").events.emit("startCrafting", recipe)
       console.log(`Auto-crafting setup for ${recipe.outputItem}`)
