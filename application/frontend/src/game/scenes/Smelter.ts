@@ -1,10 +1,11 @@
 import Phaser from 'phaser'
 import InventoryMenu from './InventoryMenu'
+import { Recipe } from '../data/Constants'
 
 // TODO: Use gameData.ts to store the smelter data
 export interface SmelterInstance {
     id: string
-    resource: string
+    recipe: Recipe
     timer: Phaser.Time.TimerEvent
 }
 
@@ -18,55 +19,54 @@ export default class Smelter extends Phaser.Scene {
 
     create() {
         // Listen for smelter placement events
-        this.events.on("startSmelter", (resource: string) => {
-            this.addSmelter(resource)
+        this.events.on("startSmelter", (recipe: Recipe) => {
+            this.addSmelter(recipe)
         })
     }
 
     // Add a new smelter instance
-    addSmelter(resource: string) {
+    addSmelter(recipe: Recipe) {
         const inventoryScene = this.scene.get("InventoryMenu") as InventoryMenu
         const smeltInterval = 3000 // Smelting every 3 seconds
-        const smelterId = `${resource}-${Phaser.Math.RND.uuid()}` // Unique ID for each smelter
+        const smelterId = `${recipe.outputItem}-${Phaser.Math.RND.uuid()}` // Unique ID for each smelter
 
-        console.log(`Adding smelter for ${resource} with ID ${smelterId}...`)
+        console.log(`Adding smelter for ${recipe} with ID ${smelterId}...`)
 
         const timer = this.time.addEvent({
             delay: smeltInterval,
             loop: true,
             callback: () => {
-                if (resource === "iron" && inventoryScene.inventory.iron_ore.count >= 1) {
-                    inventoryScene.inventory.iron_ore.count -= 1
-                    inventoryScene.inventory.iron_ingot.count += 1
-                    inventoryScene.inventory.iron_ore.textObject!.setText(`${inventoryScene.inventory.iron_ore.count}`)
-                    inventoryScene.inventory.iron_ingot.textObject!.setText(`${inventoryScene.inventory.iron_ingot.count}`)
-                    this.displayFloatingText("Iron Ingot")
-                } else if (resource === "copper" && inventoryScene.inventory.copper_ore.count >= 1) {
-                    // Copper ore to copper ingot
-                    inventoryScene.inventory.copper_ore.count -= 1;
-                    inventoryScene.inventory.copper_ingot.count += 1;
+                const canCraft = recipe.ingredients.every(ingredient =>
+                    inventoryScene.inventory[ingredient.item]?.count >= ingredient.amount
+                )
 
-                    // Update display
-                    inventoryScene.inventory.copper_ore.textObject!.setText(`${inventoryScene.inventory.copper_ore.count}`);
-                    inventoryScene.inventory.copper_ingot.textObject!.setText(`${inventoryScene.inventory.copper_ingot.count}`);
-                    this.displayFloatingText("Copper Ingot");
+                if (canCraft) {
+                    // Deduct ingredients
+                    recipe.ingredients.forEach(ingredient => {
+                        inventoryScene.inventory[ingredient.item].count -= ingredient.amount
+                        inventoryScene.inventory[ingredient.item].textObject?.setText(
+                            `${inventoryScene.inventory[ingredient.item].count}`
+                        )
+                    })
 
-                } else if (resource === "rock" && inventoryScene.inventory.rock.count >= 1) {
-                    // Rock to concrete
-                    inventoryScene.inventory.rock.count -= 1;
-                    inventoryScene.inventory.concrete.count += 1;
+                    // Add crafted item
+                    inventoryScene.inventory[recipe.outputItem].count += recipe.outputAmount
+                    inventoryScene.inventory[recipe.outputItem].textObject?.setText(
+                        `${inventoryScene.inventory[recipe.outputItem].count}`
+                    )
 
-                    // Update display
-                    inventoryScene.inventory.rock.textObject!.setText(`${inventoryScene.inventory.rock.count}`);
-                    inventoryScene.inventory.concrete.textObject!.setText(`${inventoryScene.inventory.concrete.count}`);
-                    this.displayFloatingText("Concrete");
+                    // Show floating text
+                    this.displayFloatingText(recipe.outputItem)
+                    console.log(`Smelted ${recipe.outputAmount} ${recipe.outputItem}`)
+                } else {
+                    console.log(`Not enough resources to smelt ${recipe.outputItem}`)
                 }
 
             },
         })
 
         // Add the new smelter instance to the smelters array
-        this.smelters.push({ id: smelterId, resource, timer })
+        this.smelters.push({ id: smelterId, recipe, timer })
 
         // Emit an event to update the display in RunningSmeltersScene
         this.events.emit("smelterAdded", this.smelters)

@@ -54,9 +54,8 @@ export default class RunningSmeltersScene extends Phaser.Scene {
 
     smelters.slice(startIndex, endIndex).forEach((smelter: SmelterInstance, index: number) => {
       const container = this.add.container(400, 150 + index * 120) // Dynamic placement
-      const textureKey = smelter.resource === "rock" ? "rock_block" : `${smelter.resource}_ore_block`;
-      const nodeImage = this.add.image(0, 0, textureKey).setScale(4);
-      const smeltingText = this.add.text(50, 0, `Smelting ${smelter.resource} ore...`, {
+      const nodeImage = this.add.image(0, 0, "smelter").setScale(4) // Use the crafted item's texture
+      const smeltingText = this.add.text(50, 0, `Smelting ${smelter.recipe.outputItem}`, {
         fontSize: "20px",
         color: "#ffffff",
       })

@@ -68,7 +68,7 @@ export default class RunningCraftersScene extends Phaser.Scene {
     this.updateArrowVisibility()
   }
 
-  // Pagination controls
+  // Page controls
   switchPage(direction: number) {
     this.currentPage += direction
     const maxPage = Math.floor(this.totalCrafters / this.craftersPerPage)
