@@ -181,7 +181,7 @@ def update_assemblers(
         # grab corresponding existing resource
         assembler_id = assembler.id
         matching_assembler = next(
-            (mine for mine in curr_assemblers if mine.id == assembler_id), None
+            (mine for mine in curr_assemblers if str(mine.id) == assembler_id), None
         )
         # if the resource already exists update else do nothing
         if matching_assembler:
