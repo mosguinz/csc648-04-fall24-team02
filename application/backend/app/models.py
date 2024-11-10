@@ -221,7 +221,7 @@ class FacilityUpdate(SQLModel):
 
 
 class UserAssembler(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    id: uuid.UUID | None = Field(default_factory=uuid.uuid4, primary_key=True)
     facility_type_id: int = Field(foreign_key="facilitytype.id")
     facility_type: "FacilityType" = Relationship()
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
@@ -232,7 +232,7 @@ class UserAssembler(SQLModel, table=True):
 
 
 class UserMiner(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    id: uuid.UUID | None = Field(default_factory=uuid.uuid4, primary_key=True)
     facility_type_id: int = Field(foreign_key="facilitytype.id")
     facility_type: "FacilityType" = Relationship()
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
@@ -243,7 +243,7 @@ class UserMiner(SQLModel, table=True):
 
 
 class UserConstructor(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    id: uuid.UUID | None = Field(default_factory=uuid.uuid4, primary_key=True)
     facility_type_id: int = Field(foreign_key="facilitytype.id")
     facility_type: "FacilityType" = Relationship()
     user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
