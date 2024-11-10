@@ -68,7 +68,7 @@ def test_update_user_miner(client: TestClient, db: Session) -> None:
     tokens = r.json()
     a_token = tokens["access_token"]
     headers = {"Authorization": f"Bearer {a_token}"}
-    response = client.post(
+    response = client.patch(
         f"{settings.API_V1_STR}/facilities/miner", headers=headers, json=miners
     )
     old_miners = response.json()
@@ -193,7 +193,7 @@ def test_update_user_assembler(client: TestClient, db: Session) -> None:
         old_assembler["status"] = random_lower_string()
         new_assemblers.append(old_assembler)
 
-    response = client.post(
+    response = client.patch(
         f"{settings.API_V1_STR}/facilities/assembler",
         headers=headers,
         json=new_assemblers,
@@ -304,7 +304,7 @@ def test_update_user_constructor(client: TestClient, db: Session) -> None:
     tokens = r.json()
     a_token = tokens["access_token"]
     headers = {"Authorization": f"Bearer {a_token}"}
-    response = client.post(
+    response = client.patch(
         f"{settings.API_V1_STR}/facilities/constructor",
         headers=headers,
         json=constructors,
