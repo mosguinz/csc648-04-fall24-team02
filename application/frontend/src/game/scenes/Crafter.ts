@@ -41,22 +41,22 @@ export default class Crafter extends Phaser.Scene {
 
                 if (canCraft) {
                     // Deduct ingredients
-                    recipe.ingredients.forEach(ingredient => {
-                        inventoryScene.inventory[ingredient.item].count -= ingredient.amount
+                    for (const ingredient of recipe.ingredients) {
+                        inventoryScene.inventory[ingredient.item].count -= ingredient.amount;
                         inventoryScene.inventory[ingredient.item].textObject?.setText(
                             `${inventoryScene.inventory[ingredient.item].count}`
-                        )
-                    })
-
+                        );
+                    }
+                
                     // Add crafted item
-                    inventoryScene.inventory[recipe.outputItem].count += recipe.outputAmount
+                    inventoryScene.inventory[recipe.outputItem].count += recipe.outputAmount;
                     inventoryScene.inventory[recipe.outputItem].textObject?.setText(
                         `${inventoryScene.inventory[recipe.outputItem].count}`
-                    )
-
+                    );
+                
                     // Show floating text
-                    this.displayFloatingText(recipe.outputItem)
-                    console.log(`Crafted ${recipe.outputAmount} ${recipe.outputItem}`)
+                    this.displayFloatingText(recipe.outputItem);
+                    console.log(`Crafted ${recipe.outputAmount} ${recipe.outputItem}`);
                 } else {
                     console.log(`Not enough resources to craft ${recipe.outputItem}`)
                 }
