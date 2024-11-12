@@ -1,11 +1,11 @@
 // PublicNavbar.jsx or PublicNavbar.tsx
-import { Button, Flex, Spinner } from "@chakra-ui/react"
-import { Link } from "@tanstack/react-router"
-import useAuth from "../../hooks/useAuth"
-import UserMenu from "./UserMenu"
+import { Button, Flex, Spinner } from "@chakra-ui/react";
+import { Link } from "@tanstack/react-router";
+import useAuth from "../../hooks/useAuth";
+import UserMenu from "./UserMenu";
 
 const PublicNavbar = () => {
-  const { isLoading } = useAuth()
+  const { isLoading } = useAuth();
 
   return (
     <Flex
@@ -22,6 +22,9 @@ const PublicNavbar = () => {
           to="/"
           bg="#a5d061"
           color="white"
+          size="lg" // Make button larger
+          px={8} // Increase horizontal padding
+          py={6} // Increase vertical padding
           _hover={{ bg: "ui.dark" }}
         >
           Home
@@ -31,6 +34,9 @@ const PublicNavbar = () => {
           to="/about"
           bg="#f7bd52"
           color="white"
+          size="lg"
+          px={8}
+          py={6}
           _hover={{ bg: "ui.dark" }}
         >
           About
@@ -38,8 +44,11 @@ const PublicNavbar = () => {
         <Button
           as={Link}
           to="/game"
-          bg=" #c3baf7"
+          bg="#c3baf7"
           color="white"
+          size="lg"
+          px={8}
+          py={6}
           _hover={{ bg: "ui.dark" }}
         >
           Game
@@ -53,7 +62,7 @@ const PublicNavbar = () => {
         <UserMenu />
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default PublicNavbar
+export default PublicNavbar;
