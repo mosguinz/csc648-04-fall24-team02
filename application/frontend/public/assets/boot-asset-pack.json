@@ -17,6 +17,16 @@
         "key": "background_2"
       },
       {
+        "url": "assets/playButton.png",
+        "type": "image",
+        "key": "Play"
+      },
+      {
+        "url": "assets/Cute_Pink_Text_box.png",
+        "type": "image",
+        "key": "Pink_Box"
+      },
+      {
         "url": "assets/cable.png",
         "type": "image",
         "key": "cable"

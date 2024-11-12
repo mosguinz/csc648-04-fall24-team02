@@ -1,0 +1,535 @@
+{
+    "id": "d78c4ab8-d457-4f7a-b1db-28cda3254b00",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Game",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "87e52195-a0ef-4956-9952-fb7a08ceec6c",
+            "label": "background_2",
+            "texture": {
+                "key": "background_2"
+            },
+            "x": 767,
+            "y": 431,
+            "scaleX": 1.5,
+            "scaleY": 1.5
+        },
+        {
+            "type": "Image",
+            "id": "4e7a9788-72fa-437a-b624-a33299d1fbdd",
+            "label": "iron_ore_block",
+            "texture": {
+                "key": "iron_ore_block"
+            },
+            "x": 374,
+            "y": 247,
+            "scaleX": 7.8,
+            "scaleY": 7.8
+        },
+        {
+            "type": "Image",
+            "id": "020f3a7b-0372-4526-920d-4841aeb9b71b",
+            "label": "copper_ore_block",
+            "texture": {
+                "key": "copper_ore_block"
+            },
+            "x": 807,
+            "y": 312,
+            "scaleX": 7.8,
+            "scaleY": 7.8
+        },
+        {
+            "type": "Image",
+            "id": "da28e3bf-227e-4f74-a89c-5333c2997547",
+            "label": "rock_block",
+            "texture": {
+                "key": "rock_block"
+            },
+            "x": 432,
+            "y": 435,
+            "scaleX": 7.8,
+            "scaleY": 7.8
+        },
+        {
+            "type": "Rectangle",
+            "id": "58bf8df5-0dc8-4a09-a8c7-0dcf72be00d4",
+            "label": "rectangle_1",
+            "x": 1195,
+            "y": 290,
+            "scaleX": 1.447046084870738,
+            "scaleY": 4.650162957270586,
+            "isFilled": true,
+            "fillColor": "#919191",
+            "width": 128,
+            "height": 128,
+            "list": [
+                {
+                    "type": "Shadow",
+                    "id": "68172109-75a9-44f6-a0f5-1d71b2bdf12f",
+                    "label": "shadowFx_1",
+                    "x": 1,
+                    "y": 1,
+                    "samples": 4
+                }
+            ]
+        },
+        {
+            "type": "Rectangle",
+            "id": "9efb38fd-8925-4a91-a0bd-c3dedad4ec55",
+            "label": "rectangle",
+            "x": 91,
+            "y": 296,
+            "scaleX": 1.447046084870738,
+            "scaleY": 4.650162957270586,
+            "isFilled": true,
+            "fillColor": "#919191",
+            "width": 128,
+            "height": 128,
+            "list": [
+                {
+                    "type": "Shadow",
+                    "id": "22110d50-df36-48a4-bc4e-3e33f47e4df8",
+                    "label": "shadowFx_2",
+                    "x": -1,
+                    "y": 1,
+                    "samples": 2
+                }
+            ]
+        },
+        {
+            "type": "Text",
+            "id": "35fd0ee6-82d4-42d1-b736-ffff0c66a58d",
+            "label": "inventory",
+            "x": 29,
+            "y": 16,
+            "scaleX": 1.5,
+            "scaleY": 1.5,
+            "text": "Inventory",
+            "color": "#000000ff"
+        },
+        {
+            "type": "Image",
+            "id": "f7a5107f-3190-4679-8719-1fab21ae1beb",
+            "label": "iron_ore",
+            "texture": {
+                "key": "iron_ore"
+            },
+            "x": 25,
+            "y": 79,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "15fde748-ad72-461e-8dec-49094567de5f",
+            "label": "copper_ore",
+            "texture": {
+                "key": "copper_ore"
+            },
+            "x": 25,
+            "y": 119,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "8fcc44ed-4233-4058-ac5b-d03822a56b6a",
+            "label": "rock",
+            "texture": {
+                "key": "rock"
+            },
+            "x": 25,
+            "y": 159,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "2b0adc1b-40fe-49e0-9a46-b09b00fda39f",
+            "label": "iron_ingot",
+            "texture": {
+                "key": "iron_ingot"
+            },
+            "x": 25,
+            "y": 199,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "71716471-fd91-4f61-9353-b0db97dca501",
+            "label": "copper_ingot",
+            "texture": {
+                "key": "copper_ingot"
+            },
+            "x": 25,
+            "y": 239,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "558ec649-e654-4c3e-977a-ab057706cd82",
+            "label": "concrete",
+            "texture": {
+                "key": "concrete"
+            },
+            "x": 25,
+            "y": 279,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "4ef8afb0-4bf3-464f-ab5d-e1a0bc415a00",
+            "label": "iron_plate",
+            "texture": {
+                "key": "iron_plate"
+            },
+            "x": 25,
+            "y": 319,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "10462b90-a4f7-462f-9586-a0a6fde74b20",
+            "label": "copper_plate",
+            "texture": {
+                "key": "copper_plate"
+            },
+            "x": 25,
+            "y": 359,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "aa4b31c0-6e62-4dcb-9cae-11d2bdc69123",
+            "label": "iron_rod",
+            "texture": {
+                "key": "iron_rod"
+            },
+            "x": 25,
+            "y": 399,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "6d8e0229-776c-495f-9a60-a68617a0462c",
+            "label": "screws",
+            "texture": {
+                "key": "screws"
+            },
+            "x": 25,
+            "y": 439,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "99d31cfb-4dcb-42a1-8e3f-4ede521b9cc1",
+            "label": "wire",
+            "texture": {
+                "key": "wire"
+            },
+            "x": 25,
+            "y": 479,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Image",
+            "id": "868fbeef-07af-4d7d-8492-839be967580b",
+            "label": "cable",
+            "texture": {
+                "key": "cable"
+            },
+            "x": 25,
+            "y": 519,
+            "scaleX": 2,
+            "scaleY": 2
+        },
+        {
+            "type": "Text",
+            "id": "85cb0a12-4845-4437-8fed-d4b6741bff19",
+            "label": "iron_ore_name",
+            "x": 51,
+            "y": 62,
+            "text": "Iron Ore:"
+        },
+        {
+            "type": "Text",
+            "id": "5a0fe801-ce2e-42e2-81cf-f1aea5efcd93",
+            "label": "iron_ore_count",
+            "x": 51,
+            "y": 82,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "1ad8541b-dcf8-4723-8ca9-1e553cda69ca",
+            "label": "copper_ore_name",
+            "x": 51,
+            "y": 102,
+            "text": "Copper Ore:"
+        },
+        {
+            "type": "Text",
+            "id": "2a605bac-a2e7-4dcd-b0fc-d708530b87bb",
+            "label": "copper_ore_count",
+            "x": 51,
+            "y": 122,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "45a3e8d1-66a6-4e32-af2c-063cbe0a1af7",
+            "label": "rock_name",
+            "x": 51,
+            "y": 142,
+            "text": "Rock"
+        },
+        {
+            "type": "Text",
+            "id": "2fd0aa16-bb59-4ee8-a449-4190d85a8064",
+            "label": "rock_count",
+            "x": 51,
+            "y": 162,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "1a3faace-7d5a-4e76-8583-794b23926a6a",
+            "label": "iron_ingot_name",
+            "x": 51,
+            "y": 182,
+            "text": "Iron Ingot:"
+        },
+        {
+            "type": "Text",
+            "id": "73224563-d393-40b0-a8e9-be5743b8c316",
+            "label": "iron_ingot_count",
+            "x": 51,
+            "y": 202,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "41616c39-d86b-437c-b131-6d4c43cf4119",
+            "label": "copper_ingot_name",
+            "x": 51,
+            "y": 221,
+            "text": "Copper Ingot:"
+        },
+        {
+            "type": "Text",
+            "id": "c6d0dada-9361-4471-a86c-d1ce08d19b87",
+            "label": "copper_ingot_count",
+            "x": 51,
+            "y": 241,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "18ea5480-f5ff-43c6-969d-690208c43647",
+            "label": "concrete_name",
+            "x": 51,
+            "y": 261,
+            "text": "Concrete:"
+        },
+        {
+            "type": "Text",
+            "id": "0f167081-bca7-4c50-b2b8-cabce6056e3b",
+            "label": "concrete_count",
+            "x": 51,
+            "y": 281,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "6174b89f-5b66-42c0-9dd4-41dc6c392658",
+            "label": "iron_plate_name",
+            "x": 51,
+            "y": 301,
+            "text": "Iron Plate:"
+        },
+        {
+            "type": "Text",
+            "id": "e33d77dd-6855-450c-90b0-b316f965f7b0",
+            "label": "iron_plate_count",
+            "x": 51,
+            "y": 321,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "5ed997eb-98da-404c-857c-a70e19b3b08f",
+            "label": "copper_plate_name",
+            "x": 51,
+            "y": 341,
+            "text": "Copper Plate:"
+        },
+        {
+            "type": "Text",
+            "id": "167d2e67-7a8f-41f5-9986-43289ab0db44",
+            "label": "copper_plate_count_7",
+            "x": 51,
+            "y": 361,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "3c27430d-ca4e-4592-9832-4daa37c1ec47",
+            "label": "iron_rod_name",
+            "x": 51,
+            "y": 381,
+            "text": "Iron Rod:"
+        },
+        {
+            "type": "Text",
+            "id": "f50995e8-2abb-4e6f-8f9a-c33141e40c7d",
+            "label": "iron_rod_count",
+            "x": 51,
+            "y": 401,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "4df3b89f-fed6-4656-9539-0390463b589f",
+            "label": "screws_name",
+            "x": 51,
+            "y": 421,
+            "text": "Screws:"
+        },
+        {
+            "type": "Text",
+            "id": "6beb4f95-97c6-457f-9929-9e05b42ebbf9",
+            "label": "screws_count",
+            "x": 51,
+            "y": 441,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "f96cf436-f5e3-45d7-b559-a7cc254b24d4",
+            "label": "copper_wire_name",
+            "x": 51,
+            "y": 461,
+            "text": "Copper Wire:"
+        },
+        {
+            "type": "Text",
+            "id": "50e5a2c7-e7af-4fd0-a085-ff478e73ced4",
+            "label": "copper_wire_count",
+            "x": 51,
+            "y": 481,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "00d60a8d-9cd4-45b5-b926-7019a82a975a",
+            "label": "cable_name",
+            "x": 51,
+            "y": 501,
+            "text": "Cable:"
+        },
+        {
+            "type": "Text",
+            "id": "fb71f5bd-158e-48d2-8fd4-ce9688750f3f",
+            "label": "cable_count",
+            "x": 51,
+            "y": 521,
+            "text": "0"
+        },
+        {
+            "type": "Text",
+            "id": "1abda852-ecd3-4328-980e-c415ff6f4a60",
+            "label": "build_UI_name",
+            "x": 1156,
+            "y": 12,
+            "scaleX": 1.5,
+            "scaleY": 1.5,
+            "text": "Build",
+            "color": "#000000ff"
+        },
+        {
+            "type": "Image",
+            "id": "4be7cfb8-c844-4d45-ac75-ba4732eb05ef",
+            "label": "smelter",
+            "texture": {
+                "key": "smelter"
+            },
+            "x": 1142,
+            "y": 71,
+            "scaleX": 3,
+            "scaleY": 3
+        },
+        {
+            "type": "Image",
+            "id": "75e3583c-6778-42d8-b62b-d12bc68ff9a0",
+            "label": "crafter",
+            "texture": {
+                "key": "crafter"
+            },
+            "x": 1142,
+            "y": 141,
+            "scaleX": 3,
+            "scaleY": 3
+        },
+        {
+            "type": "Image",
+            "id": "d84e61e8-bb1b-4bb0-9b75-9f5a0addc8be",
+            "label": "miner",
+            "texture": {
+                "key": "miner"
+            },
+            "x": 1142,
+            "y": 211,
+            "scaleX": 3,
+            "scaleY": 3
+        },
+        {
+            "type": "Text",
+            "id": "5b73fc0a-1257-4df2-a810-951ebaecf6fc",
+            "label": "smelter_name",
+            "x": 1188,
+            "y": 50,
+            "text": "Smelter"
+        },
+        {
+            "type": "Text",
+            "id": "b95686d2-f42d-4afc-a601-03076f3f9ef3",
+            "label": "crafter_name",
+            "x": 1188,
+            "y": 120,
+            "text": "Crafter"
+        },
+        {
+            "type": "Text",
+            "id": "a5567f82-0658-4752-9069-a438f12a9bbd",
+            "label": "miner_name",
+            "x": 1196,
+            "y": 191,
+            "text": "Miner"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

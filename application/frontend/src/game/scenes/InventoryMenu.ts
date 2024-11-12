@@ -69,7 +69,7 @@ export default class InventoryMenu extends Phaser.Scene {
         rectangle.scaleX = 1.447
         rectangle.scaleY = 4.65
         rectangle.isFilled = true
-        rectangle.fillColor = 9539985
+        rectangle.fillColor = 13855175
         rectangle.postFX!.addShadow(-1, 1, 0.1, 1, 0, 2, 1)
 
         // Inventory title

@@ -6,7 +6,7 @@
         "autoImport": true,
         "preloadPackFiles": [],
         "createMethodName": "editorCreate",
-        "sceneKey": "Game",
+        "sceneKey": "MainMenu",
         "compilerOutputLanguage": "TYPE_SCRIPT",
         "borderWidth": 1280,
         "borderHeight": 720

@@ -20,28 +20,28 @@ export default class MinerPlacementScene extends Phaser.Scene {
     background.setInteractive() // Prevent clicks going through
     this.add.text(420, 100, "Build/Upgrade Miners", {
       fontSize: "40px",
-      color: "#ffffff",
+      color: "#fab900",
     })
     this.add.text(320, 150, "Costs per build/upgrade:", {
       fontSize: "25px",
-      color: "#ffffff",
+      color: "#fab900",
     })
     // Costs text and images
-    this.add.text(690, 150, "4x", { fontSize: "25px", color: "#ffffff" })
+    this.add.text(690, 150, "4x", { fontSize: "25px", color: "#fab900" })
     this.add.image(740, 164, "iron_rod").setScale(2.25)
-    this.add.text(765, 150, "12x", { fontSize: "25px", color: "#ffffff" })
+    this.add.text(765, 150, "12x", { fontSize: "25px", color: "#fab900" })
     this.add.image(830, 164, "iron_plate").setScale(2.25)
-    this.add.text(860, 150, "10x", { fontSize: "25px", color: "#ffffff" })
+    this.add.text(860, 150, "10x", { fontSize: "25px", color: "#fab900" })
     this.add.image(925, 164, "concrete").setScale(2.25)
 
     this.add.text(270, 220, "Resource Node to Build/Upgrade:", {
       fontSize: "25px",
-      color: "#ffffff",
+      color: "#fab900",
     })
 
     // Close button
     const closeButton = this.add
-      .text(1020, 60, "X", { fontSize: "40px", color: "#ffffff" })
+      .text(1020, 60, "X", { fontSize: "40px", color: "#fab900" })
       .setInteractive()
     closeButton.on("pointerdown", () => this.scene.stop("MinerPlacementScene"))
 
@@ -78,7 +78,7 @@ export default class MinerPlacementScene extends Phaser.Scene {
       `Level: ${this.minerLevels[node]}`,
       {
         fontSize: "20px",
-        color: "#ffffff",
+        color: "#fab900",
       },
     )
 
@@ -93,7 +93,7 @@ export default class MinerPlacementScene extends Phaser.Scene {
       `Time: ${miningTime}s`,
       {
         fontSize: "20px",
-        color: "#ffffff",
+        color: "#fab900",
       },
     )
   }
@@ -154,7 +154,7 @@ export default class MinerPlacementScene extends Phaser.Scene {
           "Not enough resources to build/upgrade miner.",
           {
             fontSize: "16px",
-            color: "#ff0000",
+            color: "#fab900",
           },
         )
 

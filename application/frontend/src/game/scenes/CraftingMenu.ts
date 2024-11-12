@@ -15,7 +15,7 @@ export default class CraftingMenu extends Phaser.Scene {
 
   create() {
     const craftingBackground = this.add.rectangle(645, 640, 900, 160, 0x333333)
-    craftingBackground.fillColor = 9539985
+    craftingBackground.fillColor = 13855175
     craftingBackground.postFX!.addShadow(1, 1, 0.1, 1, 0, 4, 1)
 
     // Left arrow button
@@ -82,7 +82,7 @@ export default class CraftingMenu extends Phaser.Scene {
         70,
         -25,
         `x ${recipe.outputAmount}`,
-        { fontSize: "16px", color: "#ffffff" },
+        { fontSize: "16px", color: "#ff68ee" },
       )
       itemContainer.add(outputQuantityText)
 
@@ -165,7 +165,7 @@ export default class CraftingMenu extends Phaser.Scene {
         "Not enough resources to craft item.",
         {
           fontSize: "16px",
-          color: "#ff0000",
+          color: "#ff68ee",
         },
       )
 

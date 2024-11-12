@@ -10,6 +10,11 @@
         "url": "assets/star.png",
         "type": "image",
         "key": "star"
+      },
+      {
+        "url": "assets/Cute_Pink_Text_box.png",
+        "type": "image",
+        "key": "Pink_Box"
       }
     ]
   },
