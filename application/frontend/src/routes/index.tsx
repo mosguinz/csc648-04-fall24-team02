@@ -1,7 +1,7 @@
 import { Box, Divider, Heading, Text, Icon, VStack } from '@chakra-ui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { useFloatAnimation } from '../hooks/useFloatAnimation';
-import { FaGraduationCap } from 'react-icons/fa';
+import { FaGraduationCap, FaTrophy, FaChartLine } from 'react-icons/fa';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -17,14 +17,15 @@ function HomePage(): JSX.Element {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        height="100vh" // fixing the off-center on auto align
+        height="100vh"
         flexDirection="column"
-        gap={8} // Spacing between elements
+        gap={8}
+        position="relative"
       >
         {/* Main Box for Class Information */}
         <Box
           bg="ui.eggshell"
-          p={{ base: 6, md: 8 }}
+          p={{ base: 8, md: 10 }}
           borderRadius="lg"
           border="2px solid"
           borderColor="ui.main"
@@ -33,8 +34,9 @@ function HomePage(): JSX.Element {
           animation={floatAnimation}
           _hover={{
             transform: 'scale(1.02)',
+            boxShadow: '0px 4px 15px rgba(244, 143, 177, 0.4)',
           }}
-          maxW="600px" // Fixed width to ensure consistency
+          maxW="600px"
           width="100%"
         >
           <Icon as={FaGraduationCap} w={12} h={12} color="ui.green" mb={4} />
@@ -51,7 +53,7 @@ function HomePage(): JSX.Element {
         </Box>
 
         {/* Additional Boxes: Achievements and Leaderboards */}
-        <VStack spacing={6}>
+        <VStack spacing={6} align="center" width="100%">
           <Box
             bg="ui.eggshell"
             p={{ base: 6, md: 8 }}
@@ -62,15 +64,19 @@ function HomePage(): JSX.Element {
             textAlign="center"
             animation={floatAnimation}
             _hover={{
-              transform: 'scale(1.02)',
+              transform: 'scale(1.05)',
+              boxShadow: '0px 4px 15px rgba(165, 208, 97, 0.4)',
             }}
-            maxW="600px" // Fixed width to match the main box
-            width="160%"
+            maxW="600px"
+            width="100%"
           >
+            <Icon as={FaTrophy} w={10} h={10} color="ui.green" mb={4} />
             <Heading as="h2" size={{ base: 'lg', md: 'xl' }} color="ui.green" mb={4}>
               Achievements
             </Heading>
-            <Text color="ui.purple">Track your achievements and milestones in the game!</Text>
+            <Text color="ui.purple">
+              Track your achievements and milestones in the game!
+            </Text>
           </Box>
 
           <Box
@@ -83,15 +89,19 @@ function HomePage(): JSX.Element {
             textAlign="center"
             animation={floatAnimation}
             _hover={{
-              transform: 'scale(1.02)',
+              transform: 'scale(1.05)',
+              boxShadow: '0px 4px 15px rgba(195, 186, 247, 0.4)',
             }}
-            maxW="600px" // Fixed width to match the main box
-            width="160%"
+            maxW="600px"
+            width="100%"
           >
+            <Icon as={FaChartLine} w={10} h={10} color="ui.green" mb={4} />
             <Heading as="h2" size={{ base: 'lg', md: 'xl' }} color="ui.green" mb={4}>
               Leaderboards
             </Heading>
-            <Text color="ui.purple">See where you stand among other players!</Text>
+            <Text color="ui.purple">
+              See where you stand among other players!
+            </Text>
           </Box>
         </VStack>
       </Box>

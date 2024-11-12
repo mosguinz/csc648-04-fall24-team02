@@ -34,6 +34,9 @@ const UserMenu = () => {
             aria-label="Options"
             icon={<FaUserAstronaut color="white" fontSize="18px" />}
             bg="ui.main"
+            size="lg"
+            px={10} // Increase horizontal padding
+            py={6}
             isRound
             data-testid="user-menu"
           />

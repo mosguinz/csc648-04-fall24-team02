@@ -23,7 +23,7 @@ const PublicNavbar = () => {
           bg="#a5d061"
           color="white"
           size="lg" // Make button larger
-          px={8} // Increase horizontal padding
+          px={10} // Increase horizontal padding
           py={6} // Increase vertical padding
           _hover={{ bg: "ui.dark" }}
         >
@@ -35,7 +35,7 @@ const PublicNavbar = () => {
           bg="#f7bd52"
           color="white"
           size="lg"
-          px={8}
+          px={10}
           py={6}
           _hover={{ bg: "ui.dark" }}
         >
@@ -47,7 +47,7 @@ const PublicNavbar = () => {
           bg="#c3baf7"
           color="white"
           size="lg"
-          px={8}
+          px={10}
           py={6}
           _hover={{ bg: "ui.dark" }}
         >
