@@ -116,7 +116,8 @@ export default class MainMenu extends Phaser.Scene {
     const crafter = this.add.image(1142, 141, "crafter")
     crafter.scaleX = 3
     crafter.scaleY = 3
-    this.add.text(1190, 147, "List").setInteractive()
+    const crafterList = this.add.text(1190, 147, "List").setInteractive();
+    crafterList.setColor("#ff68ee"); // Set color to the same pink shade as smelterList
 
     // miner
     const miner = this.add.image(1142, 211, "miner")
