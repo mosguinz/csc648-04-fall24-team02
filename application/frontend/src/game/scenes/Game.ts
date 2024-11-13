@@ -16,7 +16,7 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   editorCreate(): void {
-    // background_1
+    // background_2
     const background_2 = this.add.image(700, 350, "background_2")
     background_2.scaleX = 0.3
     background_2.scaleY = 0.3

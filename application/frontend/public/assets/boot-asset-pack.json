@@ -32,6 +32,21 @@
         "key": "Reg_Pink"
       },
       {
+        "url": "assets/Model_1.png",
+        "type": "image",
+        "key": "Model_1"
+      },
+      {
+        "url": "assets/Model_2.png",
+        "type": "image",
+        "key": "Model_2"
+      },
+      {
+        "url": "assets/Models.png",
+        "type": "image",
+        "key": "Models"
+      },
+      {
         "url": "assets/cable.png",
         "type": "image",
         "key": "cable"

@@ -27,14 +27,15 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   editorCreate(): void {
-
+    /*
     const RegPink = this.add.image(500,400,"Reg_Pink")
     RegPink.scaleX = 11
     RegPink.scaleY = 5
+    */
     // background_2
     const background_2 = this.add.image(640, 350, "background_2")
-    background_2.scaleX = 0.28 //25
-    background_2.scaleY = 0.29 //25
+    background_2.scaleX = 0.28 //28
+    background_2.scaleY = 0.29 //29
 
     // game title
     // Text with Multi-Color Tint
@@ -80,8 +81,19 @@ export default class MainMenu extends Phaser.Scene {
       inventoryMenu.addToInventory("rock", 1)
       inventoryMenu.updateInventoryDisplay()
     })
-
+    // this is the top right box for the build
     this.add.image(1120,170,"Pink_Box").setScale(.08, .08);
+    // the model suggesting the build
+    const model_2 = this.add.image(1160,350,"Model_2").setScale(.09,.09);
+    //Make the model_2 float up and down
+    this.tweens.add({
+      targets: model_2,
+      y: 330,
+      duration: 1250,
+      ease: 'Sine.easeInOut',
+      loop: -1,
+      yoyo: true
+  });
     // rectangle_1
     /*
     const rectangle_1 = this.add.rectangle(1195, 290, 128, 128)
@@ -242,7 +254,7 @@ export default class MainMenu extends Phaser.Scene {
             color: "#fab900",
           },
         )
-
+        
         // Apply tween to animate the text (move up and fade out)
         this.tweens.add({
           targets: floatingText,
