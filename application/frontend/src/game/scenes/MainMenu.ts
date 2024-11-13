@@ -1,5 +1,7 @@
 import Phaser from "phaser"
 import type InventoryMenu from "./InventoryMenu"
+//to implement pixelfy font
+import WebFont from 'webfontloader';
 
 export default class MainMenu extends Phaser.Scene {
   public minerTimers: { [key: string]: Phaser.Time.TimerEvent } = {}
@@ -41,7 +43,7 @@ export default class MainMenu extends Phaser.Scene {
     // Text with Multi-Color Tint
     this.rainbowText = this.add.text(-1700, 70, "CLICK AND MORTOR", {
       fontSize: '27px',
-      fontFamily: "Pixelfy Sans",
+      fontFamily: "pixelfy-sans",
       color: "#ffffff", // Base color; tint will override this
       align: "center",
   });
@@ -165,28 +167,59 @@ export default class MainMenu extends Phaser.Scene {
   /* START-USER-CODE */
 
   create() {
+
     this.scene.launch("CraftingMenu")
     this.scene.launch("InventoryMenu")
     // this.scene.launch('RunningSmeltersScene');
-    this.editorCreate()
+    // Load Pixelfy Sans font with WebFont Loader
+    WebFont.load({
+      custom: {
+        families: ["Pixelfy Sans"],
+        urls: ["style.css"], // Ensure this CSS includes @font-face for Pixelfy Sans
+      },
+      active: () => {
+        this.editorCreate();
+        this.launchAdditionalScenes();
+      },
+      inactive: () => {
+        console.warn("Font failed to load. Using fallback.");
+        this.editorCreate();
+        this.launchAdditionalScenes();
+      },
+    });
+  // Other setup code, such as animations and event listeners
+  this.setupEventListeners();
+  this.createAnimations();
+}
 
-    // Listen for miner placement events from MinerPlacementScene
-    this.events.on("placeMiner", (node: string) => {
-      this.placeMinerOnNode(node)
-    })
+launchAdditionalScenes() {
+  this.scene.launch("CraftingMenu");
+  this.scene.launch("InventoryMenu");
+}
 
-    this.anims.create({
+setupEventListeners() {
+  // Listen for miner placement events from MinerPlacementScene
+  this.events.on("placeMiner", (node: string) => {
+      this.placeMinerOnNode(node);
+  });
+
+  // Listen for startSmelter event
+  this.events.on("startSmelter", (resource: string) => {
+      this.startSmelterTimer(resource);
+  });
+}
+
+createAnimations() {
+  // Create miner animation
+  this.anims.create({
       key: "miner_working", // Key to refer to the animation
       frames: [{ key: "miner1" }, { key: "miner2" }],
-      frameRate: 7, // Adjust frame rate for the speed of the animation
-      repeat: -1, // -1 means loop forever
-    })
+      frameRate: 7, // Adjust frame rate for animation speed
+      repeat: -1, // Loop animation indefinitely
+  });
+}
 
-    // Listen for the startSmelter event from SmelterPlacementScene
-    this.events.on("startSmelter", (resource: string) => {
-      this.startSmelterTimer(resource)
-    })
-  }
+// slight changes ^^ for the font to work
   mineBlock(blockName: string) {
     // Add the mined resource to the inventory based on the block name
     const inventoryMenu = this.scene.get("InventoryMenu") as InventoryMenu
