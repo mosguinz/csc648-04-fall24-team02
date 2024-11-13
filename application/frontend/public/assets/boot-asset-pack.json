@@ -27,6 +27,11 @@
         "key": "Pink_Box"
       },
       {
+        "url": "assets/f9aad7.png",
+        "type": "image",
+        "key": "Reg_Pink"
+      },
+      {
         "url": "assets/cable.png",
         "type": "image",
         "key": "cable"

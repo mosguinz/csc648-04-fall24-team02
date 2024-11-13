@@ -27,16 +27,20 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   editorCreate(): void {
-    // background_1
-    const background_2 = this.add.image(700, 350, "background_2")
-    background_2.scaleX = 0.3
-    background_2.scaleY = 0.3
+
+    const RegPink = this.add.image(500,400,"Reg_Pink")
+    RegPink.scaleX = 11
+    RegPink.scaleY = 5
+    // background_2
+    const background_2 = this.add.image(640, 350, "background_2")
+    background_2.scaleX = 0.28 //25
+    background_2.scaleY = 0.29 //25
 
     // game title
     // Text with Multi-Color Tint
-    this.rainbowText = this.add.text(-100, 100, "Guac", {
-      fontSize: '38px',
-      fontFamily: "White",
+    this.rainbowText = this.add.text(-1700, 70, "CLICK AND MORTOR", {
+      fontSize: '27px',
+      fontFamily: "Pixelfy Sans",
       color: "#ffffff", // Base color; tint will override this
       align: "center",
   });
@@ -77,7 +81,7 @@ export default class MainMenu extends Phaser.Scene {
       inventoryMenu.updateInventoryDisplay()
     })
 
-    this.add.image(1160,200,"Pink_Box").setScale(.06, .12);
+    this.add.image(1120,170,"Pink_Box").setScale(.08, .08);
     // rectangle_1
     /*
     const rectangle_1 = this.add.rectangle(1195, 290, 128, 128)
@@ -91,21 +95,21 @@ export default class MainMenu extends Phaser.Scene {
     // rectangle_1.postFX!.addShadow(1, 1, 0.1, 1, 0, 4, 1)
 
     // build_UI_name
-    const build_UI_name = this.add.text(1156, 12, "", {})
+    const build_UI_name = this.add.text(1020, 55, "", {})
     build_UI_name.scaleX = 1.5
     build_UI_name.scaleY = 1.5
     build_UI_name.text = "Build"
     build_UI_name.setStyle({ color: "#ff68ee" })
 
     // smelter
-    const smelter = this.add.image(1142, 71, "smelter")
+    const smelter = this.add.image(1015, 110, "smelter")
     smelter.scaleX = 3
     smelter.scaleY = 3
     smelter.setInteractive()
     smelter.on("pointerdown", () => {
       this.scene.launch("SmelterPlacementScene") // Open smelter placement window
     })
-    const smelterList = this.add.text(1190, 77, "List").setInteractive()
+    const smelterList = this.add.text(1046, 115, "List").setInteractive()
     smelterList.setColor("#ff68ee");
     smelterList.setInteractive()
     smelterList.on("pointerdown", () => {
@@ -113,10 +117,10 @@ export default class MainMenu extends Phaser.Scene {
     })
 
     // crafter
-    const crafter = this.add.image(1142, 141, "crafter")
+    const crafter = this.add.image(1142, 110, "crafter")
     crafter.scaleX = 3
     crafter.scaleY = 3
-    const crafterList = this.add.text(1190, 147, "List").setInteractive();
+    const crafterList = this.add.text(1176, 115, "List").setInteractive();
     crafterList.setColor("#ff68ee"); // Set color to the same pink shade as smelterList
 
     // miner
@@ -129,12 +133,12 @@ export default class MainMenu extends Phaser.Scene {
     })
 
     // smelter_name
-    const smelter_name = this.add.text(1188, 50, "", {})
+    const smelter_name = this.add.text(1045, 90, "", {})
     smelter_name.text = "Smelter"
     smelter_name.setColor("#fab900");
 
     // crafter_name
-    const crafter_name = this.add.text(1188, 120, "", {})
+    const crafter_name = this.add.text(1175, 90, "", {})
     crafter_name.text = "Crafter"
     crafter_name.setColor ("#fab900");
 
