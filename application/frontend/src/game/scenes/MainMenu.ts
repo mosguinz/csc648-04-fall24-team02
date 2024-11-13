@@ -116,9 +116,9 @@ export default class MainMenu extends Phaser.Scene {
     build_UI_name.setStyle({ color: "#ff68ee" })
 
     // smelter
-    const smelter = this.add.image(1015, 110, "smelter")
-    smelter.scaleX = 3
-    smelter.scaleY = 3
+    const smelter = this.add.image(1015, 110, "Pink_Smelter")
+    smelter.scaleX = 0.07
+    smelter.scaleY = 0.07
     smelter.setInteractive()
     smelter.on("pointerdown", () => {
       this.scene.launch("SmelterPlacementScene") // Open smelter placement window
@@ -131,16 +131,16 @@ export default class MainMenu extends Phaser.Scene {
     })
 
     // crafter
-    const crafter = this.add.image(1142, 110, "crafter")
-    crafter.scaleX = 3
-    crafter.scaleY = 3
+    const crafter = this.add.image(1142, 110, "Pink_Crafter")
+    crafter.scaleX = 0.07
+    crafter.scaleY = 0.07
     const crafterList = this.add.text(1176, 115, "List").setInteractive();
     crafterList.setColor("#ff68ee"); // Set color to the same pink shade as smelterList
 
     // miner
-    const miner = this.add.image(1142, 211, "miner")
-    miner.scaleX = 3
-    miner.scaleY = 3
+    const miner = this.add.image(1142, 205, "Pink_Miner")
+    miner.scaleX = 0.07
+    miner.scaleY = 0.07
     miner.setInteractive()
     miner.on("pointerdown", () => {
       this.scene.launch("MinerPlacementScene") // Open miner placement window

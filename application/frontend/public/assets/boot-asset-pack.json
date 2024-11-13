@@ -47,6 +47,21 @@
         "key": "Models"
       },
       {
+        "url": "assets/Pink_Smelter.png",
+        "type": "image",
+        "key": "Pink_Smelter"
+      },
+      {
+        "url": "assets/Pink_Crafter.png",
+        "type": "image",
+        "key": "Pink_Crafter"
+      },
+      {
+        "url": "assets/Pink_Miner.png",
+        "type": "image",
+        "key": "Pink_Miner"
+      },
+      {
         "url": "assets/cable.png",
         "type": "image",
         "key": "cable"
