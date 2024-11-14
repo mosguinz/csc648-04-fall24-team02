@@ -3,142 +3,117 @@ import type InventoryMenu from "./InventoryMenu"
 import { NodePositions } from "../data/Constants.ts"
 
 export default class BaseScene extends Phaser.Scene {
-
   public minerTimers: { [key: string]: Phaser.Time.TimerEvent } = {}
+
+  // Constants
+  private readonly BLOCK_SCALE = 7.8
+  private readonly MINER_SCALE = 7.0
+  private readonly MINING_DELAY = 3000
+  private readonly FLOATING_TEXT_DURATION = 1000
 
   constructor() {
     super("BaseScene")
   }
 
   create() {
-    // background
-    const background = this.add.image(767, 431, "background_1")
-    background.scaleX = 1.5
-    background.scaleY = 1.5
+    // Background
+    this.createBackground()
 
-    // iron_ore_block
-    const iron_ore_block = this.add.image(374, 247, "iron_ore_block")
-    iron_ore_block.scaleX = 7.8
-    iron_ore_block.scaleY = 7.8
-    iron_ore_block.setInteractive()
-    iron_ore_block.on("pointerdown", () => {
-      this.mineBlock("iron_ore")
-    })
+    // Create ore blocks
+    this.createOreBlock("iron_ore", 374, 247)
+    this.createOreBlock("copper_ore", 807, 312)
+    this.createOreBlock("rock", 432, 435)
 
-    // copper_ore_block
-    const copper_ore_block = this.add.image(807, 312, "copper_ore_block")
-    copper_ore_block.scaleX = 7.8
-    copper_ore_block.scaleY = 7.8
-    copper_ore_block.setInteractive()
-    copper_ore_block.on("pointerdown", () => {
-      this.mineBlock("copper_ore")
-    })
+    // Listen for miner placement events
+    this.events.on("placeMiner", (node: string) => this.placeMinerOnNode(node))
 
-    // rock_block
-    const rock_block = this.add.image(432, 435, "rock_block")
-    rock_block.scaleX = 7.8
-    rock_block.scaleY = 7.8
-    rock_block.setInteractive()
-    rock_block.on("pointerdown", () => {
-      this.mineBlock("rock")
-    })
-
-    // Listen for miner placement events from MinerPlacementScene
-    this.events.on("placeMiner", (node: string) => {
-      this.placeMinerOnNode(node)
-    })
-
+    // Animation setup
     this.anims.create({
-      key: "miner_working", // Key to refer to the animation
+      key: "miner_working",
       frames: [{ key: "miner1" }, { key: "miner2" }],
-      frameRate: 7, // Adjust frame rate for the speed of the animation
-      repeat: -1, // -1 means loop forever
+      frameRate: 7,
+      repeat: -1,
     })
   }
 
-  mineBlock(blockName: string) {
-    // Add the mined resource to the inventory based on the block name
-    const inventoryMenu = this.scene.get("InventoryMenu") as InventoryMenu
-    inventoryMenu.addToInventory(blockName, 1) // Add 1 unit of the mined resource
-    inventoryMenu.updateInventoryDisplay()
+  // Helper function to create the background
+  private createBackground() {
+    const background = this.add.image(767, 431, "background_1")
+    background.setScale(1.5)
+  }
 
+  // Helper function to create ore blocks
+  private createOreBlock(resource: string, x: number, y: number) {
+    const block = this.add.image(x, y, `${resource}_block`)
+    block.setScale(this.BLOCK_SCALE)
+    block.setInteractive()
+    block.on("pointerdown", () => this.mineBlock(resource))
+  }
+
+  // Method to mine a block
+  private mineBlock(blockName: string) {
+    const inventoryMenu = this.scene.get("InventoryMenu") as InventoryMenu
+    inventoryMenu.addToInventory(blockName, 1)
+    inventoryMenu.updateInventoryDisplay()
     console.log(`Mined 1 ${blockName}`)
   }
 
-  placeMinerOnNode(node: string) {
+  // Method to place a miner on a node
+  private placeMinerOnNode(node: string) {
     console.log(`Placing miner on ${node} node...`)
 
-    // Clear any existing timer for the node (in case of upgrades)
     if (this.minerTimers[node]) {
       this.minerTimers[node].remove()
     }
 
-    // Get the position of the node (iron/copper/rock block)
-    // const nodePosition = this.getNodePosition(node) // Custom function to return the X and Y of the block/node
     const nodePosition = NodePositions[node]
+    const miner = this.add.sprite(nodePosition.x, nodePosition.y, "miner1").setScale(this.MINER_SCALE)
+    miner.play("miner_working")
 
-    // Create a sprite for the miner and apply the animation
-    const miner = this.add
-      .sprite(nodePosition.x, nodePosition.y, "miner1")
-      .setScale(7.0)
-    miner.play("miner_working") // Play the looping animation
+    const resourceMap = new Map([
+      ["iron", "iron_ore"],
+      ["copper", "copper_ore"],
+      ["rock", "rock"],
+    ])
+    const resource = resourceMap.get(node) || "unknown"
 
-    // Create a new timer that generates resources every X milliseconds
+    // Create a new mining timer
     this.minerTimers[node] = this.time.addEvent({
-      delay: 3000, // Adjust delay for mining speed
+      delay: this.MINING_DELAY,
       loop: true,
-      callback: () => {
-        const inventoryScene = this.scene.get("InventoryMenu") as InventoryMenu
-        const resource =
-          node === "iron"
-            ? "iron_ore"
-            : node === "copper"
-              ? "copper_ore"
-              : "rock"
-
-        // Increment the resource count in the inventory
-        inventoryScene.inventory[resource].count += 1
-        inventoryScene.inventory[resource].textObject!.setText(
-          `${inventoryScene.inventory[resource].count}`,
-        )
-        this.sound.play("mine_sound", {
-          detune: 0, // Adjust this to tweak pitch if necessary
-          seek: 0.05, // Skip the first 50 milliseconds (tweak this based on your needs)
-          volume: 1.0,
-        })
-
-        // Get the display name for the resource
-        const displayName = inventoryScene.inventory[resource].name
-        const amount = 1
-        const textContent = `${amount > 0 ? "+" : ""}${amount} ${displayName}`
-
-        console.log(textContent)
-
-        // Create floating text next to the miner (not the cursor)
-        const floatingText = this.add.text(
-          nodePosition.x,
-          nodePosition.y,
-          textContent,
-          {
-            fontSize: "16px",
-            color: "#ffffff",
-          },
-        )
-
-        // Apply tween to animate the text (move up and fade out)
-        this.tweens.add({
-          targets: floatingText,
-          y: nodePosition.y - 50, // Move up by 50 pixels
-          alpha: 0, // Fade out the text
-          duration: 1000, // 1 second animation
-          ease: "Power1",
-          onComplete: () => {
-            floatingText.destroy() // Destroy the text after the animation
-          },
-        })
-
-        console.log(`Auto-mining 1 ${resource} from ${node} node.`)
-      },
+      callback: () => this.autoMineResource(nodePosition, resource),
     })
+  }
+
+  // Method to handle auto-mining of resources
+  private autoMineResource(nodePosition: { x: number; y: number }, resource: string) {
+    const inventoryMenu = this.scene.get("InventoryMenu") as InventoryMenu
+    const resourceData = inventoryMenu.inventory[resource]
+
+    resourceData.count += 1
+    resourceData.textObject!.setText(`${resourceData.count}`)
+    this.sound.play("mine_sound", { detune: 0, seek: 0.05, volume: 1.0 })
+
+    const displayName = resourceData.name
+    const textContent = `+1 ${displayName}`
+    console.log(textContent)
+
+    // Create floating text
+    const floatingText = this.add.text(nodePosition.x, nodePosition.y, textContent, {
+      fontSize: "16px",
+      color: "#ffffff",
+    })
+
+    // Animate the floating text
+    this.tweens.add({
+      targets: floatingText,
+      y: nodePosition.y - 50,
+      alpha: 0,
+      duration: this.FLOATING_TEXT_DURATION,
+      ease: "Power1",
+      onComplete: () => floatingText.destroy(),
+    })
+
+    console.log(`Auto-mining 1 ${resource} from node.`)
   }
 }

@@ -1,3 +1,5 @@
+//automated crafter (new)
+
 import Phaser from 'phaser'
 import { CrafterInstance } from './Crafter' // Import CrafterInstance if defined in Crafter
 
