@@ -23,7 +23,7 @@ import {
 } from "@tanstack/react-router"
 import { type SubmitHandler, useForm } from "react-hook-form"
 import { FaSignInAlt } from "react-icons/fa"
-import Logo from "/assets/images/login-image.png"
+import Logo from "/assets/page_images/login-image.png"
 import type { Body_login_login_access_token as AccessToken } from "../client"
 import useAuth, { isLoggedIn } from "../hooks/useAuth"
 import { emailPattern } from "../utils"

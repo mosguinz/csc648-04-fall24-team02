@@ -2,132 +2,132 @@
   "section1": {
     "files": [
       {
-        "url": "assets/bg.png",
+        "url": "assets/game_assets/bg.png",
         "type": "image",
         "key": "background"
       },
       {
-        "url": "assets/background.jpg",
+        "url": "assets/game_assets/background.jpg",
         "type": "image",
         "key": "background_1"
       },
       {
-        "url": "assets/cable.png",
+        "url": "assets/game_assets/cable.png",
         "type": "image",
         "key": "cable"
       },
       {
-        "url": "assets/concrete.png",
+        "url": "assets/game_assets/concrete.png",
         "type": "image",
         "key": "concrete"
       },
       {
-        "url": "assets/cookie.png",
+        "url": "assets/game_assets/cookie.png",
         "type": "image",
         "key": "cookie"
       },
       {
-        "url": "assets/copper_ingot.png",
+        "url": "assets/game_assets/copper_ingot.png",
         "type": "image",
         "key": "copper_ingot"
       },
       {
-        "url": "assets/copper_ore.png",
+        "url": "assets/game_assets/copper_ore.png",
         "type": "image",
         "key": "copper_ore"
       },
       {
-        "url": "assets/copper_ore_block.png",
+        "url": "assets/game_assets/copper_ore_block.png",
         "type": "image",
         "key": "copper_ore_block"
       },
       {
-        "url": "assets/copper_plate.png",
+        "url": "assets/game_assets/copper_plate.png",
         "type": "image",
         "key": "copper_plate"
       },
       {
-        "url": "assets/crafter.png",
+        "url": "assets/game_assets/crafter.png",
         "type": "image",
         "key": "crafter"
       },
       {
-        "url": "assets/iron_ingot.png",
+        "url": "assets/game_assets/iron_ingot.png",
         "type": "image",
         "key": "iron_ingot"
       },
       {
-        "url": "assets/iron_ore.png",
+        "url": "assets/game_assets/iron_ore.png",
         "type": "image",
         "key": "iron_ore"
       },
       {
-        "url": "assets/iron_ore_block.png",
+        "url": "assets/game_assets/iron_ore_block.png",
         "type": "image",
         "key": "iron_ore_block"
       },
       {
-        "url": "assets/iron_plate.png",
+        "url": "assets/game_assets/iron_plate.png",
         "type": "image",
         "key": "iron_plate"
       },
       {
-        "url": "assets/iron_rod.png",
+        "url": "assets/game_assets/iron_rod.png",
         "type": "image",
         "key": "iron_rod"
       },
       {
-        "url": ["assets/mine_sound.mp3"],
+        "url": ["assets/game_assets/mine_sound.mp3"],
         "type": "audio",
         "key": "mine_sound"
       },
       {
-        "url": "assets/miner.png",
+        "url": "assets/game_assets/miner.png",
         "type": "image",
         "key": "miner"
       },
       {
-        "url": "assets/miner1.png",
+        "url": "assets/game_assets/miner1.png",
         "type": "image",
         "key": "miner1"
       },
       {
-        "url": "assets/miner2.png",
+        "url": "assets/game_assets/miner2.png",
         "type": "image",
         "key": "miner2"
       },
       {
-        "url": "assets/particle.png",
+        "url": "assets/game_assets/particle.png",
         "type": "image",
         "key": "particle"
       },
       {
-        "url": "assets/rock.png",
+        "url": "assets/game_assets/rock.png",
         "type": "image",
         "key": "rock"
       },
       {
-        "url": "assets/rock_block.png",
+        "url": "assets/game_assets/rock_block.png",
         "type": "image",
         "key": "rock_block"
       },
       {
-        "url": "assets/screws.png",
+        "url": "assets/game_assets/screws.png",
         "type": "image",
         "key": "screws"
       },
       {
-        "url": "assets/smelter.png",
+        "url": "assets/game_assets/smelter.png",
         "type": "image",
         "key": "smelter"
       },
       {
-        "url": "assets/wire.png",
+        "url": "assets/game_assets/wire.png",
         "type": "image",
         "key": "wire"
       },
       {
-        "url": "assets/button1.png",
+        "url": "assets/game_assets/button1.png",
         "type": "image",
         "key": "button1"
       }
