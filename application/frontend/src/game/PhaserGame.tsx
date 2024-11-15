@@ -1,3 +1,6 @@
+// Provided template file to link Phaser with ReactTS
+// DO NOT TOUCH
+
 import { forwardRef, useLayoutEffect, useRef } from "react"
 import StartGame from "./main"
 
