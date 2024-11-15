@@ -1,217 +1,139 @@
-import Phaser from "phaser"
+import Phaser from "phaser";
 import { ResourcesService, ResourceBase, TDataSetResources } from "../../client";
 import { ResourceMap } from "../data/Constants";
 
 export default class InventoryMenu extends Phaser.Scene {
-
-    public inventory: {
-        [key: string]: {
-            count: number,
-            textObject: Phaser.GameObjects.Text | null,
-            name: string
-        }
-    } = {
-            iron_ore: { count: 0, textObject: null, name:"Iron Ore"},
-            copper_ore: { count: 0, textObject: null, name:"Copper Ore" },
-            rock: { count: 0, textObject: null, name:"Rock" },
-            iron_ingot: { count: 0, textObject: null, name:"Iron Ingot" },
-            copper_ingot: { count: 0, textObject: null, name:"Copper Ingot" },
-            concrete: { count: 0, textObject: null, name:"Concrete" },
-            iron_plate: { count: 0, textObject: null, name:"Iron Plate" },
-            copper_plate: { count: 0, textObject: null, name:"Copper Plate" },
-            iron_rod: { count: 0, textObject: null, name:"Iron Rod" },
-            screws: { count: 0, textObject: null, name:"Screws" },
-            wire: { count: 0, textObject: null, name:"Wire" },
-            cable: { count: 0, textObject: null, name:"Cable" },
-        }
-
-    private floatingTextOffsetY = 20 // Y offset for overlapping texts
-    private activeFloatingTexts: Phaser.GameObjects.Text[] = [] // Store active floating texts to manage overlaps
+    public inventory: Record<string, { count: number; textObject: Phaser.GameObjects.Text | null; name: string }> = {};
+    private floatingTextOffsetY = 20;
+    private activeFloatingTexts: Phaser.GameObjects.Text[] = [];
 
     constructor() {
-        super({ key: "InventoryMenu" })
+        super({ key: "InventoryMenu" });
+        this.initializeInventory();
+        this.syncWithBackend();
+    }
 
-        // TODO: Properly add syncing with the backend
-        ResourcesService.readResources().then((response) => {
-            for (const resource of response) {
-                const key = ResourceMap[resource.resource_type_id];
+    // Initialize inventory from ResourceMap
+    private initializeInventory() {
+        for (const key in ResourceMap) {
+            const resourceName = ResourceMap[key];
+            this.inventory[resourceName] = {
+                count: 0,
+                textObject: null,
+                name: resourceName.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase()),
+            };
+        }
+    }
+
+    // Sync inventory with backend
+    private async syncWithBackend() {
+        const response = await ResourcesService.readResources();
+        response.forEach((resource) => {
+            const key = ResourceMap[resource.resource_type_id];
+            if (this.inventory[key]) {
                 this.inventory[key].count = resource.quantity;
             }
         });
     }
 
     create() {
-        // Background Rectangle
+        this.createUI();
+        this.populateInventoryUI();
+    }
+
+    // Create UI elements
+    private createUI() {
         const rectangle = this.add.rectangle(91, 296, 128, 128)
-        rectangle.scaleX = 1.447
-        rectangle.scaleY = 4.65
-        rectangle.isFilled = true
-        rectangle.fillColor = 9539985
-        rectangle.postFX!.addShadow(-1, 1, 0.1, 1, 0, 2, 1)
+            .setScale(1.447, 4.65)
+            .setFillStyle(9539985);
+        rectangle.postFX!.addShadow(-1, 1, 0.1, 1, 0, 2, 1);
 
-        // Inventory title
-        const inventoryTitle = this.add.text(29, 16, "Inventory", {
-            fontSize: "24px",
-            color: "#000000",
-        })
-        inventoryTitle.scaleX = 1
-        inventoryTitle.scaleY = 1
+        this.add.text(29, 16, "Inventory", { fontSize: "24px", color: "#000000" });
+    }
 
-        // resource objects
-        let offset = 0
+    // Populate inventory UI with resource elements
+    private populateInventoryUI() {
+        let offset = 0;
         for (const key in ResourceMap) {
-            const res = {
-                resource_type_id: parseInt(key),
-                quantity: 0
-            } as ResourceBase
-            this.addResource(res, 25, 79 + 40*offset)
-            offset++
+            const resource = { resource_type_id: parseInt(key), quantity: 0 } as ResourceBase;
+            this.addResource(resource, 25, 79 + 40 * offset);
+            offset++;
         }
-
-        ResourcesService.readResources().then((response) => {
-            for (const resource of response) {
-                const res_name = ResourceMap[resource.resource_type_id];
-                this.inventory[res_name].count = resource.quantity;
-            }
-        });
+        this.updateInventoryDisplay();
     }
 
     // Helper function to add a resource (image, name, and count text)
-    private addResource(
-        resource: ResourceBase,
-        xCord: number,
-        yCord: number,
-    ) {
-        const key = ResourceMap[resource.resource_type_id]
-        const imgX = xCord
-        const imgY = yCord
-        const nameX = xCord + 26
-        const nameY = yCord - 18
-        const countX = xCord + 26
-        const countY = yCord + 2
-        const text = this.inventory[key].name + ":"
-        this.add.image(imgX, imgY, key).setScale(2)
-        this.add.text(nameX, nameY, text, { fontSize: "16px" })
-        this.inventory[key].textObject = this.add.text(
-            countX,
-            countY,
-            `${this.inventory[key].count}`,
-            { fontSize: "16px" },
-        )
+    private addResource(resource: ResourceBase, xCord: number, yCord: number) {
+        const key = ResourceMap[resource.resource_type_id];
+        const imgX = xCord;
+        const imgY = yCord;
+        const nameX = xCord + 26;
+        const nameY = yCord - 18;
+        const countX = xCord + 26;
+        const countY = yCord + 2;
+        const text = this.inventory[key].name + ":";
+
+        this.add.image(imgX, imgY, key).setScale(2);
+        this.add.text(nameX, nameY, text, { fontSize: "16px" });
+        this.inventory[key].textObject = this.add.text(countX, countY, `${this.inventory[key].count}`, { fontSize: "16px" });
     }
 
-    // Method to update the inventory counts (can be called from other scenes)
+    // Update the displayed counts for the inventory
     updateInventoryDisplay() {
-        for (const item in this.inventory) {
-            if (this.inventory[item].textObject) {
-                this.inventory[item].textObject!.setText(
-                    `${this.inventory[item].count}`,
-                )
-            }
+        for (const key in this.inventory) {
+            const item = this.inventory[key];
+            item.textObject?.setText(`${item.count}`);
         }
     }
 
+    // Display floating text at cursor
     displayFloatingTextAtCursor(text: string) {
-        const pointer = this.input.activePointer // Get the current pointer (cursor) position
+        const pointer = this.input.activePointer;
+        const yOffset = this.activeFloatingTexts.length * this.floatingTextOffsetY;
+        const floatingText = this.add.text(pointer.worldX, pointer.worldY - yOffset, text, { fontSize: "16px", color: "#ffffff" });
 
-        // Calculate the Y position offset to prevent overlap
-        const yOffset = this.activeFloatingTexts.length * this.floatingTextOffsetY
+        this.activeFloatingTexts.push(floatingText);
 
-        // Create the floating text near the cursor
-        const floatingText = this.add.text(
-            pointer.worldX,
-            pointer.worldY - yOffset,
-            text,
-            {
-                fontSize: "16px",
-                color: "#ffffff",
-            },
-        )
-
-        // Add the floating text to the active list to manage offsets
-        this.activeFloatingTexts.push(floatingText)
-
-        // Apply tween to animate the text
         this.tweens.add({
             targets: floatingText,
-            y: pointer.worldY - 50 - yOffset, // Move up by 50 pixels (plus any offset)
-            alpha: 0, // Fade out the text
-            duration: 1000, // 1 second animation
+            y: pointer.worldY - 50 - yOffset,
+            alpha: 0,
+            duration: 1000,
             ease: "Power1",
             onComplete: () => {
-                floatingText.destroy() // Destroy the text after the animation
-                this.activeFloatingTexts = this.activeFloatingTexts.filter(
-                    (text) => text !== floatingText,
-                ) // Remove from active list
+                floatingText.destroy();
+                this.activeFloatingTexts = this.activeFloatingTexts.filter((text) => text !== floatingText);
             },
-        })
+        });
+    }
+
+    // Unified method for updating inventory counts and syncing with backend
+    private updateResourceCount(resource: string, amount: number) {
+        if (!this.inventory[resource]) return;
+
+        this.inventory[resource].count += amount;
+        this.inventory[resource].textObject?.setText(`${this.inventory[resource].count}`);
+
+        const id = Object.keys(ResourceMap).find((key) => ResourceMap[key] === resource) ?? "-1";
+        const data = [{ resource_type_id: parseInt(id), quantity: this.inventory[resource].count }] as ResourceBase[];
+        const requestBody = { requestBody: data } as TDataSetResources;
+
+        ResourcesService.setResources(requestBody);
     }
 
     // Method to add resources
-    addToInventory(resource: string, amount: number): void {
-        if (this.inventory[resource]) {
-            this.inventory[resource].count += amount
-            this.inventory[resource].textObject!.setText(
-                `${this.inventory[resource].count}`,
-            )
-
-            // Show floating text at the cursor
-            const res_name = this.inventory[resource].name
-            this.displayFloatingTextAtCursor("+" + amount + " " + res_name)
-        }
-
-        let id = -1;
-        for (const key in ResourceMap) {
-            if (resource == ResourceMap[key]) {
-                id = parseInt(key)
-            }
-        }
-
-        const res = {
-            resource_type_id: id,
-            quantity: this.inventory[resource].count,
-        } as ResourceBase;
-        let data = []
-        data.push(res)
-        let body = {
-            requestBody: data
-        } as TDataSetResources;
-        ResourcesService.setResources(body);
+    addToInventory(resource: string, amount: number) {
+        this.updateResourceCount(resource, amount);
+        this.displayFloatingTextAtCursor(`+${amount} ${this.inventory[resource]?.name}`);
     }
 
     // Method to deduct resources
     deductFromInventory(resource: string, amount: number): boolean {
-        if (this.inventory[resource] && this.inventory[resource].count >= amount) {
-            this.inventory[resource].count -= amount
-            this.inventory[resource].textObject!.setText(
-                `${this.inventory[resource].count}`,
-            )
-
-            let id = -1;
-            for (const key in ResourceMap) {
-                if (resource == ResourceMap[key]) {
-                    id = parseInt(key)
-                }
-            }
-            const res = {
-                resource_type_id: id,
-                quantity: this.inventory[resource].count,
-            } as ResourceBase;
-            let data = []
-            data.push(res)
-            let body = {
-                requestBody: data
-
-            } as TDataSetResources;
-
-            ResourcesService.setResources(body);
-
-            // Show floating text at the cursor
-            const res_name = this.inventory[resource].name
-            this.displayFloatingTextAtCursor("-" + amount + " " + res_name)
-
-            return true
+        if (this.inventory[resource]?.count >= amount) {
+            this.updateResourceCount(resource, -amount);
+            this.displayFloatingTextAtCursor(`-${amount} ${this.inventory[resource]?.name}`);
+            return true;
         }
-        return false
+        return false;
     }
 }

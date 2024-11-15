@@ -11,80 +11,97 @@ export interface CrafterInstance {
 
 export default class Crafter extends Phaser.Scene {
     private crafters: CrafterInstance[] = [] // Track individual crafters
+    private inventoryScene!: InventoryMenu
 
     constructor() {
-        super({ key: "Crafter" })
+        super({ key: 'Crafter' })
     }
 
     create() {
-        // Listen for crafting start events
-        this.events.on("startCrafting", (recipe: Recipe) => {
-            this.addCrafter(recipe)
-        })
+        this.inventoryScene = this.scene.get('InventoryMenu') as InventoryMenu
+        this.events.on('startCrafting', this.addCrafter, this)
     }
 
     // Add a new crafter instance
-    addCrafter(recipe: Recipe) {
-        const inventoryScene = this.scene.get("InventoryMenu") as InventoryMenu
-        const craftInterval = 3000 // Crafting every 3 seconds
-        const crafterId = `${recipe.outputItem}-${Phaser.Math.RND.uuid()}` // Unique ID for each crafter
+    private addCrafter(recipe: Recipe) {
+        const crafterId = this.generateCrafterId(recipe)
+        const timer = this.createCraftingTimer(recipe, crafterId)
 
-        console.log(`Adding crafter for ${recipe.outputItem} with ID ${crafterId}...`)
-
-        const timer = this.time.addEvent({
-            delay: craftInterval,
-            loop: true,
-            callback: () => {
-                const canCraft = recipe.ingredients.every(ingredient =>
-                    inventoryScene.inventory[ingredient.item]?.count >= ingredient.amount
-                )
-
-                if (canCraft) {
-                    // Deduct ingredients
-                    for (const ingredient of recipe.ingredients) {
-                        inventoryScene.inventory[ingredient.item].count -= ingredient.amount;
-                        inventoryScene.inventory[ingredient.item].textObject?.setText(
-                            `${inventoryScene.inventory[ingredient.item].count}`
-                        );
-                    }
-                
-                    // Add crafted item
-                    inventoryScene.inventory[recipe.outputItem].count += recipe.outputAmount;
-                    inventoryScene.inventory[recipe.outputItem].textObject?.setText(
-                        `${inventoryScene.inventory[recipe.outputItem].count}`
-                    );
-                
-                    // Show floating text
-                    this.displayFloatingText(recipe.outputItem);
-                    console.log(`Crafted ${recipe.outputAmount} ${recipe.outputItem}`);
-                } else {
-                    console.log(`Not enough resources to craft ${recipe.outputItem}`)
-                }
-            }
-        })
-
-        // Add the new crafter instance to the crafters array
         this.crafters.push({ id: crafterId, recipe, timer })
+        this.events.emit('crafterAdded', this.crafters)
 
-        // Emit an event to update the display in RunningCraftersScene
-        this.events.emit("crafterAdded", this.crafters)
+        console.log(`Crafter added for ${recipe.outputItem} with ID ${crafterId}`)
     }
 
     // Remove a crafter instance by its ID
     removeCrafter(crafterId: string) {
         const crafterIndex = this.crafters.findIndex(c => c.id === crafterId)
         if (crafterIndex !== -1) {
-            this.crafters[crafterIndex].timer.remove() // Remove the timer
-            this.crafters.splice(crafterIndex, 1) // Remove from array
-            this.events.emit("crafterRemoved", this.crafters)
+            this.crafters[crafterIndex].timer.remove()
+            this.crafters.splice(crafterIndex, 1)
+            this.events.emit('crafterRemoved', this.crafters)
+
+            console.log(`Crafter removed with ID ${crafterId}`)
         }
     }
 
+    // Create a timer for crafting
+    private createCraftingTimer(recipe: Recipe, crafterId: string): Phaser.Time.TimerEvent {
+        const craftInterval = 3000 // Crafting every 3 seconds
+
+        return this.time.addEvent({
+            delay: craftInterval,
+            loop: true,
+            callback: () => this.craftItem(recipe),
+        })
+    }
+
+    // Handle crafting logic
+    private craftItem(recipe: Recipe) {
+        if (this.canCraft(recipe)) {
+            this.consumeIngredients(recipe)
+            this.produceOutput(recipe)
+            this.displayFloatingText(recipe.outputItem)
+
+            console.log(`Crafted ${recipe.outputAmount} ${recipe.outputItem}`)
+        } else {
+            console.log(`Not enough resources to craft ${recipe.outputItem}`)
+        }
+    }
+
+    // Check if there are enough resources to craft the item
+    private canCraft(recipe: Recipe): boolean {
+        return recipe.ingredients.every(ingredient =>
+            this.inventoryScene.inventory[ingredient.item]?.count >= ingredient.amount
+        )
+    }
+
+    // Deduct ingredients from the inventory
+    private consumeIngredients(recipe: Recipe) {
+        for (const ingredient of recipe.ingredients) {
+            const inventoryItem = this.inventoryScene.inventory[ingredient.item]
+            inventoryItem.count -= ingredient.amount
+            inventoryItem.textObject?.setText(`${inventoryItem.count}`)
+        }
+    }
+
+    // Add crafted item to the inventory
+    private produceOutput(recipe: Recipe) {
+        const outputItem = this.inventoryScene.inventory[recipe.outputItem]
+        outputItem.count += recipe.outputAmount
+        outputItem.textObject?.setText(`${outputItem.count}`)
+    }
+
+    // Generate a unique ID for the crafter instance
+    private generateCrafterId(recipe: Recipe): string {
+        return `${recipe.outputItem}-${Phaser.Math.RND.uuid()}`
+    }
+
     // Display floating text
-    displayFloatingText(producedItem: string) {
+    private displayFloatingText(producedItem: string) {
         const floatingText = this.add.text(1142, 141, `+1 ${producedItem}`, {
-            fontSize: "16px",
-            color: "#ffffff",
+            fontSize: '16px',
+            color: '#ffffff',
         })
 
         this.tweens.add({
@@ -92,7 +109,7 @@ export default class Crafter extends Phaser.Scene {
             y: floatingText.y - 50,
             alpha: 0,
             duration: 1000,
-            ease: "Power1",
+            ease: 'Power1',
             onComplete: () => floatingText.destroy(),
         })
     }

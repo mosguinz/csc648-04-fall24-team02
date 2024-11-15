@@ -1,3 +1,5 @@
+// fix import + and path if file moves
+
 import { AUTO, Game } from "phaser"
 import CraftingMenu from "./scenes/CraftingMenu"
 import InventoryMenu from "./scenes/InventoryMenu"

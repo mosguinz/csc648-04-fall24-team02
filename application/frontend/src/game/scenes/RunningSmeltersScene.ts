@@ -1,3 +1,5 @@
+//automated smelter (new)
+
 import { SmelterInstance } from "./Smelter" // Import SmelterInstance if in a separate file
 
 export default class RunningSmeltersScene extends Phaser.Scene {
