@@ -130,6 +130,11 @@
         "url": "assets/game_assets/button1.png",
         "type": "image",
         "key": "button1"
+      },
+      {
+        "url": "assets/game_assets/pink_bg.jpg",
+        "type": "image",
+        "key": "pink_bg"
       }
     ]
   },
