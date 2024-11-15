@@ -7,7 +7,6 @@ export default class TestScene extends Phaser.Scene {
 
     create() {
         this.add.image(0, -400, "pink_bg").setOrigin(0, 0).setScale(0.74);
-        this.add.image(100, 100, "button1");
-        this.add.nineslice(500, 500, "button1",0 , 600, 400, 32, 32, 32, 32);
+        this.add.nineslice(1100, 720, "button1",0 , 550, 120, 32, 32, 32, 32).setOrigin(0.5, 0.5).setTint(0xEF9DE9);
     }
 }
