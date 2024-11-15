@@ -5,11 +5,8 @@ export default class TestScene extends Phaser.Scene {
         super('TestScene');
     }
 
-    preload() {
-    }
-
     create() {
         this.add.text(100, 100, 'Hello Phaser!');
-        background: '#000000';
+        this.add.image(100, 200, "smelter");
     }
 }

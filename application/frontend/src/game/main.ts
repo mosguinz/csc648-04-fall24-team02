@@ -14,6 +14,7 @@ const config: Phaser.Types.Core.GameConfig = {
     backgroundColor: '#000000',
     // Add new scenes here
     scene: [
+        Scenes.PreloadScene,
         Scenes.TestScene,
       ],
   }
