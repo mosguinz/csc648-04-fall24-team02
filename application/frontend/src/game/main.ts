@@ -6,12 +6,13 @@ const config: Phaser.Types.Core.GameConfig = {
     pixelArt: true,
     scale: {
         parent: 'game-container',
-        width: 1024,
-        height: 576,
+        width: 2200,
+        height: 1080,
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     backgroundColor: '#000000',
+    // Add new scenes here
     scene: [
         Scenes.TestScene,
       ],
