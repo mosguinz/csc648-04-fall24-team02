@@ -2,7 +2,7 @@ import { Game } from 'phaser';
 import * as Scenes from './scenes';
 
 const config: Phaser.Types.Core.GameConfig = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     pixelArt: true,
     scale: {
         parent: 'game-container',
@@ -15,7 +15,7 @@ const config: Phaser.Types.Core.GameConfig = {
     // Add new scenes here
     scene: [
         Scenes.PreloadScene,
-        Scenes.TestScene,
+        Scenes.TitleScene,
       ],
   }
 

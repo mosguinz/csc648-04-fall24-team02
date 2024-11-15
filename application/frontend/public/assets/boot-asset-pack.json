@@ -125,6 +125,11 @@
         "url": "assets/wire.png",
         "type": "image",
         "key": "wire"
+      },
+      {
+        "url": "assets/button1.png",
+        "type": "image",
+        "key": "button1"
       }
     ]
   },
