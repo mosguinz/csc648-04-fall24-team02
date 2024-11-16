@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { TITLE_STYLE, TEXT_STYLE } from '../../config';
+import { TEXT_STYLE, TITLE_STYLE } from '../../config';
 
 export default class TestScene extends Phaser.Scene {
     constructor() {
@@ -10,10 +10,11 @@ export default class TestScene extends Phaser.Scene {
 
     create() {
         // Title text
-        this.add.text(1100, 390, "CLICK AND MORTAR", TITLE_STYLE).setOrigin(0.5, 0.5).setFontSize(128);
+        this.add.text(256, 144, "CLICK AND MORTAR", TITLE_STYLE).setOrigin(0.5, 0.5).setFontSize(30);
 
         // Start button
-        const startButton = this.add.nineslice(1100, 620, "button_transparent", 0, 550, 120, 32, 32, 32, 32).setOrigin(0.5, 0.5).setInteractive();
+        // TODO: Reduce hard code values
+        const startButton = this.add.nineslice(1100, 620, "button", 0, 550, 120, 32, 32, 32, 32).setOrigin(0.5, 0.5).setInteractive();
         startButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
             this.cameras.main.fadeOut(1000, 0, 0, 0);
             startButton.disableInteractive();
@@ -22,12 +23,11 @@ export default class TestScene extends Phaser.Scene {
             });
         });
 
-
-        this.add.text(startButton.x, startButton.y - 12, "START", TEXT_STYLE).setOrigin(0.5, 0.5).setFontSize(94);
+        this.add.text(startButton.x, startButton.y - 12, "START", TEXT_STYLE).setOrigin(0.5, 0.5).setFontSize(94).setColor("black");
 
         // Quit button
-        const quitButton = this.add.nineslice(1100, 770, "button_transparent", 0, 500, 120, 32, 32, 32, 32).setOrigin(0.5, 0.5).setInteractive();
-        this.add.text(quitButton.x, quitButton.y - 12, "QUIT", TEXT_STYLE).setOrigin(0.5, 0.5).setFontSize(94);
+        const quitButton = this.add.nineslice(1100, 770, "button", 0, 500, 120, 32, 32, 32, 32).setOrigin(0.5, 0.5).setInteractive();
+        this.add.text(quitButton.x, quitButton.y - 12, "QUIT", TEXT_STYLE).setOrigin(0.5, 0.5).setFontSize(94).setColor("black");
 
         // Side arrows for hover effect
         const arrowsContainer = this.add.container(startButton.x, startButton.y).setVisible(false);
@@ -71,8 +71,5 @@ export default class TestScene extends Phaser.Scene {
             arrowsContainer.setVisible(false);
             this.tweens.killTweensOf(arrowsContainer);
         });
-
-
-
     }
 }
