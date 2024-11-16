@@ -38,3 +38,9 @@ export const TEXT_STYLE_SQUARE: Phaser.Types.GameObjects.Text.TextStyle = {
     color: 'white',
     align: 'center',
 };
+
+export const TEXT_STYLE_SMALL: Phaser.Types.GameObjects.Text.TextStyle = {
+    fontFamily: 'text_font_small',
+    color: 'white',
+    align: 'center',
+};
