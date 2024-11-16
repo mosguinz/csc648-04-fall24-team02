@@ -62,6 +62,16 @@
         "key": "Pink_Miner"
       },
       {
+        "url": "assets/GameTitle.png",
+        "type": "image",
+        "key": "Game_Title"
+      },
+      {
+        "url": "assets/ScreenPops_1.png",
+        "type": "image",
+        "key": "Screen_Pops_1"
+      },
+      {
         "url": "assets/cable.png",
         "type": "image",
         "key": "cable"

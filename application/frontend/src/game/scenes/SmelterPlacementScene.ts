@@ -46,33 +46,33 @@ export default class SmelterPlacementScene extends Phaser.Scene {
     )
 
     // Resource types for placing the smelter
-    this.add.text(250, 470, "Iron Ore Smelter", {
-      fontSize: "25px",
+    this.add.text(260, 470, "Iron Ore Smelter", {
+      fontSize: "20px",
       color: "#ffffff",
     })
     const ironFurnaceIcon = this.add
-      .image(370, 370, "smelter")
-      .setScale(8)
+      .image(360, 370, "Pink_Smelter")
+      .setScale(0.2)
       .setInteractive()
-    this.add.image(370, 350, "iron_ore").setScale(3)
+    this.add.image(370, 370, "iron_ore").setScale(3)
     this.add.text(550, 470, "Copper Ore Smelter", {
-      fontSize: "25px",
+      fontSize: "20px",
       color: "#ffffff",
     })
     const copperFurnaceIcon = this.add
-      .image(678, 370, "smelter")
-      .setScale(8)
+      .image(650, 370, "Pink_Smelter")
+      .setScale(0.2)
       .setInteractive()
-    this.add.image(678, 350, "copper_ore").setScale(3)
-    this.add.text(845, 470, "Concrete Maker", {
-      fontSize: "25px",
+    this.add.image(660, 370, "copper_ore").setScale(3)
+    this.add.text(840, 470, "Concrete Maker", {
+      fontSize: "20px",
       color: "#ffffff",
     })
     const rockFurnaceIcon = this.add
-      .image(945, 370, "smelter")
-      .setScale(8)
+      .image(920, 370, "Pink_Smelter")
+      .setScale(0.2)
       .setInteractive()
-    this.add.image(945, 350, "rock").setScale(3)
+    this.add.image(930, 370, "rock").setScale(3)
 
     // Handle clicking on resource types
     ironFurnaceIcon.on("pointerdown", () => this.placeSmelter("iron"))

@@ -1,6 +1,6 @@
 // theme.js
 import { extendTheme } from "@chakra-ui/react"
-import "@fontsource/bubblegum-sans"
+// import "@fontsource/bubblegum-sans"
 
 const disabledStyles = {
   _disabled: {

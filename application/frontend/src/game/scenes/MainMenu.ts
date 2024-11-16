@@ -40,18 +40,11 @@ export default class MainMenu extends Phaser.Scene {
     background_2.scaleY = 0.29 //29
 
     // game title
-    // Text with Multi-Color Tint
-    this.rainbowText = this.add.text(-1700, 70, "CLICK AND MORTOR", {
-      fontSize: '27px',
-      fontFamily: "pixelfy-sans",
-      color: "#ffffff", // Base color; tint will override this
-      align: "center",
-  });
+    const GameTitle = this.add.image(670, 25, "Game_Title") 
+    GameTitle.scaleX = 0.5
+    GameTitle.scaleY = 0.5
+    
 
-  // Apply the multi-color tint to the text itself
-  this.rainbowText.setTint(0xff9dd5, 0xd8a7c3, 0xf4c64a, 0xe49cff);
-  this.rainbowText.setStroke("#b7a5ca",5);
-  this.rainbowText.setOrigin(-8.2, 2);
 
     const inventoryMenu = this.scene.get("InventoryMenu") as InventoryMenu
     // iron_ore_block
