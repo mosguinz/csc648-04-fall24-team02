@@ -20,9 +20,16 @@ export default class GameMenu extends Phaser.Scene {
 
         const gameMenuContainer = this.add.container(GAME_WIDTH - 10, GAME_HEIGHT - 10);
 
+        // Icon hover effect
+        const iconHover = this.add.image(0, 0, 'button_hover',).setOrigin(.5, .5).setVisible(false).setScale(2);
+        gameMenuContainer.add(iconHover);
+
         // Inventory button
         const inventoryButton = this.add.nineslice(-(menuWidth / 2), -(menuHeight / 2), 'menu_icon', 0,
             iconWidth, iconHeight, NSP, NSP, NSP, NSP).setOrigin(.5, .5).setInteractive();
+        inventoryButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.scene.start('InventoryMenu');
+        });
         gameMenuContainer.add(inventoryButton);
 
         // Inventory button text
@@ -30,14 +37,19 @@ export default class GameMenu extends Phaser.Scene {
             TEXT_STYLE_SMALL).setOrigin(0.5, 0.5).setFontSize(25);
         gameMenuContainer.add(inventoryButtonText);
 
-
         // Inventory button icon
         // TODO: Add icon
+
+        // Hover effect
+        this.#updateHoverEffect(inventoryButton, iconHover);
 
         // Build button
         const buildButton = this.add.nineslice(-(menuWidth / 2) - iconWidth * 1.5, -(menuHeight / 2), 'menu_icon', 0,
             iconWidth, iconHeight, NSP, NSP, NSP, NSP).setOrigin(.5, .5).setInteractive();
         gameMenuContainer.add(buildButton);
+        buildButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.scene.start('BuildMenu');
+        });
 
         // Build button text
         const buildButtonText = this.add.text(buildButton.x, buildButton.y + 60, "BUILD",
@@ -47,10 +59,16 @@ export default class GameMenu extends Phaser.Scene {
         // Build button icon
         // TODO: Add icon
 
+        // Hover effect
+        this.#updateHoverEffect(buildButton, iconHover);
+
         // Crafting button
         const craftingButton = this.add.nineslice(-(menuWidth / 2) + iconWidth * 1.5, -(menuHeight / 2), 'menu_icon', 0,
             iconWidth, iconHeight, NSP, NSP, NSP, NSP).setOrigin(.5, .5).setInteractive();
         gameMenuContainer.add(craftingButton);
+        craftingButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.scene.start('CraftingMenu');
+        });
 
         // Crafting button text
         const craftingButtonText = this.add.text(craftingButton.x, craftingButton.y + 60, "CRAFTING",
@@ -59,5 +77,29 @@ export default class GameMenu extends Phaser.Scene {
 
         // Crafting button icon
         // TODO: Add icon
+
+        // Hover effect
+        this.#updateHoverEffect(craftingButton, iconHover);
+    }
+
+    // Update arrow poisition and visibility on hover
+    #updateHoverEffect(button: Phaser.GameObjects.NineSlice, arrow: Phaser.GameObjects.Image) {
+        button.on(Phaser.Input.Events.POINTER_OVER, () => {
+            arrow.setPosition(button.x, button.y - 65);
+            arrow.setVisible(true);
+            this.tweens.killTweensOf(arrow);
+            this.tweens.add({
+                targets: arrow,
+                y: '+=5',
+                duration: 500,
+                yoyo: true,
+                repeat: -1,
+                ease: 'Sine.easeInOut',
+            });
+        });
+        button.on(Phaser.Input.Events.POINTER_OUT, () => {
+            arrow.setVisible(false);
+            this.tweens.killTweensOf(arrow);
+        });
     }
 }
