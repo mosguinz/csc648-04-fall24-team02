@@ -40,15 +40,15 @@ function HomePage(): JSX.Element {
           }}
           width="100%"
         >
-          <Icon as={FaGraduationCap} w={12} h={12} color="ui.green" mb={4} />
+          <Icon as={FaGraduationCap} w={12} h={12} color="ui.softPurple" mb={4} />
           <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
             Software Engineering Class SFSU
           </Heading>
-          <Text fontSize={{ base: 'lg', md: 'xl' }} mb={4} color="ui.orange">
+          <Text fontSize={{ base: 'lg', md: 'xl' }} mb={4} color="ui.softPurple">
             Section 04
           </Text>
           <Divider my={4} borderColor="ui.main" />
-          <Text fontSize={{ base: 'md', md: 'lg' }} color="ui.purple">
+          <Text fontSize={{ base: 'md', md: 'lg' }} color="ui.eggPink">
             Team 02
           </Text>
         </Box>
@@ -70,11 +70,11 @@ function HomePage(): JSX.Element {
             }}
             width="100%"
           >
-            <Icon as={FaTrophy} w={10} h={10} color="ui.green" mb={4} />
-            <Heading as="h2" size={{ base: 'lg', md: 'xl' }} color="ui.green" mb={4}>
+            <Icon as={FaTrophy} w={10} h={10} color="ui.softGreen" mb={4} />
+            <Heading as="h2" size={{ base: 'lg', md: 'xl' }} color="ui.softPurple" mb={4}>
               Achievements
             </Heading>
-            <Text color="ui.purple">
+            <Text color="ui.eggPink">
               Track your achievements and milestones in the game!
             </Text>
           </Box>
@@ -94,11 +94,11 @@ function HomePage(): JSX.Element {
             }}
             width="100%"
           >
-            <Icon as={FaChartLine} w={10} h={10} color="ui.green" mb={4} />
-            <Heading as="h2" size={{ base: 'lg', md: 'xl' }} color="ui.green" mb={4}>
+            <Icon as={FaChartLine} w={10} h={10} color="ui.softGreen" mb={4} />
+            <Heading as="h2" size={{ base: 'lg', md: 'xl' }} color="ui.softPurple" mb={4}>
               Leaderboards
             </Heading>
-            <Text color="ui.purple">
+            <Text color="ui.eggPink">
               See where you stand among other players!
             </Text>
           </Box>
