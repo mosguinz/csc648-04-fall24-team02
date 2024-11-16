@@ -28,6 +28,7 @@ import type { Body_login_login_access_token as AccessToken } from "../client"
 import useAuth, { isLoggedIn } from "../hooks/useAuth"
 import { emailPattern } from "../utils"
 import { useFloatAnimation } from "../hooks/useFloatAnimation";
+import { usePageMetadata } from "../hooks/usePageMetadata";
 
 export const Route = createFileRoute("/login")({
   component: Login,
@@ -57,6 +58,11 @@ function Login() {
   })
   const navigate = useNavigate()
   const floatAnimation = useFloatAnimation();
+
+    usePageMetadata(
+    "Login",
+    "Access your account on Brick and Mortar. Log in to manage your account and view the dashboard."
+  );
   const onSubmit: SubmitHandler<AccessToken> = async (data) => {
     if (isSubmitting) return
 

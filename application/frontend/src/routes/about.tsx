@@ -17,7 +17,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { FaUsers, FaGamepad } from 'react-icons/fa';
 import { useFloatAnimation } from '../hooks/useFloatAnimation';
 import { useTeamAccordion, TeamMember } from '../hooks/useTeamAccordion';
-
+import { usePageMetadata } from '../hooks/usePageMetadata';
 export const Route = createFileRoute('/about')({
   component: AboutPage,
 });
@@ -71,6 +71,10 @@ const TeamAccordion = ({ teamMembers }: { teamMembers: TeamMember[] }) => (
 function AboutPage(): JSX.Element {
   const floatAnimation = useFloatAnimation();
   const teamMembers = useTeamAccordion();
+
+  usePageMetadata(
+    "About",
+  );
 
   return (
     <Box minHeight="100vh" py={10} px={4}>
