@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import { TEXT_STYLE} from '../../config';
 
 export default class MainGameScene extends Phaser.Scene {
     constructor() {
@@ -9,6 +8,6 @@ export default class MainGameScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.text(1100, 390, "GAME!", TEXT_STYLE).setOrigin(0.5, 0.5).setFontSize(128);
+        this.scene.start('GameMenu');
     }
 }

@@ -17,6 +17,7 @@ export const config: Phaser.Types.Core.GameConfig = {
         Scenes.PreloadScene,
         Scenes.MainGameScene,
         Scenes.TitleScene,
+        Scenes.GameMenu,
     ],
 }
 
