@@ -20,24 +20,24 @@ const PublicNavbar = () => {
         <Button
           as={Link}
           to="/"
-          bg="#a5d061"
+          bg="ui.softGreen"
           color="white"
           size="lg" // Make button larger
           px={10} // Increase horizontal padding
           py={6} // Increase vertical padding
-          _hover={{ bg: "ui.dark" }}
+          _hover={{ bg: "ui.darkPink" }}
         >
           Home
         </Button>
         <Button
           as={Link}
           to="/about"
-          bg="#f7bd52"
+          bg="ui.eggPink"
           color="white"
           size="lg"
           px={10}
           py={6}
-          _hover={{ bg: "ui.dark" }}
+          _hover={{ bg: "ui.darkPink" }}
         >
           About
         </Button>
@@ -49,7 +49,7 @@ const PublicNavbar = () => {
           size="lg"
           px={10}
           py={6}
-          _hover={{ bg: "ui.dark" }}
+          _hover={{ bg: "ui.darkPink" }}
         >
           Game
         </Button>
