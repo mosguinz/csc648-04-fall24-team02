@@ -2,16 +2,6 @@
   "section1": {
     "files": [
       {
-        "url": "assets/game_assets/bg.png",
-        "type": "image",
-        "key": "background"
-      },
-      {
-        "url": "assets/game_assets/background.jpg",
-        "type": "image",
-        "key": "background_1"
-      },
-      {
         "url": "assets/game_assets/cable.png",
         "type": "image",
         "key": "cable"
@@ -20,11 +10,6 @@
         "url": "assets/game_assets/concrete.png",
         "type": "image",
         "key": "concrete"
-      },
-      {
-        "url": "assets/game_assets/cookie.png",
-        "type": "image",
-        "key": "cookie"
       },
       {
         "url": "assets/game_assets/copper_ingot.png",
