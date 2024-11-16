@@ -6,7 +6,6 @@ import WebFont from 'webfontloader';
 export default class MainMenu extends Phaser.Scene {
   public minerTimers: { [key: string]: Phaser.Time.TimerEvent } = {}
   private smelterTimers: { [key: string]: Phaser.Time.TimerEvent } = {} // Track smelter timers
-  private rainbowText!: Phaser.GameObjects.Text;
   constructor() {
     super("MainMenu")
   }
