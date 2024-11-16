@@ -18,6 +18,9 @@ export const config: Phaser.Types.Core.GameConfig = {
         Scenes.MainGameScene,
         Scenes.TitleScene,
         Scenes.GameMenu,
+        Scenes.InventoryMenu,
+        Scenes.BuildMenu,
+        Scenes.CraftingMenu,
     ],
 }
 
