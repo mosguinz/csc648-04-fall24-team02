@@ -1,3 +1,25 @@
+import * as Phaser from 'phaser';
+import * as Scenes from './scenes';
+
+export const config: Phaser.Types.Core.GameConfig = {
+    type: Phaser.AUTO,
+    pixelArt: true,
+    scale: {
+        parent: 'game-container',
+        width: 2048,
+        height: 1152,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
+    backgroundColor: '#000000',
+    // Add new scenes here
+    scene: [
+        Scenes.PreloadScene,
+        Scenes.MainGameScene,
+        Scenes.TitleScene,
+    ],
+}
+
 export const TEXT_STYLE: Phaser.Types.GameObjects.Text.TextStyle = {
     fontFamily: 'text_font',
     color: 'white',
