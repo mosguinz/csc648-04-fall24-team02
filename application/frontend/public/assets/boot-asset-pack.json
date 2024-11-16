@@ -45,6 +45,11 @@
         "url": "assets/game_assets/inventory_slot.png",
         "type": "image",
         "key": "inventory_slot"
+      },
+      {
+        "url": "assets/game_assets/close_button.png",
+        "type": "image",
+        "key": "close_button"
       }
     ]
   },

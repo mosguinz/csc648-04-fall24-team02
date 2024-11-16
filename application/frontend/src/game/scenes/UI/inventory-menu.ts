@@ -47,6 +47,20 @@ export default class InventoryMenu extends Phaser.Scene {
                 .setOrigin(.5, .5).setTint(0x000000).setScale(-.75, 1)
         );
 
+        // Close button
+        const closeButton = this.add.image(INVENTORY_WIDTH -50, 50, 'close_button').setOrigin(.5, .5).setScale(3).setInteractive()
+        inventoryContainer.add(closeButton);
+        closeButton.on(Phaser.Input.Events.POINTER_OVER, () => {
+            closeButton.setTint(0xff0000);
+        });
+        closeButton.on(Phaser.Input.Events.POINTER_OUT, () => {
+            closeButton.clearTint();
+        });
+        closeButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.scene.stop('InventoryMenu');
+        });
+
+
         // Inventory slots
         for (let i = 0; i < SLOT_ROWS; i++) {
             for (let j = 0; j < SLOT_COLS; j++) {
