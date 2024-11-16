@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { ResourcesService, ResourceBase, TDataSetResources } from "../../client";
+import { ResourcesService, ResourceBase } from "../../client";
 import { ResourceMap } from "../data/Constants";
 
 export default class InventoryMenu extends Phaser.Scene {
@@ -114,11 +114,11 @@ export default class InventoryMenu extends Phaser.Scene {
         this.inventory[resource].count += amount;
         this.inventory[resource].textObject?.setText(`${this.inventory[resource].count}`);
 
-        const id = Object.keys(ResourceMap).find((key) => ResourceMap[key] === resource) ?? "-1";
-        const data = [{ resource_type_id: parseInt(id), quantity: this.inventory[resource].count }] as ResourceBase[];
-        const requestBody = { requestBody: data } as TDataSetResources;
+        const id = Object.keys(ResourceMap).find((key) => ResourceMap[key as unknown as keyof typeof ResourceMap] === resource) ?? "-1";
 
-        ResourcesService.setResources(requestBody);
+        const data = [{ resource_type_id: parseInt(id), quantity: this.inventory[resource].count }] as ResourceBase[];
+
+        ResourcesService.setResources({ requestBody: data });
     }
 
     // Method to add resources
