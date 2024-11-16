@@ -23,6 +23,8 @@ import { Route as LayoutSettingsImport } from './routes/_layout/settings'
 import { Route as LayoutItemsImport } from './routes/_layout/items'
 import { Route as LayoutDashboardImport } from './routes/_layout/dashboard'
 import { Route as LayoutAdminImport } from './routes/_layout/admin'
+import { Route as LeaderboardImport } from './routes/leaderboard'
+
 
 // Create/Update Routes
 
@@ -86,6 +88,11 @@ const LayoutAdminRoute = LayoutAdminImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LeaderboardRoute = LeaderboardImport.update({
+  path: '/leaderboard',
+  getParentRoute: () => rootRoute,
+} as any);
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -138,6 +145,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutSettingsImport
       parentRoute: typeof LayoutImport
     }
+    '/leaderboard': {
+      preLoaderRoute: typeof LeaderboardImport
+      parentRoute: typeof rootRoute
+}
+
   }
 }
 
@@ -157,6 +169,7 @@ export const routeTree = rootRoute.addChildren([
   RecoverPasswordRoute,
   ResetPasswordRoute,
   SignupRoute,
+  LeaderboardRoute,
 ])
 
 /* prettier-ignore-end */
