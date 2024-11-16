@@ -15,6 +15,7 @@ import { Route as SignupImport } from './routes/signup'
 import { Route as ResetPasswordImport } from './routes/reset-password'
 import { Route as RecoverPasswordImport } from './routes/recover-password'
 import { Route as LoginImport } from './routes/login'
+import { Route as LeaderboardImport } from './routes/leaderboard'
 import { Route as GameImport } from './routes/game'
 import { Route as AboutImport } from './routes/about'
 import { Route as LayoutImport } from './routes/_layout'
@@ -23,8 +24,6 @@ import { Route as LayoutSettingsImport } from './routes/_layout/settings'
 import { Route as LayoutItemsImport } from './routes/_layout/items'
 import { Route as LayoutDashboardImport } from './routes/_layout/dashboard'
 import { Route as LayoutAdminImport } from './routes/_layout/admin'
-import { Route as LeaderboardImport } from './routes/leaderboard'
-
 
 // Create/Update Routes
 
@@ -45,6 +44,11 @@ const RecoverPasswordRoute = RecoverPasswordImport.update({
 
 const LoginRoute = LoginImport.update({
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LeaderboardRoute = LeaderboardImport.update({
+  path: '/leaderboard',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -88,11 +92,6 @@ const LayoutAdminRoute = LayoutAdminImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LeaderboardRoute = LeaderboardImport.update({
-  path: '/leaderboard',
-  getParentRoute: () => rootRoute,
-} as any);
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -111,6 +110,10 @@ declare module '@tanstack/react-router' {
     }
     '/game': {
       preLoaderRoute: typeof GameImport
+      parentRoute: typeof rootRoute
+    }
+    '/leaderboard': {
+      preLoaderRoute: typeof LeaderboardImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -145,11 +148,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutSettingsImport
       parentRoute: typeof LayoutImport
     }
-    '/leaderboard': {
-      preLoaderRoute: typeof LeaderboardImport
-      parentRoute: typeof rootRoute
-}
-
   }
 }
 
@@ -165,11 +163,11 @@ export const routeTree = rootRoute.addChildren([
   ]),
   AboutRoute,
   GameRoute,
+  LeaderboardRoute,
   LoginRoute,
   RecoverPasswordRoute,
   ResetPasswordRoute,
   SignupRoute,
-  LeaderboardRoute,
 ])
 
 /* prettier-ignore-end */

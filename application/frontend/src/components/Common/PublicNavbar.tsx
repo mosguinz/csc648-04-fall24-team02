@@ -53,6 +53,18 @@ const PublicNavbar = () => {
         >
           Game
         </Button>
+        <Button
+          as={Link}
+          to="/leaderboard"
+          bg="ui.softGreen"
+          color="white"
+          size="lg"
+          px={10}
+          py={6}
+          _hover={{ bg: "ui.darkPink" }}
+        >
+          Leaderboard
+        </Button>
       </Flex>
       {isLoading ? (
         <Flex justify="center" align="center" height="100vh" width="full">
