@@ -2,13 +2,18 @@ import { Box, Divider, Heading, Text, Icon, VStack } from '@chakra-ui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { useFloatAnimation } from '../hooks/useFloatAnimation';
 import { FaGraduationCap, FaTrophy, FaChartLine } from 'react-icons/fa';
-
+import { usePageMetadata } from '../hooks/usePageMetadata';
 export const Route = createFileRoute('/')({
   component: HomePage,
 });
 
 function HomePage(): JSX.Element {
   const floatAnimation = useFloatAnimation(); // floating hook
+
+    usePageMetadata(
+    "Dashboard",
+    "Explore the dashboard for Brick and Mortar to view achievements, leaderboards, and more."
+  );
 
   return (
     <>
