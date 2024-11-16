@@ -28,7 +28,7 @@ export default class GameMenu extends Phaser.Scene {
         const inventoryButton = this.add.nineslice(-(menuWidth / 2), -(menuHeight / 2), 'menu_icon', 0,
             iconWidth, iconHeight, NSP, NSP, NSP, NSP).setOrigin(.5, .5).setInteractive();
         inventoryButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.scene.start('InventoryMenu');
+            this.scene.launch('InventoryMenu');
         });
         gameMenuContainer.add(inventoryButton);
 
@@ -48,7 +48,7 @@ export default class GameMenu extends Phaser.Scene {
             iconWidth, iconHeight, NSP, NSP, NSP, NSP).setOrigin(.5, .5).setInteractive();
         gameMenuContainer.add(buildButton);
         buildButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.scene.start('BuildMenu');
+            this.scene.launch('BuildMenu');
         });
 
         // Build button text
@@ -67,7 +67,7 @@ export default class GameMenu extends Phaser.Scene {
             iconWidth, iconHeight, NSP, NSP, NSP, NSP).setOrigin(.5, .5).setInteractive();
         gameMenuContainer.add(craftingButton);
         craftingButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.scene.start('CraftingMenu');
+            this.scene.launch('CraftingMenu');
         });
 
         // Crafting button text
