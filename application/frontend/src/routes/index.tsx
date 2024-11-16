@@ -12,15 +12,17 @@ function HomePage(): JSX.Element {
 
   return (
     <>
-      {/* Main Centered Content */}
+      {/* Main Content */}
       <Box
         display="flex"
         alignItems="center"
         justifyContent="center"
-        height="100vh"
         flexDirection="column"
         gap={8}
-        position="relative"
+        py="4rem" // padding to ensure spacing at the top
+        mx="auto"
+        maxW="600px" // constrain width to prevent horizontal scrolling
+        width="100%"
       >
         {/* Main Box for Class Information */}
         <Box
@@ -36,7 +38,6 @@ function HomePage(): JSX.Element {
             transform: 'scale(1.02)',
             boxShadow: '0px 4px 15px rgba(244, 143, 177, 0.4)',
           }}
-          maxW="600px"
           width="100%"
         >
           <Icon as={FaGraduationCap} w={12} h={12} color="ui.green" mb={4} />
@@ -67,7 +68,6 @@ function HomePage(): JSX.Element {
               transform: 'scale(1.05)',
               boxShadow: '0px 4px 15px rgba(165, 208, 97, 0.4)',
             }}
-            maxW="600px"
             width="100%"
           >
             <Icon as={FaTrophy} w={10} h={10} color="ui.green" mb={4} />
@@ -92,7 +92,6 @@ function HomePage(): JSX.Element {
               transform: 'scale(1.05)',
               boxShadow: '0px 4px 15px rgba(195, 186, 247, 0.4)',
             }}
-            maxW="600px"
             width="100%"
           >
             <Icon as={FaChartLine} w={10} h={10} color="ui.green" mb={4} />
