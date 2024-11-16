@@ -6,6 +6,7 @@ export default class InventoryMenu extends Phaser.Scene {
     public inventory: Record<string, { count: number; textObject: Phaser.GameObjects.Text | null; name: string }> = {};
     private floatingTextOffsetY = 20;
     private activeFloatingTexts: Phaser.GameObjects.Text[] = [];
+   
 
     constructor() {
         super({ key: "InventoryMenu" });
@@ -114,7 +115,7 @@ export default class InventoryMenu extends Phaser.Scene {
         this.inventory[resource].count += amount;
         this.inventory[resource].textObject?.setText(`${this.inventory[resource].count}`);
 
-        const id = Object.keys(ResourceMap).find((key) => ResourceMap[key as unknown as keyof typeof ResourceMap] === resource) ?? "-1";
+        const id = Object.entries(ResourceMap).find(([_, value]) => value === resource)?.[0] ?? "-1";
 
         const data = [{ resource_type_id: parseInt(id), quantity: this.inventory[resource].count }] as ResourceBase[];
 
