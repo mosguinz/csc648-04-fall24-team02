@@ -3,7 +3,9 @@ import { TITLE_STYLE, TEXT_STYLE } from '../../config';
 
 export default class TestScene extends Phaser.Scene {
     constructor() {
-        super('TitleScene');
+        super({
+            key: 'TitleScene',
+        });
     }
 
     create() {
@@ -12,6 +14,15 @@ export default class TestScene extends Phaser.Scene {
 
         // Start button
         const startButton = this.add.nineslice(1100, 620, "button_transparent", 0, 550, 120, 32, 32, 32, 32).setOrigin(0.5, 0.5).setInteractive();
+        startButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            startButton.disableInteractive();
+            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+                this.scene.start('MainGameScene');
+            });
+        });
+
+
         this.add.text(startButton.x, startButton.y - 12, "START", TEXT_STYLE).setOrigin(0.5, 0.5).setFontSize(94);
 
         // Quit button
