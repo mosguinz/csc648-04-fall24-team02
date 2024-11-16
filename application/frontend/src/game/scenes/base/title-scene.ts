@@ -25,16 +25,6 @@ export default class TestScene extends Phaser.Scene {
         arrowsContainer.add(startButtonArrowLeft);
         arrowsContainer.add(startButtonArrowRight);
 
-        // Bounce tween for the invisible arrows
-        const bounceTween = this.tweens.add({
-            targets: arrowsContainer,
-            y: '+=10',
-            duration: 500,
-            yoyo: true,
-            repeat: -1,
-            ease: 'Sine.easeInOut',
-        });
-
         // Hover effect
         startButton.on(Phaser.Input.Events.POINTER_OVER, () => {
             arrowsContainer.setPosition(startButton.x, startButton.y);
