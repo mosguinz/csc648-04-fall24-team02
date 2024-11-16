@@ -2,14 +2,17 @@ import { Box, Divider, Heading, Text, VStack, Icon } from '@chakra-ui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { FaCrown, FaUserAlt } from 'react-icons/fa';
 import { useFloatAnimation } from '../hooks/useFloatAnimation';
-
+import { usePageMetadata } from "../hooks/usePageMetadata";
 export const Route = createFileRoute('/leaderboard')({
   component: LeaderBoardPage,
 });
 
 function LeaderBoardPage(): JSX.Element {
   const floatAnimation = useFloatAnimation(); // Floating animation hook
-
+    usePageMetadata(
+    "Leaderboard",
+    "checkout the leaderboard!"
+  );
   // Mock leaderboard data
   const leaderboardData = [
     { rank: 1, name: 'Player1', score: 1500 },
