@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { TEXT_STYLE, TITLE_STYLE } from '../../config';
+import { GAME_WIDTH, GAME_HEIGHT } from '../../data/constants';
 
 export default class TestScene extends Phaser.Scene {
     constructor() {
@@ -9,12 +10,16 @@ export default class TestScene extends Phaser.Scene {
     }
 
     create() {
+
+        // Nineslice pixel count
+        const NSP = 32;
+
         // Title text
-        this.add.text(256, 144, "CLICK AND MORTAR", TITLE_STYLE).setOrigin(0.5, 0.5).setFontSize(30);
+        this.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 3, "CLICK AND MORTAR", TITLE_STYLE).setOrigin(0.5, 0.5).setFontSize(128);
 
         // Start button
         // TODO: Reduce hard code values
-        const startButton = this.add.nineslice(1100, 620, "button", 0, 550, 120, 32, 32, 32, 32).setOrigin(0.5, 0.5).setInteractive();
+        const startButton = this.add.nineslice(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 20, "button", 0, 550, 120, NSP, NSP, NSP, NSP).setOrigin(0.5, 0.5).setInteractive();
         startButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
             this.cameras.main.fadeOut(1000, 0, 0, 0);
             startButton.disableInteractive();
@@ -26,7 +31,7 @@ export default class TestScene extends Phaser.Scene {
         this.add.text(startButton.x, startButton.y - 12, "START", TEXT_STYLE).setOrigin(0.5, 0.5).setFontSize(94).setColor("black");
 
         // Quit button
-        const quitButton = this.add.nineslice(1100, 770, "button", 0, 500, 120, 32, 32, 32, 32).setOrigin(0.5, 0.5).setInteractive();
+        const quitButton = this.add.nineslice(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 180, "button", 0, 500, 120, 32, 32, 32, 32).setOrigin(0.5, 0.5).setInteractive();
         this.add.text(quitButton.x, quitButton.y - 12, "QUIT", TEXT_STYLE).setOrigin(0.5, 0.5).setFontSize(94).setColor("black");
 
         // Side arrows for hover effect
