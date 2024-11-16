@@ -23,11 +23,13 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.font("text_font", "assets/game_fonts/Kenney-Pixel.ttf", "truetype");
         this.load.font("text_font_square", "assets/game_fonts/Kenney-Pixel-Square.ttf", "truetype");
         this.load.font("title_font", "assets/game_fonts/Kenney-Blocks.ttf", "truetype");
+        this.load.font("text_font_small", "assets/game_fonts/Kenney-Mini.ttf", "truetype");
         this.load.pack("pack", "assets/boot-asset-pack.json")
     }
 
     create() {
-        this.scene.start('TitleScene');
+        // this.scene.start('TitleScene');
+        this.scene.start('MainGameScene');
         
     }
 }

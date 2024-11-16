@@ -15,6 +15,21 @@
         "url": "assets/game_assets/button_transparent.png",
         "type": "image",
         "key": "button_transparent"
+      },
+      {
+        "url": "assets/game_assets/menu_icon.png",
+        "type": "image",
+        "key": "menu_icon"
+      },
+      {
+        "url": "assets/game_assets/menu.png",
+        "type": "image",
+        "key": "menu"
+      },
+      {
+        "url": "assets/game_assets/button_hover.png",
+        "type": "image",
+        "key": "button_hover"
       }
     ]
   },

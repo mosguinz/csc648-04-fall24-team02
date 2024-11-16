@@ -17,6 +17,10 @@ export const config: Phaser.Types.Core.GameConfig = {
         Scenes.PreloadScene,
         Scenes.MainGameScene,
         Scenes.TitleScene,
+        Scenes.GameMenu,
+        Scenes.InventoryMenu,
+        Scenes.BuildMenu,
+        Scenes.CraftingMenu,
     ],
 }
 
@@ -34,6 +38,12 @@ export const TITLE_STYLE: Phaser.Types.GameObjects.Text.TextStyle = {
 
 export const TEXT_STYLE_SQUARE: Phaser.Types.GameObjects.Text.TextStyle = {
     fontFamily: 'text_font_square',
+    color: 'white',
+    align: 'center',
+};
+
+export const TEXT_STYLE_SMALL: Phaser.Types.GameObjects.Text.TextStyle = {
+    fontFamily: 'text_font_small',
     color: 'white',
     align: 'center',
 };
