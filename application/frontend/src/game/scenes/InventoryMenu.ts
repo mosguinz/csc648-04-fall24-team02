@@ -64,16 +64,24 @@ export default class InventoryMenu extends Phaser.Scene {
     }
 
     create() {
+        //bg image which is the bubble box_1
+        const BubbleBox = this.add.image(100,257, "Bubble_Box_1")
+        BubbleBox.scaleX = 1
+        BubbleBox.scaleY = 0.92
+
         // Background Rectangle
+
+        /*
         const rectangle = this.add.rectangle(91, 296, 128, 128)
         rectangle.scaleX = 1.447
         rectangle.scaleY = 4.65
         rectangle.isFilled = true
         rectangle.fillColor = 13855175
         rectangle.postFX!.addShadow(-1, 1, 0.1, 1, 0, 2, 1)
+        */
 
         // Inventory title
-        const inventoryTitle = this.add.text(29, 16, "Inventory", {
+        const inventoryTitle = this.add.text(38, 20, "Inventory", {
             fontSize: "24px",
             color: "#000000",
         })
@@ -83,40 +91,40 @@ export default class InventoryMenu extends Phaser.Scene {
         // Add all resources with images, names, and counters
 
         // Iron Ore
-        this.addResource("iron_ore", "Iron Ore:", 25, 79, 51, 62, 51, 82)
+        this.addResource("iron_ore", "Iron Ore:", 40, 65, 60, 45, 60, 65)
 
         // Copper Ore
-        this.addResource("copper_ore", "Copper Ore:", 25, 119, 51, 102, 51, 122)
+        this.addResource("copper_ore", "Copper Ore:", 40, 100, 60, 87, 60, 103)
 
         // Rock
-        this.addResource("rock", "Rock:", 25, 159, 51, 142, 51, 162)
+        this.addResource("rock", "Rock:", 40, 135, 60, 122, 60, 137)
 
         // Iron Ingot
-        this.addResource("iron_ingot", "Iron Ingot:", 25, 199, 51, 182, 51, 202)
+        this.addResource("iron_ingot", "Iron Ingot:", 40, 170, 60, 155, 60, 170)
 
         // Copper Ingot
-        this.addResource("copper_ingot", "Copper Ingot:", 25, 239, 51, 221, 51, 241)
+        this.addResource("copper_ingot", "Copper Ingot:", 40, 203, 60, 187, 60, 203)
 
         // Concrete
-        this.addResource("concrete", "Concrete:", 25, 279, 51, 261, 51, 281)
+        this.addResource("concrete", "Concrete:", 40, 236, 60, 222, 60, 236)
 
         // Iron Plate
-        this.addResource("iron_plate", "Iron Plate:", 25, 319, 51, 301, 51, 321)
+        this.addResource("iron_plate", "Iron Plate:", 40, 270, 60, 257, 60, 272)
 
         // Copper Plate
-        this.addResource("copper_plate", "Copper Plate:", 25, 359, 51, 341, 51, 361)
+        this.addResource("copper_plate", "Copper Plate:", 40, 305, 60, 293, 60, 307)
 
         // Iron Rod
-        this.addResource("iron_rod", "Iron Rod:", 25, 399, 51, 381, 51, 401)
+        this.addResource("iron_rod", "Iron Rod:", 40, 340, 60, 325, 60, 340)
 
         // Screws
-        this.addResource("screws", "Screws:", 25, 439, 51, 421, 51, 441)
+        this.addResource("screws", "Screws:", 40, 375, 60, 360, 60, 375)
 
         // Wire
-        this.addResource("wire", "Wire:", 25, 479, 51, 461, 51, 481)
+        this.addResource("wire", "Wire:", 39, 413, 60, 400, 60, 415)
 
         // Cable
-        this.addResource("cable", "Cable:", 25, 519, 51, 501, 51, 521)
+        this.addResource("cable", "Cable:", 40, 450, 60, 437, 60, 450)
 
         // console.log("Pre-requesting resources");
         // const token =  localStorage.getItem("access_token");

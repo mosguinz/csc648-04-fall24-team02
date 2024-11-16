@@ -72,6 +72,11 @@
         "key": "Screen_Pops_1"
       },
       {
+        "url": "assets/Bubble_Box_1.png",
+        "type": "image",
+        "key": "Bubble_Box_1"
+      },
+      {
         "url": "assets/cable.png",
         "type": "image",
         "key": "cable"
