@@ -57,18 +57,23 @@ export default class CrafterPlacementScene extends Phaser.Scene {
     this.updateDisplay();
   }
 
+
   displayCraftingItems() {
-    this.craftingItems.forEach(item => item.destroy());
-    this.craftingItems = [];
-
-    const startIndex = this.currentPage * this.craftingItemsPerPage;
-    const endIndex = Math.min(startIndex + this.craftingItemsPerPage, this.totalCraftingItems);
-
-    for (let i = startIndex; i < endIndex; i++) {
-      const itemContainer = this.createCraftingItem(this.craftingRecipes[i], i - startIndex);
-      this.craftingItems.push(itemContainer);
-    }
+  // Replacing forEach with for...of (hopefully fixes CI)
+  for (const item of this.craftingItems) {
+    item.destroy();
   }
+  this.craftingItems = [];
+
+  const startIndex = this.currentPage * this.craftingItemsPerPage;
+  const endIndex = Math.min(startIndex + this.craftingItemsPerPage, this.totalCraftingItems);
+
+  for (let i = startIndex; i < endIndex; i++) {
+    const itemContainer = this.createCraftingItem(this.craftingRecipes[i], i - startIndex);
+    this.craftingItems.push(itemContainer);
+  }
+}
+
 
   createCraftingItem(recipe: Recipe, index: number) {
     const itemContainer = this.add.container(290 + index * 153, 350);

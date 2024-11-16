@@ -26,16 +26,19 @@ export default class InventoryMenu extends Phaser.Scene {
         }
     }
 
-    // Sync inventory with backend
-    private async syncWithBackend() {
-        const response = await ResourcesService.readResources();
-        response.forEach((resource) => {
-            const key = ResourceMap[resource.resource_type_id];
-            if (this.inventory[key]) {
-                this.inventory[key].count = resource.quantity;
-            }
-        });
+  // Sync inventory with backend
+private async syncWithBackend() {
+    const response = await ResourcesService.readResources();
+
+    // Replacing forEach with for...of loop
+    for (const resource of response) {
+        const key = ResourceMap[resource.resource_type_id];
+        if (this.inventory[key]) {
+            this.inventory[key].count = resource.quantity;
+        }
     }
+}
+
 
     create() {
         this.createUI();
