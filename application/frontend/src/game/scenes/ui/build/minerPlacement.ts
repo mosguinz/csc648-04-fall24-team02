@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../../stores/constants';
 import { GameData } from "../../../stores/gameData";
+import { UserMiner } from "../../../../client";
 
 export default class MinerPlacementMenu extends Phaser.Scene {
 
@@ -49,7 +50,15 @@ export default class MinerPlacementMenu extends Phaser.Scene {
             harvestItem1.clearTint();
         });
         harvestItem1.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            console.log("Harvest Item 2");
+            const newMiner: UserMiner = {
+                id: GameData.nextMinerId.toString(),
+                facility_type_id: 1,
+                user_id: "12345", // TODO: Get user id from auth
+                recipe_id: 1,
+                status: "active",
+            };
+            console.log(newMiner);
+            GameData.addMiner(newMiner);
         });
         placementContainer.add(harvestItem1);
 
@@ -67,7 +76,15 @@ export default class MinerPlacementMenu extends Phaser.Scene {
             harvestItem2.clearTint();
         });
         harvestItem2.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            console.log("Harvest Item 2");
+            const newMiner: UserMiner = {
+                id: GameData.nextMinerId.toString(),
+                facility_type_id: 1,
+                user_id: "12345", // TODO: Get user id from auth
+                recipe_id: 2,
+                status: "active",
+            };
+            console.log(newMiner);
+            GameData.addMiner(newMiner);
         });
         placementContainer.add(harvestItem2);
 
@@ -85,7 +102,15 @@ export default class MinerPlacementMenu extends Phaser.Scene {
             harvestItem3.clearTint();
         });
         harvestItem3.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            console.log("Harvest Item 2");
+            const newMiner: UserMiner = {
+                id: GameData.nextMinerId.toString(),
+                facility_type_id: 1,
+                user_id: "12345", // TODO: Get user id from auth
+                recipe_id: 3,
+                status: "active",
+            };
+            console.log(newMiner);
+            GameData.addMiner(newMiner);
         });
         placementContainer.add(harvestItem3);
 
