@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { TEXT_STYLE_SMALL } from '../../config';
-import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../data/constants';
+import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../stores/constants';
 
 interface ButtonConfig {
     key: string;

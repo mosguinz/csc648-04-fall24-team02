@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { TEXT_STYLE } from '../../config';
-import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../data/constants';
+import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../stores/constants';
 
 export default class CraftingMenu extends Phaser.Scene {
     constructor() {

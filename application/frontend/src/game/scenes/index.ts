@@ -2,10 +2,10 @@
 import TitleScene from './base/titleScene';
 import PreloadScene from './preloadScene';
 import MainGameScene from './base/mainGameScene';
-import GameMenu from './UI/gameMenu';
-import InventoryMenu from './UI/inventoryMenu';
-import BuildMenu from './UI/buildMenu';
-import CraftingMenu from './UI/craftingMenu';
+import GameMenu from './ui/gameMenu';
+import InventoryMenu from './ui/inventoryMenu';
+import BuildMenu from './ui/buildMenu';
+import CraftingMenu from './ui/craftingMenu';
 
 export {
     TitleScene,
