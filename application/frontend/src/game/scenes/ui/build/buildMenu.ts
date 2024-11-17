@@ -1,6 +1,6 @@
 import Phaser from "phaser";
-import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
-import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../stores/constants';
+import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../../config';
+import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../../stores/constants';
 
 export default class BuildMenu extends Phaser.Scene {
 

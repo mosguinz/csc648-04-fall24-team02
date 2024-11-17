@@ -1,6 +1,6 @@
 import Phaser from "phaser";
-import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
-import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../stores/constants';
+import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../../config';
+import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../../stores/constants';
 
 export default class MinerPlacementMenu extends Phaser.Scene {
 
@@ -36,7 +36,6 @@ export default class MinerPlacementMenu extends Phaser.Scene {
         });
         closeButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
             this.scene.start("GameMenu");
-            this.scene.start("BuildMenu");
             this.scene.stop('MinerPlacementMenu');
         });
 
