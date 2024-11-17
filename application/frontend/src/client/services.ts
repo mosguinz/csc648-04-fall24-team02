@@ -595,11 +595,23 @@ export type TDataSetMiners = {
                 requestBody: Array<UserMiner>
                 
             }
+export type TDataUpdateMiners = {
+                requestBody: Array<UserMiner>
+                
+            }
 export type TDataSetAssemblers = {
                 requestBody: Array<UserAssembler>
                 
             }
+export type TDataUpdateAssemblers = {
+                requestBody: Array<UserAssembler>
+                
+            }
 export type TDataSetConstructors = {
+                requestBody: Array<UserConstructor>
+                
+            }
+export type TDataUpdateConstructors = {
                 requestBody: Array<UserConstructor>
                 
             }
@@ -631,6 +643,27 @@ requestBody,
 } = data;
 		return __request(OpenAPI, {
 			method: 'POST',
+			url: '/api/v1/facilities/miner',
+			body: requestBody,
+			mediaType: 'application/json',
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+	/**
+	 * Update Miners
+	 * Set miners for the selected user
+	 * @returns UserMiner Successful Response
+	 * @throws ApiError
+	 */
+	public static updateMiners(data: TDataUpdateMiners): CancelablePromise<Array<UserMiner>> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'PATCH',
 			url: '/api/v1/facilities/miner',
 			body: requestBody,
 			mediaType: 'application/json',
@@ -675,6 +708,27 @@ requestBody,
 	}
 
 	/**
+	 * Update Assemblers
+	 * Set assemblers for the selected user
+	 * @returns UserAssembler Successful Response
+	 * @throws ApiError
+	 */
+	public static updateAssemblers(data: TDataUpdateAssemblers): CancelablePromise<Array<UserAssembler>> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'PATCH',
+			url: '/api/v1/facilities/assembler',
+			body: requestBody,
+			mediaType: 'application/json',
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+	/**
 	 * Read Constructors
 	 * Get constructors for the selected user
 	 * @returns UserConstructor Successful Response
@@ -699,6 +753,27 @@ requestBody,
 } = data;
 		return __request(OpenAPI, {
 			method: 'POST',
+			url: '/api/v1/facilities/constructor',
+			body: requestBody,
+			mediaType: 'application/json',
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+	/**
+	 * Update Constructors
+	 * Set constructors for the selected user
+	 * @returns UserConstructor Successful Response
+	 * @throws ApiError
+	 */
+	public static updateConstructors(data: TDataUpdateConstructors): CancelablePromise<Array<UserConstructor>> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'PATCH',
 			url: '/api/v1/facilities/constructor',
 			body: requestBody,
 			mediaType: 'application/json',

@@ -80,7 +80,7 @@ export type UpdatePassword = {
 
 
 export type UserAssembler = {
-	id?: number | null;
+	id?: string | null;
 	facility_type_id: number;
 	user_id: string;
 	recipe_id: number | null;
@@ -90,7 +90,7 @@ export type UserAssembler = {
 
 
 export type UserConstructor = {
-	id?: number | null;
+	id?: string | null;
 	facility_type_id: number;
 	user_id: string;
 	recipe_id: number | null;
@@ -110,7 +110,7 @@ export type UserCreate = {
 
 
 export type UserMiner = {
-	id?: number | null;
+	id?: string | null;
 	facility_type_id: number;
 	user_id: string;
 	recipe_id: number | null;

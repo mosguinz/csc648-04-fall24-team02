@@ -213,7 +213,8 @@ export const $UserAssembler = {
 		id: {
 	type: 'any-of',
 	contains: [{
-	type: 'number',
+	type: 'string',
+	format: 'uuid',
 }, {
 	type: 'null',
 }],
@@ -248,7 +249,8 @@ export const $UserConstructor = {
 		id: {
 	type: 'any-of',
 	contains: [{
-	type: 'number',
+	type: 'string',
+	format: 'uuid',
 }, {
 	type: 'null',
 }],
@@ -317,7 +319,8 @@ export const $UserMiner = {
 		id: {
 	type: 'any-of',
 	contains: [{
-	type: 'number',
+	type: 'string',
+	format: 'uuid',
 }, {
 	type: 'null',
 }],
