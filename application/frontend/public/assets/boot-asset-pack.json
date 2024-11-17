@@ -50,6 +50,16 @@
         "url": "assets/game_assets/close_button.png",
         "type": "image",
         "key": "close_button"
+      },
+      {
+        "url": "assets/game_assets/crafting_slot.png",
+        "type": "image",
+        "key": "crafting_slot"
+      },
+      {
+        "url": "assets/game_assets/recipe_panel.png",
+        "type": "image",
+        "key": "recipe_panel"
       }
     ]
   },
