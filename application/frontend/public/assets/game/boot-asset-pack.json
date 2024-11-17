@@ -95,6 +95,16 @@
         "url": "assets/game/resources/7.png",
         "type": "image",
         "key": "7"
+      },
+      {
+        "url": "assets/game/ui/miner_icon.png",
+        "type": "image",
+        "key": "miner_icon"
+      },
+      {
+        "url": "assets/game/ui/crafter_icon.png",
+        "type": "image",
+        "key": "crafter_icon"
       }
 
     ]
