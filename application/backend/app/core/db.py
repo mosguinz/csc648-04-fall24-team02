@@ -2,7 +2,7 @@ from sqlmodel import Session, create_engine, select
 
 from app import crud
 from app.core.config import settings
-from app.models import ResourceType, User, UserCreate
+from app.models import FacilityType, ResourceType, User, UserCreate
 
 engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 
@@ -12,6 +12,7 @@ engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 # for more details: https://github.com/fastapi/full-stack-fastapi-template/issues/28
 
 
+# ensure the base super user is created
 def init_user(session: Session) -> None:
     user = session.exec(
         select(User).where(User.email == settings.FIRST_SUPERUSER)
@@ -53,6 +54,20 @@ def init_resource_types(session: Session) -> None:
             crud.create_resource_type(session=session, resource_type=res_in)
 
 
+# ensure base facility types are created
+def init_facility_type(session: Session) -> None:
+    facility_types = ["miner", "assembler", "constructor"]
+    for facility_type in facility_types:
+        existing_facility_type = session.exec(
+            select(FacilityType).where(FacilityType.name == facility_type)
+        ).first()
+        if not existing_facility_type:
+            facility_type_in = FacilityType(
+                name=facility_type,
+            )
+            crud.create_facility_type(session=session, facility_type=facility_type_in)
+
+
 def init_db(session: Session) -> None:
     # Tables should be created with Alembic migrations
     # But if you don't want to use migrations, create
@@ -63,3 +78,4 @@ def init_db(session: Session) -> None:
     # SQLModel.metadata.create_all(engine)
     init_user(session)
     init_resource_types(session)
+    init_facility_type(session)
