@@ -19,7 +19,6 @@ export default class InventoryMenu extends Phaser.Scene {
 
         // Inventory slots constants
         const SLOT_SIZE = 100;
-        const SLOT_TEXT_SIZE = 40;
         const SLOT_MARGIN_X = 15;
         const SLOT_MARGIN_Y = 90;
         const SLOT_ROWS = 3;
@@ -41,11 +40,11 @@ export default class InventoryMenu extends Phaser.Scene {
 
         // Inventory dividers
         inventoryContainer.add(
-            this.add.image(164, INVENTORY_HEIGHT / 15 + 7, 'inventory_divider')
+            this.add.image(160, 55, 'inventory_divider')
                 .setOrigin(.5, .5).setTint(0x000000).setScale(.75, 1)
         );
         inventoryContainer.add(
-            this.add.image(INVENTORY_WIDTH - 160, INVENTORY_HEIGHT / 15 + 7, 'inventory_divider')
+            this.add.image(INVENTORY_WIDTH - 160, 55, 'inventory_divider')
                 .setOrigin(.5, .5).setTint(0x000000).setScale(-.75, 1)
         );
 
@@ -67,12 +66,8 @@ export default class InventoryMenu extends Phaser.Scene {
         for (let i = 0; i < SLOT_ROWS; i++) {
             for (let j = 0; j < SLOT_COLS; j++) {
                 const slot = this.add.nineslice(SLOT_X + j * (SLOT_SIZE + SLOT_MARGIN_X), SLOT_Y + i * (SLOT_SIZE + SLOT_MARGIN_Y),
-                    'inventory_slot', 0, SLOT_SIZE, SLOT_SIZE, NSP, NSP, NSP, NSP).setOrigin(0, 0);
-                const slotTextContainer = this.add.nineslice(SLOT_X + j * (SLOT_SIZE + SLOT_MARGIN_X), SLOT_Y + i * (SLOT_SIZE + SLOT_MARGIN_Y) + SLOT_SIZE,
-                    'inventory_slot', 0, SLOT_SIZE, SLOT_TEXT_SIZE, 10, 10, 10, 10).setOrigin(0, 0);
-
+                    'inventory_slot', 0, SLOT_SIZE, SLOT_SIZE + 40, NSP, NSP, NSP, NSP).setOrigin(0, 0);
                 inventoryContainer.add(slot);
-                inventoryContainer.add(slotTextContainer);
             }
         }
     }
