@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { GameData } from '../stores/gameData';
 
 export default class PreloadScene extends Phaser.Scene {
     constructor() {
@@ -25,6 +26,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.font("title_font", "assets/game/fonts/Kenney-Blocks.ttf", "truetype");
         this.load.font("text_font_small", "assets/game/fonts/Kenney-Mini.ttf", "truetype");
         this.load.pack("pack", "assets/game/boot-asset-pack.json");
+        GameData.populateInventory();
     }
 
     create() {

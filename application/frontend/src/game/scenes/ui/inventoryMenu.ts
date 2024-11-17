@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../stores/constants';
-import { addResource, inventory } from '../../stores/gameData';
+import { GameData } from "../../stores/gameData";
 
 export default class InventoryMenu extends Phaser.Scene {
 
@@ -18,6 +18,9 @@ export default class InventoryMenu extends Phaser.Scene {
     private SLOT_X = this.INVENTORY_WIDTH / 8;
     private SLOT_Y = this.INVENTORY_HEIGHT / 6;
 
+    private slotArray: Phaser.GameObjects.NineSlice[] = [];
+    private itemContainer!: Phaser.GameObjects.Container;
+
     constructor() {
         super({
             key: 'InventoryMenu',
@@ -33,13 +36,16 @@ export default class InventoryMenu extends Phaser.Scene {
 
         const inventoryContainer = this.add.container(GAME_WIDTH / 16, GAME_HEIGHT / 9);
 
+        this.itemContainer = this.add.container(GAME_WIDTH / 16, GAME_HEIGHT / 9);
+
         // Inventory text
         inventoryContainer.add(
             this.add.text(this.INVENTORY_WIDTH / 2, this.INVENTORY_HEIGHT / 15, "INVENTORY", TEXT_STYLE)
                 .setOrigin(.5, .5).setColor("black").setFontSize(64).setInteractive().on('pointerdown', () => {
                     const randomNumber = Phaser.Math.Between(1, 6);
-                    addResource(randomNumber, 1);
-                    this.#updateInventory(slotArray, inventoryContainer);
+                    console.log(randomNumber);
+                    GameData.addResource(randomNumber, 1);
+                    this.updateInventory();
                 })
 
         );
@@ -69,7 +75,6 @@ export default class InventoryMenu extends Phaser.Scene {
 
 
         // Inventory slots
-        const slotArray: Phaser.GameObjects.NineSlice[] = [];
         for (let i = 0; i < this.SLOT_ROWS; i++) {
             for (let j = 0; j < this.SLOT_COLS; j++) {
                 const slot = this.add.nineslice(this.SLOT_X + j * (this.SLOT_SIZE + this.SLOT_MARGIN_X), this.SLOT_Y + i * (this.SLOT_SIZE + this.SLOT_MARGIN_Y),
@@ -79,38 +84,58 @@ export default class InventoryMenu extends Phaser.Scene {
                 // Divider between icon and count
                 inventoryContainer.add(this.add.rectangle(this.SLOT_X + j * (this.SLOT_SIZE + this.SLOT_MARGIN_X) + 50,
                     this.SLOT_Y + i * (this.SLOT_SIZE + this.SLOT_MARGIN_Y) + 100, this.SLOT_SIZE - 10, 4, 0x707070).setOrigin(.5, .5));
-                slotArray.push(slot); // For placing items inside slots
+                this.slotArray.push(slot); // For placing items inside slots
             }
         }
-        this.#updateInventory(slotArray, inventoryContainer);
 
-        // Fill inventory slots
+        // Inventory items container
+        this.updateInventory();
 
     }
 
-    #updateInventory(slotArray: Phaser.GameObjects.NineSlice[], inventoryContainer: Phaser.GameObjects.Container) {
+    public updateInventory(
+    ): void {
+
+        this.itemContainer.removeAll(true);
+
+        // Iterate through GameData.resources and populate the inventory
         let slotIndex = 0;
+        for (const resource of GameData.resources) {
+            if (resource.quantity > 0 && slotIndex < this.slotArray.length) {
+                const slot = this.slotArray[slotIndex];
 
-        for (const [key, value] of Object.entries(inventory)) {
-            if (value.count > 0 && slotIndex < slotArray.length) {
-                const slot = slotArray[slotIndex];
-
-                // Add item sprite to the slot
-                const item = this.add.image(
-                    slot.x + this.SLOT_SIZE / 2,
-                    slot.y + this.SLOT_SIZE / 2,
-                    key
+                // Create item image
+                const itemImage = this.add.image(
+                    slot.x + slot.width / 2,
+                    slot.y + slot.height / 2,
+                    `${resource.resource_type_id}`
                 ).setOrigin(0.5, 0.5).setScale(2);
-                inventoryContainer.add(item);
 
-                // Add item count text
-                const countText = this.add.text(
-                    slot.x + this.SLOT_SIZE - 10,
-                    slot.y + this.SLOT_SIZE + 30,
-                    `${value.count}`,
-                    TEXT_STYLE_SMALL
-                ).setOrigin(1, 1).setColor("black").setFontSize(28);
-                inventoryContainer.add(countText);
+                // Create item quantity text
+                const itemText = this.add.text(
+                    slot.x + slot.width - 10,
+                    slot.y + slot.height - 10,
+                    `${resource.quantity}`,
+                    {
+                        fontSize: '20px',
+                        color: '#000000',
+                    }
+                ).setOrigin(1, 1).setStyle(TEXT_STYLE_SMALL);
+
+                const itemIDText = this.add.text(
+                    slot.x + slot.width/2,
+                    slot.y + slot.height - 10,
+                    `${resource.resource_type_id}`,
+                    {
+                        fontSize: '20px',
+                        color: '#000000',
+                    }
+                ).setOrigin(1, 1).setStyle(TEXT_STYLE_SMALL);
+
+                // Add image and text to the container
+                this.itemContainer.add(itemImage);
+                this.itemContainer.add(itemText);
+                this.itemContainer.add(itemIDText);
 
                 slotIndex++;
             }
