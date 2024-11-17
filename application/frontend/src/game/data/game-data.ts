@@ -34,13 +34,18 @@ export async function populateInventory(): Promise<void> {
     GameData.resources = await ResourcesService.readResources();
 
     // Populate the inventory with the fetched resources
-    GameData.resources.forEach(resource => {
+    for (const resource of GameData.resources) {
         if (inventory[resource.resource_type_id]) {
             inventory[resource.resource_type_id].count = resource.quantity;
         }
-        inventory[resource.resource_type_id].textObject?.setText(`${inventory[resource.resource_type_id].count}`)
-        .setOrigin(1, 1).setColor("black").setFontSize(28).setStyle(TEXT_STYLE_SMALL);
-    });
+
+        inventory[resource.resource_type_id].textObject
+            ?.setText(`${inventory[resource.resource_type_id].count}`)
+            .setOrigin(1, 1)
+            .setColor("black")
+            .setFontSize(28)
+            .setStyle(TEXT_STYLE_SMALL);
+    }
 }
 
 export function addResource(key: number, amount: number): void {
