@@ -47,7 +47,11 @@ export default class BuildMenu extends Phaser.Scene {
             buildMinerIcon.clearTint();
         });
         buildMinerIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            console.log("Build miner");
+            this.scene.start('MinerPlacementMenu');
+            this.scene.stop('BuildMenu');
+            this.scene.stop('InventoryMenu');
+            this.scene.stop('CraftingMenu');
+            this.scene.stop('GameMenu');
         });
         buildMenuContainer.add(buildMinerIcon);
 

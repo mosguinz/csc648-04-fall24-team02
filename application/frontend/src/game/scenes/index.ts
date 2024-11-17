@@ -6,6 +6,7 @@ import GameMenu from './ui/gameMenu';
 import InventoryMenu from './ui/inventoryMenu';
 import BuildMenu from './ui/buildMenu';
 import CraftingMenu from './ui/craftingMenu';
+import MinerPlacement from './ui/minerPlacement';
 
 export {
     TitleScene,
@@ -15,4 +16,5 @@ export {
     InventoryMenu,
     BuildMenu,
     CraftingMenu,
+    MinerPlacement
 };
