@@ -1,6 +1,5 @@
 import { ResourceBase } from "../../client";
 import { ResourcesService } from "../../client";
-import { TDataSetResources } from "../../client";
 import { TEXT_STYLE_SMALL } from '../../game/config';
 
 export const GameData = {
@@ -72,9 +71,5 @@ export function saveInventory() {
         quantity: value.count,
     }));
 
-    const body: TDataSetResources = {
-        requestBody: data,
-    };
-
-    ResourcesService.setResources(body)
+    ResourcesService.setResources({ requestBody: data });
 }
