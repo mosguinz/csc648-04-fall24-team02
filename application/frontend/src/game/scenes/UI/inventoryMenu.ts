@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../data/constants';
-import { addResource, inventory } from '../../data/game-data';
+import { addResource, inventory } from '../../data/gameData';
 
 export default class InventoryMenu extends Phaser.Scene {
 

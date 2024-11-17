@@ -1,11 +1,11 @@
 // import scenes here instead of main.ts
-import TitleScene from './base/title-scene';
-import PreloadScene from './preload-scene';
-import MainGameScene from './base/main-game-scene';
-import GameMenu from './UI/game-menu';
-import InventoryMenu from './UI/inventory-menu';
-import BuildMenu from './UI/build-menu';
-import CraftingMenu from './UI/crafting-menu';
+import TitleScene from './base/titleScene';
+import PreloadScene from './preloadScene';
+import MainGameScene from './base/mainGameScene';
+import GameMenu from './UI/gameMenu';
+import InventoryMenu from './UI/inventoryMenu';
+import BuildMenu from './UI/buildMenu';
+import CraftingMenu from './UI/craftingMenu';
 
 export {
     TitleScene,

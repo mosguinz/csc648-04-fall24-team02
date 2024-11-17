@@ -1,6 +1,6 @@
 import { ResourceBase } from "../../client";
 import { ResourcesService } from "../../client";
-import { TEXT_STYLE_SMALL } from '../../game/config';
+import { TEXT_STYLE_SMALL } from '../config';
 
 export const GameData = {
     resources: [] as ResourceBase[],
