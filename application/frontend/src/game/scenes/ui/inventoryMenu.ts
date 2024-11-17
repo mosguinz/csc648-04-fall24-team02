@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
-import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../data/constants';
-import { addResource, inventory } from '../../data/game-data';
+import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../stores/constants';
+import { addResource, inventory } from '../../stores/gameData';
 
 export default class InventoryMenu extends Phaser.Scene {
 
@@ -90,11 +90,11 @@ export default class InventoryMenu extends Phaser.Scene {
 
     #updateInventory(slotArray: Phaser.GameObjects.NineSlice[], inventoryContainer: Phaser.GameObjects.Container) {
         let slotIndex = 0;
-    
+
         for (const [key, value] of Object.entries(inventory)) {
             if (value.count > 0 && slotIndex < slotArray.length) {
                 const slot = slotArray[slotIndex];
-    
+
                 // Add item sprite to the slot
                 const item = this.add.image(
                     slot.x + this.SLOT_SIZE / 2,
@@ -102,7 +102,7 @@ export default class InventoryMenu extends Phaser.Scene {
                     key
                 ).setOrigin(0.5, 0.5).setScale(2);
                 inventoryContainer.add(item);
-    
+
                 // Add item count text
                 const countText = this.add.text(
                     slot.x + this.SLOT_SIZE - 10,
@@ -111,7 +111,7 @@ export default class InventoryMenu extends Phaser.Scene {
                     TEXT_STYLE_SMALL
                 ).setOrigin(1, 1).setColor("black").setFontSize(28);
                 inventoryContainer.add(countText);
-    
+
                 slotIndex++;
             }
         }

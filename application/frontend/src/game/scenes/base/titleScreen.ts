@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { TEXT_STYLE, TITLE_STYLE } from '../../config';
-import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../data/constants';
+import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../stores/constants';
 
 export default class TestScene extends Phaser.Scene {
     constructor() {
