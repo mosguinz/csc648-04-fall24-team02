@@ -176,6 +176,7 @@ class Recipe(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True, unique=True)
     time_to_complete: int = Field(default=0)  # Time in seconds
+    # empty ID represents a manually crafted recipe
     facility_type_id: int | None = Field(foreign_key="facilitytype.id")
     facility_type: Optional["FacilityType"] = Relationship(back_populates="recipes")
 
