@@ -39,6 +39,14 @@ export default class GameMenu extends Phaser.Scene {
         };
     }
 
+    // Inventory button icon
+    // TODO: Add icon
+
+    // Build button icon
+    // TODO: Add icon
+
+    // Crafting button icon
+    // TODO: Add icon
     create() {
         // Create the menu background
         this.add.nineslice(
