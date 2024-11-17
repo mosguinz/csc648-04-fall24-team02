@@ -30,6 +30,26 @@
         "url": "assets/game_assets/button_hover.png",
         "type": "image",
         "key": "button_hover"
+      },
+      {
+        "url": "assets/game_assets/inventory_panel.png",
+        "type": "image",
+        "key": "inventory_panel"
+      },
+      {
+        "url": "assets/game_assets/inventory_divider.png",
+        "type": "image",
+        "key": "inventory_divider"
+      },
+      {
+        "url": "assets/game_assets/inventory_slot.png",
+        "type": "image",
+        "key": "inventory_slot"
+      },
+      {
+        "url": "assets/game_assets/close_button.png",
+        "type": "image",
+        "key": "close_button"
       }
     ]
   },
