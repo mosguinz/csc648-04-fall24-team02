@@ -1,5 +1,5 @@
-import { ResourceBase } from "../../client";
-import { ResourcesService } from "../../client";
+import { ResourceBase, UserMiner } from "../../client";
+import { ResourcesService, FacilitiesService } from "../../client";
 
 export const GameData = {
     resources: [] as ResourceBase[],
@@ -35,5 +35,30 @@ export const GameData = {
             requestBody: GameData.resources,
         };
         ResourcesService.setResources(data);
-    }
+    },
+
+    miners: [] as UserMiner[],
+    async populateMiners() {
+        GameData.miners = await FacilitiesService.readMiners();
+    },
+
+    addMiner(miner: UserMiner): void {
+        GameData.miners.push(miner);
+        GameData.saveMiners();
+    },
+
+    removeMiner(miner: UserMiner): void {
+        const index = GameData.miners.indexOf(miner);
+        if (index > -1) {
+            GameData.miners.splice(index, 1);
+        }
+        GameData.saveMiners();
+    },
+
+    saveMiners() {
+        const data = {
+            requestBody: GameData.miners,
+        };
+        FacilitiesService.setMiners(data);
+    },
 };
