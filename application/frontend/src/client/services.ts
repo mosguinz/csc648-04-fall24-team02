@@ -2,24 +2,102 @@ import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
 
-import type { Body_login_login_access_token, Message, NewPassword, Token, UserPublic, UpdatePassword, UserCreate, UserRegister, UsersPublic, UserUpdate, UserUpdateMe, ItemCreate, ItemPublic, ItemsPublic, ItemUpdate, ResourceBase } from './models';
+import type { Body_login_login_access_token,Message,NewPassword,Token,UserPublic,UpdatePassword,UserCreate,UserRegister,UsersPublic,UserUpdate,UserUpdateMe,ItemCreate,ItemPublic,ItemsPublic,ItemUpdate,ResourceBase } from './models';
 
-export type TDataLoginAccessToken = {
-	formData: Body_login_login_access_token
+export type LoginData = {
+        LoginAccessToken: {
+                    formData: Body_login_login_access_token
+                    
+                };
+RecoverPassword: {
+                    email: string
+                    
+                };
+ResetPassword: {
+                    requestBody: NewPassword
+                    
+                };
+RecoverPasswordHtmlContent: {
+                    email: string
+                    
+                };
+    }
 
-}
-export type TDataRecoverPassword = {
-	email: string
+export type UsersData = {
+        ReadUsers: {
+                    limit?: number
+skip?: number
+                    
+                };
+CreateUser: {
+                    requestBody: UserCreate
+                    
+                };
+UpdateUserMe: {
+                    requestBody: UserUpdateMe
+                    
+                };
+UpdatePasswordMe: {
+                    requestBody: UpdatePassword
+                    
+                };
+RegisterUser: {
+                    requestBody: UserRegister
+                    
+                };
+ReadUserById: {
+                    userId: string
+                    
+                };
+UpdateUser: {
+                    requestBody: UserUpdate
+userId: string
+                    
+                };
+DeleteUser: {
+                    userId: string
+                    
+                };
+    }
 
-}
-export type TDataResetPassword = {
-	requestBody: NewPassword
+export type UtilsData = {
+        TestEmail: {
+                    emailTo: string
+                    
+                };
+    }
 
-}
-export type TDataRecoverPasswordHtmlContent = {
-	email: string
+export type ItemsData = {
+        ReadItems: {
+                    limit?: number
+skip?: number
+                    
+                };
+CreateItem: {
+                    requestBody: ItemCreate
+                    
+                };
+ReadItem: {
+                    id: string
+                    
+                };
+UpdateItem: {
+                    id: string
+requestBody: ItemUpdate
+                    
+                };
+DeleteItem: {
+                    id: string
+                    
+                };
+    }
 
-}
+export type ResourcesData = {
+        SetResources: {
+                    requestBody: Array<ResourceBase>
+                    
+                };
+    }
 
 export class LoginService {
 
@@ -29,10 +107,10 @@ export class LoginService {
 	 * @returns Token Successful Response
 	 * @throws ApiError
 	 */
-	public static loginAccessToken(data: TDataLoginAccessToken): CancelablePromise<Token> {
+	public static loginAccessToken(data: LoginData['LoginAccessToken']): CancelablePromise<Token> {
 		const {
-			formData,
-		} = data;
+formData,
+} = data;
 		return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/login/access-token',
@@ -51,7 +129,7 @@ export class LoginService {
 	 * @throws ApiError
 	 */
 	public static testToken(): CancelablePromise<UserPublic> {
-		return __request(OpenAPI, {
+				return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/login/test-token',
 		});
@@ -63,10 +141,10 @@ export class LoginService {
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static recoverPassword(data: TDataRecoverPassword): CancelablePromise<Message> {
+	public static recoverPassword(data: LoginData['RecoverPassword']): CancelablePromise<Message> {
 		const {
-			email,
-		} = data;
+email,
+} = data;
 		return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/password-recovery/{email}',
@@ -85,10 +163,10 @@ export class LoginService {
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static resetPassword(data: TDataResetPassword): CancelablePromise<Message> {
+	public static resetPassword(data: LoginData['ResetPassword']): CancelablePromise<Message> {
 		const {
-			requestBody,
-		} = data;
+requestBody,
+} = data;
 		return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/reset-password/',
@@ -106,10 +184,10 @@ export class LoginService {
 	 * @returns string Successful Response
 	 * @throws ApiError
 	 */
-	public static recoverPasswordHtmlContent(data: TDataRecoverPasswordHtmlContent): CancelablePromise<string> {
+	public static recoverPasswordHtmlContent(data: LoginData['RecoverPasswordHtmlContent']): CancelablePromise<string> {
 		const {
-			email,
-		} = data;
+email,
+} = data;
 		return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/password-recovery-html-content/{email}',
@@ -124,41 +202,6 @@ export class LoginService {
 
 }
 
-export type TDataReadUsers = {
-	limit?: number
-	skip?: number
-
-}
-export type TDataCreateUser = {
-	requestBody: UserCreate
-
-}
-export type TDataUpdateUserMe = {
-	requestBody: UserUpdateMe
-
-}
-export type TDataUpdatePasswordMe = {
-	requestBody: UpdatePassword
-
-}
-export type TDataRegisterUser = {
-	requestBody: UserRegister
-
-}
-export type TDataReadUserById = {
-	userId: string
-
-}
-export type TDataUpdateUser = {
-	requestBody: UserUpdate
-	userId: string
-
-}
-export type TDataDeleteUser = {
-	userId: string
-
-}
-
 export class UsersService {
 
 	/**
@@ -167,11 +210,11 @@ export class UsersService {
 	 * @returns UsersPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static readUsers(data: TDataReadUsers = {}): CancelablePromise<UsersPublic> {
+	public static readUsers(data: UsersData['ReadUsers'] = {}): CancelablePromise<UsersPublic> {
 		const {
-			limit = 100,
-			skip = 0,
-		} = data;
+skip = 0,
+limit = 100,
+} = data;
 		return __request(OpenAPI, {
 			method: 'GET',
 			url: '/api/v1/users/',
@@ -190,10 +233,10 @@ export class UsersService {
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static createUser(data: TDataCreateUser): CancelablePromise<UserPublic> {
+	public static createUser(data: UsersData['CreateUser']): CancelablePromise<UserPublic> {
 		const {
-			requestBody,
-		} = data;
+requestBody,
+} = data;
 		return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/users/',
@@ -212,7 +255,7 @@ export class UsersService {
 	 * @throws ApiError
 	 */
 	public static readUserMe(): CancelablePromise<UserPublic> {
-		return __request(OpenAPI, {
+				return __request(OpenAPI, {
 			method: 'GET',
 			url: '/api/v1/users/me',
 		});
@@ -225,7 +268,7 @@ export class UsersService {
 	 * @throws ApiError
 	 */
 	public static deleteUserMe(): CancelablePromise<Message> {
-		return __request(OpenAPI, {
+				return __request(OpenAPI, {
 			method: 'DELETE',
 			url: '/api/v1/users/me',
 		});
@@ -237,10 +280,10 @@ export class UsersService {
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static updateUserMe(data: TDataUpdateUserMe): CancelablePromise<UserPublic> {
+	public static updateUserMe(data: UsersData['UpdateUserMe']): CancelablePromise<UserPublic> {
 		const {
-			requestBody,
-		} = data;
+requestBody,
+} = data;
 		return __request(OpenAPI, {
 			method: 'PATCH',
 			url: '/api/v1/users/me',
@@ -258,10 +301,10 @@ export class UsersService {
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static updatePasswordMe(data: TDataUpdatePasswordMe): CancelablePromise<Message> {
+	public static updatePasswordMe(data: UsersData['UpdatePasswordMe']): CancelablePromise<Message> {
 		const {
-			requestBody,
-		} = data;
+requestBody,
+} = data;
 		return __request(OpenAPI, {
 			method: 'PATCH',
 			url: '/api/v1/users/me/password',
@@ -279,10 +322,10 @@ export class UsersService {
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static registerUser(data: TDataRegisterUser): CancelablePromise<UserPublic> {
+	public static registerUser(data: UsersData['RegisterUser']): CancelablePromise<UserPublic> {
 		const {
-			requestBody,
-		} = data;
+requestBody,
+} = data;
 		return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/users/signup',
@@ -300,10 +343,10 @@ export class UsersService {
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static readUserById(data: TDataReadUserById): CancelablePromise<UserPublic> {
+	public static readUserById(data: UsersData['ReadUserById']): CancelablePromise<UserPublic> {
 		const {
-			userId,
-		} = data;
+userId,
+} = data;
 		return __request(OpenAPI, {
 			method: 'GET',
 			url: '/api/v1/users/{user_id}',
@@ -322,11 +365,11 @@ export class UsersService {
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static updateUser(data: TDataUpdateUser): CancelablePromise<UserPublic> {
+	public static updateUser(data: UsersData['UpdateUser']): CancelablePromise<UserPublic> {
 		const {
-			requestBody,
-			userId,
-		} = data;
+userId,
+requestBody,
+} = data;
 		return __request(OpenAPI, {
 			method: 'PATCH',
 			url: '/api/v1/users/{user_id}',
@@ -347,10 +390,10 @@ export class UsersService {
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static deleteUser(data: TDataDeleteUser): CancelablePromise<Message> {
+	public static deleteUser(data: UsersData['DeleteUser']): CancelablePromise<Message> {
 		const {
-			userId,
-		} = data;
+userId,
+} = data;
 		return __request(OpenAPI, {
 			method: 'DELETE',
 			url: '/api/v1/users/{user_id}',
@@ -365,11 +408,6 @@ export class UsersService {
 
 }
 
-export type TDataTestEmail = {
-	emailTo: string
-
-}
-
 export class UtilsService {
 
 	/**
@@ -378,10 +416,10 @@ export class UtilsService {
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static testEmail(data: TDataTestEmail): CancelablePromise<Message> {
+	public static testEmail(data: UtilsData['TestEmail']): CancelablePromise<Message> {
 		const {
-			emailTo,
-		} = data;
+emailTo,
+} = data;
 		return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/utils/test-email/',
@@ -400,34 +438,11 @@ export class UtilsService {
 	 * @throws ApiError
 	 */
 	public static healthCheck(): CancelablePromise<boolean> {
-		return __request(OpenAPI, {
+				return __request(OpenAPI, {
 			method: 'GET',
 			url: '/api/v1/utils/health-check/',
 		});
 	}
-
-}
-
-export type TDataReadItems = {
-	limit?: number
-	skip?: number
-
-}
-export type TDataCreateItem = {
-	requestBody: ItemCreate
-
-}
-export type TDataReadItem = {
-	id: string
-
-}
-export type TDataUpdateItem = {
-	id: string
-	requestBody: ItemUpdate
-
-}
-export type TDataDeleteItem = {
-	id: string
 
 }
 
@@ -439,11 +454,11 @@ export class ItemsService {
 	 * @returns ItemsPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static readItems(data: TDataReadItems = {}): CancelablePromise<ItemsPublic> {
+	public static readItems(data: ItemsData['ReadItems'] = {}): CancelablePromise<ItemsPublic> {
 		const {
-			limit = 100,
-			skip = 0,
-		} = data;
+skip = 0,
+limit = 100,
+} = data;
 		return __request(OpenAPI, {
 			method: 'GET',
 			url: '/api/v1/items/',
@@ -462,10 +477,10 @@ export class ItemsService {
 	 * @returns ItemPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static createItem(data: TDataCreateItem): CancelablePromise<ItemPublic> {
+	public static createItem(data: ItemsData['CreateItem']): CancelablePromise<ItemPublic> {
 		const {
-			requestBody,
-		} = data;
+requestBody,
+} = data;
 		return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/items/',
@@ -483,10 +498,10 @@ export class ItemsService {
 	 * @returns ItemPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static readItem(data: TDataReadItem): CancelablePromise<ItemPublic> {
+	public static readItem(data: ItemsData['ReadItem']): CancelablePromise<ItemPublic> {
 		const {
-			id,
-		} = data;
+id,
+} = data;
 		return __request(OpenAPI, {
 			method: 'GET',
 			url: '/api/v1/items/{id}',
@@ -505,11 +520,11 @@ export class ItemsService {
 	 * @returns ItemPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static updateItem(data: TDataUpdateItem): CancelablePromise<ItemPublic> {
+	public static updateItem(data: ItemsData['UpdateItem']): CancelablePromise<ItemPublic> {
 		const {
-			id,
-			requestBody,
-		} = data;
+id,
+requestBody,
+} = data;
 		return __request(OpenAPI, {
 			method: 'PUT',
 			url: '/api/v1/items/{id}',
@@ -530,10 +545,10 @@ export class ItemsService {
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static deleteItem(data: TDataDeleteItem): CancelablePromise<Message> {
+	public static deleteItem(data: ItemsData['DeleteItem']): CancelablePromise<Message> {
 		const {
-			id,
-		} = data;
+id,
+} = data;
 		return __request(OpenAPI, {
 			method: 'DELETE',
 			url: '/api/v1/items/{id}',
@@ -548,11 +563,6 @@ export class ItemsService {
 
 }
 
-export type TDataSetResources = {
-	requestBody: Array<ResourceBase>
-
-}
-
 export class ResourcesService {
 
 	/**
@@ -562,7 +572,7 @@ export class ResourcesService {
 	 * @throws ApiError
 	 */
 	public static readResources(): CancelablePromise<Array<ResourceBase>> {
-		return __request(OpenAPI, {
+				return __request(OpenAPI, {
 			method: 'GET',
 			url: '/api/v1/resources/',
 		});
@@ -574,10 +584,10 @@ export class ResourcesService {
 	 * @returns ResourceBase Successful Response
 	 * @throws ApiError
 	 */
-	public static setResources(data: TDataSetResources): CancelablePromise<Array<ResourceBase>> {
+	public static setResources(data: ResourcesData['SetResources']): CancelablePromise<Array<ResourceBase>> {
 		const {
-			requestBody,
-		} = data;
+requestBody,
+} = data;
 		return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/resources/',
