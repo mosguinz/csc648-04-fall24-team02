@@ -189,7 +189,9 @@ def update_assemblers(
                 status=assembler.status, recipe_id=assembler.recipe_id
             )
             crud.update_user_assembler(
-                session=session, db_assembler=matching_assembler, assembler_in=update_assembler
+                session=session,
+                db_assembler=matching_assembler,
+                assembler_in=update_assembler,
             )
     return crud.read_user_assemblers_by_user(session=session, user_id=current_user.id)
 
@@ -279,7 +281,8 @@ def update_constructors(
                 status=constructor.status, recipe_id=constructor.recipe_id
             )
             crud.update_user_constructor(
-                session=session, db_constructor=matching_constructor, constructor_in=update_constructor
+                session=session,
+                db_constructor=matching_constructor,
+                constructor_in=update_constructor,
             )
     return crud.read_user_constructors_by_user(session=session, user_id=current_user.id)
-
