@@ -2,97 +2,97 @@
   "section1": {
     "files": [
       {
-        "url": "assets/game_assets/button.png",
+        "url": "assets/game/ui/button.png",
         "type": "image",
         "key": "button"
       },
       {
-        "url": "assets/game_assets/button_arrow.png",
+        "url": "assets/game/ui/button_arrow.png",
         "type": "image",
         "key": "button_arrow"
       },
       {
-        "url": "assets/game_assets/button_transparent.png",
+        "url": "assets/game/ui/button_transparent.png",
         "type": "image",
         "key": "button_transparent"
       },
       {
-        "url": "assets/game_assets/menu_icon.png",
+        "url": "assets/game/ui/menu_icon.png",
         "type": "image",
         "key": "menu_icon"
       },
       {
-        "url": "assets/game_assets/menu.png",
+        "url": "assets/game/ui/menu.png",
         "type": "image",
         "key": "menu"
       },
       {
-        "url": "assets/game_assets/button_hover.png",
+        "url": "assets/game/ui/button_hover.png",
         "type": "image",
         "key": "button_hover"
       },
       {
-        "url": "assets/game_assets/inventory_panel.png",
+        "url": "assets/game/ui/inventory_panel.png",
         "type": "image",
         "key": "inventory_panel"
       },
       {
-        "url": "assets/game_assets/inventory_divider.png",
+        "url": "assets/game/ui/inventory_divider.png",
         "type": "image",
         "key": "inventory_divider"
       },
       {
-        "url": "assets/game_assets/inventory_slot.png",
+        "url": "assets/game/ui/inventory_slot.png",
         "type": "image",
         "key": "inventory_slot"
       },
       {
-        "url": "assets/game_assets/close_button.png",
+        "url": "assets/game/ui/close_button.png",
         "type": "image",
         "key": "close_button"
       },
       {
-        "url": "assets/game_assets/crafting_slot.png",
+        "url": "assets/game/ui/crafting_slot.png",
         "type": "image",
         "key": "crafting_slot"
       },
       {
-        "url": "assets/game_assets/recipe_panel.png",
+        "url": "assets/game/ui/recipe_panel.png",
         "type": "image",
         "key": "recipe_panel"
       },
       {
-        "url": "assets/game_assets/1.png",
+        "url": "assets/game/resources/1.png",
         "type": "image",
         "key": "1"
       },
       {
-        "url": "assets/game_assets/2.png",
+        "url": "assets/game/resources/2.png",
         "type": "image",
         "key": "2"
       },
       {
-        "url": "assets/game_assets/3.png",
+        "url": "assets/game/resources/3.png",
         "type": "image",
         "key": "3"
       },
       {
-        "url": "assets/game_assets/4.png",
+        "url": "assets/game/resources/4.png",
         "type": "image",
         "key": "4"
       },
       {
-        "url": "assets/game_assets/5.png",
+        "url": "assets/game/resources/5.png",
         "type": "image",
         "key": "5"
       },
       {
-        "url": "assets/game_assets/6.png",
+        "url": "assets/game/resources/6.png",
         "type": "image",
         "key": "6"
       },
       {
-        "url": "assets/game_assets/7.png",
+        "url": "assets/game/resources/7.png",
         "type": "image",
         "key": "7"
       }
