@@ -38,22 +38,31 @@ export const GameData = {
     },
 
     miners: [] as UserMiner[],
+    nextMinerId: 1,
+
     async populateMiners() {
         GameData.miners = await FacilitiesService.readMiners();
+
+        // Find the next available miner ID
+        const maxId = GameData.miners.reduce((max, miner) => {
+            return miner.id ? Math.max(max, parseInt(miner.id, 10)) : max;
+        }, 0);
+        GameData.nextMinerId = maxId + 1;
     },
 
     addMiner(miner: UserMiner): void {
         GameData.miners.push(miner);
+        GameData.nextMinerId++;
         GameData.saveMiners();
     },
 
-    removeMiner(miner: UserMiner): void {
-        const index = GameData.miners.indexOf(miner);
-        if (index > -1) {
-            GameData.miners.splice(index, 1);
-        }
-        GameData.saveMiners();
-    },
+    // removeMiner(miner: UserMiner): void {
+    //     const index = GameData.miners.indexOf(miner);
+    //     if (index > -1) {
+    //         GameData.miners.splice(index, 1);
+    //     }
+    //     GameData.saveMiners();
+    // },
 
     saveMiners() {
         const data = {
