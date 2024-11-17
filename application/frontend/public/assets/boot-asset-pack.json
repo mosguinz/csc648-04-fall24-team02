@@ -60,7 +60,43 @@
         "url": "assets/game_assets/recipe_panel.png",
         "type": "image",
         "key": "recipe_panel"
+      },
+      {
+        "url": "assets/game_assets/1.png",
+        "type": "image",
+        "key": "1"
+      },
+      {
+        "url": "assets/game_assets/2.png",
+        "type": "image",
+        "key": "2"
+      },
+      {
+        "url": "assets/game_assets/3.png",
+        "type": "image",
+        "key": "3"
+      },
+      {
+        "url": "assets/game_assets/4.png",
+        "type": "image",
+        "key": "4"
+      },
+      {
+        "url": "assets/game_assets/5.png",
+        "type": "image",
+        "key": "5"
+      },
+      {
+        "url": "assets/game_assets/6.png",
+        "type": "image",
+        "key": "6"
+      },
+      {
+        "url": "assets/game_assets/7.png",
+        "type": "image",
+        "key": "7"
       }
+
     ]
   },
   "meta": {
