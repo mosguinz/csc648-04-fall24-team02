@@ -2,90 +2,102 @@ import Phaser from "phaser";
 import { TEXT_STYLE_SMALL } from '../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../data/constants';
 
+interface ButtonConfig {
+    key: string;
+    label: string;
+    scene: string;
+}
+
 export default class GameMenu extends Phaser.Scene {
+    //store config values in one area
+    private MENU_CONFIG: {
+        width: number;
+        height: number;
+        iconWidth: number;
+        iconHeight: number;
+        hoverOffsetY: number;
+        fontSize: number;
+        buttons: ButtonConfig[];
+    };
+
     constructor() {
-        super({
-            key: 'GameMenu',
-        });
+        super({ key: 'GameMenu' });
+
+        // Initialize MENU_CONFIG as a class property
+        this.MENU_CONFIG = {
+            width: 450,
+            height: 180,
+            iconWidth: 90,
+            iconHeight: 90,
+            hoverOffsetY: -65,
+            fontSize: 25,
+            buttons: [
+                { key: 'inventory', label: 'INVENTORY', scene: 'InventoryMenu' },
+                { key: 'build', label: 'BUILD', scene: 'BuildMenu' },
+                { key: 'crafting', label: 'CRAFTING', scene: 'CraftingMenu' },
+            ],
+        };
     }
 
     create() {
-        const menuWidth = 450;
-        const menuHeight = 180;
-
-        const iconWidth = 90;
-        const iconHeight = 90;
-
-        this.add.nineslice(GAME_WIDTH - 10, GAME_HEIGHT - 10, 'menu', 0, menuWidth, menuHeight, NSP, NSP, NSP, NSP).setOrigin(1, 1);
+        // Create the menu background
+        this.add.nineslice(
+            GAME_WIDTH - 10,
+            GAME_HEIGHT - 10,
+            'menu',
+            0,
+            this.MENU_CONFIG.width,
+            this.MENU_CONFIG.height,
+            NSP, NSP, NSP, NSP
+        ).setOrigin(1, 1);
 
         const gameMenuContainer = this.add.container(GAME_WIDTH - 10, GAME_HEIGHT - 10);
 
         // Icon hover effect
-        const iconHover = this.add.image(0, 0, 'button_hover',).setOrigin(.5, .5).setVisible(false).setScale(2);
+        const iconHover = this.add.image(0, 0, 'button_hover').setOrigin(0.5).setVisible(false).setScale(2);
         gameMenuContainer.add(iconHover);
 
-        // Inventory button
-        const inventoryButton = this.add.nineslice(-(menuWidth / 2), -(menuHeight / 2), 'menu_icon', 0,
-            iconWidth, iconHeight, NSP, NSP, NSP, NSP).setOrigin(.5, .5).setInteractive();
-        inventoryButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.scene.launch('InventoryMenu');
+        // Loop through buttons and create each dynamically
+        this.MENU_CONFIG.buttons.forEach((buttonConfig: ButtonConfig, index: number) => {
+            const xOffset = (index - 1) * this.MENU_CONFIG.iconWidth * 1.5;
+
+            // Create button
+            const button = this.add.nineslice(
+                -(this.MENU_CONFIG.width / 2) + xOffset,
+                -(this.MENU_CONFIG.height / 2),
+                'menu_icon',
+                0,
+                this.MENU_CONFIG.iconWidth,
+                this.MENU_CONFIG.iconHeight,
+                NSP, NSP, NSP, NSP
+            ).setOrigin(0.5).setInteractive();
+
+            gameMenuContainer.add(button);
+
+            // Button text
+            const buttonText = this.add.text(
+                button.x,
+                button.y + 60,
+                buttonConfig.label,
+                TEXT_STYLE_SMALL
+            ).setOrigin(0.5).setFontSize(this.MENU_CONFIG.fontSize);
+
+            gameMenuContainer.add(buttonText);
+
+            // Button interaction
+            button.on(Phaser.Input.Events.POINTER_DOWN, () => {
+                this.scene.launch(buttonConfig.scene);
+            });
+
+            // Hover effect
+            this.#updateHoverEffect(button, iconHover);
         });
-        gameMenuContainer.add(inventoryButton);
-
-        // Inventory button text
-        const inventoryButtonText = this.add.text(inventoryButton.x, inventoryButton.y + 60, "INVENTORY",
-            TEXT_STYLE_SMALL).setOrigin(0.5, 0.5).setFontSize(25);
-        gameMenuContainer.add(inventoryButtonText);
-
-        // Inventory button icon
-        // TODO: Add icon
-
-        // Hover effect
-        this.#updateHoverEffect(inventoryButton, iconHover);
-
-        // Build button
-        const buildButton = this.add.nineslice(-(menuWidth / 2) - iconWidth * 1.5, -(menuHeight / 2), 'menu_icon', 0,
-            iconWidth, iconHeight, NSP, NSP, NSP, NSP).setOrigin(.5, .5).setInteractive();
-        gameMenuContainer.add(buildButton);
-        buildButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.scene.launch('BuildMenu');
-        });
-
-        // Build button text
-        const buildButtonText = this.add.text(buildButton.x, buildButton.y + 60, "BUILD",
-            TEXT_STYLE_SMALL).setOrigin(0.5, 0.5).setFontSize(25);
-        gameMenuContainer.add(buildButtonText);
-
-        // Build button icon
-        // TODO: Add icon
-
-        // Hover effect
-        this.#updateHoverEffect(buildButton, iconHover);
-
-        // Crafting button
-        const craftingButton = this.add.nineslice(-(menuWidth / 2) + iconWidth * 1.5, -(menuHeight / 2), 'menu_icon', 0,
-            iconWidth, iconHeight, NSP, NSP, NSP, NSP).setOrigin(.5, .5).setInteractive();
-        gameMenuContainer.add(craftingButton);
-        craftingButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.scene.launch('CraftingMenu');
-        });
-
-        // Crafting button text
-        const craftingButtonText = this.add.text(craftingButton.x, craftingButton.y + 60, "CRAFTING",
-            TEXT_STYLE_SMALL).setOrigin(0.5, 0.5).setFontSize(25);
-        gameMenuContainer.add(craftingButtonText);
-
-        // Crafting button icon
-        // TODO: Add icon
-
-        // Hover effect
-        this.#updateHoverEffect(craftingButton, iconHover);
     }
 
-    // Update arrow poisition and visibility on hover
+    // Update arrow position and visibility on hover
     #updateHoverEffect(button: Phaser.GameObjects.NineSlice, arrow: Phaser.GameObjects.Image) {
         button.on(Phaser.Input.Events.POINTER_OVER, () => {
-            arrow.setPosition(button.x, button.y - 65);
+            arrow.setPosition(button.x, button.y + this.MENU_CONFIG.hoverOffsetY);
             arrow.setVisible(true);
             this.tweens.killTweensOf(arrow);
             this.tweens.add({
