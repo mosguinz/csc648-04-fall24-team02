@@ -1,6 +1,8 @@
 import Phaser from "phaser";
 import { TEXT_STYLE } from '../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../data/constants';
+import GameData from '../../data/game-data';
+import { ResourcesService } from "../../../client";
 
 export default class InventoryMenu extends Phaser.Scene {
 
@@ -75,9 +77,9 @@ export default class InventoryMenu extends Phaser.Scene {
         }
     }
 
-    // #fillInventory() {
-
-    // }
+    async #fillInventory() {
+        GameData.resources = await ResourcesService.readResources();
+    }
 
 
 }

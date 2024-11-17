@@ -1,2 +1,5 @@
-// import { ResourcesService, ResourceBase, TDataSetResources } from "../../client";
+import { ResourceBase } from "../../client"
 
+export default {
+    resources: [] as ResourceBase[],
+}
