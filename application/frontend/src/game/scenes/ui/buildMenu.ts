@@ -53,7 +53,7 @@ export default class BuildMenu extends Phaser.Scene {
 
         // Build miner text
         buildMenuContainer.add(
-            this.add.text(this.BUILD_MENU_WIDTH / 2, this.BUILD_MENU_HEIGHT / 4 + 70, "MINER", TEXT_STYLE_SMALL)
+            this.add.text(this.BUILD_MENU_WIDTH / 2, this.BUILD_MENU_HEIGHT / 4 + 70, "HARVESTER", TEXT_STYLE_SMALL)
                 .setOrigin(.5, .5).setColor("white").setFontSize(32));
 
 
