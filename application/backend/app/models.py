@@ -1,4 +1,5 @@
 import uuid
+from typing import Optional
 
 from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
@@ -48,7 +49,11 @@ class User(UserBase, table=True):
     resources: list["UserResource"] = Relationship(
         back_populates="user", cascade_delete=True
     )
-    facilities: list["UserFacility"] = Relationship(
+    assemblers: list["UserAssembler"] = Relationship(
+        back_populates="user", cascade_delete=True
+    )
+    miners: list["UserMiner"] = Relationship(back_populates="user", cascade_delete=True)
+    constructors: list["UserConstructor"] = Relationship(
         back_populates="user", cascade_delete=True
     )
 
@@ -162,27 +167,18 @@ class FacilityType(SQLModel, table=True):
     description: str | None = None
     icon_image_url: str | None = None
 
-    # Relationships
-    user_facilities: "UserFacility" = Relationship(
+    recipes: list["Recipe"] = Relationship(
         back_populates="facility_type", cascade_delete=True
     )
-
-
-class UserFacility(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
-    facility_type_id: int = Field(foreign_key="facilitytype.id", ondelete="CASCADE")
-    quantity: int = Field(default=0)
-
-    # Relationships
-    user: "User" = Relationship(back_populates="facilities")
-    facility_type: "FacilityType" = Relationship(back_populates="user_facilities")
 
 
 class Recipe(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True, unique=True)
     time_to_complete: int = Field(default=0)  # Time in seconds
+    # empty ID represents a manually crafted recipe
+    facility_type_id: int | None = Field(foreign_key="facilitytype.id")
+    facility_type: Optional["FacilityType"] = Relationship(back_populates="recipes")
 
     inputs: list["RecipeInput"] = Relationship(
         back_populates="recipe", cascade_delete=True
@@ -212,3 +208,47 @@ class RecipeOutput(SQLModel, table=True):
     # Relationships
     recipe: "Recipe" = Relationship(back_populates="outputs")
     resource_type: "ResourceType" = Relationship(back_populates="recipe_outputs")
+
+
+class FacilityBase(SQLModel):
+    facility_type_id: int
+    status: str
+    recipe_id: None | int
+
+
+class FacilityUpdate(SQLModel):
+    status: str
+    recipe_id: None | int
+
+
+class UserAssembler(SQLModel, table=True):
+    id: uuid.UUID | None = Field(default_factory=uuid.uuid4, primary_key=True)
+    facility_type_id: int = Field(foreign_key="facilitytype.id")
+    facility_type: "FacilityType" = Relationship()
+    user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
+    user: "User" = Relationship(back_populates="assemblers")
+    recipe_id: int | None = Field(foreign_key="recipe.id")
+    recipe: Recipe | None = Relationship()
+    status: str = Field(default="idle")
+
+
+class UserMiner(SQLModel, table=True):
+    id: uuid.UUID | None = Field(default_factory=uuid.uuid4, primary_key=True)
+    facility_type_id: int = Field(foreign_key="facilitytype.id")
+    facility_type: "FacilityType" = Relationship()
+    user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
+    user: "User" = Relationship(back_populates="miners")
+    recipe_id: int | None = Field(foreign_key="recipe.id")
+    recipe: Recipe | None = Relationship()
+    status: str = Field(default="idle")
+
+
+class UserConstructor(SQLModel, table=True):
+    id: uuid.UUID | None = Field(default_factory=uuid.uuid4, primary_key=True)
+    facility_type_id: int = Field(foreign_key="facilitytype.id")
+    facility_type: "FacilityType" = Relationship()
+    user_id: uuid.UUID = Field(foreign_key="user.id", ondelete="CASCADE")
+    user: "User" = Relationship(back_populates="constructors")
+    recipe_id: int | None = Field(foreign_key="recipe.id")
+    recipe: Recipe | None = Relationship()
+    status: str = Field(default="idle")
