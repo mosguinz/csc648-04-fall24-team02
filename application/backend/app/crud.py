@@ -6,12 +6,18 @@ from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
 from app.models import (
+    FacilityBase,
+    FacilityType,
+    FacilityUpdate,
     Item,
     ItemCreate,
     ResourceBase,
     ResourceType,
     User,
+    UserAssembler,
+    UserConstructor,
     UserCreate,
+    UserMiner,
     UserResource,
     UserUpdate,
 )
@@ -101,3 +107,108 @@ def create_resource_type(
     session.commit()
     session.refresh(db_item)
     return db_item
+
+
+def create_facility_type(
+    *, session: Session, facility_type: FacilityType
+) -> FacilityType:
+    db_item = FacilityType.model_validate(facility_type)
+    session.add(db_item)
+    session.commit()
+    session.refresh(db_item)
+    return db_item
+
+
+def read_facility_type_by_name(*, session: Session, name: str) -> FacilityType | None:
+    statement = select(FacilityType).where(FacilityType.name == name)
+    types = session.exec(statement).first()
+    return types
+
+
+def create_user_assembler(
+    *, session: Session, assembler_in: FacilityBase, user_id: uuid.UUID
+) -> UserAssembler:
+    db_item = UserAssembler.model_validate(assembler_in, update={"user_id": user_id})
+    session.add(db_item)
+    session.commit()
+    session.refresh(db_item)
+    return db_item
+
+
+def read_user_assemblers_by_user(
+    *, session: Session, user_id: uuid.UUID
+) -> Sequence[UserAssembler]:
+    statement = select(UserAssembler).where(UserAssembler.user_id == user_id)
+    assemblers = session.exec(statement).all()
+    return assemblers
+
+
+def update_user_assembler(
+    *, session: Session, db_assembler: UserAssembler, assembler_in: FacilityUpdate
+) -> UserAssembler:
+    resource_data = assembler_in.model_dump(exclude_unset=True)
+    db_assembler.sqlmodel_update(resource_data)
+    session.add(db_assembler)
+    session.commit()
+    session.refresh(db_assembler)
+    return db_assembler
+
+
+def create_user_miner(
+    *, session: Session, miner_in: FacilityBase, user_id: uuid.UUID
+) -> UserMiner:
+    db_item = UserMiner.model_validate(miner_in, update={"user_id": user_id})
+    session.add(db_item)
+    session.commit()
+    session.refresh(db_item)
+    return db_item
+
+
+def read_user_miners_by_user(
+    *, session: Session, user_id: uuid.UUID
+) -> Sequence[UserMiner]:
+    statement = select(UserMiner).where(UserMiner.user_id == user_id)
+    miners = session.exec(statement).all()
+    return miners
+
+
+def update_user_miner(
+    *, session: Session, db_miner: UserMiner, miner_in: FacilityUpdate
+) -> UserMiner:
+    resource_data = miner_in.model_dump(exclude_unset=True)
+    db_miner.sqlmodel_update(resource_data)
+    session.add(db_miner)
+    session.commit()
+    session.refresh(db_miner)
+    return db_miner
+
+
+def create_user_constructor(
+    *, session: Session, constructor_in: FacilityBase, user_id: uuid.UUID
+) -> UserConstructor:
+    db_item = UserConstructor.model_validate(
+        constructor_in, update={"user_id": user_id}
+    )
+    session.add(db_item)
+    session.commit()
+    session.refresh(db_item)
+    return db_item
+
+
+def read_user_constructors_by_user(
+    *, session: Session, user_id: uuid.UUID
+) -> Sequence[UserConstructor]:
+    statement = select(UserConstructor).where(UserConstructor.user_id == user_id)
+    constructors = session.exec(statement).all()
+    return constructors
+
+
+def update_user_constructor(
+    *, session: Session, db_constructor: UserConstructor, constructor_in: FacilityUpdate
+) -> UserConstructor:
+    resource_data = constructor_in.model_dump(exclude_unset=True)
+    db_constructor.sqlmodel_update(resource_data)
+    session.add(db_constructor)
+    session.commit()
+    session.refresh(db_constructor)
+    return db_constructor
