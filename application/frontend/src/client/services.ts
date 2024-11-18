@@ -99,6 +99,33 @@ export type ResourcesData = {
                 };
     }
 
+export type FacilitiesData = {
+        SetMiners: {
+                    requestBody: Array<UserMiner>
+                    
+                };
+UpdateMiners: {
+                    requestBody: Array<UserMiner>
+                    
+                };
+SetAssemblers: {
+                    requestBody: Array<UserAssembler>
+                    
+                };
+UpdateAssemblers: {
+                    requestBody: Array<UserAssembler>
+                    
+                };
+SetConstructors: {
+                    requestBody: Array<UserConstructor>
+                    
+                };
+UpdateConstructors: {
+                    requestBody: Array<UserConstructor>
+                    
+                };
+    }
+
 export class LoginService {
 
 	/**
@@ -601,31 +628,6 @@ requestBody,
 
 }
 
-export type TDataSetMiners = {
-                requestBody: Array<UserMiner>
-                
-            }
-export type TDataUpdateMiners = {
-                requestBody: Array<UserMiner>
-                
-            }
-export type TDataSetAssemblers = {
-                requestBody: Array<UserAssembler>
-                
-            }
-export type TDataUpdateAssemblers = {
-                requestBody: Array<UserAssembler>
-                
-            }
-export type TDataSetConstructors = {
-                requestBody: Array<UserConstructor>
-                
-            }
-export type TDataUpdateConstructors = {
-                requestBody: Array<UserConstructor>
-                
-            }
-
 export class FacilitiesService {
 
 	/**
@@ -647,7 +649,7 @@ export class FacilitiesService {
 	 * @returns UserMiner Successful Response
 	 * @throws ApiError
 	 */
-	public static setMiners(data: TDataSetMiners): CancelablePromise<Array<UserMiner>> {
+	public static setMiners(data: FacilitiesData['SetMiners']): CancelablePromise<Array<UserMiner>> {
 		const {
 requestBody,
 } = data;
@@ -668,7 +670,7 @@ requestBody,
 	 * @returns UserMiner Successful Response
 	 * @throws ApiError
 	 */
-	public static updateMiners(data: TDataUpdateMiners): CancelablePromise<Array<UserMiner>> {
+	public static updateMiners(data: FacilitiesData['UpdateMiners']): CancelablePromise<Array<UserMiner>> {
 		const {
 requestBody,
 } = data;
@@ -702,7 +704,7 @@ requestBody,
 	 * @returns UserAssembler Successful Response
 	 * @throws ApiError
 	 */
-	public static setAssemblers(data: TDataSetAssemblers): CancelablePromise<Array<UserAssembler>> {
+	public static setAssemblers(data: FacilitiesData['SetAssemblers']): CancelablePromise<Array<UserAssembler>> {
 		const {
 requestBody,
 } = data;
@@ -723,7 +725,7 @@ requestBody,
 	 * @returns UserAssembler Successful Response
 	 * @throws ApiError
 	 */
-	public static updateAssemblers(data: TDataUpdateAssemblers): CancelablePromise<Array<UserAssembler>> {
+	public static updateAssemblers(data: FacilitiesData['UpdateAssemblers']): CancelablePromise<Array<UserAssembler>> {
 		const {
 requestBody,
 } = data;
@@ -757,7 +759,7 @@ requestBody,
 	 * @returns UserConstructor Successful Response
 	 * @throws ApiError
 	 */
-	public static setConstructors(data: TDataSetConstructors): CancelablePromise<Array<UserConstructor>> {
+	public static setConstructors(data: FacilitiesData['SetConstructors']): CancelablePromise<Array<UserConstructor>> {
 		const {
 requestBody,
 } = data;
@@ -778,7 +780,7 @@ requestBody,
 	 * @returns UserConstructor Successful Response
 	 * @throws ApiError
 	 */
-	public static updateConstructors(data: TDataUpdateConstructors): CancelablePromise<Array<UserConstructor>> {
+	public static updateConstructors(data: FacilitiesData['UpdateConstructors']): CancelablePromise<Array<UserConstructor>> {
 		const {
 requestBody,
 } = data;
