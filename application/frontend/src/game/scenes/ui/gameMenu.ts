@@ -72,7 +72,7 @@ export default class GameMenu extends Phaser.Scene {
             // Create button
             const button = this.add.nineslice(
                 -(this.MENU_CONFIG.width / 2) + xOffset,
-                -(this.MENU_CONFIG.height / 2),
+                -(this.MENU_CONFIG.height / 2) - 20,
                 'menu_icon',
                 0,
                 this.MENU_CONFIG.iconWidth,
@@ -85,7 +85,7 @@ export default class GameMenu extends Phaser.Scene {
             // Button text
             const buttonText = this.add.text(
                 button.x,
-                button.y + 60,
+                button.y + 65,
                 buttonConfig.label,
                 TEXT_STYLE_SMALL
             ).setOrigin(0.5).setFontSize(this.MENU_CONFIG.fontSize);
