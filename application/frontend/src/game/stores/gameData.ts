@@ -1,4 +1,4 @@
-import { ResourceBase, UserMiner } from "../../client";
+import { ResourceBase, UserMiner, UserAssembler } from "../../client";
 import { ResourcesService, FacilitiesService } from "../../client";
 
 export const GameData = {
@@ -62,4 +62,17 @@ export const GameData = {
         };
         FacilitiesService.setMiners(data);
     },
+
+    crafters : [] as UserAssembler[],
+
+    async populateCrafters() {
+        GameData.crafters = await FacilitiesService.readAssemblers();
+    },
+
+    saveCrafters() {
+        const data = {
+            requestBody: GameData.crafters,
+        };
+        FacilitiesService.setAssemblers(data);
+    }
 };
