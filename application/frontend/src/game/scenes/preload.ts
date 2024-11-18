@@ -36,7 +36,7 @@ export default class Preload extends Phaser.Scene {
         // this.scene.start('CraftingMenu');
         // this.scene.start('BuildMenu');
         // this.scene.start('MinerPlacementMenu');
-        this.scene.start('CrafterPlacementMenu');
+        // this.scene.start('CrafterPlacementMenu');
         
     }
 }
