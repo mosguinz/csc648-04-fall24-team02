@@ -23,6 +23,8 @@ export const config: Phaser.Types.Core.GameConfig = {
         Scenes.CraftingMenu,
         Scenes.MinerPlacement,
         Scenes.Miner,
+        Scenes.CrafterPlacement,
+        Scenes.Crafter,
     ],
 }
 

@@ -1,4 +1,4 @@
-import { ResourceBase, UserMiner } from "../../client";
+import { ResourceBase, UserMiner, UserAssembler } from "../../client";
 import { ResourcesService, FacilitiesService } from "../../client";
 
 export const GameData = {
@@ -9,7 +9,7 @@ export const GameData = {
         GameData.resources = await ResourcesService.readResources();
     },
 
-    addResource(key: number, amount: number): void {
+    addResource(key: number, amount: number) {
         let resource = GameData.resources.find(res => res.resource_type_id === key);
 
         if (resource) {
@@ -22,7 +22,7 @@ export const GameData = {
         GameData.saveInventory();
     },
 
-    removeResource(key: number, amount: number): void {
+    removeResource(key: number, amount: number) {
         const resource = GameData.resources.find(res => res.resource_type_id === key);
     
         if (resource) {
@@ -62,4 +62,24 @@ export const GameData = {
         };
         FacilitiesService.setMiners(data);
     },
+
+    crafters : [] as UserAssembler[],
+    nextCrafterId: 1,
+
+    async populateCrafters() {
+        GameData.crafters = await FacilitiesService.readAssemblers();
+
+        // Find the next available crafter ID
+        const maxId = GameData.crafters.reduce((max, crafter) => {
+            return crafter.id ? Math.max(max, parseInt(crafter.id, 10)) : max;
+        }, 0);
+        GameData.nextCrafterId = maxId + 1;
+    },
+
+    saveCrafters() {
+        const data = {
+            requestBody: GameData.crafters,
+        };
+        FacilitiesService.setAssemblers(data);
+    }
 };

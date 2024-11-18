@@ -5,15 +5,15 @@ import { GameData } from "../../stores/gameData";
 
 export default class CraftingMenu extends Phaser.Scene {
 
-    private recipeIndex = 0;
+    private recipeIndex = 1;
     private recipeContainer: Phaser.GameObjects.Container;
 
     private CRAFTING_WIDTH = GAME_WIDTH / 2.8;
     private CRAFTING_HEIGHT = GAME_HEIGHT / 1.5;
     private SLOT_SIZE = 120;
 
-    private leftArrow!: Phaser.GameObjects.Image;
-    private rightArrow!: Phaser.GameObjects.Image;
+    private leftArrow: Phaser.GameObjects.Image;
+    private rightArrow: Phaser.GameObjects.Image;
 
     constructor() {
         super({
@@ -36,9 +36,6 @@ export default class CraftingMenu extends Phaser.Scene {
 
         craftingContainer.add(this.add.nineslice(this.CRAFTING_WIDTH / 12, this.CRAFTING_HEIGHT / 5, 'recipe_panel',
             0, this.CRAFTING_WIDTH - this.CRAFTING_WIDTH / 6, this.CRAFTING_HEIGHT / 2.3, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x505050));
-
-        this.recipeContainer = this.add.container(this.CRAFTING_WIDTH / 5 - 60, this.CRAFTING_HEIGHT / 3);
-        craftingContainer.add(this.recipeContainer);
 
         // Crafting text
         craftingContainer.add(
@@ -159,12 +156,15 @@ export default class CraftingMenu extends Phaser.Scene {
             }
         });
 
+        this.recipeContainer = this.add.container(this.CRAFTING_WIDTH / 5 - 60, this.CRAFTING_HEIGHT / 3);
+        craftingContainer.add(this.recipeContainer);
+
         this.updateArrows();
         this.updateRecipeDisplay();
     }
 
     private updateArrows() {
-        this.leftArrow.setVisible(this.recipeIndex > 0);
+        this.leftArrow.setVisible(this.recipeIndex > 1);
         this.rightArrow.setVisible(this.recipeIndex < recipes.length - 1);
     }
 
@@ -212,7 +212,7 @@ export default class CraftingMenu extends Phaser.Scene {
         });
     }
 
-    private craftItem(recipe: { outputItem: string; outputAmount: number; ingredients: { item: string; amount: number }[] }) {
+    public craftItem(recipe: { outputItem: string; outputAmount: number; ingredients: { item: string; amount: number }[] }) {
         for (let i = 0; i < recipe.ingredients.length; i++) {
             const ingredient = recipe.ingredients[i];
             const resourceKey = parseInt(ingredient.item, 10);
