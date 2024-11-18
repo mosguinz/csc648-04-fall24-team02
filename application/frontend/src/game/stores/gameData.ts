@@ -23,9 +23,10 @@ export const GameData = {
     },
 
     removeResource(key: number, amount: number): void {
-        if (GameData.resources[key]) {
-            GameData.resources[key].quantity = Math.max(0, GameData.resources[key].quantity - amount);
-            GameData.eventEmitter.emit('inventory-changed');
+        const resource = GameData.resources.find(res => res.resource_type_id === key);
+    
+        if (resource) {
+            resource.quantity = Math.max(0, resource.quantity - amount);
             GameData.eventEmitter.emit('update-inventory');
             GameData.saveInventory();
         }

@@ -96,8 +96,7 @@ export default class InventoryMenu extends Phaser.Scene {
 
     }
 
-    public updateInventory(
-    ): void {
+    public updateInventory(){
 
         this.itemContainer.removeAll(true);
 
