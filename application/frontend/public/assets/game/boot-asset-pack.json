@@ -105,6 +105,16 @@
         "url": "assets/game/ui/crafter_icon.png",
         "type": "image",
         "key": "crafter_icon"
+      },
+      {
+        "url": "assets/game/ui/left_arrow.png",
+        "type": "image",
+        "key": "left_arrow"
+      },
+      {
+        "url": "assets/game/ui/right_arrow.png",
+        "type": "image",
+        "key": "right_arrow"
       }
 
     ]
