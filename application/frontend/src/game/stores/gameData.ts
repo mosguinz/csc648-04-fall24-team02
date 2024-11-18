@@ -9,7 +9,7 @@ export const GameData = {
         GameData.resources = await ResourcesService.readResources();
     },
 
-    addResource(key: number, amount: number): void {
+    addResource(key: number, amount: number) {
         let resource = GameData.resources.find(res => res.resource_type_id === key);
 
         if (resource) {
@@ -22,7 +22,7 @@ export const GameData = {
         GameData.saveInventory();
     },
 
-    removeResource(key: number, amount: number): void {
+    removeResource(key: number, amount: number) {
         const resource = GameData.resources.find(res => res.resource_type_id === key);
     
         if (resource) {

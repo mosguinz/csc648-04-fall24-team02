@@ -10,5 +10,6 @@ export default class MainGameScene extends Phaser.Scene {
     create() {
         this.scene.start('GameMenu');
         this.scene.start('Miner');
+        this.scene.start('Crafter');
     }
 }

@@ -21,13 +21,13 @@ export default class Miner extends Phaser.Scene {
         });
     }
 
-    private startMining(): void {
+    private startMining() {
         for (const miner of GameData.miners) {
             this.startMinerTimer(miner);
         }
     }
 
-    private addMiner(miner: UserMiner): void {
+    private addMiner(miner: UserMiner) {
         console.log(`Adding miner ${miner.id}`);
         if (GameData.miners.find((m) => m.id === miner.id)) {
             console.warn(`Miner already exists.`);
@@ -42,7 +42,7 @@ export default class Miner extends Phaser.Scene {
 
     }
 
-    private startMinerTimer(miner: UserMiner): void {
+    private startMinerTimer(miner: UserMiner) {
         if (this.minerTimers[miner.id || ""]) {
             return;
         }

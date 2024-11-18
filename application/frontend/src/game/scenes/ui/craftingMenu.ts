@@ -5,7 +5,7 @@ import { GameData } from "../../stores/gameData";
 
 export default class CraftingMenu extends Phaser.Scene {
 
-    private recipeIndex = 0;
+    private recipeIndex = 1;
     private recipeContainer: Phaser.GameObjects.Container;
 
     private CRAFTING_WIDTH = GAME_WIDTH / 2.8;
@@ -164,7 +164,7 @@ export default class CraftingMenu extends Phaser.Scene {
     }
 
     private updateArrows() {
-        this.leftArrow.setVisible(this.recipeIndex > 0);
+        this.leftArrow.setVisible(this.recipeIndex > 1);
         this.rightArrow.setVisible(this.recipeIndex < recipes.length - 1);
     }
 
@@ -212,7 +212,7 @@ export default class CraftingMenu extends Phaser.Scene {
         });
     }
 
-    private craftItem(recipe: { outputItem: string; outputAmount: number; ingredients: { item: string; amount: number }[] }) {
+    public craftItem(recipe: { outputItem: string; outputAmount: number; ingredients: { item: string; amount: number }[] }) {
         for (let i = 0; i < recipe.ingredients.length; i++) {
             const ingredient = recipe.ingredients[i];
             const resourceKey = parseInt(ingredient.item, 10);

@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { GameData } from "../stores/gameData";
 import { UserAssembler } from "../../client";
+import { recipes } from "../stores/constants";
 
 export default class Crafter extends Phaser.Scene {
     private crafterTimers: { [key: string]: Phaser.Time.TimerEvent } = {};
@@ -21,38 +22,50 @@ export default class Crafter extends Phaser.Scene {
         });
     }
 
-    private startCrafting(): void {
-        for (const assembler of GameData.miners) {
+    private startCrafting() {
+        for (const assembler of GameData.crafters) {
             this.startCrafterTimer(assembler);
         }
     }
 
-    private addCrafter(crafter: UserAssembler): void {
+    private addCrafter(crafter: UserAssembler) {
         if (GameData.crafters.find((m) => m.id === crafter.id)) {
             return;
         }
 
-        GameData.miners.push(crafter);
-        GameData.nextMinerId++;
-        GameData.saveMiners();
+        GameData.crafters.push(crafter);
+        GameData.nextCrafterId++;
+        GameData.saveCrafters();
 
         this.startCrafterTimer(crafter);
 
     }
 
-    private startCrafterTimer(miner: UserAssembler): void {
-        if (this.crafterTimers[miner.id || ""]) {
+    private startCrafterTimer(crafter: UserAssembler) {
+        if (this.crafterTimers[crafter.id || ""]) {
             return;
         }
 
-        this.crafterTimers[miner.id || ""] = this.time.addEvent({
+        this.crafterTimers[crafter.id || ""] = this.time.addEvent({
             delay: 5000,
             loop: true,
             callback: () => {
-                if (miner.recipe_id) {
-                    console.log(`CRAFT!`);
+                if (crafter.recipe_id) {
+                    this.craftItem(recipes[crafter.recipe_id]);
+                    console.log(`Crafting recipe`, recipes[crafter.recipe_id]);
                 }
             },
         });
+    }
+
+    public craftItem(recipe: { outputItem: string; outputAmount: number; ingredients: { item: string; amount: number }[] }) {
+        for (let i = 0; i < recipe.ingredients.length; i++) {
+            const ingredient = recipe.ingredients[i];
+            const resourceKey = parseInt(ingredient.item, 10);
+
+            GameData.removeResource(resourceKey, ingredient.amount);
+        }
+
+        GameData.addResource(parseInt(recipe.outputItem, 10), recipe.outputAmount);
     }
 }

@@ -10,7 +10,7 @@ export default class CrafterPlacementMenu extends Phaser.Scene {
     private CRAFTER_PLACEMENT_HEIGHT = GAME_HEIGHT / 5;
     private SLOT_SIZE = 100;
 
-    private recipeIndex = 0;
+    private recipeIndex = 1;
     private recipeContainer: Phaser.GameObjects.Container;
 
     private leftArrow: Phaser.GameObjects.Image;
@@ -167,7 +167,7 @@ export default class CrafterPlacementMenu extends Phaser.Scene {
     }
 
     private updateArrows() {
-        this.leftArrow.setVisible(this.recipeIndex > 0);
+        this.leftArrow.setVisible(this.recipeIndex > 1);
         this.rightArrow.setVisible(this.recipeIndex < recipes.length - 1);
     }
 
