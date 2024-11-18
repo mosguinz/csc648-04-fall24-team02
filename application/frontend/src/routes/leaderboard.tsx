@@ -14,6 +14,8 @@ function LeaderBoardPage(): JSX.Element {
     "checkout the leaderboard!"
   );
   // Mock leaderboard data
+  // will need to come up with template to pull infor from backend and update based on who
+  // holds the most resources currently as a place holder before we come up with a point system
   const leaderboardData = [
     { rank: 1, name: 'Player1', score: 1500 },
     { rank: 2, name: 'Player2', score: 1200 },

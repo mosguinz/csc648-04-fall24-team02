@@ -1,5 +1,4 @@
-// useTeamAccordion.ts
-import { useMemo } from 'react';
+import { useMemo } from "react";
 
 export interface TeamMember {
   name: string;
@@ -62,6 +61,5 @@ const teamMembers: TeamMember[] = [
 ];
 
 export const useTeamAccordion = () => {
-  // Memoize the team members to avoid recalculating on each render
   return useMemo(() => teamMembers, []);
 };
