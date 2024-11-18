@@ -64,9 +64,16 @@ export const GameData = {
     },
 
     crafters : [] as UserAssembler[],
+    nextCrafterId: 1,
 
     async populateCrafters() {
         GameData.crafters = await FacilitiesService.readAssemblers();
+
+        // Find the next available crafter ID
+        const maxId = GameData.crafters.reduce((max, crafter) => {
+            return crafter.id ? Math.max(max, parseInt(crafter.id, 10)) : max;
+        }, 0);
+        GameData.nextCrafterId = maxId + 1;
     },
 
     saveCrafters() {

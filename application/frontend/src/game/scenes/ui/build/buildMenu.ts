@@ -71,7 +71,11 @@ export default class BuildMenu extends Phaser.Scene {
             buildCrafterIcon.clearTint();
         });
         buildCrafterIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            console.log("Build crafter");
+            this.scene.start('CrafterPlacementMenu');
+            this.scene.stop('BuildMenu');
+            this.scene.stop('InventoryMenu');
+            this.scene.stop('CraftingMenu');
+            this.scene.stop('GameMenu');
         });
         buildMenuContainer.add(buildCrafterIcon);
 

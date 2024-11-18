@@ -12,8 +12,8 @@ export default class CraftingMenu extends Phaser.Scene {
     private CRAFTING_HEIGHT = GAME_HEIGHT / 1.5;
     private SLOT_SIZE = 120;
 
-    private leftArrow!: Phaser.GameObjects.Image;
-    private rightArrow!: Phaser.GameObjects.Image;
+    private leftArrow: Phaser.GameObjects.Image;
+    private rightArrow: Phaser.GameObjects.Image;
 
     constructor() {
         super({
@@ -36,9 +36,6 @@ export default class CraftingMenu extends Phaser.Scene {
 
         craftingContainer.add(this.add.nineslice(this.CRAFTING_WIDTH / 12, this.CRAFTING_HEIGHT / 5, 'recipe_panel',
             0, this.CRAFTING_WIDTH - this.CRAFTING_WIDTH / 6, this.CRAFTING_HEIGHT / 2.3, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x505050));
-
-        this.recipeContainer = this.add.container(this.CRAFTING_WIDTH / 5 - 60, this.CRAFTING_HEIGHT / 3);
-        craftingContainer.add(this.recipeContainer);
 
         // Crafting text
         craftingContainer.add(
@@ -158,6 +155,9 @@ export default class CraftingMenu extends Phaser.Scene {
                 this.updateArrows();
             }
         });
+
+        this.recipeContainer = this.add.container(this.CRAFTING_WIDTH / 5 - 60, this.CRAFTING_HEIGHT / 3);
+        craftingContainer.add(this.recipeContainer);
 
         this.updateArrows();
         this.updateRecipeDisplay();
