@@ -97,7 +97,6 @@ export default class CraftingMenu extends Phaser.Scene {
             if (this.canCraft(recipes[this.recipeIndex])) {
                 this.craftItem(recipes[this.recipeIndex]);
                 this.updateRecipeDisplay();
-                this.updateButtonState(craftingButton, recipes[this.recipeIndex]);
             }
         });
 
