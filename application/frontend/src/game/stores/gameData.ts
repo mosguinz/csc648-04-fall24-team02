@@ -3,6 +3,8 @@ import { ResourcesService, FacilitiesService } from "../../client";
 
 export const GameData = {
     resources: [] as ResourceBase[],
+    eventEmitter: new Phaser.Events.EventEmitter(), // Event emitter to notify updates for inventory and miners
+
     async populateInventory() {
         GameData.resources = await ResourcesService.readResources();
     },
@@ -16,12 +18,15 @@ export const GameData = {
             resource = { resource_type_id: key, quantity: amount };
             GameData.resources.push(resource);
         }
+        GameData.eventEmitter.emit('update-inventory');
         GameData.saveInventory();
     },
 
     removeResource(key: number, amount: number): void {
         if (GameData.resources[key]) {
             GameData.resources[key].quantity = Math.max(0, GameData.resources[key].quantity - amount);
+            GameData.eventEmitter.emit('inventory-changed');
+            GameData.eventEmitter.emit('update-inventory');
             GameData.saveInventory();
         }
     },
@@ -49,20 +54,6 @@ export const GameData = {
         }, 0);
         GameData.nextMinerId = maxId + 1;
     },
-
-    addMiner(miner: UserMiner): void {
-        GameData.miners.push(miner);
-        GameData.nextMinerId++;
-        GameData.saveMiners();
-    },
-
-    // removeMiner(miner: UserMiner): void {
-    //     const index = GameData.miners.indexOf(miner);
-    //     if (index > -1) {
-    //         GameData.miners.splice(index, 1);
-    //     }
-    //     GameData.saveMiners();
-    // },
 
     saveMiners() {
         const data = {

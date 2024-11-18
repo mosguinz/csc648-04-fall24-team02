@@ -41,6 +41,9 @@ export default class MinerPlacementMenu extends Phaser.Scene {
             this.scene.stop('MinerPlacementMenu');
         });
 
+        // Getting the Miner scene
+        const MinerScene = this.scene.get('Miner');
+
         // Harvest item 1
         const harvestItem1 = this.add.image(this.MINER_PLACEMENT_WIDTH / 4, this.MINER_PLACEMENT_HEIGHT / 2, '1').setOrigin(.5, .5).setScale(4).setInteractive();
         harvestItem1.on(Phaser.Input.Events.POINTER_OVER, () => {
@@ -58,7 +61,9 @@ export default class MinerPlacementMenu extends Phaser.Scene {
                 status: "active",
             };
             console.log(newMiner);
-            GameData.addMiner(newMiner);
+            MinerScene.events.emit('add-miner', newMiner);
+            this.scene.start("GameMenu");
+            this.scene.stop('MinerPlacementMenu');
         });
         placementContainer.add(harvestItem1);
 
@@ -84,7 +89,9 @@ export default class MinerPlacementMenu extends Phaser.Scene {
                 status: "active",
             };
             console.log(newMiner);
-            GameData.addMiner(newMiner);
+            MinerScene.events.emit('add-miner', newMiner);
+            this.scene.start("GameMenu");
+            this.scene.stop('MinerPlacementMenu');
         });
         placementContainer.add(harvestItem2);
 
@@ -110,7 +117,9 @@ export default class MinerPlacementMenu extends Phaser.Scene {
                 status: "active",
             };
             console.log(newMiner);
-            GameData.addMiner(newMiner);
+            MinerScene.events.emit('add-miner', newMiner);
+            this.scene.start("GameMenu");
+            this.scene.stop('MinerPlacementMenu');
         });
         placementContainer.add(harvestItem3);
 

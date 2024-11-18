@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { GameData } from '../stores/gameData';
 
-export default class PreloadScene extends Phaser.Scene {
+export default class Preload extends Phaser.Scene {
     constructor() {
         super('PreloadScene');
     }
