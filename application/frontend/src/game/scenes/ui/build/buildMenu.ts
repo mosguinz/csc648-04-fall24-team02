@@ -1,6 +1,6 @@
 import Phaser from "phaser";
-import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
-import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../stores/constants';
+import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../../config';
+import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../../stores/constants';
 
 export default class BuildMenu extends Phaser.Scene {
 
@@ -47,7 +47,11 @@ export default class BuildMenu extends Phaser.Scene {
             buildMinerIcon.clearTint();
         });
         buildMinerIcon.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            console.log("Build miner");
+            this.scene.start('MinerPlacementMenu');
+            this.scene.stop('BuildMenu');
+            this.scene.stop('InventoryMenu');
+            this.scene.stop('CraftingMenu');
+            this.scene.stop('GameMenu');
         });
         buildMenuContainer.add(buildMinerIcon);
 

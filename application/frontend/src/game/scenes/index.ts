@@ -4,8 +4,10 @@ import PreloadScene from './preloadScene';
 import MainGameScene from './base/mainGame';
 import GameMenu from './ui/gameMenu';
 import InventoryMenu from './ui/inventoryMenu';
-import BuildMenu from './ui/buildMenu';
+import BuildMenu from './ui/build/buildMenu';
 import CraftingMenu from './ui/craftingMenu';
+import MinerPlacement from './ui/build/minerPlacement';
+import Miner from '../hooks/miner';
 
 export {
     TitleScene,
@@ -15,4 +17,6 @@ export {
     InventoryMenu,
     BuildMenu,
     CraftingMenu,
+    MinerPlacement,
+    Miner,
 };

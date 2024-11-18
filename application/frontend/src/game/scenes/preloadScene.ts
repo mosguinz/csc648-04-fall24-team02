@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { GameData } from '../stores/gameData';
 
-export default class PreloadScene extends Phaser.Scene {
+export default class Preload extends Phaser.Scene {
     constructor() {
         super('PreloadScene');
     }
@@ -32,9 +32,10 @@ export default class PreloadScene extends Phaser.Scene {
     create() {
         // this.scene.start('TitleScene');
         this.scene.start('MainGameScene');
-        this.scene.start('InventoryMenu');
-        this.scene.start('CraftingMenu');
-        this.scene.start('BuildMenu');
+        // this.scene.start('InventoryMenu');
+        // this.scene.start('CraftingMenu');
+        // this.scene.start('BuildMenu');
+        this.scene.start('MinerPlacementMenu');
         
     }
 }

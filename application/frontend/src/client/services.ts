@@ -2,7 +2,7 @@ import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
 
-import type { Body_login_login_access_token,Message,NewPassword,Token,UserPublic,UpdatePassword,UserCreate,UserRegister,UsersPublic,UserUpdate,UserUpdateMe,ItemCreate,ItemPublic,ItemsPublic,ItemUpdate,ResourceBase } from './models';
+import type { Body_login_login_access_token,Message,NewPassword,Token,UserPublic,UpdatePassword,UserCreate,UserRegister,UsersPublic,UserUpdate,UserUpdateMe,ItemCreate,ItemPublic,ItemsPublic,ItemUpdate,ResourceBase,UserAssembler,UserConstructor,UserMiner } from './models';
 
 export type LoginData = {
         LoginAccessToken: {
@@ -95,6 +95,33 @@ DeleteItem: {
 export type ResourcesData = {
         SetResources: {
                     requestBody: Array<ResourceBase>
+                    
+                };
+    }
+
+export type FacilitiesData = {
+        SetMiners: {
+                    requestBody: Array<UserMiner>
+                    
+                };
+UpdateMiners: {
+                    requestBody: Array<UserMiner>
+                    
+                };
+SetAssemblers: {
+                    requestBody: Array<UserAssembler>
+                    
+                };
+UpdateAssemblers: {
+                    requestBody: Array<UserAssembler>
+                    
+                };
+SetConstructors: {
+                    requestBody: Array<UserConstructor>
+                    
+                };
+UpdateConstructors: {
+                    requestBody: Array<UserConstructor>
                     
                 };
     }
@@ -591,6 +618,175 @@ requestBody,
 		return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/resources/',
+			body: requestBody,
+			mediaType: 'application/json',
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+}
+
+export class FacilitiesService {
+
+	/**
+	 * Read Miners
+	 * Get miners for the selected user
+	 * @returns UserMiner Successful Response
+	 * @throws ApiError
+	 */
+	public static readMiners(): CancelablePromise<Array<UserMiner>> {
+				return __request(OpenAPI, {
+			method: 'GET',
+			url: '/api/v1/facilities/miner',
+		});
+	}
+
+	/**
+	 * Set Miners
+	 * Set miners for the selected user
+	 * @returns UserMiner Successful Response
+	 * @throws ApiError
+	 */
+	public static setMiners(data: FacilitiesData['SetMiners']): CancelablePromise<Array<UserMiner>> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'POST',
+			url: '/api/v1/facilities/miner',
+			body: requestBody,
+			mediaType: 'application/json',
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+	/**
+	 * Update Miners
+	 * Set miners for the selected user
+	 * @returns UserMiner Successful Response
+	 * @throws ApiError
+	 */
+	public static updateMiners(data: FacilitiesData['UpdateMiners']): CancelablePromise<Array<UserMiner>> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'PATCH',
+			url: '/api/v1/facilities/miner',
+			body: requestBody,
+			mediaType: 'application/json',
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+	/**
+	 * Read Assemblers
+	 * Get assemblers for the selected user
+	 * @returns UserAssembler Successful Response
+	 * @throws ApiError
+	 */
+	public static readAssemblers(): CancelablePromise<Array<UserAssembler>> {
+				return __request(OpenAPI, {
+			method: 'GET',
+			url: '/api/v1/facilities/assembler',
+		});
+	}
+
+	/**
+	 * Set Assemblers
+	 * Set assemblers for the selected user
+	 * @returns UserAssembler Successful Response
+	 * @throws ApiError
+	 */
+	public static setAssemblers(data: FacilitiesData['SetAssemblers']): CancelablePromise<Array<UserAssembler>> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'POST',
+			url: '/api/v1/facilities/assembler',
+			body: requestBody,
+			mediaType: 'application/json',
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+	/**
+	 * Update Assemblers
+	 * Set assemblers for the selected user
+	 * @returns UserAssembler Successful Response
+	 * @throws ApiError
+	 */
+	public static updateAssemblers(data: FacilitiesData['UpdateAssemblers']): CancelablePromise<Array<UserAssembler>> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'PATCH',
+			url: '/api/v1/facilities/assembler',
+			body: requestBody,
+			mediaType: 'application/json',
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+	/**
+	 * Read Constructors
+	 * Get constructors for the selected user
+	 * @returns UserConstructor Successful Response
+	 * @throws ApiError
+	 */
+	public static readConstructors(): CancelablePromise<Array<UserConstructor>> {
+				return __request(OpenAPI, {
+			method: 'GET',
+			url: '/api/v1/facilities/constructor',
+		});
+	}
+
+	/**
+	 * Set Constructors
+	 * Set constructors for the selected user
+	 * @returns UserConstructor Successful Response
+	 * @throws ApiError
+	 */
+	public static setConstructors(data: FacilitiesData['SetConstructors']): CancelablePromise<Array<UserConstructor>> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'POST',
+			url: '/api/v1/facilities/constructor',
+			body: requestBody,
+			mediaType: 'application/json',
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+	/**
+	 * Update Constructors
+	 * Set constructors for the selected user
+	 * @returns UserConstructor Successful Response
+	 * @throws ApiError
+	 */
+	public static updateConstructors(data: FacilitiesData['UpdateConstructors']): CancelablePromise<Array<UserConstructor>> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'PATCH',
+			url: '/api/v1/facilities/constructor',
 			body: requestBody,
 			mediaType: 'application/json',
 			errors: {

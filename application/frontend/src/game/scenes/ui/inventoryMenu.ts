@@ -88,8 +88,11 @@ export default class InventoryMenu extends Phaser.Scene {
             }
         }
 
-        // Inventory items container
+        // Update inventory initially
         this.updateInventory();
+
+        // Listen for inventory updates
+        GameData.eventEmitter.on('update-inventory', this.updateInventory, this);
 
     }
 
