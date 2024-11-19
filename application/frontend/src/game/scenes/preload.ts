@@ -8,24 +8,19 @@ export default class Preload extends Phaser.Scene {
 
 
     init() {
-
-        // Loading bar for preloading assets
-        this.add.rectangle(512, 384, 468, 32).setStrokeStyle(1, 0xffffff);
-
-        const bar = this.add.rectangle(512 - 230, 384, 4, 28, 0xffffff);
-
-        this.load.on('progress', (progress: number) => {
-
-            bar.width = 4 + (460 * progress);
-
-        });
+        const image = new Image();
+        image.src = 'assets/game/ui/preload.jpg';
+        image.onload = () => {
+            this.textures.addImage('preload', image);
+            this.add.image(1024, 576, 'preload').setScale(1.9, 1.2).setOrigin(0.5, 0.5);
+        };
     }
     preload() {
         this.load.font("text_font", "assets/game/fonts/Kenney-Pixel.ttf", "truetype");
         this.load.font("text_font_square", "assets/game/fonts/Kenney-Pixel-Square.ttf", "truetype");
         this.load.font("title_font", "assets/game/fonts/Kenney-Blocks.ttf", "truetype");
         this.load.font("text_font_small", "assets/game/fonts/Kenney-Mini.ttf", "truetype");
-        
+
         // TODO: Put this in boot-asset-pack.json
         this.load.spritesheet('human1', 'assets/game/tilesets/sprite_sheets/human1.png', {
             frameWidth: 16,
@@ -44,6 +39,6 @@ export default class Preload extends Phaser.Scene {
         // this.scene.start('BuildMenu');
         // this.scene.start('MinerPlacementMenu');
         // this.scene.start('CrafterPlacementMenu');
-        
+
     }
 }

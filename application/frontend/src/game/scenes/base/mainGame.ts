@@ -265,7 +265,7 @@ export default class MainGameScene extends Phaser.Scene {
                         x: screenWidth,
                         duration: 50000,
                         repeat: -1,
-                        delay: randomDelay * 1500,
+                        delay: i * 1000 + randomDelay * 1500,
                     });
                 } else {
                     // Move to the left
@@ -275,7 +275,7 @@ export default class MainGameScene extends Phaser.Scene {
                         x: 0,
                         duration: 50000,
                         repeat: -1,
-                        delay:randomDelay * 1500,
+                        delay: i * 1000 + randomDelay * 1500,
                     });
                 }
 
