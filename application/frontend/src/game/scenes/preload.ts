@@ -25,6 +25,13 @@ export default class Preload extends Phaser.Scene {
         this.load.font("text_font_square", "assets/game/fonts/Kenney-Pixel-Square.ttf", "truetype");
         this.load.font("title_font", "assets/game/fonts/Kenney-Blocks.ttf", "truetype");
         this.load.font("text_font_small", "assets/game/fonts/Kenney-Mini.ttf", "truetype");
+        
+        // TODO: Put this in boot-asset-pack.json
+        this.load.spritesheet('human1', 'assets/game/tilesets/sprite_sheets/human1.png', {
+            frameWidth: 16,
+            frameHeight: 16
+        });
+
         this.load.pack("pack", "assets/game/boot-asset-pack.json");
         GameData.populateInventory();
     }

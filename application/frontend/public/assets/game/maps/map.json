@@ -77,6 +77,7 @@
             464, 469, 463, 469, 462, 469, 462, 36, 37, 38, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 36, 37, 37, 38, 464, 469, 464, 469, 469, 469, 464, 36, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 38, 462, 469, 469, 469, 462, 469, 462, 36, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37],
          "height":72,
          "id":1,
+         "locked":true,
          "name":"Tile Layer 1",
          "opacity":1,
          "type":"tilelayer",
@@ -160,6 +161,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":72,
          "id":3,
+         "locked":true,
          "name":"Tile Layer 2",
          "opacity":1,
          "type":"tilelayer",
@@ -243,6 +245,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":72,
          "id":7,
+         "locked":true,
          "name":"Tile Layer 4",
          "opacity":1,
          "type":"tilelayer",
@@ -326,6 +329,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":72,
          "id":6,
+         "locked":true,
          "name":"Tile Layer 3",
          "opacity":1,
          "type":"tilelayer",
@@ -409,6 +413,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 239, 61, 239, 61, 239, 61, 239, 61, 239, 61, 0, 61, 110, 110, 28, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":72,
          "id":8,
+         "locked":true,
          "name":"Tile Layer 5",
          "opacity":1,
          "type":"tilelayer",
@@ -492,6 +497,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 192, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 206, 210, 208, 208, 212, 206, 0, 0, 0, 55, 56, 56, 56, 56, 57, 0, 0, 0, 55, 56, 56, 56, 56, 57, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":72,
          "id":9,
+         "locked":true,
          "name":"Tile Layer 6",
          "opacity":1,
          "type":"tilelayer",
@@ -575,6 +581,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 99, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 280, 0, 307, 0, 0, 0, 56, 0, 0, 0, 0, 0, 0, 0, 56, 0, 0, 0, 307, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":72,
          "id":10,
+         "locked":true,
          "name":"Tile Layer 7",
          "opacity":1,
          "type":"tilelayer",
@@ -658,6 +665,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 101, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 104, 99, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":72,
          "id":11,
+         "locked":true,
          "name":"Tile Layer 8",
          "opacity":1,
          "type":"tilelayer",
@@ -741,6 +749,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":72,
          "id":12,
+         "locked":true,
          "name":"Tile Layer 9",
          "opacity":1,
          "type":"tilelayer",
@@ -748,9 +757,280 @@
          "width":128,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":16,
+         "name":"cars_x",
+         "objects":[
+                {
+                 "gid":2147484138,
+                 "height":32,
+                 "id":31,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":192,
+                 "y":240
+                }, 
+                {
+                 "gid":489,
+                 "height":32,
+                 "id":34,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":400,
+                 "y":272
+                }, 
+                {
+                 "gid":487,
+                 "height":32,
+                 "id":35,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":160,
+                 "y":832
+                }, 
+                {
+                 "gid":495,
+                 "height":32,
+                 "id":36,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":272,
+                 "y":272
+                }, 
+                {
+                 "gid":493,
+                 "height":32,
+                 "id":37,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":336,
+                 "y":272
+                }, 
+                {
+                 "gid":487,
+                 "height":32,
+                 "id":38,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":32,
+                 "x":320,
+                 "y":240
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":20,
+         "name":"cars_y",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":17,
+         "name":"trees",
+         "objects":[
+                {
+                 "gid":488,
+                 "height":32,
+                 "id":47,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":160,
+                 "y":539
+                }, 
+                {
+                 "gid":488,
+                 "height":32,
+                 "id":48,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":160,
+                 "y":571
+                }, 
+                {
+                 "gid":488,
+                 "height":32,
+                 "id":49,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":272,
+                 "y":554
+                }, 
+                {
+                 "gid":488,
+                 "height":32,
+                 "id":50,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":304,
+                 "y":555
+                }, 
+                {
+                 "gid":488,
+                 "height":32,
+                 "id":51,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":416,
+                 "y":571
+                }, 
+                {
+                 "gid":488,
+                 "height":32,
+                 "id":52,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":416,
+                 "y":539
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":18,
+         "name":"human_x",
+         "objects":[
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":58,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":176,
+                 "y":192
+                }, 
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":59,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":256,
+                 "y":352
+                }, 
+                {
+                 "gid":27,
+                 "height":16,
+                 "id":60,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":192,
+                 "y":368
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":19,
+         "name":"human_y",
+         "objects":[
+                {
+                 "gid":25,
+                 "height":16,
+                 "id":63,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":448,
+                 "y":96
+                }, 
+                {
+                 "gid":25,
+                 "height":16,
+                 "id":64,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":112,
+                 "y":112
+                }, 
+                {
+                 "gid":25,
+                 "height":16,
+                 "id":65,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":448,
+                 "y":416
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":13,
- "nextobjectid":1,
+ "nextlayerid":21,
+ "nextobjectid":66,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.0",
@@ -759,7 +1039,7 @@
         {
          "columns":27,
          "firstgid":1,
-         "image":"..\/Downloads\/kenney_rpg-urban-pack\/Tilemap\/tileset1.png",
+         "image":"..\/..\/..\/..\/..\/..\/..\/..\/Downloads\/kenney_rpg-urban-pack\/Tilemap\/tileset1.png",
          "imageheight":288,
          "imagewidth":432,
          "margin":0,
@@ -770,17 +1050,81 @@
          "tilewidth":16
         }, 
         {
-         "columns":27,
+         "columns":0,
          "firstgid":487,
-         "image":"..\/Downloads\/kenney_rpg-urban-pack\/Tilemap\/tileset1.png",
-         "imageheight":288,
-         "imagewidth":432,
+         "grid":
+            {
+             "height":1,
+             "orientation":"orthogonal",
+             "width":1
+            },
          "margin":0,
-         "name":"RPG Urban Pack",
+         "name":"objects",
          "spacing":0,
-         "tilecount":486,
-         "tileheight":16,
-         "tilewidth":16
+         "tilecount":10,
+         "tileheight":32,
+         "tiles":[
+                {
+                 "id":0,
+                 "image":"..\/..\/..\/..\/..\/..\/..\/objects\/blue_car.png",
+                 "imageheight":32,
+                 "imagewidth":32
+                }, 
+                {
+                 "id":1,
+                 "image":"..\/..\/..\/..\/..\/..\/..\/objects\/blue_tree.png",
+                 "imageheight":32,
+                 "imagewidth":16
+                }, 
+                {
+                 "id":2,
+                 "image":"..\/..\/..\/..\/..\/..\/..\/objects\/green_car.png",
+                 "imageheight":32,
+                 "imagewidth":32
+                }, 
+                {
+                 "id":3,
+                 "image":"..\/..\/..\/..\/..\/..\/..\/objects\/pink_car.png.png",
+                 "imageheight":32,
+                 "imagewidth":32
+                }, 
+                {
+                 "id":4,
+                 "image":"..\/..\/..\/..\/..\/..\/..\/objects\/pink_tree.png",
+                 "imageheight":32,
+                 "imagewidth":16
+                }, 
+                {
+                 "id":5,
+                 "image":"..\/..\/..\/..\/..\/..\/..\/objects\/purple_tree.png",
+                 "imageheight":32,
+                 "imagewidth":16
+                }, 
+                {
+                 "id":6,
+                 "image":"..\/..\/..\/..\/..\/..\/..\/objects\/red_car.png.png",
+                 "imageheight":32,
+                 "imagewidth":32
+                }, 
+                {
+                 "id":7,
+                 "image":"..\/..\/..\/..\/..\/..\/..\/objects\/red_tree.png.png",
+                 "imageheight":32,
+                 "imagewidth":16
+                }, 
+                {
+                 "id":8,
+                 "image":"..\/..\/..\/..\/..\/..\/..\/objects\/yellow_car.png.png",
+                 "imageheight":32,
+                 "imagewidth":32
+                }, 
+                {
+                 "id":9,
+                 "image":"..\/..\/..\/..\/..\/..\/..\/objects\/yellow_tree.png",
+                 "imageheight":32,
+                 "imagewidth":16
+                }],
+         "tilewidth":32
         }],
  "tilewidth":16,
  "type":"map",

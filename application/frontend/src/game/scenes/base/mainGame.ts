@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { defineAnimations } from "../../utils/animations";
 
 export default class MainGameScene extends Phaser.Scene {
 
@@ -15,7 +16,7 @@ export default class MainGameScene extends Phaser.Scene {
         this.scene.launch('Miner');
         this.scene.launch('Crafter');
         console.log('main game running');
-        
+
         const map = this.make.tilemap({ key: 'map' });
         const tileset = map.addTilesetImage('RPG Urban Pack', 'tileset')!; // ! is used to tell TypeScript that the value will not be null
         map.createLayer('Tile Layer 1', tileset, 0, 0);
@@ -27,19 +28,104 @@ export default class MainGameScene extends Phaser.Scene {
         map.createLayer('Tile Layer 7', tileset, 0, 0);
         map.createLayer('Tile Layer 8', tileset, 0, 0);
         map.createLayer('Tile Layer 9', tileset, 0, 0);
+        map.createLayer('cars_X', tileset, 0, 0);
+        map.createLayer('trees', tileset, 0, 0);
+
+        const humanLayer = map.getObjectLayer('human_x');
+
+        defineAnimations(this, 'human1');
+
+        if (humanLayer && humanLayer.objects) {
+            humanLayer.objects.forEach((humanObj) => {
+                const { x = 0, y = 0 } = humanObj;
+
+                // Create human sprite
+                const humanSprite = this.add.sprite(x, y, 'human1');
+
+                // Align to bottom-center
+                humanSprite.setOrigin(0.5, 1);
+
+                humanSprite.setInteractive();
+
+                // Add an onClick event listener
+                humanSprite.on('pointerdown', () => {
+                    // Tween to fly up
+                    this.tweens.add({
+                        targets: humanSprite,
+                        y: y - 500,
+                        duration: 100,
+                        onComplete: () => {
+                            // Make the sprite invisible after flying up
+                            humanSprite.setVisible(false);
+
+                            // Delay for reappearing
+                            this.time.delayedCall(2000, () => {
+                                // Reset position
+                                humanSprite.setPosition(x, y);
+
+                                // Make the sprite visible again
+                                humanSprite.setVisible(true);
+                            });
+                        },
+                    });
+                });
+
+                // Move back and forth with animation
+                const randomDelay = Phaser.Math.Between(0, 2000);
+                const tween = this.tweens.add({
+                    targets: humanSprite,
+                    x: x + 100,
+                    duration: 3000,
+                    repeat: -1,
+                    yoyo: true,
+                    delay: randomDelay,
+                    onStart: () => humanSprite.play('walk-right'),
+                    onYoyo: () => {
+                        // Pause for a random time
+                        const randomPause = Phaser.Math.Between(500, 1500); // Pause between 0.5 and 1.5 seconds
+                        tween.pause();
+                        humanSprite.anims.pause();
+                        // TODO: DONT HARDCODE FRAME
+                        humanSprite.setFrame(12);
+                        this.time.delayedCall(randomPause, () => {
+                            humanSprite.play('walk-left'); // Play left animation after pause
+                            tween.resume();
+                        });
+                    },
+                    onRepeat: () => {
+                        // Pause for a random time
+                        const randomPause = Phaser.Math.Between(500, 1500); // Pause between 0.5 and 1.5 seconds
+                        tween.pause();
+                        humanSprite.anims.pause();
+                        // TODO: DONT HARDCODE FRAME
+                        humanSprite.setFrame(0);
+                        this.time.delayedCall(randomPause, () => {
+                            humanSprite.play('walk-right'); // Play right animation after pause
+                            tween.resume();
+                        });
+                    },
+                });
+            });
+        }
+
 
         // Set camera bounds and zoom
         this.camera = this.cameras.main;
         this.camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.camera.setZoom(2.5);
+        this.camera.centerOn(0, 0);
 
-        // Edge size in pixels where the camera starts moving
+        this.#cursorCheck();
+
+    }
+
+    #cursorCheck() {
         const edgeThreshold = 50;
         const panSpeed = 3;
 
         // Checks cursor position
         this.time.addEvent({
-            delay: 16, // Roughly 60 FPS
+            delay: 16,
             loop: true,
             callback: () => {
 
