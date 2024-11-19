@@ -48,6 +48,14 @@ export default class MainGameScene extends Phaser.Scene {
 
                 humanSprite.setInteractive();
 
+                humanSprite.on('pointerover', () => {
+                    humanSprite.setTint(0x00ff00);
+                });
+
+                humanSprite.on('pointerout', () => {
+                    humanSprite.clearTint();
+                });
+
                 // Add an onClick event listener
                 humanSprite.on('pointerdown', () => {
                     GameData.addResource(1, 1);
