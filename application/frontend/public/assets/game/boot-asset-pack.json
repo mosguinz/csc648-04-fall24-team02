@@ -115,8 +115,27 @@
         "url": "assets/game/ui/right_arrow.png",
         "type": "image",
         "key": "right_arrow"
+      },
+      {
+        "url": "assets/game/maps/map.json",
+        "type": "tilemapTiledJSON",
+        "key": "map"
+      },
+      {
+        "url": "assets/game/tilesets/tileset.png",
+        "type": "image",
+        "key": "tileset"
+      },
+      {
+        "url": "assets/game/tilesets/objects/blue_tree.png",
+        "type": "image",
+        "key": "blue_tree"
+      },
+      {
+        "url": "assets/game/tilesets/objects/pink_car.png",
+        "type": "image",
+        "key": "pink_car"
       }
-
     ]
   },
   "meta": {

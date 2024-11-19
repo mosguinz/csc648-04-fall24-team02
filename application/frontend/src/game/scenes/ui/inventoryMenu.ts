@@ -124,20 +124,9 @@ export default class InventoryMenu extends Phaser.Scene {
                     }
                 ).setOrigin(1, 1).setStyle(TEXT_STYLE_SMALL);
 
-                const itemIDText = this.add.text(
-                    slot.x + slot.width/2,
-                    slot.y + slot.height - 10,
-                    `${resource.resource_type_id}`,
-                    {
-                        fontSize: '20px',
-                        color: '#000000',
-                    }
-                ).setOrigin(1, 1).setStyle(TEXT_STYLE_SMALL);
-
                 // Add image and text to the container
                 this.itemContainer.add(itemImage);
                 this.itemContainer.add(itemText);
-                this.itemContainer.add(itemIDText);
 
                 slotIndex++;
             }

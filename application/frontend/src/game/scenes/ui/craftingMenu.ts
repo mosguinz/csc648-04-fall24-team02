@@ -22,12 +22,6 @@ export default class CraftingMenu extends Phaser.Scene {
     }
 
     create() {
-        GameData.addResource(1, 10);
-        GameData.addResource(2, 10);
-        GameData.addResource(3, 10);
-        GameData.addResource(4, 10);
-        GameData.addResource(5, 10);
-        GameData.addResource(6, 10);
 
         this.add.nineslice(GAME_WIDTH / 2.3, GAME_HEIGHT / 9, 'inventory_panel', 0,
             this.CRAFTING_WIDTH, this.CRAFTING_HEIGHT / 1.4, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x707070);
@@ -184,10 +178,6 @@ export default class CraftingMenu extends Phaser.Scene {
             const ingredientCount = this.add.text(this.SLOT_SIZE / 2 + index * (this.SLOT_SIZE + 5) + 30, 30, `${ingredient.amount}`, TEXT_STYLE_SMALL)
                 .setOrigin(.5, .5).setColor("black").setFontSize(24);
             this.recipeContainer.add(ingredientCount);
-
-            const ingredientItem = this.add.text(this.SLOT_SIZE /2, 30, `${ingredient.item}`, TEXT_STYLE_SMALL)
-            .setOrigin(.5, .5).setColor("black").setFontSize(24);
-            this.recipeContainer.add(ingredientItem);
         }
 
         // Display output
@@ -199,10 +189,6 @@ export default class CraftingMenu extends Phaser.Scene {
         const outputCount = this.add.text(this.SLOT_SIZE * 4.15 + 30, 30, `${currentRecipe.outputAmount}`, TEXT_STYLE_SMALL)
             .setOrigin(.5, .5).setColor("black").setFontSize(24);
         this.recipeContainer.add(outputCount);
-
-        const outputItem = this.add.text(this.SLOT_SIZE * 4.15, 30, `${currentRecipe.outputItem}`, TEXT_STYLE_SMALL)
-            .setOrigin(.5, .5).setColor("black").setFontSize(24);
-        this.recipeContainer.add(outputItem);
     }
 
     private canCraft(recipe: { ingredients: { item: string; amount: number }[] }): boolean {

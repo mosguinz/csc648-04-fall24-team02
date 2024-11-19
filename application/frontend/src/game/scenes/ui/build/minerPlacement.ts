@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../../config';
+import { TEXT_STYLE } from '../../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../../stores/constants';
 import { GameData } from "../../../stores/gameData";
 import { UserMiner } from "../../../../client";
@@ -67,11 +67,6 @@ export default class MinerPlacementMenu extends Phaser.Scene {
         });
         placementContainer.add(harvestItem1);
 
-        // Item 2 text
-        placementContainer.add(
-            this.add.text(this.MINER_PLACEMENT_WIDTH / 4, this.MINER_PLACEMENT_HEIGHT / 2 + 70, "1", TEXT_STYLE_SMALL)
-                .setOrigin(.5, .5).setColor("white").setFontSize(32));
-
         // Harvest item 2
         const harvestItem2 = this.add.image(this.MINER_PLACEMENT_WIDTH / 2, this.MINER_PLACEMENT_HEIGHT / 2, '2').setOrigin(.5, .5).setScale(4).setInteractive();
         harvestItem2.on(Phaser.Input.Events.POINTER_OVER, () => {
@@ -95,13 +90,8 @@ export default class MinerPlacementMenu extends Phaser.Scene {
         });
         placementContainer.add(harvestItem2);
 
-        // Item 2 text
-        placementContainer.add(
-            this.add.text(this.MINER_PLACEMENT_WIDTH / 2, this.MINER_PLACEMENT_HEIGHT / 2 + 70, "2", TEXT_STYLE_SMALL)
-                .setOrigin(.5, .5).setColor("white").setFontSize(32));
-
         // Harvest item 3
-        const harvestItem3 = this.add.image(this.MINER_PLACEMENT_WIDTH * 3/4, this.MINER_PLACEMENT_HEIGHT / 2, '2').setOrigin(.5, .5).setScale(4).setInteractive();
+        const harvestItem3 = this.add.image(this.MINER_PLACEMENT_WIDTH * 3/4, this.MINER_PLACEMENT_HEIGHT / 2, '3').setOrigin(.5, .5).setScale(4).setInteractive();
         harvestItem3.on(Phaser.Input.Events.POINTER_OVER, () => {
             harvestItem3.setTint(0xFFD602);
         });
@@ -122,11 +112,6 @@ export default class MinerPlacementMenu extends Phaser.Scene {
             this.scene.stop('MinerPlacementMenu');
         });
         placementContainer.add(harvestItem3);
-
-        // Item 2 text
-        placementContainer.add(
-            this.add.text(this.MINER_PLACEMENT_WIDTH * 3/4, this.MINER_PLACEMENT_HEIGHT / 2 + 70, "3", TEXT_STYLE_SMALL)
-                .setOrigin(.5, .5).setColor("white").setFontSize(32));
 
     }
 }
