@@ -24,7 +24,7 @@ export default class CrafterPlacementMenu extends Phaser.Scene {
 
     create() {
         this.add.nineslice(GAME_WIDTH / 2, 0, 'inventory_panel', 0,
-            this.CRAFTER_PLACEMENT_WIDTH, this.CRAFTER_PLACEMENT_HEIGHT, NSP, NSP, NSP, NSP).setOrigin(0.5, 0).setTint(0x707070);
+            this.CRAFTER_PLACEMENT_WIDTH, this.CRAFTER_PLACEMENT_HEIGHT, NSP, NSP, NSP, NSP).setOrigin(0.5, 0).setTint(0x247B7F);
 
         const placementContainer = this.add.container(GAME_WIDTH / 2 - this.CRAFTER_PLACEMENT_WIDTH / 2, 0);
 

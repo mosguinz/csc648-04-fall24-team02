@@ -6,6 +6,7 @@ interface ButtonConfig {
     key: string;
     label: string;
     scene: string;
+    icon: string;
 }
 
 export default class GameMenu extends Phaser.Scene {
@@ -32,21 +33,13 @@ export default class GameMenu extends Phaser.Scene {
             hoverOffsetY: -65,
             fontSize: 25,
             buttons: [
-                { key: 'inventory', label: 'INVENTORY', scene: 'InventoryMenu' },
-                { key: 'build', label: 'BUILD', scene: 'BuildMenu' },
-                { key: 'crafting', label: 'CRAFTING', scene: 'CraftingMenu' },
+                { key: 'inventory', label: 'INVENTORY', scene: 'InventoryMenu', icon: 'inventory_icon' },
+                { key: 'build', label: 'BUILD', scene: 'BuildMenu', icon: 'build_icon' },
+                { key: 'crafting', label: 'CRAFT', scene: 'CraftingMenu', icon: 'craft_icon' },
             ],
         };
     }
-
-    // Inventory button icon
-    // TODO: Add icon
-
-    // Build button icon
-    // TODO: Add icon
-
-    // Crafting button icon
-    // TODO: Add icon
+    
     create() {
         // Create the menu background
         this.add.nineslice(
@@ -57,7 +50,7 @@ export default class GameMenu extends Phaser.Scene {
             this.MENU_CONFIG.width,
             this.MENU_CONFIG.height,
             NSP, NSP, NSP, NSP
-        ).setOrigin(1, 1);
+        ).setOrigin(1, 1).setTint(0x247B7F);
 
         const gameMenuContainer = this.add.container(GAME_WIDTH - 10, GAME_HEIGHT - 10);
 
@@ -89,8 +82,15 @@ export default class GameMenu extends Phaser.Scene {
                 buttonConfig.label,
                 TEXT_STYLE_SMALL
             ).setOrigin(0.5).setFontSize(this.MENU_CONFIG.fontSize);
-
             gameMenuContainer.add(buttonText);
+
+            console.log(buttonConfig.icon);
+            const buttonIcon = this.add.image(
+                button.x,
+                button.y,
+                buttonConfig.icon,
+            ).setOrigin(0.5).setScale(4);
+            gameMenuContainer.add(buttonIcon);
 
             // Button interaction
             button.on(Phaser.Input.Events.POINTER_DOWN, () => {

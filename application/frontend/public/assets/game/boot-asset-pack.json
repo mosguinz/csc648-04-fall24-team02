@@ -27,6 +27,21 @@
         "key": "menu"
       },
       {
+        "url": "assets/game/ui/build_icon.png",
+        "type": "image",
+        "key": "build_icon"
+      },
+      {
+        "url": "assets/game/ui/craft_icon.png",
+        "type": "image",
+        "key": "craft_icon"
+      },
+      {
+        "url": "assets/game/ui/inventory_icon.png",
+        "type": "image",
+        "key": "inventory_icon"
+      },
+      {
         "url": "assets/game/ui/button_hover.png",
         "type": "image",
         "key": "button_hover"

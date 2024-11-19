@@ -24,7 +24,7 @@ export default class CraftingMenu extends Phaser.Scene {
     create() {
 
         this.add.nineslice(GAME_WIDTH / 2.3, GAME_HEIGHT / 9, 'inventory_panel', 0,
-            this.CRAFTING_WIDTH, this.CRAFTING_HEIGHT / 1.4, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x707070);
+            this.CRAFTING_WIDTH, this.CRAFTING_HEIGHT / 1.4, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x247B7F);
 
         const craftingContainer = this.add.container(GAME_WIDTH / 2.3, GAME_HEIGHT / 9);
 
@@ -33,7 +33,7 @@ export default class CraftingMenu extends Phaser.Scene {
 
         // Crafting text
         craftingContainer.add(
-            this.add.text(this.CRAFTING_WIDTH / 2, this.CRAFTING_HEIGHT / 15, "MORTAR", TEXT_STYLE)
+            this.add.text(this.CRAFTING_WIDTH / 2, this.CRAFTING_HEIGHT / 15, "CRAFT", TEXT_STYLE)
                 .setOrigin(.5, .5).setColor("black").setFontSize(64)
         );
 

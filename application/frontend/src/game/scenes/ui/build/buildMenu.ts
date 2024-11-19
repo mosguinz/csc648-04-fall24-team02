@@ -15,7 +15,7 @@ export default class BuildMenu extends Phaser.Scene {
 
     create() {
         this.add.nineslice(GAME_WIDTH / 1.24, GAME_HEIGHT / 9, 'inventory_panel', 0,
-            this.BUILD_MENU_WIDTH, this.BUILD_MENU_HEIGHT, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x707070);
+            this.BUILD_MENU_WIDTH, this.BUILD_MENU_HEIGHT, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x247B7F);
 
         const buildMenuContainer = this.add.container(GAME_WIDTH / 1.24, GAME_HEIGHT / 9);
 

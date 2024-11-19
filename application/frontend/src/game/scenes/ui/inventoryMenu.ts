@@ -32,7 +32,7 @@ export default class InventoryMenu extends Phaser.Scene {
 
         // Inventory background + container
         this.add.nineslice(GAME_WIDTH / 16, GAME_HEIGHT / 9, 'inventory_panel', 0,
-            this.INVENTORY_WIDTH, this.INVENTORY_HEIGHT, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x707070);
+            this.INVENTORY_WIDTH, this.INVENTORY_HEIGHT, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x247B7F);
 
         const inventoryContainer = this.add.container(GAME_WIDTH / 16, GAME_HEIGHT / 9);
 
