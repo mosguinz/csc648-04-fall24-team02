@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { defineAnimations } from "../../utils/animations";
+import { GameData } from "../../stores/gameData";
 
 export default class MainGameScene extends Phaser.Scene {
 
@@ -49,6 +50,7 @@ export default class MainGameScene extends Phaser.Scene {
 
                 // Add an onClick event listener
                 humanSprite.on('pointerdown', () => {
+                    GameData.addResource(1, 1);
                     this.tweens.add({
                         targets: humanSprite,
                         y: y - 500,
@@ -64,6 +66,7 @@ export default class MainGameScene extends Phaser.Scene {
                             });
                         },
                     });
+
                 });
 
                 // Move back and forth with animation

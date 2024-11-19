@@ -187,10 +187,6 @@ export default class CrafterPlacementMenu extends Phaser.Scene {
             const ingredientCount = this.add.text(this.SLOT_SIZE / 2 + index * (this.SLOT_SIZE) + 20, 27, `${ingredient.amount}`, TEXT_STYLE_SMALL)
                 .setOrigin(.5, .5).setColor("black").setFontSize(24);
             this.recipeContainer.add(ingredientCount);
-
-            const ingredientItem = this.add.text(this.SLOT_SIZE / 2, 30, `${ingredient.item}`, TEXT_STYLE_SMALL)
-                .setOrigin(.5, .5).setColor("black").setFontSize(24);
-            this.recipeContainer.add(ingredientItem);
         }
 
         // Display output
@@ -202,9 +198,5 @@ export default class CrafterPlacementMenu extends Phaser.Scene {
         const outputCount = this.add.text(this.SLOT_SIZE * 4.62 + 20, 25, `${currentRecipe.outputAmount}`, TEXT_STYLE_SMALL)
             .setOrigin(.5, .5).setColor("black").setFontSize(24);
         this.recipeContainer.add(outputCount);
-
-        const outputItem = this.add.text(this.SLOT_SIZE * 4.62, 25, `${currentRecipe.outputItem}`, TEXT_STYLE_SMALL)
-            .setOrigin(.5, .5).setColor("black").setFontSize(24);
-        this.recipeContainer.add(outputItem);
     }
 }
