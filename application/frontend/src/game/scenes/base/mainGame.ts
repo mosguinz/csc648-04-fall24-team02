@@ -21,8 +21,6 @@ export default class MainGameScene extends Phaser.Scene {
         this.scene.launch('GameMenu');
         this.scene.launch('Miner');
         this.scene.launch('Crafter');
-        console.log('main game running');
-
         const map = this.make.tilemap({ key: 'map' });
         const tileset = map.addTilesetImage('RPG Urban Pack', 'tileset')!; // ! is used to tell TypeScript that the value will not be null
         map.createLayer('Tile Layer 1', tileset, 0, 0);
@@ -210,6 +208,8 @@ export default class MainGameScene extends Phaser.Scene {
 
         // Car layer
         const carLayer = map.getObjectLayer('cars_x');
+        let rightCount = 0;
+        let leftCount = 0;
 
         if (carLayer && carLayer.objects) {
             for (let i = 0; i < carLayer.objects.length; i++) {
@@ -254,10 +254,12 @@ export default class MainGameScene extends Phaser.Scene {
                     }
                 });
 
-                // Move back and forth with animation
+                // Drive animation
                 const screenWidth = this.scale.width;
-                const randomDelay = Phaser.Math.Between(1, 5);
+                const randomDelay = Phaser.Math.Between(1, 3);
+
                 if (isRight) {
+                    console.log(rightCount);
                     // Move to the right
                     carSprite.setX(-32);
                     this.tweens.add({
@@ -265,9 +267,11 @@ export default class MainGameScene extends Phaser.Scene {
                         x: screenWidth,
                         duration: 50000,
                         repeat: -1,
-                        delay: i * 1000 + randomDelay * 1500,
+                        delay: rightCount * 4000 + randomDelay * 1000,
                     });
+                    rightCount++;
                 } else {
+                    console.log(leftCount);
                     // Move to the left
                     carSprite.setX(2048);
                     this.tweens.add({
@@ -275,8 +279,9 @@ export default class MainGameScene extends Phaser.Scene {
                         x: 0,
                         duration: 50000,
                         repeat: -1,
-                        delay: i * 1000 + randomDelay * 1500,
+                        delay: leftCount * 2000 + randomDelay * 2000,
                     });
+                    leftCount++;
                 }
 
                 // Store the car sprite into global array
@@ -378,7 +383,7 @@ export default class MainGameScene extends Phaser.Scene {
         // Set camera bounds and zoom
         this.camera = this.cameras.main;
         this.camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        this.camera.setZoom(1);
+        this.camera.setZoom(3);
         this.camera.centerOn(0, 0);
 
         this.#cursorCheck();
