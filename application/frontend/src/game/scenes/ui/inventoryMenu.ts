@@ -111,7 +111,7 @@ export default class InventoryMenu extends Phaser.Scene {
                     slot.x + slot.width / 2,
                     slot.y + slot.height / 2,
                     `${resource.resource_type_id}`
-                ).setOrigin(0.5, 0.5).setScale(3);
+                ).setOrigin(0.5, 0.5).setScale(2);
 
                 // Create item quantity text
                 const itemText = this.add.text(

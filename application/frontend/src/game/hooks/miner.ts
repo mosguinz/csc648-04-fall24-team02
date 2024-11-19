@@ -28,9 +28,8 @@ export default class Miner extends Phaser.Scene {
     }
 
     private addMiner(miner: UserMiner) {
-        console.log(`Adding miner ${miner.id}`);
         if (GameData.miners.find((m) => m.id === miner.id)) {
-            console.warn(`Miner already exists.`);
+            console.log(`Miner already exists.`);
             return;
         }
 
@@ -43,17 +42,20 @@ export default class Miner extends Phaser.Scene {
     }
 
     private startMinerTimer(miner: UserMiner) {
-        if (this.minerTimers[miner.id || ""]) {
-            return;
-        }
     
         this.minerTimers[miner.id || ""] = this.time.addEvent({
             delay: 5000,
             loop: true,
             callback: () => {
-                if (miner.recipe_id) {
+                if (miner.recipe_id == 1) {
                     // Click on a human with miner's ID
                     this.events.emit('human-clicked', miner.id);
+                } else if (miner.recipe_id == 2) {
+                    // Click on a tree with miner's ID
+                    this.events.emit('tree-clicked', miner.id);
+                } else if (miner.recipe_id == 3) {
+                    // Click on a rock with miner's ID
+                    this.events.emit('car-clicked', miner.id);
                 }
             },
         });
