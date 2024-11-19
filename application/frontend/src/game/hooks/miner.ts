@@ -46,14 +46,14 @@ export default class Miner extends Phaser.Scene {
         if (this.minerTimers[miner.id || ""]) {
             return;
         }
-
+    
         this.minerTimers[miner.id || ""] = this.time.addEvent({
             delay: 5000,
             loop: true,
             callback: () => {
                 if (miner.recipe_id) {
-                    console.log(`Mining with miner ${miner.id}`);
-                    GameData.addResource(miner.recipe_id, 1);
+                    // Click on a human with miner's ID
+                    this.events.emit('human-clicked', miner.id);
                 }
             },
         });

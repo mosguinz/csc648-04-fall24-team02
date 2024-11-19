@@ -1,8 +1,11 @@
 import Phaser from "phaser";
 import { defineAnimations } from "../../utils/animations";
 import { GameData } from "../../stores/gameData";
+import Miner from "../../hooks/miner";
 
 export default class MainGameScene extends Phaser.Scene {
+
+    private humanSprites: { [id: number]: Phaser.GameObjects.Sprite } = {};
 
     private camera!: Phaser.Cameras.Scene2D.Camera;
 
@@ -29,15 +32,17 @@ export default class MainGameScene extends Phaser.Scene {
         map.createLayer('Tile Layer 7', tileset, 0, 0);
         map.createLayer('Tile Layer 8', tileset, 0, 0);
         map.createLayer('Tile Layer 9', tileset, 0, 0);
-        map.createLayer('cars_X', tileset, 0, 0);
-        map.createLayer('trees', tileset, 0, 0);
+
+        // Miner import for auto harvesting stuff
+        const minerScene = this.scene.get('Miner') as Miner;
 
         const humanLayer = map.getObjectLayer('human_x');
 
         defineAnimations(this, 'human1');
 
         if (humanLayer && humanLayer.objects) {
-            humanLayer.objects.forEach((humanObj) => {
+            for (let i = 0; i < humanLayer.objects.length; i++) {
+                const humanObj = humanLayer.objects[i];
                 const { x = 0, y = 0 } = humanObj;
 
                 // Create human sprite
@@ -58,23 +63,25 @@ export default class MainGameScene extends Phaser.Scene {
 
                 // Add an onClick event listener
                 humanSprite.on('pointerdown', () => {
-                    GameData.addResource(1, 1);
-                    this.tweens.add({
-                        targets: humanSprite,
-                        y: y - 500,
-                        duration: 100,
-                        onComplete: () => {
-                            // Disappear after flying up
-                            humanSprite.setVisible(false);
-
-                            // After a delay
-                            this.time.delayedCall(2000, () => {
-                                humanSprite.setPosition(x, y);
-                                humanSprite.setVisible(true);
-                            });
-                        },
-                    });
-
+                    if (humanSprite.visible === true) {
+                        GameData.addResource(1, 1);
+                        this.tweens.add({
+                            targets: humanSprite,
+                            y: y - 500,
+                            duration: 100,
+                            onComplete: () => {
+                                // Disappear after flying up
+                                humanSprite.setVisible(false);
+                                tween.pause();
+                                // After a delay
+                                this.time.delayedCall(2000, () => {
+                                    tween.resume();
+                                    humanSprite.setPosition(x, y);
+                                    humanSprite.setVisible(true);
+                                });
+                            },
+                        });
+                    }
                 });
 
                 // Move back and forth with animation
@@ -88,38 +95,46 @@ export default class MainGameScene extends Phaser.Scene {
                     delay: randomDelay,
                     onStart: () => humanSprite.play('walk-right'),
                     onYoyo: () => {
-                        // Pause for a random time
                         const randomPause = Phaser.Math.Between(500, 1500);
                         tween.pause();
                         humanSprite.anims.pause();
-                        // TODO: DONT HARDCODE FRAME
-                        humanSprite.setFrame(12);
+                        humanSprite.setFrame(12); // Adjust frame as needed
                         this.time.delayedCall(randomPause, () => {
                             humanSprite.play('walk-left');
                             tween.resume();
                         });
                     },
                     onRepeat: () => {
-                        // Pause for a random time
                         const randomPause = Phaser.Math.Between(500, 1500);
                         tween.pause();
                         humanSprite.anims.pause();
-                        // TODO: DONT HARDCODE FRAME
-                        humanSprite.setFrame(0);
+                        humanSprite.setFrame(0); // Adjust frame as needed
                         this.time.delayedCall(randomPause, () => {
                             humanSprite.play('walk-right');
                             tween.resume();
                         });
                     },
                 });
-            });
+
+                // Store the human sprite into global array
+                this.humanSprites[i] = humanSprite;
+            }
         }
+
+        minerScene.events.on('human-clicked', (humanId: number) => {
+            const newID = humanId - 1; // Adjust ID because Miners are 1-indexed
+            const humanSprite = this.humanSprites[newID];
+            if (humanSprite) {
+                // Click that human
+                humanSprite.emit('pointerdown');
+            }
+        });
 
 
         // Set camera bounds and zoom
         this.camera = this.cameras.main;
         this.camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        this.camera.setZoom(2.5);
+        this.camera.setZoom(3);
         this.camera.centerOn(0, 0);
 
         this.#cursorCheck();
