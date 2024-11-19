@@ -49,21 +49,17 @@ export default class MainGameScene extends Phaser.Scene {
 
                 // Add an onClick event listener
                 humanSprite.on('pointerdown', () => {
-                    // Tween to fly up
                     this.tweens.add({
                         targets: humanSprite,
                         y: y - 500,
                         duration: 100,
                         onComplete: () => {
-                            // Make the sprite invisible after flying up
+                            // Disappear after flying up
                             humanSprite.setVisible(false);
 
-                            // Delay for reappearing
+                            // After a delay
                             this.time.delayedCall(2000, () => {
-                                // Reset position
                                 humanSprite.setPosition(x, y);
-
-                                // Make the sprite visible again
                                 humanSprite.setVisible(true);
                             });
                         },
@@ -74,7 +70,7 @@ export default class MainGameScene extends Phaser.Scene {
                 const randomDelay = Phaser.Math.Between(0, 2000);
                 const tween = this.tweens.add({
                     targets: humanSprite,
-                    x: x + 100,
+                    x: x + Phaser.Math.Between(100, 120),
                     duration: 3000,
                     repeat: -1,
                     yoyo: true,
@@ -82,25 +78,25 @@ export default class MainGameScene extends Phaser.Scene {
                     onStart: () => humanSprite.play('walk-right'),
                     onYoyo: () => {
                         // Pause for a random time
-                        const randomPause = Phaser.Math.Between(500, 1500); // Pause between 0.5 and 1.5 seconds
+                        const randomPause = Phaser.Math.Between(500, 1500);
                         tween.pause();
                         humanSprite.anims.pause();
                         // TODO: DONT HARDCODE FRAME
                         humanSprite.setFrame(12);
                         this.time.delayedCall(randomPause, () => {
-                            humanSprite.play('walk-left'); // Play left animation after pause
+                            humanSprite.play('walk-left');
                             tween.resume();
                         });
                     },
                     onRepeat: () => {
                         // Pause for a random time
-                        const randomPause = Phaser.Math.Between(500, 1500); // Pause between 0.5 and 1.5 seconds
+                        const randomPause = Phaser.Math.Between(500, 1500);
                         tween.pause();
                         humanSprite.anims.pause();
                         // TODO: DONT HARDCODE FRAME
                         humanSprite.setFrame(0);
                         this.time.delayedCall(randomPause, () => {
-                            humanSprite.play('walk-right'); // Play right animation after pause
+                            humanSprite.play('walk-right');
                             tween.resume();
                         });
                     },
