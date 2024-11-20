@@ -39,7 +39,7 @@ export default class GameMenu extends Phaser.Scene {
             ],
         };
     }
-    
+
     create() {
         // Create the menu background
         this.add.nineslice(
@@ -84,7 +84,6 @@ export default class GameMenu extends Phaser.Scene {
             ).setOrigin(0.5).setFontSize(this.MENU_CONFIG.fontSize);
             gameMenuContainer.add(buttonText);
 
-            console.log(buttonConfig.icon);
             const buttonIcon = this.add.image(
                 button.x,
                 button.y,

@@ -17,7 +17,6 @@ export default class Crafter extends Phaser.Scene {
 
         // Listen for miner updates
         this.events.on("add-crafter", (newCrafter: UserAssembler) => {
-            console.log("New Crafter Added:", newCrafter);
             this.addCrafter(newCrafter);
         });
     }
@@ -52,7 +51,6 @@ export default class Crafter extends Phaser.Scene {
             callback: () => {
                 if (crafter.recipe_id) {
                     this.craftItem(recipes[crafter.recipe_id]);
-                    console.log(`Crafting recipe`, recipes[crafter.recipe_id]);
                 }
             },
         });

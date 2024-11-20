@@ -61,7 +61,6 @@ export default class TestScene extends Phaser.Scene {
 
         quitButton.on(Phaser.Input.Events.POINTER_OVER, () => {
             arrowsContainer.setPosition(quitButton.x, quitButton.y);
-            console.log(arrowsContainer.x, arrowsContainer.y);
             arrowsContainer.setVisible(true);
             this.tweens.add({
                 targets: arrowsContainer,

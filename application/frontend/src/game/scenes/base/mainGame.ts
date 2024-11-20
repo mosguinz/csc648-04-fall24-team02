@@ -266,7 +266,6 @@ export default class MainGameScene extends Phaser.Scene {
                 const randomDelay = Phaser.Math.Between(1, 3);
 
                 if (isRight) {
-                    console.log(rightCount);
                     // Move to the right
                     carSprite.setX(-32);
                     this.tweens.add({
@@ -278,7 +277,6 @@ export default class MainGameScene extends Phaser.Scene {
                     });
                     rightCount++;
                 } else {
-                    console.log(leftCount);
                     // Move to the left
                     carSprite.setX(2048);
                     this.tweens.add({

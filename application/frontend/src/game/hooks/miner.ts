@@ -16,7 +16,6 @@ export default class Miner extends Phaser.Scene {
 
         // Listen for miner updates
         this.events.on("add-miner", (newMiner: UserMiner) => {
-            console.log("New Miner Added:", newMiner);
             this.addMiner(newMiner);
         });
     }
@@ -29,7 +28,6 @@ export default class Miner extends Phaser.Scene {
 
     private addMiner(miner: UserMiner) {
         if (GameData.miners.find((m) => m.id === miner.id)) {
-            console.log(`Miner already exists.`);
             return;
         }
 

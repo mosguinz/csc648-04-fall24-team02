@@ -95,7 +95,6 @@ export default class CrafterPlacementMenu extends Phaser.Scene {
                 status: "active",
             };
             CrafterScene.events.emit('add-crafter', newCrafter);
-            console.log(newCrafter);
             this.scene.start("GameMenu");
             this.scene.stop('crafterPlacementMenu');
         });

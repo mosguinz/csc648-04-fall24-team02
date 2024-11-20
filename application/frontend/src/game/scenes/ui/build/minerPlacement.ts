@@ -60,7 +60,6 @@ export default class MinerPlacementMenu extends Phaser.Scene {
                 recipe_id: 1,
                 status: "active",
             };
-            console.log(newMiner);
             MinerScene.events.emit('add-miner', newMiner);
             this.scene.start("GameMenu");
             this.scene.stop('MinerPlacementMenu');
@@ -83,7 +82,6 @@ export default class MinerPlacementMenu extends Phaser.Scene {
                 recipe_id: 2,
                 status: "active",
             };
-            console.log(newMiner);
             MinerScene.events.emit('add-miner', newMiner);
             this.scene.start("GameMenu");
             this.scene.stop('MinerPlacementMenu');
@@ -106,7 +104,6 @@ export default class MinerPlacementMenu extends Phaser.Scene {
                 recipe_id: 3,
                 status: "active",
             };
-            console.log(newMiner);
             MinerScene.events.emit('add-miner', newMiner);
             this.scene.start("GameMenu");
             this.scene.stop('MinerPlacementMenu');
