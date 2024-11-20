@@ -33,7 +33,7 @@ export const recipes: Recipe[] = [
   {
     outputItem: "6",
     outputAmount: 1,
-    ingredients: [{ item: "3", amount: 3 }],
+    ingredients: [{ item: "3", amount: 1 }],
   },
   {
     outputItem: "7",

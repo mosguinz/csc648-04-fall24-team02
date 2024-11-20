@@ -271,7 +271,7 @@ export default class MainGameScene extends Phaser.Scene {
                     carSprite.setX(-32);
                     this.tweens.add({
                         targets: carSprite,
-                        x: screenWidth,
+                        x: screenWidth + 32,
                         duration: 50000,
                         repeat: -1,
                         delay: rightCount * 4000 + randomDelay * 1000,
@@ -283,7 +283,7 @@ export default class MainGameScene extends Phaser.Scene {
                     carSprite.setX(2048);
                     this.tweens.add({
                         targets: carSprite,
-                        x: 0,
+                        x: -32,
                         duration: 50000,
                         repeat: -1,
                         delay: leftCount * 2000 + randomDelay * 2000,
