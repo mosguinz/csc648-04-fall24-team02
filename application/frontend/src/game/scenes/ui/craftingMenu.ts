@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP, recipes } from '../../stores/constants';
 import { GameData } from "../../stores/gameData";
+import { displayFloatingText } from "../../utils/displayFloatingText";
 
 export default class CraftingMenu extends Phaser.Scene {
 
@@ -207,6 +208,7 @@ export default class CraftingMenu extends Phaser.Scene {
         }
 
         GameData.addResource(parseInt(recipe.outputItem, 10), recipe.outputAmount);
+        displayFloatingText(this, recipe.outputAmount, parseInt(recipe.outputItem, 10).toString());
     }
 
 

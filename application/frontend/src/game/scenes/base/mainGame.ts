@@ -3,7 +3,9 @@ import { defineAnimations } from "../../utils/animations";
 import { GameData } from "../../stores/gameData";
 import Miner from "../../hooks/miner";
 import { controlCamera } from "../../utils/controlCamera";
+import { position } from "../../stores/constants";
 
+export let mainGameCursor: position = { x: 0, y: 0 };
 export default class MainGameScene extends Phaser.Scene {
 
     private humanSprites: { [id: number]: Phaser.GameObjects.Sprite } = {};
@@ -59,6 +61,7 @@ export default class MainGameScene extends Phaser.Scene {
                 humanSprite.on('pointerdown', () => {
                     if (humanSprite.visible === true) {
                         GameData.addResource(1, 1);
+                        this.#displayFloatingText(this, humanSprite, 1, '1');
                         this.tweens.add({
                             targets: humanSprite,
                             y: y - 500,
@@ -142,6 +145,7 @@ export default class MainGameScene extends Phaser.Scene {
                 humanSprite.on('pointerdown', () => {
                     if (humanSprite.visible === true) {
                         GameData.addResource(1, 1);
+                        this.#displayFloatingText(this, humanSprite, 1, '1');
                         this.tweens.add({
                             targets: humanSprite,
                             y: y - 500,
@@ -239,6 +243,7 @@ export default class MainGameScene extends Phaser.Scene {
                 carSprite.on('pointerdown', () => {
                     if (carSprite.visible === true) {
                         GameData.addResource(3, 1);
+                        this.#displayFloatingText(this, carSprite, 1, '3');
                         this.tweens.add({
                             targets: carSprite,
                             y: -500,
@@ -333,6 +338,7 @@ export default class MainGameScene extends Phaser.Scene {
                 treeSprite.on('pointerdown', () => {
                     if (treeSprite.visible === true) {
                         GameData.addResource(2, 1);
+                        this.#displayFloatingText(this, treeSprite, 1, '2');
                         this.tweens.add({
                             targets: treeSprite,
                             y: y - 500,
@@ -391,11 +397,40 @@ export default class MainGameScene extends Phaser.Scene {
         this.time.addEvent({
             delay: 16,
             callback: () => {
+                mainGameCursor = { x: this.input.activePointer.x, y: this.input.activePointer.y };
                 controlCamera(this.camera);
             },
             loop: true,
         });
 
+    }
+
+    #displayFloatingText(scene : Phaser.Scene, sprite : Phaser.GameObjects.Sprite, count : number, icon : string) {
+        const text = scene.add.text(sprite.x, sprite.y, `+${count}`, { color: '#247B7F', fontSize: '12px' })
+        .setShadow(2, 2, "#000000", 2, true, true).setOrigin(0.5);
+
+    const itemIcon = scene.add.image(sprite.x + 20, sprite.y, icon).setOrigin(0.5);
+    
+    scene.tweens.add({
+        targets: text,
+        y: sprite.y - 50,
+        alpha: 0,
+        duration: 1000,
+        ease: 'Linear',
+        onComplete: () => {
+            text.destroy();
+        }
+    });
+    scene.tweens.add({
+        targets: itemIcon,
+        y: sprite.y - 50,
+        alpha: 0,
+        duration: 1000,
+        ease: 'Linear',
+        onComplete: () => {
+            text.destroy();
+        }
+    });
     }
 
 }
