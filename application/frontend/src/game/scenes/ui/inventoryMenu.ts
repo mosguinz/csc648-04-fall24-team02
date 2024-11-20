@@ -2,7 +2,6 @@ import Phaser from "phaser";
 import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../stores/constants';
 import { GameData } from "../../stores/gameData";
-import { displayFloatingText } from "../../utils/displayFloatingText";
 
 export default class InventoryMenu extends Phaser.Scene {
 
