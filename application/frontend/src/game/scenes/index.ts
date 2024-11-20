@@ -10,6 +10,7 @@ import MinerPlacement from './ui/build/minerPlacement';
 import Miner from '../hooks/miner';
 import CrafterPlacement from './ui/build/crafterPlacement';
 import Crafter from '../hooks/crafter';
+import Cursor from '../hooks/cursor';
 
 export {
     TitleScene,
@@ -23,4 +24,5 @@ export {
     Miner,
     Crafter,
     CrafterPlacement,
+    Cursor,
 };

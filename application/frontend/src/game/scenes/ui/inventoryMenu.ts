@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP } from '../../stores/constants';
 import { GameData } from "../../stores/gameData";
+import { displayFloatingText } from "../../utils/displayFloatingText";
 
 export default class InventoryMenu extends Phaser.Scene {
 
@@ -41,14 +42,7 @@ export default class InventoryMenu extends Phaser.Scene {
         // Inventory text
         inventoryContainer.add(
             this.add.text(this.INVENTORY_WIDTH / 2, this.INVENTORY_HEIGHT / 15, "INVENTORY", TEXT_STYLE)
-                .setOrigin(.5, .5).setColor("black").setFontSize(64).setInteractive().on('pointerdown', () => {
-                    const randomNumber = Phaser.Math.Between(1, 6);
-                    console.log(randomNumber);
-                    GameData.addResource(randomNumber, 1);
-                    this.updateInventory();
-                })
-
-        );
+                .setOrigin(.5, .5).setColor("black").setFontSize(64).setInteractive());
 
         // Inventory dividers
         inventoryContainer.add(

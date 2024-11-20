@@ -2,7 +2,10 @@ import Phaser from "phaser";
 import { defineAnimations } from "../../utils/animations";
 import { GameData } from "../../stores/gameData";
 import Miner from "../../hooks/miner";
+import { controlCamera } from "../../utils/controlCamera";
+import { position } from "../../stores/constants";
 
+export let mainGameCursor: position = { x: 0, y: 0 };
 export default class MainGameScene extends Phaser.Scene {
 
     private humanSprites: { [id: number]: Phaser.GameObjects.Sprite } = {};
@@ -21,6 +24,7 @@ export default class MainGameScene extends Phaser.Scene {
         this.scene.launch('GameMenu');
         this.scene.launch('Miner');
         this.scene.launch('Crafter');
+        this.scene.launch('Cursor');
         const map = this.make.tilemap({ key: 'map' });
         const tileset = map.addTilesetImage('RPG Urban Pack', 'tileset')!; // ! is used to tell TypeScript that the value will not be null
         map.createLayer('Tile Layer 1', tileset, 0, 0);
@@ -57,6 +61,7 @@ export default class MainGameScene extends Phaser.Scene {
                 humanSprite.on('pointerdown', () => {
                     if (humanSprite.visible === true) {
                         GameData.addResource(1, 1);
+                        this.#displayFloatingText(this, humanSprite, 1, '1');
                         this.tweens.add({
                             targets: humanSprite,
                             y: y - 500,
@@ -140,6 +145,7 @@ export default class MainGameScene extends Phaser.Scene {
                 humanSprite.on('pointerdown', () => {
                     if (humanSprite.visible === true) {
                         GameData.addResource(1, 1);
+                        this.#displayFloatingText(this, humanSprite, 1, '1');
                         this.tweens.add({
                             targets: humanSprite,
                             y: y - 500,
@@ -237,6 +243,7 @@ export default class MainGameScene extends Phaser.Scene {
                 carSprite.on('pointerdown', () => {
                     if (carSprite.visible === true) {
                         GameData.addResource(3, 1);
+                        this.#displayFloatingText(this, carSprite, 1, '3');
                         this.tweens.add({
                             targets: carSprite,
                             y: -500,
@@ -331,6 +338,7 @@ export default class MainGameScene extends Phaser.Scene {
                 treeSprite.on('pointerdown', () => {
                     if (treeSprite.visible === true) {
                         GameData.addResource(2, 1);
+                        this.#displayFloatingText(this, treeSprite, 1, '2');
                         this.tweens.add({
                             targets: treeSprite,
                             y: y - 500,
@@ -386,41 +394,43 @@ export default class MainGameScene extends Phaser.Scene {
         this.camera.setZoom(3);
         this.camera.centerOn(0, 0);
 
-        this.#cursorCheck();
+        this.time.addEvent({
+            delay: 16,
+            callback: () => {
+                mainGameCursor = { x: this.input.activePointer.x, y: this.input.activePointer.y };
+                controlCamera(this.camera);
+            },
+            loop: true,
+        });
 
     }
 
-    #cursorCheck() {
-        const edgeThreshold = 50;
-        const panSpeed = 3;
+    #displayFloatingText(scene : Phaser.Scene, sprite : Phaser.GameObjects.Sprite, count : number, icon : string) {
+        const text = scene.add.text(sprite.x, sprite.y, `+${count}`, { color: '#247B7F', fontSize: '12px' })
+        .setShadow(2, 2, "#000000", 2, true, true).setOrigin(0.5);
 
-        // Checks cursor position
-        this.time.addEvent({
-            delay: 16,
-            loop: true,
-            callback: () => {
-
-                // Cursor position
-                const pointer = this.input.activePointer;
-
-                // Check cursor position and move camera
-                if (pointer.x < edgeThreshold) {
-                    // Move left
-                    this.camera.scrollX -= panSpeed;
-                } else if (pointer.x > this.scale.width - edgeThreshold) {
-                    // Move right
-                    this.camera.scrollX += panSpeed;
-                }
-
-                if (pointer.y < edgeThreshold) {
-                    // Move up
-                    this.camera.scrollY -= panSpeed;
-                } else if (pointer.y > this.scale.height - edgeThreshold) {
-                    // Move down
-                    this.camera.scrollY += panSpeed;
-                }
-            }
-        });
+    const itemIcon = scene.add.image(sprite.x + 20, sprite.y, icon).setOrigin(0.5);
+    
+    scene.tweens.add({
+        targets: text,
+        y: sprite.y - 50,
+        alpha: 0,
+        duration: 1000,
+        ease: 'Linear',
+        onComplete: () => {
+            text.destroy();
+        }
+    });
+    scene.tweens.add({
+        targets: itemIcon,
+        y: sprite.y - 50,
+        alpha: 0,
+        duration: 1000,
+        ease: 'Linear',
+        onComplete: () => {
+            text.destroy();
+        }
+    });
     }
 
 }
