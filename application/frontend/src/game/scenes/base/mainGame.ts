@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { defineAnimations } from "../../utils/animations";
 import { GameData } from "../../stores/gameData";
 import Miner from "../../hooks/miner";
+import { cursorPosition } from "../../hooks/cursor";
 
 export default class MainGameScene extends Phaser.Scene {
 
@@ -21,6 +22,7 @@ export default class MainGameScene extends Phaser.Scene {
         this.scene.launch('GameMenu');
         this.scene.launch('Miner');
         this.scene.launch('Crafter');
+        this.scene.launch('Cursor');
         const map = this.make.tilemap({ key: 'map' });
         const tileset = map.addTilesetImage('RPG Urban Pack', 'tileset')!; // ! is used to tell TypeScript that the value will not be null
         map.createLayer('Tile Layer 1', tileset, 0, 0);
@@ -401,7 +403,7 @@ export default class MainGameScene extends Phaser.Scene {
             callback: () => {
 
                 // Cursor position
-                const pointer = this.input.activePointer;
+                const pointer = cursorPosition;
 
                 // Check cursor position and move camera
                 if (pointer.x < edgeThreshold) {

@@ -25,6 +25,7 @@ export const config: Phaser.Types.Core.GameConfig = {
         Scenes.Miner,
         Scenes.CrafterPlacement,
         Scenes.Crafter,
+        Scenes.Cursor,
     ],
 }
 

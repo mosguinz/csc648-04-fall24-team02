@@ -8,6 +8,11 @@ export interface Recipe {
   ingredients: { item: string; amount: number }[]
 }
 
+export interface position {
+  x: number,
+  y: number
+}
+
 export const recipes: Recipe[] = [
   // Placeholder recipe for indexing to start at 1 (miner.ts, cannot pass id = 0 to most things)
   {
