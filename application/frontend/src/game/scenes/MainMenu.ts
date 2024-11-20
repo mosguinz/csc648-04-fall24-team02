@@ -28,15 +28,15 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   editorCreate(): void {
-    /*
+    
     const RegPink = this.add.image(500,400,"Reg_Pink")
     RegPink.scaleX = 11
     RegPink.scaleY = 5
-    */
+    
     // background_2
     const background_2 = this.add.image(640, 350, "background_2")
-    background_2.scaleX = 0.28 //28
-    background_2.scaleY = 0.29 //29
+    background_2.scaleX = 2 //28
+    background_2.scaleY = 2 //29
 
     // game title
     const GameTitle = this.add.image(670, 25, "Game_Title") 
