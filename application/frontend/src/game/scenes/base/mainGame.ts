@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { defineAnimations } from "../../utils/animations";
 import { GameData } from "../../stores/gameData";
 import Miner from "../../hooks/miner";
-import { cursorPosition } from "../../hooks/cursor";
+import { controlCamera } from "../../utils/controlCamera";
 
 export default class MainGameScene extends Phaser.Scene {
 
@@ -388,41 +388,14 @@ export default class MainGameScene extends Phaser.Scene {
         this.camera.setZoom(3);
         this.camera.centerOn(0, 0);
 
-        this.#cursorCheck();
-
-    }
-
-    #cursorCheck() {
-        const edgeThreshold = 50;
-        const panSpeed = 3;
-
-        // Checks cursor position
         this.time.addEvent({
             delay: 16,
-            loop: true,
             callback: () => {
-
-                // Cursor position
-                const pointer = cursorPosition;
-
-                // Check cursor position and move camera
-                if (pointer.x < edgeThreshold) {
-                    // Move left
-                    this.camera.scrollX -= panSpeed;
-                } else if (pointer.x > this.scale.width - edgeThreshold) {
-                    // Move right
-                    this.camera.scrollX += panSpeed;
-                }
-
-                if (pointer.y < edgeThreshold) {
-                    // Move up
-                    this.camera.scrollY -= panSpeed;
-                } else if (pointer.y > this.scale.height - edgeThreshold) {
-                    // Move down
-                    this.camera.scrollY += panSpeed;
-                }
-            }
+                controlCamera(this.camera);
+            },
+            loop: true,
         });
+
     }
 
 }
