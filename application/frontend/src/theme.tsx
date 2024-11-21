@@ -27,6 +27,9 @@ const theme = extendTheme({
       purple: "#c3baf7",
       green: "#a5d061",
       eggshell: "#FFF5EE",
+      softGreen: "#c7f9cd",
+      eggPink: "#f9cdc7",
+      softPurple: "#cdc7f9",
 
     },
   },
