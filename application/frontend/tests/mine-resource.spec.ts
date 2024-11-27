@@ -32,6 +32,7 @@ function checkPixelsForVisibility(data: Buffer, width: number, region: { x: numb
   return false; 
 }
 
+//check if human being loaded in
 test.describe('Game Canvas Sprite Tests', () => {
   test('should ensure human1 sprite is visible on the canvas', async ({ page }) => {
     await page.goto('http://localhost:5174/game');  
@@ -45,14 +46,48 @@ test.describe('Game Canvas Sprite Tests', () => {
 
     const canvasImage = await canvas.screenshot();
 
-    const map = await checkIfHuman1SpriteIsVisible(canvasImage);
-    expect(map).toBe(true); 
+    const human1Visible = await checkIfHuman1SpriteIsVisible(canvasImage);
+    expect(human1Visible).toBe(true); 
   });
 });
 
-
-//check if human being loaded in
 //check if pink car is being loaded in
+async function checkIfPinkCarSpriteIsVisible(canvasImage: Buffer): Promise<boolean> {
+    const image = sharp(canvasImage);
+  
+    const { data, info } = await image.raw().toBuffer({ resolveWithObject: true });
+  
+    // Adjust these coordinates and size for the pink_car sprite <-- change if needed for testing :)
+    const spriteRegion = {
+      x: 200,  
+      y: 150, 
+      width: 32, 
+      height: 32,  
+    };
+  
+    return checkPixelsForVisibility(data, info.width, spriteRegion);
+  }
+
+  test.describe('Game Canvas Sprite Tests', () => {
+    test('should ensure pink_car sprite is visible on the canvas', async ({ page }) => {
+      
+      await page.goto('http://localhost:5174/game');  
+      const canvas = await page.locator('canvas');
+      await expect(canvas).toBeVisible();
+  
+     
+      await page.waitForTimeout(2000);  
+  
+      const canvasImage = await canvas.screenshot();
+     
+      const pinkCarVisible = await checkIfPinkCarSpriteIsVisible(canvasImage);
+  
+      
+      expect(pinkCarVisible).toBe(true);  
+    });
+  });
+
+
 //check if image is being removed as item gets mined
 //check if inventory updates as inventory gets mined and placed into inventory
 //check if value in inventory updates with new value
