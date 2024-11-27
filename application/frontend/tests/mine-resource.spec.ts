@@ -45,8 +45,8 @@ test.describe('Game Canvas Sprite Tests', () => {
 
     const canvasImage = await canvas.screenshot();
 
-    const human1Visible = await checkIfHuman1SpriteIsVisible(canvasImage);
-    expect(human1Visible).toBe(true); 
+    const map = await checkIfHuman1SpriteIsVisible(canvasImage);
+    expect(map).toBe(true); 
   });
 });
 
