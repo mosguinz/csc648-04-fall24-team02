@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';  
 
-//check if human being loaded in
+//check if map is loaded in
 // Function to check if the sprite is visible in the canvas screenshot
 async function checkIfHuman1SpriteIsVisible(canvasImage: Buffer): Promise<boolean> {
   const image = sharp(canvasImage);
@@ -34,22 +34,24 @@ function checkPixelsForVisibility(data: Buffer, width: number, region: { x: numb
 
 test.describe('Game Canvas Sprite Tests', () => {
   test('should ensure human1 sprite is visible on the canvas', async ({ page }) => {
-    await page.goto('http://localhost:5173/');  
-    
+    await page.goto('http://localhost:5174/game');  
+
     const canvas = await page.locator('canvas');
     await expect(canvas).toBeVisible();
 
     //timeout timer
     await page.waitForTimeout(2000);
 
-   
+
     const canvasImage = await canvas.screenshot();
 
     const human1Visible = await checkIfHuman1SpriteIsVisible(canvasImage);
     expect(human1Visible).toBe(true); 
   });
 });
-  
+
+
+//check if human being loaded in
 //check if pink car is being loaded in
 //check if image is being removed as item gets mined
 //check if inventory updates as inventory gets mined and placed into inventory
