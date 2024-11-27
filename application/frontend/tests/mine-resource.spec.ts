@@ -34,7 +34,7 @@ function checkPixelsForVisibility(data: Buffer, width: number, region: { x: numb
 
 test.describe('Game Canvas Sprite Tests', () => {
   test('should ensure human1 sprite is visible on the canvas', async ({ page }) => {
-    await page.goto('http://localhost:5174/game');  
+    await page.goto('http://localhost:5173/');  
     
     const canvas = await page.locator('canvas');
     await expect(canvas).toBeVisible();
