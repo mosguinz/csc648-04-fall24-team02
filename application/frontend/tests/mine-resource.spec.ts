@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { GameData } from '../src/game/stores/gameData';
+//import { GameData } from '../src/game/stores/gameData';
 import sharp from 'sharp';  
 
 //check if map is loaded in
