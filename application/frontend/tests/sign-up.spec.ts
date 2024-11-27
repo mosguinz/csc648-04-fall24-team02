@@ -138,11 +138,10 @@ test("Sign up with existing email", async ({ page }) => {
   const email = randomEmail()
   const password = randomPassword()
 
-  // Sign up with an email
+  
   await page.goto("/signup")
 
-
-    await page.addStyleTag({
+  await page.addStyleTag({
     content: `
       *,
       *::before,
@@ -152,19 +151,23 @@ test("Sign up with existing email", async ({ page }) => {
       }
     `,
   })
+
   await fillForm(page, fullName, email, password, password)
   await page.getByRole("button", { name: "Sign Up" }).click()
 
-  // Sign up again with the same email
+  await page.waitForNavigation({ waitUntil: 'networkidle' })
+
   await page.goto("/signup")
 
   await fillForm(page, fullName, email, password, password)
   await page.getByRole("button", { name: "Sign Up" }).click()
 
-  await page
-    .getByText("The user with this email already exists in the system")
-    .click()
+  const errorMessage = await page.locator('text="The user with this email already exists in the system"')
+
+  await expect(errorMessage).toBeVisible()
+  await errorMessage.click()
 })
+
 
 test("Sign up with weak password", async ({ page }) => {
   const fullName = "Test User"

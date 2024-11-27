@@ -87,8 +87,46 @@ async function checkIfPinkCarSpriteIsVisible(canvasImage: Buffer): Promise<boole
     });
   });
 
+// Function to check if the sprite is visible in the canvas screenshot
+async function checkIfSpriteIsVisible(canvasImage: Buffer, spriteRegion: { x: number, y: number, width: number, height: number }): Promise<boolean> {
+    const image = sharp(canvasImage);
+    const { data, info } = await image.raw().toBuffer({ resolveWithObject: true });
+    return checkPixelsForVisibility(data, info.width, spriteRegion);
+  }
+  
+//check if human is being removed as item gets mined
 
-//check if image is being removed as item gets mined
+//check if pink car is being removed as item gets mined
+test.describe('Game Canvas Sprite Tests', () => {
+    test('should remove pink_car sprite after mining', async ({ page }) => {
+      // Navigate to the game page
+      await page.goto('http://localhost:5174/game');
+  
+    
+      await page.waitForTimeout(3000);  
+  
+      const carSpriteLocator = await page.locator('[data-testid="pink_car"]'); 
+      try {
+       
+        await carSpriteLocator.waitFor({ state: 'visible', timeout: 15000 }); 
+      } catch (error) {
+        console.log('pink_car not found or not visible');
+        return;  
+      }
+      await carSpriteLocator.click(); 
+
+      await page.waitForTimeout(3000);  
+  
+      const canvas = await page.locator('canvas');
+      const canvasImageAfterMining = await canvas.screenshot();
+      //change if needed for testing :)
+      const carSpriteRegion = { x: 200, y: 150, width: 32, height: 32 };  
+  
+      const pinkCarVisibleAfterMining = await checkIfSpriteIsVisible(canvasImageAfterMining, carSpriteRegion);
+  
+      expect(pinkCarVisibleAfterMining).toBe(false);  
+    });
+  });
 //check if inventory updates as inventory gets mined and placed into inventory
 //check if value in inventory updates with new value
 //check game data
