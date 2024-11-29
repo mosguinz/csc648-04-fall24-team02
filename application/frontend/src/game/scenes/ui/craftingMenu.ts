@@ -24,6 +24,8 @@ export default class CraftingMenu extends Phaser.Scene {
 
     create() {
 
+
+
         this.add.nineslice(GAME_WIDTH / 2.3, GAME_HEIGHT / 9, 'inventory_panel', 0,
             this.CRAFTING_WIDTH, this.CRAFTING_HEIGHT / 1.4, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x247B7F);
 
@@ -49,6 +51,8 @@ export default class CraftingMenu extends Phaser.Scene {
         closeButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
             this.scene.stop('CraftingMenu');
         });
+
+
 
         // Crafting slots
         const craftingInput1 = this.add.nineslice(this.CRAFTING_WIDTH / 5, this.CRAFTING_HEIGHT / 3, 'crafting_slot',

@@ -21,6 +21,7 @@ export default class MainGameScene extends Phaser.Scene {
     }
 
     create() {
+
         this.scene.launch('GameMenu');
         this.scene.launch('Miner');
         this.scene.launch('Crafter');
@@ -408,7 +409,7 @@ export default class MainGameScene extends Phaser.Scene {
         .setShadow(2, 2, "#000000", 2, true, true).setOrigin(0.5);
 
     const itemIcon = scene.add.image(sprite.x + 20, sprite.y, icon).setOrigin(0.5);
-    
+
     scene.tweens.add({
         targets: text,
         y: sprite.y - 50,
