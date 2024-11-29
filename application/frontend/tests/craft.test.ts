@@ -1,101 +1,171 @@
 import { test, expect, Page } from '@playwright/test';
-import { GameData } from '../src/game/stores/gameData'; // Adjust path as needed
+
+// Helper function to wait for and get canvas
+async function getGameCanvas(page: Page) {
+  const canvas = await page.waitForSelector('#game-container canvas', { timeout: 10000 });
+  // Wait for game to initialize
+  await page.waitForTimeout(2000);
+  return canvas;
+}
+
+// Helper function to calculate screen coordinates
+function calculateScreenPosition(
+  position: { x: number; y: number },
+  bounds: { x: number; y: number },
+  scale: { x: number; y: number },
+  zoomLevel: number
+) {
+  return {
+    x: bounds.x + (position.x * scale.x * zoomLevel),
+    y: bounds.y + (position.y * scale.y * zoomLevel)
+  };
+}
+
+// Helper function to attempt clicks at a position
+async function attemptClicksAtPosition(
+  page: Page,
+  screenX: number,
+  screenY: number,
+  mapX: number,
+  mapY: number,
+  attempts: number = 5,
+  delayBetweenClicks: number = 500
+) {
+  for (let attempt = 1; attempt <= attempts; attempt++) {
+    console.log(`Click attempt ${attempt} at map position (${mapX}, ${mapY}) -> screen position (${Math.round(screenX)}, ${Math.round(screenY)})`);
+    await page.mouse.click(screenX, screenY);
+    await page.waitForTimeout(delayBetweenClicks);
+  }
+}
 
 test.describe('Game Resource Collection and Crafting', () => {
-  test('should collect human, verify inventory, and craft', async ({ page }) => {
-    // Navigate to game
+  const humanPositions = [
+    // human_x positions
+    { x: 176, y: 192 },
+    { x: 256, y: 352 },
+    { x: 192, y: 368 },
+    { x: 272, y: 48 },
+    { x: 336, y: 112 },
+    // human_y positions
+    { x: 448, y: 96 },
+    { x: 112, y: 112 },
+    { x: 448, y: 416 }
+  ];
+
+  test('complete game workflow', async ({ page }) => {
+    // Navigate to the game
     await page.goto('http://localhost:5173/game');
 
-    // Wait for canvas and get bounds
-    const canvas = await page.waitForSelector('canvas[width="2048"][height="1152"]');
-    const displayedBounds = await canvas.boundingBox();
-    if (!displayedBounds) throw new Error('Could not get canvas bounds');
+    // Get canvas and its properties using the working method
+    const canvas = await getGameCanvas(page);
+    const bounds = await canvas.boundingBox();
 
-    const scaleX = displayedBounds.width / 2048;
-    const scaleY = displayedBounds.height / 1152;
+    if (!bounds) {
+      throw new Error('Could not get canvas bounds');
+    }
 
-    const convertToScreenCoords = (gameX: number, gameY: number) => ({
-      x: displayedBounds.x + gameX * scaleX,
-      y: displayedBounds.y + gameY * scaleY
+    // Get canvas display size
+    const displaySize = await page.evaluate(() => {
+      const canvas = document.querySelector('#game-container canvas');
+      if (!canvas) return null;
+      return {
+        width: canvas.clientWidth,
+        height: canvas.clientHeight
+      };
     });
 
-    // Wait for game to fully load
-    await page.waitForTimeout(2000);
+    console.log('Canvas display size:', displaySize);
 
-    // 1. Click human sprite
-    const humanPos = convertToScreenCoords(200, 400);
-    console.log('Clicking human at:', humanPos);
-    await page.mouse.click(humanPos.x, humanPos.y);
+    if (!displaySize) {
+      throw new Error('Could not get canvas display size');
+    }
+
+    // Calculate scale factors
+    const scale = {
+      x: displaySize.width / 2048,
+      y: displaySize.height / 1152
+    };
+
+    // Game zoom level
+    const zoomLevel = 3;
+
+    // 1. Click humans using the working method
+    for (const position of humanPositions) {
+      const screenPos = calculateScreenPosition(position, bounds, scale, zoomLevel);
+      await attemptClicksAtPosition(
+        page,
+        screenPos.x,
+        screenPos.y,
+        position.x,
+        position.y
+      );
+    }
+
+    // Wait for clicks to complete
     await page.waitForTimeout(1000);
 
-    // 2. Open inventory to verify human was added
+    // 2. Open inventory
     const menuY = 1152 - 100;
-    const inventoryButtonPos = convertToScreenCoords(2048 - 400, menuY);
-    console.log('Opening inventory at:', inventoryButtonPos);
-    await page.mouse.click(inventoryButtonPos.x, inventoryButtonPos.y);
+    const inventoryPos = calculateScreenPosition(
+      { x: 2048 - 400, y: menuY },
+      bounds,
+      scale,
+      1  // No zoom for UI elements
+    );
+    console.log('Opening inventory at:', inventoryPos);
+    await page.mouse.click(inventoryPos.x, inventoryPos.y);
     await page.waitForTimeout(1000);
 
-    // Take screenshot of inventory state
-    await page.screenshot({ path: 'inventory-with-human.png' });
-
-    // Define game dimensions
-    const GAME_WIDTH = 2048;
-    const GAME_HEIGHT = 1152;
-
-    // Calculate inventory dimensions
-    const INVENTORY_WIDTH = GAME_WIDTH / 2.8; // ≈ 731.43
-    const INVENTORY_HEIGHT = GAME_HEIGHT / 1.5; // = 768
-
-    // Calculate inventory position
-    const inventoryX = GAME_WIDTH / 16; // = 128
-    const inventoryY = GAME_HEIGHT / 9;  // = 128
-
-    // Close button position within the inventory
-    const closeButtonX = INVENTORY_WIDTH - 50; // ≈ 681.43
-    const closeButtonY = 50;
-
-    // Close button game coordinates
-    const closeButtonGameX = inventoryX + closeButtonX; // ≈ 809.43
-    const closeButtonGameY = inventoryY + closeButtonY; // = 178
-
-    // Convert to screen coordinates
-    const closeButtonPos = convertToScreenCoords(closeButtonGameX, closeButtonGameY);
-    console.log('Clicking close button at:', closeButtonPos);
-    await page.mouse.click(closeButtonPos.x, closeButtonPos.y);
+    // 3. Close inventory
+    const closePos = calculateScreenPosition(
+      { x: 809.43, y: 178 },
+      bounds,
+      scale,
+      1
+    );
+    console.log('Closing inventory at:', closePos);
+    await page.mouse.click(closePos.x, closePos.y);
     await page.waitForTimeout(500);
 
-
-
-
-     // 4. Open the crafting menu
-    const CRAFTING_WIDTH = GAME_WIDTH / 2.8; // ≈ 731.43
-    const CRAFTING_HEIGHT = GAME_HEIGHT / 1.5; // = 768
-    const craftingMenuX = GAME_WIDTH / 2.3; // ≈ 890.43
-    const craftingMenuY = GAME_HEIGHT / 9;   // = 128
-    const craftingButtonPos = convertToScreenCoords(2048 - 100, menuY);
-    console.log('Opening crafting menu at:', craftingButtonPos);
-    await page.mouse.click(craftingButtonPos.x, craftingButtonPos.y);
+    // 4. Open crafting menu
+    const craftingPos = calculateScreenPosition(
+      { x: 2048 - 100, y: menuY },
+      bounds,
+      scale,
+      1
+    );
+    console.log('Opening crafting at:', craftingPos);
+    await page.mouse.click(craftingPos.x, craftingPos.y);
     await page.waitForTimeout(1000);
 
-    // 5. Close the crafting menu
-    const craftingCloseButtonX =  600; // ≈ 1571.86
-    const craftingCloseButtonY = 225.7724609375 // = 178
-    const craftingCloseButtonPos = convertToScreenCoords(craftingCloseButtonX, craftingCloseButtonY);
-    console.log('Clicking crafting menu close button at:', craftingCloseButtonPos);
-    await page.mouse.click(craftingCloseButtonPos.x, craftingCloseButtonPos.y);
+    // 5. Click craft button
+    const craftButtonPos = calculateScreenPosition(
+      { x: 1024, y: 576 }, // Center of screen
+      bounds,
+      scale,
+      1
+    );
+    console.log('Clicking craft button at:', craftButtonPos);
+    await page.mouse.click(craftButtonPos.x, craftButtonPos.y);
+    await page.waitForTimeout(1000);
+
+    // 6. Close crafting menu
+    const craftClosePos = calculateScreenPosition(
+      { x: 600, y: 225.77 },
+      bounds,
+      scale,
+      1
+    );
+    console.log('Closing crafting at:', craftClosePos);
+    await page.mouse.click(craftClosePos.x, craftClosePos.y);
     await page.waitForTimeout(500);
 
-    // Debug information
-    console.log('Debug info:', {
-      canvasBounds: displayedBounds,
-      scalingFactors: { scaleX, scaleY },
-      clickSequence: {
-        human: humanPos,
-        inventoryButton: inventoryButtonPos,
-        inventoryCloseButton: closeButtonPos,
-        craftingButton: craftingButtonPos,
-        craftingCloseButton: craftingCloseButtonPos,
-      },
-    });
+    // 7. Reopen inventory for final check
+    console.log('Reopening inventory at:', inventoryPos);
+    await page.mouse.click(inventoryPos.x, inventoryPos.y);
+    await page.waitForTimeout(1000);
+
+    // Take final screenshot
+    await page.screenshot({ path: 'final-inventory.png' });
   });
 });
