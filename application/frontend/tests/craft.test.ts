@@ -1,14 +1,12 @@
 import { test, expect, Page } from '@playwright/test';
 
-// Helper function to wait for and get canvas
+// Previous helper functions remain the same
 async function getGameCanvas(page: Page) {
   const canvas = await page.waitForSelector('#game-container canvas', { timeout: 10000 });
-  // Wait for game to initialize
   await page.waitForTimeout(2000);
   return canvas;
 }
 
-// Helper function to calculate screen coordinates
 function calculateScreenPosition(
   position: { x: number; y: number },
   bounds: { x: number; y: number },
@@ -21,7 +19,7 @@ function calculateScreenPosition(
   };
 }
 
-// Helper function to attempt clicks at a position
+
 async function attemptClicksAtPosition(
   page: Page,
   screenX: number,
@@ -29,7 +27,7 @@ async function attemptClicksAtPosition(
   mapX: number,
   mapY: number,
   attempts: number = 5,
-  delayBetweenClicks: number = 500
+  delayBetweenClicks: number = 300
 ) {
   for (let attempt = 1; attempt <= attempts; attempt++) {
     console.log(`Click attempt ${attempt} at map position (${mapX}, ${mapY}) -> screen position (${Math.round(screenX)}, ${Math.round(screenY)})`);
@@ -53,10 +51,7 @@ test.describe('Game Resource Collection and Crafting', () => {
   ];
 
   test('complete game workflow', async ({ page }) => {
-    // Navigate to the game
     await page.goto('http://localhost:5173/game');
-
-    // Get canvas and its properties using the working method
     const canvas = await getGameCanvas(page);
     const bounds = await canvas.boundingBox();
 
@@ -64,7 +59,6 @@ test.describe('Game Resource Collection and Crafting', () => {
       throw new Error('Could not get canvas bounds');
     }
 
-    // Get canvas display size
     const displaySize = await page.evaluate(() => {
       const canvas = document.querySelector('#game-container canvas');
       if (!canvas) return null;
@@ -75,94 +69,89 @@ test.describe('Game Resource Collection and Crafting', () => {
     });
 
     console.log('Canvas display size:', displaySize);
-
     if (!displaySize) {
       throw new Error('Could not get canvas display size');
     }
 
-    // Calculate scale factors
     const scale = {
       x: displaySize.width / 2048,
       y: displaySize.height / 1152
     };
 
-    // Game zoom level
-    const zoomLevel = 3;
-
-    // 1. Click humans using the working method
+    // 1. Click humans
     for (const position of humanPositions) {
-      const screenPos = calculateScreenPosition(position, bounds, scale, zoomLevel);
+      const screenPos = calculateScreenPosition(position, bounds, scale, 3);
       await attemptClicksAtPosition(
         page,
         screenPos.x,
         screenPos.y,
         position.x,
-        position.y
+        position.y,
+          10,  // More attempts for focused testing
+        300  // Slightly faster clicks
       );
     }
-
-    // Wait for clicks to complete
     await page.waitForTimeout(1000);
 
-    // 2. Open inventory
-    const menuY = 1152 - 100;
-    const inventoryPos = calculateScreenPosition(
-      { x: 2048 - 400, y: menuY },
+    // 2. Open inventory (bottom right, third from right)
+    const inventoryButton = calculateScreenPosition(
+      { x: 2048 - 400, y: 1152 - 100 },
       bounds,
       scale,
-      1  // No zoom for UI elements
+      1
     );
-    console.log('Opening inventory at:', inventoryPos);
-    await page.mouse.click(inventoryPos.x, inventoryPos.y);
+    await page.mouse.click(inventoryButton.x, inventoryButton.y);
     await page.waitForTimeout(1000);
 
-    // 3. Close inventory
-    const closePos = calculateScreenPosition(
+    // 3. Close inventory (top right of inventory panel)
+    const closeInventory = calculateScreenPosition(
       { x: 809.43, y: 178 },
       bounds,
       scale,
       1
     );
-    console.log('Closing inventory at:', closePos);
-    await page.mouse.click(closePos.x, closePos.y);
+    await page.mouse.click(closeInventory.x, closeInventory.y);
     await page.waitForTimeout(500);
 
-    // 4. Open crafting menu
-    const craftingPos = calculateScreenPosition(
-      { x: 2048 - 100, y: menuY },
+    // 4. Open crafting menu (bottom right, first icon)
+    const craftingButton = calculateScreenPosition(
+      { x: 2048 - 100, y: 1152 - 100 },
       bounds,
       scale,
       1
     );
-    console.log('Opening crafting at:', craftingPos);
-    await page.mouse.click(craftingPos.x, craftingPos.y);
+    await page.mouse.click(craftingButton.x, craftingButton.y);
     await page.waitForTimeout(1000);
 
-    // 5. Click craft button
-    const craftButtonPos = calculateScreenPosition(
-      { x: 1024, y: 576 }, // Center of screen
+    // 5. Click craft button (in the middle of crafting panel)
+    // Using values from craftingMenu.ts:
+    const CRAFTING_WIDTH = 2048 / 2.8;
+    const CRAFTING_HEIGHT = 1152 / 1.5;
+    const craftButtonX = (2048 / 2.3) + (CRAFTING_WIDTH / 2); // Menu X + button X
+    const craftButtonY = (1152 / 9) + (CRAFTING_HEIGHT / 2); // Menu Y + button Y
+
+    const craftPos = calculateScreenPosition(
+      { x: craftButtonX, y: craftButtonY },
       bounds,
       scale,
       1
     );
-    console.log('Clicking craft button at:', craftButtonPos);
-    await page.mouse.click(craftButtonPos.x, craftButtonPos.y);
+    console.log('Clicking craft button at:', craftPos);
+    await page.mouse.click(craftPos.x, craftPos.y);
     await page.waitForTimeout(1000);
 
     // 6. Close crafting menu
-    const craftClosePos = calculateScreenPosition(
+    const closeCrafting = calculateScreenPosition(
       { x: 600, y: 225.77 },
       bounds,
       scale,
       1
     );
-    console.log('Closing crafting at:', craftClosePos);
-    await page.mouse.click(craftClosePos.x, craftClosePos.y);
+    await page.mouse.click(closeCrafting.x, closeCrafting.y);
     await page.waitForTimeout(500);
 
-    // 7. Reopen inventory for final check
-    console.log('Reopening inventory at:', inventoryPos);
-    await page.mouse.click(inventoryPos.x, inventoryPos.y);
+    // 7. Reopen inventory to verify crafted item
+    await page.mouse.click(inventoryButton.x, inventoryButton.y);
     await page.waitForTimeout(1000);
 
     // Take final screenshot
