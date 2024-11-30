@@ -223,7 +223,7 @@ test.describe('Check if inventory opens', () => {
     const GAME_WIDTH = 2048;
     const GAME_HEIGHT = 1152;
     const INVENTORY_WIDTH = GAME_WIDTH / 2.8; // ≈ 731.43
-    const INVENTORY_HEIGHT = GAME_HEIGHT / 1.5; // = 768
+    //const INVENTORY_HEIGHT = GAME_HEIGHT / 1.5; // = 768
     const inventoryX = GAME_WIDTH / 16; // = 128
     const inventoryY = GAME_HEIGHT / 9;  // = 128
 
