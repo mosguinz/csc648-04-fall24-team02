@@ -154,7 +154,5 @@ test.describe('Game Resource Collection and Crafting', () => {
     await page.mouse.click(inventoryButton.x, inventoryButton.y);
     await page.waitForTimeout(1000);
 
-    // Take final screenshot
-    await page.screenshot({ path: 'final-inventory.png' });
   });
 });
