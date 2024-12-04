@@ -1,7 +1,4 @@
 import { test, Page } from '@playwright/test';
-import { GameData } from '../src/game/stores/gameData';
-import recipeIndex from '../src/game/scenes/ui/build/crafterPlacement';
-import Phaser from 'phaser';
 
 // Helper functions from manual crafting remain the same
 async function getGameCanvas(page: Page) {
@@ -51,20 +48,6 @@ test.describe('Automated Crafting Test', () => {
             x: displaySize.width / 2048,
             y: displaySize.height / 1152,
           };
-
-        // 0: populate Inventory
-        for (let i = 0; i < 3; i++) {
-            await GameData.addResource(i, 10);
-        }
-
-        const inventoryButton = calculateScreenPosition(
-            { x: 2048 - 400, y: 1152 - 100 },
-            bounds,
-            scale,
-            1
-          );
-          await page.mouse.click(inventoryButton.x, inventoryButton.y);
-          await page.waitForTimeout(1000);
 
 
         // 1: Open Build Menu
