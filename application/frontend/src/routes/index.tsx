@@ -1,18 +1,18 @@
-import { Box, Divider, Heading, Text, Icon, VStack } from '@chakra-ui/react';
-import { createFileRoute } from '@tanstack/react-router';
-import { useFloatAnimation } from '../hooks/useFloatAnimation';
-import { FaGraduationCap, FaTrophy, FaChartLine } from 'react-icons/fa';
-import { usePageMetadata } from '../hooks/usePageMetadata';
-export const Route = createFileRoute('/')({
+import { Box, Divider, Heading, Text, Icon, VStack } from "@chakra-ui/react";
+import { createFileRoute } from "@tanstack/react-router";
+import { useFloatAnimation } from "../hooks/useFloatAnimation";
+import { FaGraduationCap, FaTrophy, FaChartLine } from "react-icons/fa";
+import { usePageMetadata } from "../hooks/usePageMetadata";
+export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
 function HomePage(): JSX.Element {
   const floatAnimation = useFloatAnimation(); // floating hook
 
-    usePageMetadata(
+  usePageMetadata(
     "Dashboard",
-    "Explore the dashboard for Brick and Mortar to view achievements, leaderboards, and more."
+    "Explore the dashboard for Brick and Mortar to view achievements, leaderboards, and more.",
   );
 
   return (
@@ -40,20 +40,30 @@ function HomePage(): JSX.Element {
           textAlign="center"
           animation={floatAnimation}
           _hover={{
-            transform: 'scale(1.02)',
-            boxShadow: '0px 4px 15px rgba(244, 143, 177, 0.4)',
+            transform: "scale(1.02)",
+            boxShadow: "0px 4px 15px rgba(244, 143, 177, 0.4)",
           }}
           width="100%"
         >
-          <Icon as={FaGraduationCap} w={12} h={12} color="ui.softPurple" mb={4} />
-          <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
+          <Icon
+            as={FaGraduationCap}
+            w={12}
+            h={12}
+            color="ui.softPurple"
+            mb={4}
+          />
+          <Heading as="h1" size={{ base: "xl", md: "2xl" }} mb={4}>
             Software Engineering Class SFSU
           </Heading>
-          <Text fontSize={{ base: 'lg', md: 'xl' }} mb={4} color="ui.softPurple">
+          <Text
+            fontSize={{ base: "lg", md: "xl" }}
+            mb={4}
+            color="ui.softPurple"
+          >
             Section 04
           </Text>
           <Divider my={4} borderColor="ui.main" />
-          <Text fontSize={{ base: 'md', md: 'lg' }} color="ui.eggPink">
+          <Text fontSize={{ base: "md", md: "lg" }} color="ui.eggPink">
             Team 02
           </Text>
         </Box>
@@ -70,13 +80,18 @@ function HomePage(): JSX.Element {
             textAlign="center"
             animation={floatAnimation}
             _hover={{
-              transform: 'scale(1.05)',
-              boxShadow: '0px 4px 15px rgba(165, 208, 97, 0.4)',
+              transform: "scale(1.05)",
+              boxShadow: "0px 4px 15px rgba(165, 208, 97, 0.4)",
             }}
             width="100%"
           >
             <Icon as={FaTrophy} w={10} h={10} color="ui.softGreen" mb={4} />
-            <Heading as="h2" size={{ base: 'lg', md: 'xl' }} color="ui.softPurple" mb={4}>
+            <Heading
+              as="h2"
+              size={{ base: "lg", md: "xl" }}
+              color="ui.softPurple"
+              mb={4}
+            >
               Achievements
             </Heading>
             <Text color="ui.eggPink">
@@ -94,13 +109,18 @@ function HomePage(): JSX.Element {
             textAlign="center"
             animation={floatAnimation}
             _hover={{
-              transform: 'scale(1.05)',
-              boxShadow: '0px 4px 15px rgba(195, 186, 247, 0.4)',
+              transform: "scale(1.05)",
+              boxShadow: "0px 4px 15px rgba(195, 186, 247, 0.4)",
             }}
             width="100%"
           >
             <Icon as={FaChartLine} w={10} h={10} color="ui.softGreen" mb={4} />
-            <Heading as="h2" size={{ base: 'lg', md: 'xl' }} color="ui.softPurple" mb={4}>
+            <Heading
+              as="h2"
+              size={{ base: "lg", md: "xl" }}
+              color="ui.softPurple"
+              mb={4}
+            >
               Leaderboards
             </Heading>
             <Text color="ui.eggPink">

@@ -6,30 +6,30 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-} from "@chakra-ui/react"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import React from "react"
-import { useForm } from "react-hook-form"
+} from "@chakra-ui/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React from "react";
+import { useForm } from "react-hook-form";
 
-import { type ApiError, UsersService } from "../../client"
-import useAuth from "../../hooks/useAuth"
-import useCustomToast from "../../hooks/useCustomToast"
-import { handleError } from "../../utils"
+import { type ApiError, UsersService } from "../../client";
+import useAuth from "../../hooks/useAuth";
+import useCustomToast from "../../hooks/useCustomToast";
+import { handleError } from "../../utils";
 
 interface DeleteProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const DeleteConfirmation = ({ isOpen, onClose }: DeleteProps) => {
-  const queryClient = useQueryClient()
-  const showToast = useCustomToast()
-  const cancelRef = React.useRef<HTMLButtonElement | null>(null)
+  const queryClient = useQueryClient();
+  const showToast = useCustomToast();
+  const cancelRef = React.useRef<HTMLButtonElement | null>(null);
   const {
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm()
-  const { logout } = useAuth()
+  } = useForm();
+  const { logout } = useAuth();
 
   const mutation = useMutation({
     mutationFn: () => UsersService.deleteUserMe(),
@@ -38,21 +38,21 @@ const DeleteConfirmation = ({ isOpen, onClose }: DeleteProps) => {
         "Success",
         "Your account has been successfully deleted.",
         "success",
-      )
-      logout()
-      onClose()
+      );
+      logout();
+      onClose();
     },
     onError: (err: ApiError) => {
-      handleError(err, showToast)
+      handleError(err, showToast);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["currentUser"] })
+      queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     },
-  })
+  });
 
   const onSubmit = async () => {
-    mutation.mutate()
-  }
+    mutation.mutate();
+  };
 
   return (
     <>
@@ -90,7 +90,7 @@ const DeleteConfirmation = ({ isOpen, onClose }: DeleteProps) => {
         </AlertDialogOverlay>
       </AlertDialog>
     </>
-  )
-}
+  );
+};
 
-export default DeleteConfirmation
+export default DeleteConfirmation;
