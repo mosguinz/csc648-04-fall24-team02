@@ -1,24 +1,17 @@
-import {
-  Box,
-  Divider,
-  Flex,
-  Heading,
-  Icon,
-  Text,
-} from "@chakra-ui/react";
-import { createFileRoute } from "@tanstack/react-router";
-import { FaUsers, FaGamepad } from "react-icons/fa";
-import { useFloatAnimation } from "../hooks/useFloatAnimation";
-import { usePageMetadata } from "../hooks/usePageMetadata";
-import TeamAccordion from "../components/Common/TeamAccordion"; // Import TeamAccordion component
+import { Box, Divider, Flex, Heading, Icon, Text } from "@chakra-ui/react"
+import { createFileRoute } from "@tanstack/react-router"
+import { FaGamepad, FaUsers } from "react-icons/fa"
+import TeamAccordion from "../components/Common/TeamAccordion" // Import TeamAccordion component
+import { useFloatAnimation } from "../hooks/useFloatAnimation"
+import { usePageMetadata } from "../hooks/usePageMetadata"
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
-});
+})
 
 function AboutPage(): JSX.Element {
-  const floatAnimation = useFloatAnimation();
-  usePageMetadata("About");
+  const floatAnimation = useFloatAnimation()
+  usePageMetadata("About")
 
   return (
     <Box minHeight="100vh" py={10} px={4}>
@@ -72,14 +65,16 @@ function AboutPage(): JSX.Element {
           </Text>
           <Divider my={4} borderColor="ui.main" />
           <Text fontSize="md" textAlign="left">
-            Welcome to our game! In this game, you will collect resources and find out what you can build,
-            overcome mysteries, and compete with others to unlock achievements and get the best drip.
-            The game is designed to test your curiosity and provide endless fun. Get ready to click!
+            Welcome to our game! In this game, you will collect resources and
+            find out what you can build, overcome mysteries, and compete with
+            others to unlock achievements and get the best drip. The game is
+            designed to test your curiosity and provide endless fun. Get ready
+            to click!
           </Text>
         </Box>
       </Flex>
     </Box>
-  );
+  )
 }
 
-export default AboutPage;
+export default AboutPage

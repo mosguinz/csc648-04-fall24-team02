@@ -1,0 +1,163 @@
+{
+  "section1": {
+    "files": [
+      {
+        "url": "assets/game/ui/button.png",
+        "type": "image",
+        "key": "button"
+      },
+      {
+        "url": "assets/game/ui/button_arrow.png",
+        "type": "image",
+        "key": "button_arrow"
+      },
+      {
+        "url": "assets/game/ui/button_transparent.png",
+        "type": "image",
+        "key": "button_transparent"
+      },
+      {
+        "url": "assets/game/ui/menu_icon.png",
+        "type": "image",
+        "key": "menu_icon"
+      },
+      {
+        "url": "assets/game/ui/menu.png",
+        "type": "image",
+        "key": "menu"
+      },
+      {
+        "url": "assets/game/ui/build_icon.png",
+        "type": "image",
+        "key": "build_icon"
+      },
+      {
+        "url": "assets/game/ui/craft_icon.png",
+        "type": "image",
+        "key": "craft_icon"
+      },
+      {
+        "url": "assets/game/ui/inventory_icon.png",
+        "type": "image",
+        "key": "inventory_icon"
+      },
+      {
+        "url": "assets/game/ui/button_hover.png",
+        "type": "image",
+        "key": "button_hover"
+      },
+      {
+        "url": "assets/game/ui/inventory_panel.png",
+        "type": "image",
+        "key": "inventory_panel"
+      },
+      {
+        "url": "assets/game/ui/inventory_divider.png",
+        "type": "image",
+        "key": "inventory_divider"
+      },
+      {
+        "url": "assets/game/ui/inventory_slot.png",
+        "type": "image",
+        "key": "inventory_slot"
+      },
+      {
+        "url": "assets/game/ui/close_button.png",
+        "type": "image",
+        "key": "close_button"
+      },
+      {
+        "url": "assets/game/ui/crafting_slot.png",
+        "type": "image",
+        "key": "crafting_slot"
+      },
+      {
+        "url": "assets/game/ui/recipe_panel.png",
+        "type": "image",
+        "key": "recipe_panel"
+      },
+      {
+        "url": "assets/game/resources/1.png",
+        "type": "image",
+        "key": "1"
+      },
+      {
+        "url": "assets/game/resources/2.png",
+        "type": "image",
+        "key": "2"
+      },
+      {
+        "url": "assets/game/resources/3.png",
+        "type": "image",
+        "key": "3"
+      },
+      {
+        "url": "assets/game/resources/4.png",
+        "type": "image",
+        "key": "4"
+      },
+      {
+        "url": "assets/game/resources/5.png",
+        "type": "image",
+        "key": "5"
+      },
+      {
+        "url": "assets/game/resources/6.png",
+        "type": "image",
+        "key": "6"
+      },
+      {
+        "url": "assets/game/resources/7.png",
+        "type": "image",
+        "key": "7"
+      },
+      {
+        "url": "assets/game/ui/miner_icon.png",
+        "type": "image",
+        "key": "miner_icon"
+      },
+      {
+        "url": "assets/game/ui/crafter_icon.png",
+        "type": "image",
+        "key": "crafter_icon"
+      },
+      {
+        "url": "assets/game/ui/left_arrow.png",
+        "type": "image",
+        "key": "left_arrow"
+      },
+      {
+        "url": "assets/game/ui/right_arrow.png",
+        "type": "image",
+        "key": "right_arrow"
+      },
+      {
+        "url": "assets/game/maps/map.json",
+        "type": "tilemapTiledJSON",
+        "key": "map"
+      },
+      {
+        "url": "assets/game/tilesets/tileset.png",
+        "type": "image",
+        "key": "tileset"
+      },
+      {
+        "url": "assets/game/tilesets/objects/blue_tree.png",
+        "type": "image",
+        "key": "blue_tree"
+      },
+      {
+        "url": "assets/game/tilesets/objects/pink_car.png",
+        "type": "image",
+        "key": "pink_car"
+      }
+    ]
+  },
+  "meta": {
+    "app": "Phaser Editor 2D - Asset Pack Editor",
+    "contentType": "phasereditor2d.pack.core.AssetContentType",
+    "url": "https://phasereditor2d.com",
+    "version": 2,
+    "showAllFilesInBlocks": false
+  }
+}
