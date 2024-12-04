@@ -109,7 +109,7 @@ test.afterAll(() => {
 // Test Suite: Verify if map is loaded
 test.describe('Map Loading', () => {
   test('Check if map is loaded', async ({ page }) => {
-    await page.goto('http://localhost:5173/game');
+    await page.goto('http://localhost:5174/game');
     const canvas = await page.locator('canvas');
     await expect(canvas).toBeVisible();
 
@@ -121,7 +121,7 @@ test.describe('Map Loading', () => {
 // Test Suite: Verify human positions
 test.describe('Human Sprite Testing', () => {
   test('Test human sprite positions', async ({ page }) => {
-    await page.goto('http://localhost:5173/game');
+    await page.goto('http://localhost:5174/game');
     const canvas = await getGameCanvas(page);
     const bounds = await canvas.boundingBox();
 
@@ -160,7 +160,7 @@ test.describe('Human Sprite Testing', () => {
 test.describe('Pink Car Sprite Testing', () => {
   test.setTimeout(60000);
   test('Test pink car sprite positions', async ({ page }) => {
-    await page.goto('http://localhost:5173/game');
+    await page.goto('http://localhost:5174/game');
     const canvas = await getGameCanvas(page);
     const bounds = await canvas.boundingBox();
 
@@ -211,7 +211,7 @@ function convertToScreenCoords(
 //used to check if human or pink car is being stored
 test.describe('Inventory Screenshot Comparison Test', () => {
   test('should compare inventory before and after interaction', async ({ page }) => {
-    await page.goto('http://localhost:5173/game');
+    await page.goto('http://localhost:5174/game');
     const canvas = await page.waitForSelector('canvas[width="2048"][height="1152"]');
     const bounds = await canvas.boundingBox();
     if (!bounds) throw new Error('Could not get canvas bounds');
