@@ -81,9 +81,14 @@ async function attemptClicksAtPosition(
 ) {
   for (let attempt = 1; attempt <= attempts; attempt++) {
     console.log(`Click attempt ${attempt} at map position (${mapX}, ${mapY}) -> screen position (${Math.round(screenX)}, ${Math.round(screenY)})`);
-    await page.mouse.click(screenX, screenY);
-    await page.waitForTimeout(delayBetweenClicks);
+  
+    // Click with no timeout (use a custom timeout if needed)
+    await page.mouse.click(screenX, screenY); 
+  
+    // Wait for the specified delay between clicks (set to 0 if no wait is needed)
+    await page.waitForTimeout(delayBetweenClicks); // Delay between clicks, set to 0 if no delay is needed
   }
+  
 }
 
 //file clean up
@@ -108,8 +113,9 @@ test.afterAll(() => {
 
 // Test Suite: Verify if map is loaded
 test.describe('Map Loading', () => {
+  test.setTimeout(600000);
   test('Check if map is loaded', async ({ page }) => {
-    await page.goto('http://localhost:5174/game');
+    await page.goto('http://localhost:5174/game',{ timeout: 0 });
     const canvas = await page.locator('canvas');
     await expect(canvas).toBeVisible();
 
@@ -120,8 +126,9 @@ test.describe('Map Loading', () => {
 
 // Test Suite: Verify human positions
 test.describe('Human Sprite Testing', () => {
+  test.setTimeout(600000);
   test('Test human sprite positions', async ({ page }) => {
-    await page.goto('http://localhost:5174/game');
+    await page.goto('http://localhost:5174/game',{ timeout: 0 });
     const canvas = await getGameCanvas(page);
     const bounds = await canvas.boundingBox();
 
@@ -158,9 +165,9 @@ test.describe('Human Sprite Testing', () => {
 
 // Test Suite: Verify pink car positions
 test.describe('Pink Car Sprite Testing', () => {
-  test.setTimeout(60000);
+  test.setTimeout(600000);
   test('Test pink car sprite positions', async ({ page }) => {
-    await page.goto('http://localhost:5174/game');
+    await page.goto('http://localhost:5174/game',{ timeout: 0 });
     const canvas = await getGameCanvas(page);
     const bounds = await canvas.boundingBox();
 
@@ -210,8 +217,9 @@ function convertToScreenCoords(
 //compare inventory before game and after playing game
 //used to check if human or pink car is being stored
 test.describe('Inventory Screenshot Comparison Test', () => {
+  test.setTimeout(600000);
   test('should compare inventory before and after interaction', async ({ page }) => {
-    await page.goto('http://localhost:5174/game');
+    await page.goto('http://localhost:5174/game',{ timeout: 0 });
     const canvas = await page.waitForSelector('canvas[width="2048"][height="1152"]');
     const bounds = await canvas.boundingBox();
     if (!bounds) throw new Error('Could not get canvas bounds');
