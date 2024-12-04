@@ -86,25 +86,25 @@ async function attemptClicksAtPosition(
   }
 }
 
-// Cleanup after all tests
+//file clean up
 test.afterAll(() => {
-  fs.readdir(screenshotsDir, (err, files) => {
+  fs.readdir(screenshotsDir, async (err, files) => {
     if (err) {
       console.error('Failed to read screenshots directory:', err);
       return;
     }
-    files.forEach((file) => {
+    for (const file of files) {
       const filePath = path.join(screenshotsDir, file);
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error(`Failed to delete screenshot: ${filePath}`, err);
-        } else {
-          console.log(`Deleted screenshot: ${filePath}`);
-        }
-      });
-    });
+      try {
+        await fs.promises.unlink(filePath); // Using fs.promises to handle unlink asynchronously
+        console.log(`Deleted screenshot: ${filePath}`);
+      } catch (unlinkError) {
+        console.error(`Failed to delete screenshot: ${filePath}`, unlinkError);
+      }
+    }
   });
 });
+
 
 // Test Suite: Verify if map is loaded
 test.describe('Map Loading', () => {
