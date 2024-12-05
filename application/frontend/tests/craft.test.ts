@@ -50,7 +50,7 @@ test.describe('Game Resource Collection and Crafting', () => {
   ];
 
   test('complete game workflow', async ({ page }) => {
-    await page.goto('http://localhost:5173/game');
+    await page.goto('/game');
     const canvas = await getGameCanvas(page);
     const bounds = await canvas.boundingBox();
 
