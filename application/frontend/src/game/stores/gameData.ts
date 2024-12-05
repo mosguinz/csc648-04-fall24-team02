@@ -1,7 +1,6 @@
 import { ResourceBase, UserMiner, UserAssembler } from "../../client";
 import { ResourcesService, FacilitiesService } from "../../client";
 
-
 export const GameData = {
   resources: [] as ResourceBase[],
   eventEmitter: new Phaser.Events.EventEmitter(), // Event emitter to notify updates for inventory and miners
