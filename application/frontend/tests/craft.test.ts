@@ -1,6 +1,5 @@
-import { test, expect, Page } from '@playwright/test';
+import { test, Page } from '@playwright/test';
 
-// Previous helper functions remain the same
 async function getGameCanvas(page: Page) {
   const canvas = await page.waitForSelector('#game-container canvas', { timeout: 10000 });
   await page.waitForTimeout(2000);
