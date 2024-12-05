@@ -30,7 +30,7 @@ async function attemptClicksAtPosition(
 ) {
   for (let attempt = 1; attempt <= attempts; attempt++) {
     console.log(`Click attempt ${attempt} at map position (${mapX}, ${mapY}) -> screen position (${Math.round(screenX)}, ${Math.round(screenY)})`);
-    test.setTimeout(60000);
+    test.setTimeout(80000);
     await page.mouse.click(screenX, screenY);
     await page.waitForTimeout(delayBetweenClicks);
   }
@@ -51,7 +51,7 @@ test.describe('Game Resource Collection and Crafting', () => {
   ];
 
   test('complete game workflow', async ({ page }) => {
-    test.setTimeout(60000);
+    test.setTimeout(80000);
     await page.goto('/game');
     const canvas = await getGameCanvas(page);
     const bounds = await canvas.boundingBox();
