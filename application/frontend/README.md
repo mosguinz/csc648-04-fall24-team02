@@ -15,11 +15,13 @@ With [fnm](https://github.com/Schniz/fnm) installed, install the appropriate Nod
 ```bash
 fnm install
 ```
+
 Once the installation is complete, switch to the installed version:
 
 ```bash
 fnm use
 ```
+
 Then, install all the frontend dependencies by using:
 
 ```bash
@@ -61,33 +63,34 @@ Check the file `package.json` to see other available options.
 > [!TIP]
 > The frontend client will be generated automatically whenever you open a pull request or sync the branch on GitHub. Unless you need the client straight away, there is no need to generate it locally!
 
-* Activate the backend virtual environment.
-* From the top level project directory (`../application/`), run the script:
+- Activate the backend virtual environment.
+- From the top level project directory (`../application/`), run the script:
 
 ```bash
 ./scripts/generate-frontend-client.sh
 ```
-* Commit the changes.
+
+- Commit the changes.
 
 ### Manually
 
-* Start the Docker Compose stack.
+- Start the Docker Compose stack.
 
-* Download the OpenAPI JSON file from `http://localhost/api/v1/openapi.json` and copy it to a new file `openapi.json` at the root of the `frontend` directory.
+- Download the OpenAPI JSON file from `http://localhost/api/v1/openapi.json` and copy it to a new file `openapi.json` at the root of the `frontend` directory.
 
-* To simplify the names in the generated frontend client code, modify the `openapi.json` file by running the following script:
+- To simplify the names in the generated frontend client code, modify the `openapi.json` file by running the following script:
 
 ```bash
 node modify-openapi-operationids.js
 ```
 
-* To generate the frontend client, run:
+- To generate the frontend client, run:
 
 ```bash
 npm run generate-client
 ```
 
-* Commit the changes.
+- Commit the changes.
 
 Notice that everytime the backend changes (changing the OpenAPI schema), you should follow these steps again to update the frontend client.
 
@@ -105,13 +108,13 @@ Then, when you run the frontend, it will use that URL as the base URL for the AP
 
 The frontend code is structured as follows:
 
-* `frontend/src` - The main frontend code.
-* `frontend/src/assets` - Static assets.
-* `frontend/src/client` - The generated OpenAPI client.
-* `frontend/src/components` -  The different components of the frontend.
-* `frontend/src/hooks` - Custom hooks.
-* `frontend/src/routes` - The different routes of the frontend which include the pages.
-* `theme.tsx` - The Chakra UI custom theme.
+- `frontend/src` - The main frontend code.
+- `frontend/src/assets` - Static assets.
+- `frontend/src/client` - The generated OpenAPI client.
+- `frontend/src/components` - The different components of the frontend.
+- `frontend/src/hooks` - Custom hooks.
+- `frontend/src/routes` - The different routes of the frontend which include the pages.
+- `theme.tsx` - The Chakra UI custom theme.
 
 ## End-to-End Testing with Playwright
 

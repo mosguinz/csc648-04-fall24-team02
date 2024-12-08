@@ -1,27 +1,24 @@
-import { Box, Divider, Heading, Text, VStack, Icon } from '@chakra-ui/react';
-import { createFileRoute } from '@tanstack/react-router';
-import { FaCrown, FaUserAlt } from 'react-icons/fa';
-import { useFloatAnimation } from '../hooks/useFloatAnimation';
+import { Box, Divider, Heading, Text, VStack, Icon } from "@chakra-ui/react";
+import { createFileRoute } from "@tanstack/react-router";
+import { FaCrown, FaUserAlt } from "react-icons/fa";
+import { useFloatAnimation } from "../hooks/useFloatAnimation";
 import { usePageMetadata } from "../hooks/usePageMetadata";
-export const Route = createFileRoute('/leaderboard')({
+export const Route = createFileRoute("/leaderboard")({
   component: LeaderBoardPage,
 });
 
 function LeaderBoardPage(): JSX.Element {
   const floatAnimation = useFloatAnimation(); // Floating animation hook
-    usePageMetadata(
-    "Leaderboard",
-    "checkout the leaderboard!"
-  );
+  usePageMetadata("Leaderboard", "checkout the leaderboard!");
   // Mock leaderboard data
   // will need to come up with template to pull infor from backend and update based on who
   // holds the most resources currently as a place holder before we come up with a point system
   const leaderboardData = [
-    { rank: 1, name: 'Player1', score: 1500 },
-    { rank: 2, name: 'Player2', score: 1200 },
-    { rank: 3, name: 'Player3', score: 1000 },
-    { rank: 4, name: 'Player4', score: 800 },
-    { rank: 5, name: 'Player5', score: 600 },
+    { rank: 1, name: "Player1", score: 1500 },
+    { rank: 2, name: "Player2", score: 1200 },
+    { rank: 3, name: "Player3", score: 1000 },
+    { rank: 4, name: "Player4", score: 800 },
+    { rank: 5, name: "Player5", score: 600 },
   ];
 
   return (
@@ -35,14 +32,14 @@ function LeaderBoardPage(): JSX.Element {
         boxShadow="2xl"
         textAlign="center"
         animation={floatAnimation}
-        maxW={{ base: '90%', md: '70%', lg: '50%' }}
+        maxW={{ base: "90%", md: "70%", lg: "50%" }}
         mx="auto"
       >
         <Icon as={FaCrown} w={12} h={12} color="ui.green" mb={4} />
-        <Heading as="h1" size={{ base: 'xl', md: '2xl' }} mb={4}>
+        <Heading as="h1" size={{ base: "xl", md: "2xl" }} mb={4}>
           Leaderboards
         </Heading>
-        <Text fontSize={{ base: 'lg', md: 'xl' }} color="ui.orange" mb={4}>
+        <Text fontSize={{ base: "lg", md: "xl" }} color="ui.orange" mb={4}>
           Top Players of the Week
         </Text>
         <Divider my={4} borderColor="ui.main" />
@@ -59,8 +56,8 @@ function LeaderBoardPage(): JSX.Element {
               justifyContent="space-between"
               alignItems="center"
               _hover={{
-                transform: 'scale(1.02)',
-                boxShadow: '0px 4px 15px rgba(165, 208, 97, 0.4)',
+                transform: "scale(1.02)",
+                boxShadow: "0px 4px 15px rgba(165, 208, 97, 0.4)",
               }}
             >
               <Text fontSize="lg" fontWeight="bold" color="ui.green">

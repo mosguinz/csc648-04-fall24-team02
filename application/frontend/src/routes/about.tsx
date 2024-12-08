@@ -1,17 +1,17 @@
-import { Box, Divider, Flex, Heading, Icon, Text } from "@chakra-ui/react"
-import { createFileRoute } from "@tanstack/react-router"
-import { FaGamepad, FaUsers } from "react-icons/fa"
-import TeamAccordion from "../components/Common/TeamAccordion" // Import TeamAccordion component
-import { useFloatAnimation } from "../hooks/useFloatAnimation"
-import { usePageMetadata } from "../hooks/usePageMetadata"
+import { Box, Divider, Flex, Heading, Icon, Text } from "@chakra-ui/react";
+import { createFileRoute } from "@tanstack/react-router";
+import { FaGamepad, FaUsers } from "react-icons/fa";
+import TeamAccordion from "../components/Common/TeamAccordion"; // Import TeamAccordion component
+import { useFloatAnimation } from "../hooks/useFloatAnimation";
+import { usePageMetadata } from "../hooks/usePageMetadata";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
-})
+});
 
 function AboutPage(): JSX.Element {
-  const floatAnimation = useFloatAnimation()
-  usePageMetadata("About")
+  const floatAnimation = useFloatAnimation();
+  usePageMetadata("About");
 
   return (
     <Box minHeight="100vh" py={10} px={4}>
@@ -74,7 +74,7 @@ function AboutPage(): JSX.Element {
         </Box>
       </Flex>
     </Box>
-  )
+  );
 }
 
-export default AboutPage
+export default AboutPage;

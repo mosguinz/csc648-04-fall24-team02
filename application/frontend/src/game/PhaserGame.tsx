@@ -1,37 +1,37 @@
 // Provided template file to link Phaser with ReactTS
 // DO NOT TOUCH
 
-import { forwardRef, useLayoutEffect, useRef } from "react"
-import StartGame from "./main"
+import { forwardRef, useLayoutEffect, useRef } from "react";
+import StartGame from "./main";
 
 export interface IRefPhaserGame {
-  game: Phaser.Game | null
+  game: Phaser.Game | null;
 }
 
 export const PhaserGame = forwardRef<IRefPhaserGame>(function PhaserGame(
   {},
   ref,
 ) {
-  const game = useRef<Phaser.Game | null>(null!)
+  const game = useRef<Phaser.Game | null>(null!);
 
   useLayoutEffect(() => {
     if (game.current === null) {
-      game.current = StartGame("game-container")
+      game.current = StartGame("game-container");
 
       if (typeof ref === "function") {
-        ref({ game: game.current })
+        ref({ game: game.current });
       } else if (ref) {
-        ref.current = { game: game.current }
+        ref.current = { game: game.current };
       }
     }
 
     return () => {
       if (game.current) {
-        game.current.destroy(true)
-        game.current = null
+        game.current.destroy(true);
+        game.current = null;
       }
-    }
-  }, [ref])
+    };
+  }, [ref]);
 
-  return <div id="game-container" />
-})
+  return <div id="game-container" />;
+});

@@ -20,7 +20,8 @@ const teamMembers: TeamMember[] = [
     name: "Arizza Cristobal",
     role: "Scrum Master",
     bio: "Click my name!",
-    hiddenLink: "https://tracker.gg/valorant/profile/riot/rizzabears%23NA1/overview",
+    hiddenLink:
+      "https://tracker.gg/valorant/profile/riot/rizzabears%23NA1/overview",
     image: "assets/images/team-members/arizza.png",
   },
   {

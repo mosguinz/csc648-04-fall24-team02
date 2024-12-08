@@ -1,11 +1,11 @@
-import { Button, Flex } from "@chakra-ui/react"
+import { Button, Flex } from "@chakra-ui/react";
 
 type PaginationFooterProps = {
-  hasNextPage?: boolean
-  hasPreviousPage?: boolean
-  onChangePage: (newPage: number) => void
-  page: number
-}
+  hasNextPage?: boolean;
+  hasPreviousPage?: boolean;
+  onChangePage: (newPage: number) => void;
+  page: number;
+};
 
 export function PaginationFooter({
   hasNextPage,
@@ -32,5 +32,5 @@ export function PaginationFooter({
         Next
       </Button>
     </Flex>
-  )
+  );
 }

@@ -1,12 +1,12 @@
 // theme.js
-import { extendTheme } from "@chakra-ui/react"
-import "@fontsource/bubblegum-sans"
+import { extendTheme } from "@chakra-ui/react";
+import "@fontsource/bubblegum-sans";
 
 const disabledStyles = {
   _disabled: {
     backgroundColor: "ui.main",
   },
-}
+};
 
 const theme = extendTheme({
   colors: {
@@ -30,13 +30,11 @@ const theme = extendTheme({
       softGreen: "#c7f9cd",
       eggPink: "#f9cdc7",
       softPurple: "#cdc7f9",
-
     },
   },
   fonts: {
     heading: "'Bubblegum Sans', cursive",
     body: "'Bubblegum Sans', cursive",
-
   },
   styles: {
     global: {
@@ -88,6 +86,6 @@ const theme = extendTheme({
       },
     },
   },
-})
+});
 
-export default theme
+export default theme;

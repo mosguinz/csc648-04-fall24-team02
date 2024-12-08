@@ -6,10 +6,10 @@ import {
   RadioGroup,
   Stack,
   useColorMode,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 const Appearance = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <>
@@ -33,6 +33,6 @@ const Appearance = () => {
         </RadioGroup>
       </Container>
     </>
-  )
-}
-export default Appearance
+  );
+};
+export default Appearance;

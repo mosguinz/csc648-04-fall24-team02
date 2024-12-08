@@ -13,32 +13,32 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-} from "@chakra-ui/react"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { type SubmitHandler, useForm } from "react-hook-form"
+} from "@chakra-ui/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { type SubmitHandler, useForm } from "react-hook-form";
 
 import {
   type ApiError,
   type UserPublic,
   type UserUpdate,
   UsersService,
-} from "../../client"
-import useCustomToast from "../../hooks/useCustomToast"
-import { emailPattern, handleError } from "../../utils"
+} from "../../client";
+import useCustomToast from "../../hooks/useCustomToast";
+import { emailPattern, handleError } from "../../utils";
 
 interface EditUserProps {
-  user: UserPublic
-  isOpen: boolean
-  onClose: () => void
+  user: UserPublic;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 interface UserUpdateForm extends UserUpdate {
-  confirm_password: string
+  confirm_password: string;
 }
 
 const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
-  const queryClient = useQueryClient()
-  const showToast = useCustomToast()
+  const queryClient = useQueryClient();
+  const showToast = useCustomToast();
 
   const {
     register,
@@ -50,34 +50,34 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
     mode: "onBlur",
     criteriaMode: "all",
     defaultValues: user,
-  })
+  });
 
   const mutation = useMutation({
     mutationFn: (data: UserUpdateForm) =>
       UsersService.updateUser({ userId: user.id, requestBody: data }),
     onSuccess: () => {
-      showToast("Success!", "User updated successfully.", "success")
-      onClose()
+      showToast("Success!", "User updated successfully.", "success");
+      onClose();
     },
     onError: (err: ApiError) => {
-      handleError(err, showToast)
+      handleError(err, showToast);
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] })
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
-  })
+  });
 
   const onSubmit: SubmitHandler<UserUpdateForm> = async (data) => {
     if (data.password === "") {
-      data.password = undefined
+      data.password = undefined;
     }
-    mutation.mutate(data)
-  }
+    mutation.mutate(data);
+  };
 
   const onCancel = () => {
-    reset()
-    onClose()
-  }
+    reset();
+    onClose();
+  };
 
   return (
     <>
@@ -174,7 +174,7 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
         </ModalContent>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default EditUser
+export default EditUser;

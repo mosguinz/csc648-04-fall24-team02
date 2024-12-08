@@ -1,4 +1,4 @@
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -14,19 +14,19 @@ import {
   Link,
   Text,
   useBoolean,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 import {
   Link as RouterLink,
   createFileRoute,
   redirect,
   useNavigate,
-} from "@tanstack/react-router"
-import { type SubmitHandler, useForm } from "react-hook-form"
-import { FaSignInAlt } from "react-icons/fa"
-import Logo from "/assets/page_images/login-image.png"
-import type { Body_login_login_access_token as AccessToken } from "../client"
-import useAuth, { isLoggedIn } from "../hooks/useAuth"
-import { emailPattern } from "../utils"
+} from "@tanstack/react-router";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import { FaSignInAlt } from "react-icons/fa";
+import Logo from "/assets/page_images/login-image.png";
+import type { Body_login_login_access_token as AccessToken } from "../client";
+import useAuth, { isLoggedIn } from "../hooks/useAuth";
+import { emailPattern } from "../utils";
 import { useFloatAnimation } from "../hooks/useFloatAnimation";
 import { usePageMetadata } from "../hooks/usePageMetadata";
 
@@ -36,14 +36,14 @@ export const Route = createFileRoute("/login")({
     if (isLoggedIn()) {
       throw redirect({
         to: "/dashboard",
-      })
+      });
     }
   },
-})
+});
 
 function Login() {
-  const [show, setShow] = useBoolean()
-  const { loginMutation, error, resetError } = useAuth()
+  const [show, setShow] = useBoolean();
+  const { loginMutation, error, resetError } = useAuth();
   const {
     register,
     handleSubmit,
@@ -55,26 +55,26 @@ function Login() {
       username: "",
       password: "",
     },
-  })
-  const navigate = useNavigate()
+  });
+  const navigate = useNavigate();
   const floatAnimation = useFloatAnimation();
 
-    usePageMetadata(
+  usePageMetadata(
     "Login",
-    "Access your account on Brick and Mortar. Log in to manage your account and view the dashboard."
+    "Access your account on Brick and Mortar. Log in to manage your account and view the dashboard.",
   );
   const onSubmit: SubmitHandler<AccessToken> = async (data) => {
-    if (isSubmitting) return
+    if (isSubmitting) return;
 
-    resetError()
+    resetError();
 
     try {
-      await loginMutation.mutateAsync(data)
-      navigate({ to: "/dashboard" })
+      await loginMutation.mutateAsync(data);
+      navigate({ to: "/dashboard" });
     } catch {
       // error is handled by useAuth hook
     }
-  }
+  };
 
   return (
     <Container
@@ -101,9 +101,20 @@ function Login() {
           <Icon as={FaSignInAlt} w={6} h={6} mr={2} />
           Login
         </Heading>
-        <Image src={Logo} alt="login" height="auto" maxW="200px" mb={4} mx="auto" />
+        <Image
+          src={Logo}
+          alt="login"
+          height="auto"
+          maxW="200px"
+          mb={4}
+          mx="auto"
+        />
 
-        <FormControl id="username" isInvalid={!!errors.username || !!error} mb={4}>
+        <FormControl
+          id="username"
+          isInvalid={!!errors.username || !!error}
+          mb={4}
+        >
           <Input
             id="username"
             {...register("username", {
@@ -114,7 +125,9 @@ function Login() {
             type="email"
             required
           />
-          {errors.username && <FormErrorMessage>{errors.username.message}</FormErrorMessage>}
+          {errors.username && (
+            <FormErrorMessage>{errors.username.message}</FormErrorMessage>
+          )}
         </FormControl>
 
         <FormControl id="password" isInvalid={!!error} mb={4}>
@@ -138,7 +151,13 @@ function Login() {
           {error && <FormErrorMessage>{error}</FormErrorMessage>}
         </FormControl>
 
-        <Link as={RouterLink} to="/recover-password" color="blue.500" mb={4} display="block">
+        <Link
+          as={RouterLink}
+          to="/recover-password"
+          color="blue.500"
+          mb={4}
+          display="block"
+        >
           Forgot password?
         </Link>
 
