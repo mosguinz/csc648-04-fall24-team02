@@ -3,6 +3,7 @@ import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP, recipes } from '../../stores/constants';
 import { GameData } from "../../stores/gameData";
 import { displayFloatingText } from "../../utils/displayFloatingText";
+import { cursorPosition } from "../../hooks/cursor";
 
 export default class CraftingMenu extends Phaser.Scene {
 
@@ -93,6 +94,19 @@ export default class CraftingMenu extends Phaser.Scene {
             if (this.canCraft(recipes[this.recipeIndex])) {
                 this.craftItem(recipes[this.recipeIndex]);
                 this.updateRecipeDisplay();
+            } else {
+                const text = this.add.text(cursorPosition.x, cursorPosition.y, `Not enough resources`, 
+                    { color: '#FF0000', fontSize: '24px' }).setShadow(2, 2, "#000000", 2, true, true).setOrigin(0.5);
+                this.tweens.add({
+                    targets: text,
+                    y: cursorPosition.y - 50,
+                    alpha: 0,
+                    duration: 1000,
+                    ease: 'Linear',
+                    onComplete: () => {
+                        text.destroy();
+                    }
+                });
             }
         });
 
