@@ -5,19 +5,19 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-} from "@chakra-ui/react"
-import { Link } from "@tanstack/react-router"
-import { FaUserAstronaut } from "react-icons/fa"
-import { FiLogOut, FiUser } from "react-icons/fi"
+} from "@chakra-ui/react";
+import { Link } from "@tanstack/react-router";
+import { FaUserAstronaut } from "react-icons/fa";
+import { FiLogOut, FiUser } from "react-icons/fi";
 
-import useAuth, { isLoggedIn } from "../../hooks/useAuth"
+import useAuth, { isLoggedIn } from "../../hooks/useAuth";
 
 const UserMenu = () => {
-  const { logout } = useAuth()
+  const { logout } = useAuth();
 
   const handleLogout = async () => {
-    logout()
-  }
+    logout();
+  };
 
   return (
     <>
@@ -68,7 +68,7 @@ const UserMenu = () => {
         </Menu>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default UserMenu
+export default UserMenu;

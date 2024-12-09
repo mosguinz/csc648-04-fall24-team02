@@ -47,7 +47,9 @@ const TeamAccordion = () => {
               </Box>
               <Box flex="1" textAlign={{ base: "center", md: "left" }}>
                 <Heading as="h3" size="md" mb={2}>
-                  <Link href={member.hiddenLink || undefined}>{member.name}</Link>
+                  <Link href={member.hiddenLink || undefined}>
+                    {member.name}
+                  </Link>
                 </Heading>
                 <Text fontSize="sm" color="ui.orange" mb={2}>
                   {member.role}

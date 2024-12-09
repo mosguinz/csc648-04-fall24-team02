@@ -14,7 +14,7 @@ export function usePageMetadata(title: string, description?: string) {
 
     if (description) {
       let metaDescription = document.querySelector(
-        'meta[name="description"]'
+        'meta[name="description"]',
       ) as HTMLMetaElement | null;
 
       if (metaDescription) {

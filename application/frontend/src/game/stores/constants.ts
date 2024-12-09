@@ -3,14 +3,14 @@ export const GAME_HEIGHT = 1152;
 export const NSP = 32;
 
 export interface Recipe {
-  outputItem: string
-  outputAmount: number
-  ingredients: { item: string; amount: number }[]
+  outputItem: string;
+  outputAmount: number;
+  ingredients: { item: string; amount: number }[];
 }
 
 export interface position {
-  x: number,
-  y: number
+  x: number;
+  y: number;
 }
 
 export const recipes: Recipe[] = [
@@ -18,7 +18,7 @@ export const recipes: Recipe[] = [
   {
     outputItem: "",
     outputAmount: 0,
-    ingredients: [{ item: "", amount: 0 }]
+    ingredients: [{ item: "", amount: 0 }],
   },
   {
     outputItem: "4",
@@ -49,5 +49,5 @@ export const recipes: Recipe[] = [
     outputItem: "9",
     outputAmount: 4,
     ingredients: [{ item: "6", amount: 1 }],
-  }
-]
+  },
+];
