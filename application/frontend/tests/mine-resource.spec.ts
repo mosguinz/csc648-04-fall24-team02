@@ -76,7 +76,7 @@ async function attemptClicksAtPosition(
   screenY: number,
   mapX: number,
   mapY: number,
-  attempts = 5,
+  attempts = 1,
   delayBetweenClicks = 5
 ) {
   for (let attempt = 1; attempt <= attempts; attempt++) {
