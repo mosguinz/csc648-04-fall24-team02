@@ -108,6 +108,7 @@ test.afterAll(() => {
 
 // Test Suite: Verify if map is loaded
 test.describe('Map Loading', () => {
+  //test.setTimeout(6000);
   test('Check if map is loaded', async ({ page }) => {
     await page.goto('http://localhost:5173/game');
     const canvas = await page.locator('canvas');
@@ -205,7 +206,6 @@ function convertToScreenCoords(
   const screenY = canvasBoundingBox.y + gameCoords.y * scaleY;
   return { x: screenX, y: screenY };
 }
-
 
 //compare inventory before game and after playing game
 //used to check if human or pink car is being stored
