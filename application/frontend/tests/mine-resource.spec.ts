@@ -77,7 +77,7 @@ async function attemptClicksAtPosition(
   mapX: number,
   mapY: number,
   attempts = 5,
-  delayBetweenClicks = 50
+  delayBetweenClicks = 5
 ) {
   for (let attempt = 1; attempt <= attempts; attempt++) {
     console.log(`Click attempt ${attempt} at map position (${mapX}, ${mapY}) -> screen position (${Math.round(screenX)}, ${Math.round(screenY)})`);
