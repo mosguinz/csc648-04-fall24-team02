@@ -112,6 +112,16 @@
         "key": "7"
       },
       {
+        "url": "assets/game/resources/8.png",
+        "type": "image",
+        "key": "8"
+      },
+      {
+        "url": "assets/game/resources/9.png",
+        "type": "image",
+        "key": "9"
+      },
+      {
         "url": "assets/game/ui/miner_icon.png",
         "type": "image",
         "key": "miner_icon"
