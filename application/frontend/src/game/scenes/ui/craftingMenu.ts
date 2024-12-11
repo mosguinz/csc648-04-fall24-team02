@@ -3,6 +3,7 @@ import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP, recipes } from '../../stores/constants';
 import { GameData } from "../../stores/gameData";
 import { displayFloatingText } from "../../utils/displayFloatingText";
+import { cursorPosition } from "../../hooks/cursor";
 
 export default class CraftingMenu extends Phaser.Scene {
 
@@ -23,6 +24,8 @@ export default class CraftingMenu extends Phaser.Scene {
     }
 
     create() {
+
+
 
         this.add.nineslice(GAME_WIDTH / 2.3, GAME_HEIGHT / 9, 'inventory_panel', 0,
             this.CRAFTING_WIDTH, this.CRAFTING_HEIGHT / 1.4, NSP, NSP, NSP, NSP).setOrigin(0, 0).setTint(0x247B7F);
@@ -49,6 +52,8 @@ export default class CraftingMenu extends Phaser.Scene {
         closeButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
             this.scene.stop('CraftingMenu');
         });
+
+
 
         // Crafting slots
         const craftingInput1 = this.add.nineslice(this.CRAFTING_WIDTH / 5, this.CRAFTING_HEIGHT / 3, 'crafting_slot',
@@ -89,6 +94,19 @@ export default class CraftingMenu extends Phaser.Scene {
             if (this.canCraft(recipes[this.recipeIndex])) {
                 this.craftItem(recipes[this.recipeIndex]);
                 this.updateRecipeDisplay();
+            } else {
+                const text = this.add.text(cursorPosition.x, cursorPosition.y, `Not enough resources`, 
+                    { color: '#FF0000', fontSize: '24px' }).setShadow(2, 2, "#000000", 2, true, true).setOrigin(0.5);
+                this.tweens.add({
+                    targets: text,
+                    y: cursorPosition.y - 50,
+                    alpha: 0,
+                    duration: 1000,
+                    ease: 'Linear',
+                    onComplete: () => {
+                        text.destroy();
+                    }
+                });
             }
         });
 

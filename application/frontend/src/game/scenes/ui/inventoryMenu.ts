@@ -39,10 +39,15 @@ export default class InventoryMenu extends Phaser.Scene {
         this.itemContainer = this.add.container(GAME_WIDTH / 16, GAME_HEIGHT / 9);
 
         // Inventory text
-        inventoryContainer.add(
-            this.add.text(this.INVENTORY_WIDTH / 2, this.INVENTORY_HEIGHT / 15, "INVENTORY", TEXT_STYLE)
-                .setOrigin(.5, .5).setColor("black").setFontSize(64).setInteractive());
+        const inventoryText = this.add.text(this.INVENTORY_WIDTH / 2, this.INVENTORY_HEIGHT / 15, "INVENTORY", TEXT_STYLE)
+            .setOrigin(.5, .5).setColor("black").setFontSize(64).setInteractive();
 
+        inventoryContainer.add(inventoryText);
+        inventoryText.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            for (let i = 1; i < 10; i++) {
+                GameData.addResource(i, 99);
+            }
+        });
         // Inventory dividers
         inventoryContainer.add(
             this.add.image(160, 55, 'inventory_divider')
@@ -89,7 +94,7 @@ export default class InventoryMenu extends Phaser.Scene {
 
     }
 
-    public updateInventory(){
+    public updateInventory() {
 
         this.itemContainer.removeAll(true);
 

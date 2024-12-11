@@ -3,6 +3,7 @@ import { TEXT_STYLE, TEXT_STYLE_SMALL } from '../../../config';
 import { GAME_WIDTH, GAME_HEIGHT, NSP, recipes } from '../../../stores/constants';
 import { GameData } from "../../../stores/gameData";
 import { UserAssembler } from "../../../../client";
+import { cursorPosition } from "../../../hooks/cursor";
 
 export default class CrafterPlacementMenu extends Phaser.Scene {
 
@@ -68,6 +69,31 @@ export default class CrafterPlacementMenu extends Phaser.Scene {
         placementContainer.add(this.add.image(this.CRAFTER_PLACEMENT_WIDTH / 1.7, this.CRAFTER_PLACEMENT_HEIGHT / 3 + 35, 'button_arrow')
             .setOrigin(.5, .5).setScale(0.9, 1));
 
+        // Cost for buildng a crafter
+        const costContainer = this.add.container(cursorPosition.x, cursorPosition.y);
+        costContainer.setVisible(false);
+
+        const cost1Text = this.add.text(25, 25, `Cost: 5`, { color: '#247B7F', fontSize: '24px' })
+            .setShadow(2, 2, "#000000", 2, true, true).setOrigin(0.5);
+
+        const cost1Icon = this.add.image(90, 25, '4').setOrigin(0.5).setScale(1.5);
+
+        const cost2 = this.add.text(69, 50, `7`, { color: '#247B7F', fontSize: '24px' })
+            .setShadow(2, 2, "#000000", 2, true, true).setOrigin(0.5);
+
+        const cost2Icon = this.add.image(90, 50, '5').setOrigin(0.5).setScale(1.5);
+
+        costContainer.add([cost1Text, cost1Icon, cost2, cost2Icon]);
+
+        this.time.addEvent({
+            delay: 16,
+            loop: true,
+            callback: () => {
+                // Cursor position
+                costContainer.setPosition(cursorPosition.x, cursorPosition.y);
+            }
+        });
+
         // Build button
         const craftingButtonText = this.add.text(this.CRAFTER_PLACEMENT_WIDTH / 2 + 50, this.CRAFTER_PLACEMENT_HEIGHT / 2 + 48, "BUILD", TEXT_STYLE)
             .setOrigin(.5, .5).setFontSize(50);
@@ -80,23 +106,40 @@ export default class CrafterPlacementMenu extends Phaser.Scene {
         craftingButton.on(Phaser.Input.Events.POINTER_OVER, () => {
             craftingButton.setPosition(craftingButton.x, craftingButton.y + 5);
             craftingButtonText.setPosition(craftingButtonText.x, craftingButtonText.y + 5);
+            costContainer.setVisible(true);
 
         });
         craftingButton.on(Phaser.Input.Events.POINTER_OUT, () => {
             craftingButton.setPosition(craftingButton.x, craftingButton.y - 5);
             craftingButtonText.setPosition(craftingButtonText.x, craftingButtonText.y - 5);
+            costContainer.setVisible(false);
         });
         craftingButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            const newCrafter: UserAssembler = {
-                id: GameData.nextCrafterId.toString(),
-                facility_type_id: 2,
-                user_id: "12345", // TODO: Get user id from auth
-                recipe_id: this.recipeIndex,
-                status: "active",
-            };
-            CrafterScene.events.emit('add-crafter', newCrafter);
-            this.scene.start("GameMenu");
-            this.scene.stop('crafterPlacementMenu');
+            if (GameData.getResourceCount(4) < 3 || GameData.getResourceCount(6) < 5) {
+                const text = this.add.text(cursorPosition.x, cursorPosition.y, `Not enough resources`,
+                    { color: '#FF0000', fontSize: '24px' }).setShadow(2, 2, "#000000", 2, true, true).setOrigin(0.5);
+                this.tweens.add({
+                    targets: text,
+                    y: cursorPosition.y - 50,
+                    alpha: 0,
+                    duration: 1000,
+                    ease: 'Linear',
+                    onComplete: () => {
+                        text.destroy();
+                    }
+                });
+            } else {
+                const newCrafter: UserAssembler = {
+                    id: GameData.nextCrafterId.toString(),
+                    facility_type_id: 2,
+                    user_id: "12345", // TODO: Get user id from auth
+                    recipe_id: this.recipeIndex,
+                    status: "active",
+                };
+                CrafterScene.events.emit('add-crafter', newCrafter);
+                this.scene.start("GameMenu");
+                this.scene.stop('crafterPlacementMenu');
+            }
         });
 
         // Left Arrow
@@ -157,7 +200,7 @@ export default class CrafterPlacementMenu extends Phaser.Scene {
             }
         });
 
-        this.recipeContainer = this.add.container(this.CRAFTER_PLACEMENT_WIDTH / 8 , this.CRAFTER_PLACEMENT_HEIGHT / 2 - 5);
+        this.recipeContainer = this.add.container(this.CRAFTER_PLACEMENT_WIDTH / 8, this.CRAFTER_PLACEMENT_HEIGHT / 2 - 5);
         placementContainer.add(this.recipeContainer);
 
         this.updateArrows();
