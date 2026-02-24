@@ -1,4 +1,4 @@
-import { test, Page } from '@playwright/test';
+import { test, type Page } from '@playwright/test';
 
 async function getGameCanvas(page: Page) {
   const canvas = await page.waitForSelector('#game-container canvas', { timeout: 10000 });
